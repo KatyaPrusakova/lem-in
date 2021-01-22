@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/01/22 13:13:42 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/01/22 15:36:52 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ typedef struct s_graph
 } t_graph;
 
 
-int		error_output(t_graph* data, int opt);
+int		ft_error(t_graph* data, int opt);
 
 #endif

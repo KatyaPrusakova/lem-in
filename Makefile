@@ -6,7 +6,7 @@
 #    By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/22 12:49:02 by eprusako          #+#    #+#              #
-#    Updated: 2021/01/22 13:05:11 by eprusako         ###   ########.fr        #
+#    Updated: 2021/01/22 16:10:51 by eprusako         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,6 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 	@make -C $(LIBFT) fclean
 
-re: all clean
+re: fclean all
 
 .PHONY: $(NAME), all, clean, fclean, re
