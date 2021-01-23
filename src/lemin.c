@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/01/23 17:57:23 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/01/23 18:34:42 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	print_rooms(t_graph* graph)
 			tmp = graph->adlist[i];
 			while (tmp->next != NULL)
 			{
-				printf(" -> |%s|", tmp->name);
 				tmp = tmp->next;
+				printf(" -> |%s|", tmp->name);
 			}
 		}
 		printf("\n");
@@ -51,17 +51,10 @@ void			add_room(char *room_name, t_room **new, t_graph *graph)
 
 	i = graph->room_count;
 	*new = create_room(graph);
-	// if (graph->adlist[i])
-	// {
-	// 	tmp = graph->adlist[0];
-	// 	while (tmp->next != NULL)
-	// 		tmp = tmp->next;
-	// 	tmp->next = (*new);
-	// }
-	// else
-		graph->adlist[i] = *new;
-		graph->adlist[i]->name = room_name;
-		graph->room_count++;
+
+	graph->adlist[i] = *new;
+	graph->adlist[i]->name = room_name;
+	graph->room_count++;
 }
 
 t_graph*		create_graph(int rooms) 
@@ -104,14 +97,12 @@ int		ft_link(t_graph* data)
 	char	**room;
 	t_room	*new;
 	t_room	*tmp;
-//	int len;
+
 	//check that both names exists in graph->adlist
 	i = 0;
 	room = ft_strsplit(data->line, '-');
 	new = create_room(data);
-//			len = ft_strlen(room[0]);
-//	printf("link len = %d\n", len);
-	//find in adlist name of room[0] and add *next to point to room[1]
+
 	while (data->adlist[i] && i < data->room_count)
 	{
 		//printf("loop %d|%d |%s\n", len, i, data->adlist[i]->name);
@@ -119,7 +110,7 @@ int		ft_link(t_graph* data)
 			break;
 		i++;
 	}
-//	printf("addlist name is %s\n", data->adlist[i]->name);
+	//printf("connect %s-%s addlist %s\n", room[0], room[1], data->adlist[i]->name);
 	tmp = data->adlist[i];
 	if (tmp->next)
 	{
@@ -128,6 +119,7 @@ int		ft_link(t_graph* data)
 	}
 	tmp->next = new;
 	new->name = room[1];
+	//printf("same %s-%s\n", room[1], data->adlist[i]->next->name);
 	return (0);
 }
 
