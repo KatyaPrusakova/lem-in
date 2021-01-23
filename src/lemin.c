@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/01/23 19:21:54 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/01/23 19:52:26 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,28 +105,28 @@ int				link_rooms(char *one, char *two, int i, t_graph* data)
 	}
 	tmp->next = new;
 	new->name = two;
-	return (0);
+	return (1);
 }
 
 int				ft_link(t_graph* data)
 {
 	int		i;
+	int		flag;
 	char	**room;
 
-	//check that both names exists in graph->adlist
 	i = 0;
+	flag = 0;
 	room = ft_strsplit(data->line, '-');
 	while (data->adlist[i] && i < data->room_count)
 	{
 		//printf("loop %d|%d |%s\n", len, i, data->adlist[i]->name);
 		if (!(ft_strcmp(data->adlist[i]->name, room[0])))
-			link_rooms(room[0], room[1], i, data);
+			flag += link_rooms(room[0], room[1], i, data);
 		if (!(ft_strcmp(data->adlist[i]->name, room[1])))
-			link_rooms(room[1], room[0], i, data);
+			flag += link_rooms(room[1], room[0], i, data);
 		i++;
 	}
-	//printf("same %s-%s\n", room[1], data->adlist[i]->next->name);
-	return (0);
+	return (flag == 2 ? 0 : ft_error(data, 5));
 }
 
 int			ft_room(t_graph* data)
