@@ -6,55 +6,157 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/01/22 16:19:12 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/01/23 17:57:23 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-// t_room* create_room( t_graph *, int a, int b) 
-// {
-	
-// }
-
-t_graph* create_graph(int rooms) 
+void	print_rooms(t_graph* graph)
 {
-	t_graph *new;
+	int i;
+	t_room	*tmp;
+
+	i = 0;
+	while (graph->adlist[i])
+	{
+		printf("%d |%s|", i, graph->adlist[i]->name);
+		if (graph->adlist[i]->next != NULL)
+		{
+			tmp = graph->adlist[i];
+			while (tmp->next != NULL)
+			{
+				printf(" -> |%s|", tmp->name);
+				tmp = tmp->next;
+			}
+		}
+		printf("\n");
+		i++;
+	}
+}
+
+t_room*			create_room(t_graph *graph) 
+{
+	t_room		*new;
+
+	if (!(new = ft_memalloc(sizeof(t_room))))
+		ft_error(graph, 2);
+	return (new);
+}
+
+void			add_room(char *room_name, t_room **new, t_graph *graph) 
+{
+//	t_room		*tmp;
+	int			i;
+
+	i = graph->room_count;
+	*new = create_room(graph);
+	// if (graph->adlist[i])
+	// {
+	// 	tmp = graph->adlist[0];
+	// 	while (tmp->next != NULL)
+	// 		tmp = tmp->next;
+	// 	tmp->next = (*new);
+	// }
+	// else
+		graph->adlist[i] = *new;
+		graph->adlist[i]->name = room_name;
+		graph->room_count++;
+}
+
+t_graph*		create_graph(int rooms) 
+{
+	t_graph		*new;
 
 	new = ft_memalloc(sizeof(t_graph));
 	new->adlist = ft_memalloc(sizeof(t_room*) * rooms);
 	return (new);
 }
 
+int		ft_strisdigit(char *s)
+{
+	int i;
+	int l;
+
+	i = 0;
+	l = ft_strlen(s);
+	if (!s || l == 0)
+		return (0);
+	while (s[i] && ft_isdigit(s[i]))
+		i++;
+	return(l == i ? 1 : 0);
+}
+
+//should it exit when 0 ants?
+int		ft_ants_num(t_graph* data)
+{
+	get_next_line(0, &data->line);
+	if (!(ft_strisdigit(data->line)))
+		return (0);
+	data->ants = ft_atoi(data->line);
+	data->ants < 0 ? ft_error(data, 3) : free(data->line);
+		return (1);
+}
+
 int		ft_link(t_graph* data)
 {
-	printf("link %s\n", data->line);
-	if (ft_strchr(data->line, '-'))
-		return (1);
+	int		i;
+	char	**room;
+	t_room	*new;
+	t_room	*tmp;
+//	int len;
+	//check that both names exists in graph->adlist
+	i = 0;
+	room = ft_strsplit(data->line, '-');
+	new = create_room(data);
+//			len = ft_strlen(room[0]);
+//	printf("link len = %d\n", len);
+	//find in adlist name of room[0] and add *next to point to room[1]
+	while (data->adlist[i] && i < data->room_count)
+	{
+		//printf("loop %d|%d |%s\n", len, i, data->adlist[i]->name);
+		if (!(ft_strcmp(data->adlist[i]->name, room[0])))
+			break;
+		i++;
+	}
+//	printf("addlist name is %s\n", data->adlist[i]->name);
+	tmp = data->adlist[i];
+	if (tmp->next)
+	{
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+	}
+	tmp->next = new;
+	new->name = room[1];
 	return (0);
 }
 
-int		ft_room(t_graph* data)
+int			ft_room(t_graph* data)
 {
-	printf("room %s\n", data->line);
-	if (ft_strchr(data->line, ' ') && ft_isdigit(data->line[0]))
-		return (1);
+	char	**room;
+	t_room	*new;
+
+	if (data->line[0] == 'L') 
+		ft_error(data, 4);
+	room = ft_strsplit(data->line, ' ');
+	if (!room[0] || room[3] || !ft_strisdigit(room[1]) || !ft_strisdigit(room[2]))
+		ft_error(data, 5);
+	add_room(room[0], &new ,data);
+
+	//printf("room |%s|%s|%s\n", room[0], room[1], room[2]);
 	return (0);
 }
 
 int		ft_comment(t_graph* data)
 {
-	int i;
-
-	i = 0;
-	printf("comment %s\n", data->line);
-	if (!data->ants)
+	//printf("comment %s\n", data->line);
+	if (!data->ants) // ants if 0
 		ft_error(data, 1);
-	if (ft_strstr(data->line, "##start"))
+	if (!(ft_strcmp(data->line, "##start")))
 		data->start++;
-	else if (ft_strstr(data->line, "##end"))
+	else if (!(ft_strcmp(data->line, "##end")))
 		data->end++;
-	printf("end %d it |%d %d|\n", data->ants, data->end, data->start);
+	//printf("end %d it |%d %d|\n", data->ants, data->end, data->start);
 
 	return (0);
 }
@@ -69,6 +171,12 @@ int		ft_error(t_graph* data, int opt)
 		write(1, "run away\n", 10);
 	if (opt == 2)
 		write(1, "malloc failed\n", 15);
+	if (opt == 3)
+		write(1, "ants number is wrong\n", 22);
+	if (opt == 4)
+		write(1, "room is wrong\n", 22);
+	if (opt == 5)
+		write(1, "link is wrong\n", 22);
 	exit(0);
 }
 
@@ -78,16 +186,12 @@ t_graph* parse_graph(char **av, t_graph* graph)
 	int		i;
 
 	i = 0;
-	//read input
 	if (!(graph = create_graph(4)))
 		ft_error(graph, 2);
-	get_next_line(0, &graph->line);
-	graph->ants = ft_atoi(graph->line);
-	free(graph->line);
+	ft_ants_num(graph);
 	printf("start %d now |%s|\n", graph->ants, av[1]);
 	while (get_next_line(0, &graph->line) == 1)
 	{
-		printf("loop %s\n", graph->line);
 		if (graph->line[0] == '#')
 			ft_comment(graph);
 		else if (ft_strchr(graph->line, ' ') && !(ft_strchr(graph->line, '-')) && !(ft_strchr(graph->line, '#')))
@@ -99,9 +203,8 @@ t_graph* parse_graph(char **av, t_graph* graph)
 		free(graph->line);
 		graph->line = NULL;
 	}
+	print_rooms(graph);
 	return (0);
-//	if (ft_islink(line))
-			
 }
 
 int main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/01/22 15:36:52 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/01/23 17:42:17 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 typedef struct s_room
 {
 	char	*name;
-	struct t_room	*next;
+	struct s_room	*next;
 } t_room;
 
 typedef struct s_graph 
@@ -31,6 +31,7 @@ typedef struct s_graph
 	int		start;
 	int		end;
 	int		room_count;
+	char	*room_name;
 	char	*line;
 	t_room	**adlist;
 } t_graph;
