@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/01/23 18:34:42 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/01/23 19:21:54 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_room*			create_room(t_graph *graph)
 
 void			add_room(char *room_name, t_room **new, t_graph *graph) 
 {
-//	t_room		*tmp;
 	int			i;
 
 	i = graph->room_count;
@@ -66,7 +65,7 @@ t_graph*		create_graph(int rooms)
 	return (new);
 }
 
-int		ft_strisdigit(char *s)
+int				ft_strisdigit(char *s)
 {
 	int i;
 	int l;
@@ -81,7 +80,7 @@ int		ft_strisdigit(char *s)
 }
 
 //should it exit when 0 ants?
-int		ft_ants_num(t_graph* data)
+int				ft_ants_num(t_graph* data)
 {
 	get_next_line(0, &data->line);
 	if (!(ft_strisdigit(data->line)))
@@ -91,26 +90,13 @@ int		ft_ants_num(t_graph* data)
 		return (1);
 }
 
-int		ft_link(t_graph* data)
+int				link_rooms(char *one, char *two, int i, t_graph* data)
 {
-	int		i;
-	char	**room;
 	t_room	*new;
 	t_room	*tmp;
 
-	//check that both names exists in graph->adlist
-	i = 0;
-	room = ft_strsplit(data->line, '-');
 	new = create_room(data);
-
-	while (data->adlist[i] && i < data->room_count)
-	{
-		//printf("loop %d|%d |%s\n", len, i, data->adlist[i]->name);
-		if (!(ft_strcmp(data->adlist[i]->name, room[0])))
-			break;
-		i++;
-	}
-	//printf("connect %s-%s addlist %s\n", room[0], room[1], data->adlist[i]->name);
+	printf("connect %s-%s addlist %s\n", one, two, data->adlist[i]->name);
 	tmp = data->adlist[i];
 	if (tmp->next)
 	{
@@ -118,7 +104,27 @@ int		ft_link(t_graph* data)
 			tmp = tmp->next;
 	}
 	tmp->next = new;
-	new->name = room[1];
+	new->name = two;
+	return (0);
+}
+
+int				ft_link(t_graph* data)
+{
+	int		i;
+	char	**room;
+
+	//check that both names exists in graph->adlist
+	i = 0;
+	room = ft_strsplit(data->line, '-');
+	while (data->adlist[i] && i < data->room_count)
+	{
+		//printf("loop %d|%d |%s\n", len, i, data->adlist[i]->name);
+		if (!(ft_strcmp(data->adlist[i]->name, room[0])))
+			link_rooms(room[0], room[1], i, data);
+		if (!(ft_strcmp(data->adlist[i]->name, room[1])))
+			link_rooms(room[1], room[0], i, data);
+		i++;
+	}
 	//printf("same %s-%s\n", room[1], data->adlist[i]->next->name);
 	return (0);
 }
@@ -139,7 +145,7 @@ int			ft_room(t_graph* data)
 	return (0);
 }
 
-int		ft_comment(t_graph* data)
+int			ft_comment(t_graph* data)
 {
 	//printf("comment %s\n", data->line);
 	if (!data->ants) // ants if 0
@@ -153,7 +159,7 @@ int		ft_comment(t_graph* data)
 	return (0);
 }
 
-int		ft_error(t_graph* data, int opt)
+int			ft_error(t_graph* data, int opt)
 {
 	free(data);
 
@@ -172,7 +178,7 @@ int		ft_error(t_graph* data, int opt)
 	exit(0);
 }
 
-t_graph* parse_graph(char **av, t_graph* graph) 
+t_graph*	parse_graph(char **av, t_graph* graph) 
 {
 	
 	int		i;
