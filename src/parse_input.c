@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_out.c                                        :+:      :+:    :+:   */
+/*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/01/23 20:15:41 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/01/23 20:13:22 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	print_rooms(t_graph* graph)
+int				ft_strisdigit(char *s)
 {
 	int i;
-	t_room	*tmp;
+	int l;
 
 	i = 0;
-	while (graph->adlist[i])
-	{
-		printf("%d |%s|", i, graph->adlist[i]->name);
-		if (graph->adlist[i]->next != NULL)
-		{
-			tmp = graph->adlist[i];
-			while (tmp->next != NULL)
-			{
-				tmp = tmp->next;
-				printf(" -> |%s|start %d end %d", tmp->name, tmp->s, tmp->e);
-			}
-		}
-		printf("\n");
-		
+	l = ft_strlen(s);
+	if (!s || l == 0)
+		return (0);
+	while (s[i] && ft_isdigit(s[i]))
 		i++;
-	}
+	return(l == i ? 1 : 0);
 }

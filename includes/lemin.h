@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/01/23 19:07:42 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/01/23 20:13:41 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ typedef struct s_graph
 } t_graph;
 
 int		ft_error(t_graph* data, int opt);
+
 void	print_rooms(t_graph* graph);
+
+int		ft_strisdigit(char *s);
 
 #endif
