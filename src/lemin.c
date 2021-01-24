@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/01/24 00:47:21 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/01/24 19:05:06 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,93 @@ int				link_rooms(char *room, int i, t_graph* data)
 	}
 	tmp->next = new;
 	new->name = room;
+	return (1);
+}
+
+t_queue	*create_queue(int size, t_queue *new)
+{
+	new = ft_memalloc(sizeof(t_queue));
+	new->waiting_list = ft_memalloc(sizeof(size));
+	return (new);
+}
+
+// int			sort_graph(t_graph* data)
+// {
+// 	t_room	*tmp;
+// 	int		head;
+// 	int		end;
+// 	while (graph->adlist[i])
+// 	{
+// 		if (data->adlist[i]->s && i != 0)
+// 			{
+// 				tmp = data->adlist[i];			
+// 			}
+// 		if (tmp->next)
+// 		{
+// 			while (tmp->next != NULL)
+// 				tmp = tmp->next;
+// 		}
+// 	}
+// }
+
+// Adding elements into queue
+void			add_to_queue(t_queue *q, int room_number)
+{
+	int i;
+
+	i = 0;
+	q->waiting_list[q->i] = room_number;
+	while (q->waiting_list[i]) //delete
+	{
+		printf("queue is %d\n", q->waiting_list[i]);
+		i++;
+	}
+	q->i++;
+}
+
+void			remove_from_queue(t_queue *q, int room_number)
+{
+	q->waiting_list[room_number] = NULL;
+}
+
+int			queue_is_empty(t_queue *q)
+{
+	if (q->waiting_list)
+		return (1);
+	return (0);
+}
+
+int				find_index_name_room(t_graph* data, char *s)
+{
+	int		i;
+
+	i = 0;
+	while (data->adlist[i])
+	{
+		if (!(ft_strcmp(data->adlist[i]->name, s)))
+			return (i);
+		i++;
+	}
+	return(ft_error(data, 1));
+}
+
+int				bfs(t_graph* data, int start_i)
+{
+	t_queue		*q;
+	t_room		*tmp;
+
+	q = create_queue(data->room_count, data->q);
+	data->adlist[start_i]->visited = 1;
+	tmp = data->adlist[start_i];
+
+	add_to_queue(q, start_i);
+	while (!queue_is_empty(q))
+	{
+		start_i = find_index_name_room(data, tmp->name);
+		printf("index of room %d\n", start_i);
+		add_to_queue(q, start_i);
+		tmp = tmp->next;
+	}
 	return (1);
 }
 
@@ -177,6 +264,7 @@ t_graph*		parse_graph(char **av, t_graph* graph)
 	}
 	ft_printf("\n");
 	print_rooms(graph);
+	bfs(graph, 1);
 	return (0);
 }
 
