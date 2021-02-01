@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/01 17:30:21 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/01 19:43:31 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_graph
 	t_room	**adlist;
 } t_graph;
 
-int		ft_error(t_graph* data, int opt);
+int		ft_error(int opt);
 
 void	print_rooms(t_graph* graph);
 
