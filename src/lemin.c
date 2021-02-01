@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/01/25 22:00:09 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/01 18:47:10 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,11 @@ t_graph*		create_graph(int rooms)
 }
 
 //should it exit when 0 ants?
-int				ft_ants_num(t_graph* data)
+void				ft_ants_num(char *line, t_graph* data)
 {
-	get_next_line(0, &data->line);
-	if (!(ft_strisdigit(data->line)))
-		return (0);
-	data->ants = ft_atoi(data->line);
-	data->ants < 0 ? ft_error(data, 3) : free(data->line);
-	return (1);
+	if (!(ft_strisdigit(line)))
+		ft_error(data, 2); //check
+	data->ants = ft_atoi(line);
 }
 
 int				link_rooms(char *room, int i, t_graph* data)
@@ -179,7 +176,7 @@ int				find_index_name_room(t_graph* data, char *s)
 // 	return (1);
 // }
 
-int				ft_link(t_graph* data)
+int				ft_link(char *line, t_graph* data)
 {
 	int		i;
 	int		flag;
@@ -187,7 +184,7 @@ int				ft_link(t_graph* data)
 
 	i = 0;
 	flag = 0;
-	room = ft_strsplit(data->line, '-'); 
+	room = ft_strsplit(line, '-'); 
 	//0-2 nana-lala nana = 1 ADD INDEX to notes
 	while (data->adlist[i] && i < data->room_count)
 	{
@@ -201,30 +198,33 @@ int				ft_link(t_graph* data)
 	return (flag == 2 ? 1 : ft_error(data, 5));
 }
 
-int				ft_room(t_graph* data)
+int				ft_room(char *line)
 {
 	char	**room;
-	t_room	*new;
+	t_graph	*new;
 
-	if (data->line[0] == 'L') 
-		ft_error(data, 4);
-	room = ft_strsplit(data->line, ' ');
+	new = NULL; // delete
+	if (line[0] == 'L') 
+		ft_error(new, 4);
+	// if (!(ft_strchr(line, '-')) || !(ft_strchr(line, '#')))
+	// 	return (0);
+	room = ft_strsplit(line, ' ');
 	if (!room[0] || room[3] || !ft_strisdigit(room[1]) || !ft_strisdigit(room[2]))
-		ft_error(data, 5);
-	add_room(room[0], &new ,data);
-	ft_printf("%s\n", data->line); //
-	return (0);
+		ft_error(new, 5);
+	//add_room(room[0], &new ,data);
+	//ft_printf("%s\n", line);
+	return (1);
 }
 
-int				ft_comment(t_graph* data)
+int				ft_comment(char *line, t_graph* data)
 {
-	if (!data->ants) // ants if 0
-		ft_error(data, 1);
-	if (!(ft_strcmp(data->line, "##start")))
+	// if (!data->ants) // ants if 0
+	// 	ft_error(data, 1);
+	if (!(ft_strcmp(line, "##start")))
 		data->start++;
-	else if (!(ft_strcmp(data->line, "##end")))
+	else if (!(ft_strcmp(line, "##end")))
 		data->end++;
-	ft_printf("%s\n", data->line);
+	//ft_printf("%s\n", data->line);
 	return (0);
 }
 
@@ -243,15 +243,15 @@ int				ft_error(t_graph* data, int opt)
 	if (opt == 4)
 		write(1, "room is wrong\n", 22);
 	if (opt == 5)
-		write(1, "link is wrong\n", 22);
+		write(1, "link is wrong\n", 15);
+	if (opt == 6)
+		write(1, "comment is wrong\n", 18);
 	exit(0);
 }
 
 // t_graph*		parse_graph(char **av, t_graph* graph) 
 // {
-	
 // 	int			i;
-
 // 	i = 0;
 // 	av[1] = NULL; // delete
 // 	if (!(graph = create_graph(4))) // diffferent order, graph shall be created after input is read
@@ -278,33 +278,81 @@ int				ft_error(t_graph* data, int opt)
 // }
 
 
-t_graph*		parse_graph(char **av, t_graph* graph) 
+char			**parse_input(char **av) 
 {
 	int		i;
 	char	**line;
+	int		room;
 
 	i = 0;
+	room = 0;
 	av[0] = NULL; // delete if av not needed
 	line = ft_memalloc(sizeof(char*) * 100); // if goes to 101 malloc more
 	while (get_next_line(0, &line[i]) == 1)
 	{
 		i++;
 	}
+	return (line);
+}
+
+t_graph*		parse_graph(char **line, t_graph* graph) 
+{
+	int		i;
+
 	i = 0;
+
+	ft_ants_num(line[0], graph);
 	while (line[i])
 	{
 		ft_printf("%s\n", line[i]);
+		if (line[i][0] == '#')
+			ft_comment(line[i], graph);
+		// else if 
+		// 	ft_room(line[i], graph);
+		else if (ft_strchr(line[i], '-'))
+			ft_link(line[i], graph);
+		// else
+		// 	ft_error(graph, 1);
 		i++;
 	}
+	ft_printf("\n");
+	//print_rooms(graph);
+	//bfs(graph, 1);
+
+	// delete below if printing not needed
+	// i = 0;
+	// while (line[i])
+	// {
+	// 	ft_printf("%s\n", line[i]);
+	// 	i++;
+	// }
 	return (graph); // change
 }
 
-int main(int argc, char **argv)
+int				count_rooms(char **line)
 {
-	t_graph* data;
+	int i;
+	int		room;
 
-	data = NULL;
+	i = 0;
+	room = 0;
+	while (line[i])
+	{
+		if (ft_strchr(line[i], ' ') && ft_room(line[i]))
+			room++;
+		i++;
+	}
+	return (room);
+}
+
+int				main(int argc, char **argv)
+{
+	t_graph*	data;
+	char		**line;
+
 	if (argc < 1)
 		return (0);
-	parse_graph(argv, data);
+	line = parse_input(argv);
+	data = create_graph(count_rooms(line));
+	parse_graph(line, data);
 }
