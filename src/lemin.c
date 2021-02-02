@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/02 13:46:01 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/02 14:05:51 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int				link_rooms(char *room, int i, t_graph* data)
 	if (!(new = ft_memalloc(sizeof(t_room))))
 		ft_error(2);
 	tmp = data->adlist[i];
-
 	if (tmp->next)
 	{
 		while (tmp->next != NULL)
@@ -99,9 +98,9 @@ int				ft_link(char *line, t_graph* data)
 	flag = 0;
 	room = ft_strsplit(line, '-'); 
 	//0-2 nana-lala nana = 1 ADD INDEX to notes
-	while (data->adlist[i] && i < data->room_total)
+	while (data->adlist[i])
 	{
-		printf("link loop %d| |%s\n", i, data->adlist[i]->name);
+	//	printf("link loop %d| |%s\n", i, data->adlist[i]->name);
 		if (!(ft_strcmp(data->adlist[i]->name, room[0])))
 			flag += link_rooms(room[1], i, data);
 		if (!(ft_strcmp(data->adlist[i]->name, room[1])))
@@ -181,15 +180,7 @@ t_graph*		parse_graph(char **line, t_graph* graph)
 	i = 0;
 
 	ft_ants_num(line[0], graph);
-	// i = 1;
-	// while (line[i] && !ft_strchr(line[i], '-')) //asuming '-' is not in room names
-	// {
-	// 	ft_printf("%s\n", line[i]);
-		
-	// 	i++;
-	// }
-	i = 1;
-	while (line[i] && !ft_strchr(line[i], '-'))
+	while (line[++i] && !ft_strchr(line[i], '-'))
 	{
 		//printf("%s\n", line[i]);
 			if (!ft_strcmp(line[i], "##start"))
@@ -197,7 +188,6 @@ t_graph*		parse_graph(char **line, t_graph* graph)
 				add_room(1, ft_firstword(line, i+1), graph);
 				break;
 			}
-		i++;
 	}
 	i = 1;
 	while (line[i] && !ft_strchr(line[i], '-'))
@@ -222,17 +212,13 @@ t_graph*		parse_graph(char **line, t_graph* graph)
 			}
 		i++;
 	}
-	i  = 0;
-	// while (line[i])
-	// {
-		
-		
-	// 	if (ft_strchr(line[i], '-'))
-	// 		ft_link(line[i], graph);
-	// 	// else
-	// 	// 	ft_error(graph, 1);
-	// 	i++;
-	// }
+	//printf("start linking %s\n", line[i]);
+	while (line[i] && (ft_strchr(line[i], '-') || line[i][0] == '#')) //  add comment function
+	{
+		if (ft_strchr(line[i], '-'))
+			ft_link(line[i], graph);
+		i++;
+	}
 	printf("\n");
 	print_rooms(graph);
 	//bfs(graph, 1);
