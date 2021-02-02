@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/01/24 00:30:09 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/02 11:30:59 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	print_rooms(t_graph* graph)
 	i = 0;
 	while (graph->adlist[i])
 	{
-		if (graph->adlist[i]->s || graph->adlist[i]->e)
-			printf(" \n found |%s|\n", graph->adlist[i]->name);
 		printf("%d |%s|", i, graph->adlist[i]->name);
 		if (graph->adlist[i]->next != NULL)
 		{
@@ -33,7 +31,6 @@ void	print_rooms(t_graph* graph)
 			}
 		}
 		printf("\n");
-		
 		i++;
 	}
 }
