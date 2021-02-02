@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/02 14:28:46 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/02 14:39:48 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct	s_graph
 	int		ants;
 	int		room_total;
 	char	*room_name;
-	int		*queue;
+	t_queue	*queue;
 
 	t_room	**adlist;
 }				t_graph;
