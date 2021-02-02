@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/02 13:28:41 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/02 13:46:01 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void			add_room(int flag, char *room_name, t_graph *graph)
 	int			i;
 	t_room		*new;
 
-	i = 0;
+	i = 1;
 	if (!(new = ft_memalloc(sizeof(t_room))))
 		ft_error(2);
 	if (!flag)
@@ -43,7 +43,7 @@ t_graph*		create_graph(int rooms)
 	t_graph		*new;
 
 	new = ft_memalloc(sizeof(t_graph));
-	new->adlist = ft_memalloc(sizeof(t_room*) * (rooms));
+	new->adlist = ft_memalloc(sizeof(t_room*) * (rooms+1));
 	new->room_total = rooms;
 	return (new);
 }
@@ -121,7 +121,8 @@ char*				ft_room(char *line)
 	if (!room[0] || room[3] || !ft_strisdigit(room[1]) || !ft_strisdigit(room[2]))
 		ft_error(4);
 	//add_room(room[0], &new ,data);
-	printf("ft room %s\n", room[0]);
+	
+//	printf("ft room %s\n", room[0]);
 	return (room[0]);
 }
 
@@ -190,24 +191,38 @@ t_graph*		parse_graph(char **line, t_graph* graph)
 	i = 1;
 	while (line[i] && !ft_strchr(line[i], '-'))
 	{
-		printf("%s\n", line[i]);
+		//printf("%s\n", line[i]);
 			if (!ft_strcmp(line[i], "##start"))
 			{
 				add_room(1, ft_firstword(line, i+1), graph);
-				i++;
+				break;
 			}
-			else if (!ft_strcmp(line[i], "##end"))
-			{
-				add_room(2, ft_firstword(line, i+1), graph);
-				i++;
-			}
-			else if (ft_strchr(line[i], ' ') && ft_room(line[i]))
+		i++;
+	}
+	i = 1;
+	while (line[i] && !ft_strchr(line[i], '-'))
+	{
+		if (!ft_strcmp(line[i], "##start") || !ft_strcmp(line[i], "##end"))
+		{
+			i++;
+		}
+		else if (ft_strchr(line[i], ' ') && ft_room(line[i]))
 			{
 				add_room(0, ft_firstword(line, i), graph);
 			}
 		i++;
 	}
-
+	i = 1;
+	while (line[i] && !ft_strchr(line[i], '-'))
+	{
+		if (!ft_strcmp(line[i], "##end"))
+			{
+				add_room(0, ft_firstword(line, i+1), graph);
+				i++;
+			}
+		i++;
+	}
+	i  = 0;
 	// while (line[i])
 	// {
 		
