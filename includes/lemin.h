@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/02 13:47:35 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/02 14:28:46 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 #include <stdlib.h>
 #include "../libft/libft.h"
 
-#define SIZE 400
+#define SIZE 400I
 
-typedef struct s_room
+typedef struct	s_room
 {
 	char	*name;
 	int		index;
@@ -28,15 +28,16 @@ typedef struct s_room
 	int		e;
 	int		visited;
 	struct s_room	*next;
-} t_room;
+}				t_room;
 
-// typedef struct s_queue {
-// 	int		index;
-// 	char	*name;
-// 	struct s_queue	*next;
-// } t_queue;
+typedef struct	s_queue
+{
+	t_room			*room;
+	struct s_queue	*next;
+}				t_queue;
 
-typedef struct s_graph 
+
+typedef struct	s_graph
 {
 	int		ants;
 	int		room_total;
@@ -44,7 +45,7 @@ typedef struct s_graph
 	int		*queue;
 
 	t_room	**adlist;
-} t_graph;
+}				t_graph;
 
 int		ft_error(int opt);
 
