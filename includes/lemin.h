@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/01 19:43:31 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/01 20:30:24 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ typedef struct s_room
 typedef struct s_graph 
 {
 	int		ants;
-	int		start; // bad idea, change start to 0 note
-	int		end;
+	int		room_total;
 	int		room_count;
 	char	*room_name;
 	int		*queue;
