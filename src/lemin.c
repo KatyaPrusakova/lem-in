@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/03 14:16:54 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/03 16:33:49 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void			add_room(int flag, char *room_name, t_graph *graph) 
+void			add_room(int flag, char *room_name, t_graph *graph)
 {
 	int			i;
 	t_room		*new;
@@ -38,7 +38,7 @@ void			add_room(int flag, char *room_name, t_graph *graph)
 	new->name = room_name;
 }
 
-t_graph*		create_graph(int rooms) 
+t_graph*		create_graph(int rooms)
 {
 	t_graph		*new;
 
@@ -79,7 +79,7 @@ int				link_rooms(char *room, int i, t_graph* data)
 void				add_index_to_room(t_graph* data, char *name, int index, int i)
 {
 	t_room	*tmp;
-	
+
 
 	tmp = data->adlist[i];
 	//printf("data->adlist[%d]\n", i);
@@ -104,7 +104,7 @@ int				ft_link(char *line, t_graph* data)
 
 	i = 0;
 	flag = 0;
-	room = ft_strsplit(line, '-'); 
+	room = ft_strsplit(line, '-');
 	//0-2 nana-lala nana = 1 ADD INDEX to notes
 	while (data->adlist[i])
 	{
@@ -130,13 +130,13 @@ char*				ft_room(char *line)
 {
 	char	**room;
 
-	if (line[0] == 'L') 
+	if (line[0] == 'L')
 		ft_error(4);
 	room = ft_strsplit(line, ' ');
 	if (!room[0] || room[3] || !ft_strisdigit(room[1]) || !ft_strisdigit(room[2]))
 		ft_error(4);
 	//add_room(room[0], &new ,data);
-	
+
 //	printf("ft room %s\n", room[0]);
 	return (room[0]);
 }
@@ -172,14 +172,14 @@ int				ft_error(int opt)
 	exit(0);
 }
 
-char			**parse_input(char **av) 
+char			**parse_input(char **av)
 {
 	int		i;
 	char	**line;
-	int		room;
+//	int		room;
 
 	i = 0;
-	room = 0;
+//	room = 0;
 	av[0] = NULL; // delete if av not needed
 	line = ft_memalloc(sizeof(char*) * 100); // if goes to 101 malloc more
 	while (get_next_line(0, &line[i]) == 1)
@@ -189,7 +189,7 @@ char			**parse_input(char **av)
 	return (line);
 }
 
-t_graph*		parse_graph(char **line, t_graph* graph) 
+t_graph*		parse_graph(char **line, t_graph* graph)
 {
 	int		i;
 

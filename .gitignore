@@ -8,6 +8,8 @@
 *.obj
 *.elf
 
+.vscode
+
 # Linker output
 *.ilk
 *.map
