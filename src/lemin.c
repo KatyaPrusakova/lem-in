@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/02 14:05:51 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:16:54 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,24 +74,32 @@ int				link_rooms(char *room, int i, t_graph* data)
 	return (1);
 }
 
-int				find_index_name_room(t_graph* data, char *s)
-{
-	int		i;
 
-	i = 0;
-	while (data->adlist[i])
+
+void				add_index_to_room(t_graph* data, char *name, int index, int i)
+{
+	t_room	*tmp;
+	
+
+	tmp = data->adlist[i];
+	//printf("data->adlist[%d]\n", i);
+	while (tmp)
 	{
-		if (!(ft_strcmp(data->adlist[i]->name, s)))
-			return (i);
-		i++;
+	//	printf("tmp %s|%s %d\n", tmp->name, name, index);
+		if (tmp->name == name)
+		{
+			tmp->index = index;
+			return;
+		}
+		tmp = tmp->next;
 	}
-	return(ft_error(1));
 }
 
 int				ft_link(char *line, t_graph* data)
 {
 	int		i;
 	int		flag;
+	int		index[2];
 	char	**room;
 
 	i = 0;
@@ -100,13 +108,21 @@ int				ft_link(char *line, t_graph* data)
 	//0-2 nana-lala nana = 1 ADD INDEX to notes
 	while (data->adlist[i])
 	{
-	//	printf("link loop %d| |%s\n", i, data->adlist[i]->name);
 		if (!(ft_strcmp(data->adlist[i]->name, room[0])))
+		{
 			flag += link_rooms(room[1], i, data);
+			index[0] = i;
+		}
 		if (!(ft_strcmp(data->adlist[i]->name, room[1])))
+		{
 			flag += link_rooms(room[0], i, data);
+			index[1] = i;
+		}
 		i++;
 	}
+	//printf("index f %d| %s|%s \n", index[0], room[0], room[1]);
+	add_index_to_room(data, room[1], index[1], index[0]);
+	add_index_to_room(data, room[0], index[0], index[1]);
 	return (flag == 2 ? 1 : ft_error(5));
 }
 
@@ -223,13 +239,6 @@ t_graph*		parse_graph(char **line, t_graph* graph)
 	print_rooms(graph);
 	//bfs(graph, 1);
 
-	// delete below if printing not needed
-	// i = 0;
-	// while (line[i])
-	// {
-	// 	ft_printf("%s\n", line[i]);
-	// 	i++;
-	// }
 	return (graph); // change
 }
 
