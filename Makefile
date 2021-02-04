@@ -6,7 +6,7 @@
 #    By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/22 12:49:02 by eprusako          #+#    #+#              #
-#    Updated: 2021/02/02 13:06:48 by eprusako         ###   ########.fr        #
+#    Updated: 2021/02/05 00:31:34 by eprusako         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,15 @@ NAME =			lem-in
 LIBFT = ./libft/
 DIR_SRC = src
 HEADER = -I includes/
-SRC = lemin.c parse_input.c print_out.c
+
+SRC =	lemin.c \
+		malloc_and_free.c \
+		parse_input.c \
+		parse_ants.c \
+		parse_link.c \
+		parse_room.c \
+		print_out.c \
+		ft_strisdigit.c
 
 YELLOW = "\033[1;33m"
 NOCOLOR = "\033[0m"

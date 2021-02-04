@@ -6,40 +6,22 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 00:30:09 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/01/23 20:13:22 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-char			**parse_input(char **av) 
+int				ft_strisdigit(char *s)
 {
-	int		i;
-	char	**line;
-	int		room;
+	int i;
+	int l;
 
 	i = 0;
-	room = 0;
-	av[0] = NULL; // delete if av not needed
-	line = ft_memalloc(sizeof(char*) * 100); // if goes to 101 malloc more
-	while (get_next_line(0, &line[i]) == 1)
-	{
-		if (!line[i][0])
-			print_error(7);
+	l = ft_strlen(s);
+	if (!s || l == 0)
+		return (0);
+	while (s[i] && ft_isdigit(s[i]))
 		i++;
-	}
-	if (!i)
-		print_error(8);
-	return (line);
-}
-
-// should it take comment on line[0] before ant number?
-void			parse_ants(char *line, t_graph* data)
-{
-	int		ant;
-
-	ant = ft_atoi(line);
-	if (!line || !(ft_strisdigit(line)) || ant <= 0 || ant > 2147483647) //limit?
-		print_error(2);
-	data->ants = ant;
+	return(l == i ? 1 : 0);
 }
