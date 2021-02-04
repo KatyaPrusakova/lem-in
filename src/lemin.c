@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/03 14:16:54 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/04 22:23:28 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,15 @@ void			add_room(int flag, char *room_name, t_graph *graph)
 	{
 		graph->adlist[0] = new;
 	}
-	// else if (flag == 2)
-	// {
-	// 	graph->adlist[graph->room_total-2] = new;
-	// }
+
 	new->name = room_name;
 }
 
-t_graph*		create_graph(int rooms) 
+// shuld it take cmment on line[0] befre ant number?
+void			ft_ants_num(char *line, t_graph* data)
 {
-	t_graph		*new;
-
-	new = ft_memalloc(sizeof(t_graph));
-	new->adlist = ft_memalloc(sizeof(t_room*) * (rooms+1));
-	new->room_total = rooms;
-	return (new);
-}
-
-//should it exit when 0 ants?
-void				ft_ants_num(char *line, t_graph* data)
-{
-	if (!(ft_strisdigit(line)))
-		ft_error(2); //check
+	if (!(ft_strisdigit(line)) || ft_atoi(line) <= 0)
+		ft_error(2);
 	data->ants = ft_atoi(line);
 }
 
@@ -74,9 +61,7 @@ int				link_rooms(char *room, int i, t_graph* data)
 	return (1);
 }
 
-
-
-void				add_index_to_room(t_graph* data, char *name, int index, int i)
+void			add_index_to_room(t_graph* data, char *name, int index, int i)
 {
 	t_room	*tmp;
 	
@@ -126,11 +111,11 @@ int				ft_link(char *line, t_graph* data)
 	return (flag == 2 ? 1 : ft_error(5));
 }
 
-char*				ft_room(char *line)
+char*			ft_room(char *line)
 {
 	char	**room;
 
-	if (line[0] == 'L') 
+	if (line[0] == 'L' || !line) 
 		ft_error(4);
 	room = ft_strsplit(line, ' ');
 	if (!room[0] || room[3] || !ft_strisdigit(room[1]) || !ft_strisdigit(room[2]))
@@ -140,8 +125,6 @@ char*				ft_room(char *line)
 //	printf("ft room %s\n", room[0]);
 	return (room[0]);
 }
-
-//function to add rooms and names
 
 char			*ft_firstword(char **line, int i)
 {
@@ -201,7 +184,7 @@ t_graph*		parse_graph(char **line, t_graph* graph)
 		//printf("%s\n", line[i]);
 			if (!ft_strcmp(line[i], "##start"))
 			{
-				add_room(1, ft_firstword(line, i+1), graph);
+				add_room(1, ft_firstword(line, ++i), graph);
 				break;
 			}
 	}
@@ -241,6 +224,11 @@ t_graph*		parse_graph(char **line, t_graph* graph)
 
 	return (graph); // change
 }
+
+/*
+** Function to count rooms in order to malloc memory
+** for addlist struct
+*/
 
 int				count_rooms(char **line)
 {
