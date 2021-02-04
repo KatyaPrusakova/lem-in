@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 00:38:49 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/05 00:42:50 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_graph
 ** LEMIN.C
 */
 
-int				print_error(int opt);
 
 /*
 ** MALLOC_FREE.C
@@ -91,7 +90,8 @@ void			parse_ants(char *line, t_graph* data);
 ** PRINT_OUT.C
 */
 
-void	print_rooms(t_graph* graph);
+void			print_rooms(t_graph* graph);
+int				print_error(int opt);
 
 
 
