@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 00:31:19 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/05 00:38:49 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,20 @@ typedef struct s_room
 	struct s_room	*next;
 } t_room;
 
-typedef struct s_graph 
+typedef	struct	s_queue
+{
+	t_room	*head;
+	t_room	*tail;
+}				t_queue;
+
+
+typedef struct s_graph
 {
 	int		ants;
 	int		room_total;
 	char	*room_name;
 	t_room	**adlist;
-} t_graph;
+}				t_graph;
 
 /*
 ** LEMIN.C
