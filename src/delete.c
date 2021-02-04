@@ -80,13 +80,13 @@
 // }
 
 
-// t_graph*		parse_graph(char **av, t_graph* graph) 
+// t_graph*		lem_in(char **av, t_graph* graph) 
 // {
 // 	int			i;
 // 	i = 0;
 // 	av[1] = NULL; // delete
 // 	if (!(graph = create_graph(4))) // diffferent order, graph shall be created after input is read
-// 		ft_error(graph, 2);
+// 		print_error(graph, 2);
 // 	if (ft_ants_num(graph))
 // 		ft_printf("%d\n", graph->ants);
 // 	while (get_next_line(0, &graph->line) == 1)
@@ -94,11 +94,11 @@
 // 		if (graph->line[0] == '#')
 // 			ft_comment(graph);
 // 		else if (ft_strchr(graph->line, ' ') && !(ft_strchr(graph->line, '-')) && !(ft_strchr(graph->line, '#')))
-// 			ft_room(graph);
-// 		else if (ft_strchr(graph->line, '-') && ft_link(graph))
+// 			is_room(graph);
+// 		else if (ft_strchr(graph->line, '-') && is_link(graph))
 // 			ft_printf("%s\n", graph->line);
 // 		else
-// 			ft_error(graph, 1);
+// 			print_error(graph, 1);
 // 		free(graph->line);
 // 		graph->line = NULL;
 // 	}
