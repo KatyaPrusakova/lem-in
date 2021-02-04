@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/03 16:35:39 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/04 11:26:34 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ typedef struct s_room
 	struct s_room	*next;
 } t_room;
 
-// typedef struct s_queue {
-// 	int		index;
-// 	char	*name;
-// 	struct s_queue	*next;
-// } t_queue;
+typedef	struct	s_queue
+{
+	t_room	*head;
+	t_room	*tail;
+}				t_queue;
+
 
 typedef struct s_graph
 {
