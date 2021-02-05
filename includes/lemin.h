@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 16:47:02 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/05 17:05:10 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ typedef	struct		s_queue
 {
 	t_room			*head;
 	t_room			*tail;
-	int				index;
-	struct s_queue	*next;
 }					t_queue;
 
 typedef struct		s_graph
@@ -108,5 +106,10 @@ int					queue_is_empty(t_queue *q);
 void				remove_from_queue(t_queue *q, int room_number);
 void				add_to_queue(t_queue *q, t_room	*room);
 t_queue				*create_queue(int size, t_queue *new);
+
+//queue functions
+
+t_queue		*enqueue(int index, t_queue *q, t_room **adlist);
+t_queue		*dequeue(t_queue *q);
 
 #endif
