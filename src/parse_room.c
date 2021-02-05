@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_room.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 00:28:12 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/05 22:01:33 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int				count_rooms(char **line)
 ** !flag == rooms between start too end
 */
 
-void			add_room(int flag, char *room_name, t_graph *graph) 
+void			add_room(int flag, char *room_name, t_graph *graph)
 {
 	int			i;
 	t_room		*new;
@@ -53,6 +53,7 @@ void			add_room(int flag, char *room_name, t_graph *graph)
 	i = 1;
 	if (!(new = ft_memalloc(sizeof(t_room))))
 		print_error(2);
+	new->prev_room_index = -1;
 	if (flag == 1)
 		graph->adlist[0] = new;
 	else if (flag == 2)
@@ -67,7 +68,7 @@ void			add_room(int flag, char *room_name, t_graph *graph)
 }
 
 /*
-** Function 
+** Function
 ** for addlist struct
 */
 
@@ -97,7 +98,7 @@ char*			is_room(char *line)
 {
 	char	**room;
 
-	if (line[0] == 'L' || !line) 
+	if (line[0] == 'L' || !line)
 		print_error(4);
 	room = ft_strsplit(line, ' ');
 	if (!room[0] || room[3] || !ft_strisdigit(room[1]) \
