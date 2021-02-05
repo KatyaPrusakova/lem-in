@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 17:29:32 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/05 22:58:50 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_graph*		lem_in(char **line, t_graph* graph)
 
 	printf("\n");
 	print_rooms(graph);
+	find_paths(graph);
 
 	return (graph); // change
 }

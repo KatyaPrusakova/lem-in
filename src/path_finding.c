@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/05 22:41:32 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/05 23:00:23 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 ** Allocate memroy for visited array. Initializing all values to -1.
 */
 
-int		*init_visited(size_t room_count)
+int		*init_visited(int room_count)
 {
 	int	*visited;
 	int	i;
 
 	visited = ft_memalloc(sizeof(int) * room_count);
-	if (!visited)
-		ft_error(2);
+//	if (!visited)
+//		ft_error(2);
 	i = 0;
 	while (i < room_count)
 	{
@@ -45,8 +45,8 @@ t_path		*shortest_path(t_queue q, int *visited, int end_index)
 	while (end_index)
 	{
 		head = ft_memalloc(sizeof(t_path));
-		if (!head)
-			ft_error(2);
+//		if (!head)
+//			ft_error(2);
 		head->i = end_index;
 		head->next = tmp;
 		tmp = head;
@@ -83,13 +83,10 @@ t_path		*first_bfs(t_graph *graph)
 		visited[current->index] = current->prev_room_index;
 		if (current->e)
 			break;
-		if (!current->e && !q.head)
-			ft_printf("No path from start to end\n");
 		current = q.head;
 		dequeue(&q);
-		shortest_path(q, visited, graph->room_total - 1);
 	}
-
+	return (shortest_path(q, visited, graph->room_total - 1));
 }
 
 /*
@@ -102,14 +99,15 @@ int		**find_paths(t_graph *graph)
 	t_path		**paths;
 
 	paths = ft_memalloc(sizeof(t_path*) * graph->room_total);
-	if (!paths)
-		ft_error(2);
+//	if (!paths)
+//		ft_error(2);
 	paths[0] = first_bfs(graph);
 //	print path
-	ft_printf("Shortest path:\n");
+	printf("Shortest path:\n");
 	while (paths[0])
 	{
-		ft_printf("%d |", paths[0]->i);
+		printf("%d |", paths[0]->i);
 		paths[0] = paths[0]->next;
 	}
+	return(NULL);
 }

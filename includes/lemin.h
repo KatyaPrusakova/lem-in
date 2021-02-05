@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 17:05:10 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/05 22:59:42 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,17 @@ typedef struct		s_graph
 	t_room			**adlist;
 	t_queue			*q;
 }					t_graph;
+
+/*
+** The paths are saved as linked lists using t_path stuct pointers.
+*/
+
+typedef	struct 		s_path
+{
+	int				i;
+	struct s_path	*next;
+}					t_path;
+
 
 /*
 ** LEMIN.C
@@ -109,7 +120,13 @@ t_queue				*create_queue(int size, t_queue *new);
 
 //queue functions
 
-t_queue		*enqueue(int index, t_queue *q, t_room **adlist);
+t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev);
 t_queue		*dequeue(t_queue *q);
+
+/*
+** path finding
+*/
+
+int		**find_paths(t_graph *graph);
 
 #endif
