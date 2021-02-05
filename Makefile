@@ -6,7 +6,7 @@
 #    By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/22 12:49:02 by eprusako          #+#    #+#              #
-#    Updated: 2021/02/05 00:31:34 by eprusako         ###   ########.fr        #
+#    Updated: 2021/02/05 12:35:01 by eprusako         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC =	lemin.c \
 		parse_ants.c \
 		parse_link.c \
 		parse_room.c \
+		create_queue.c \
 		print_out.c \
 		ft_strisdigit.c
 

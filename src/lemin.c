@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 00:43:00 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/05 12:49:44 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_graph*		lem_in(char **line, t_graph* graph)
 	i = parse_room(line, graph);
 	parse_link(i, line, graph);
 
-	//bfs(graph, 1);
+	bfs(graph, 1);
 
 	printf("\n");
 	print_rooms(graph);

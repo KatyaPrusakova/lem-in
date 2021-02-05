@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 00:42:50 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/05 12:51:02 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ typedef struct s_room
 	int		e;
 	int		visited;
 	struct s_room	*next;
-} t_room;
+}				t_room;
 
 typedef	struct	s_queue
 {
 	t_room	*head;
 	t_room	*tail;
+	int		index;
+	struct s_queue	*next;
 }				t_queue;
-
 
 typedef struct s_graph
 {
@@ -43,6 +44,7 @@ typedef struct s_graph
 	int		room_total;
 	char	*room_name;
 	t_room	**adlist;
+	t_queue	*q;
 }				t_graph;
 
 /*
@@ -98,5 +100,13 @@ int				print_error(int opt);
 //add to libft
 int		ft_strisdigit(char *s);
 char	*ft_firstword(char **line, int i);
+
+
+//draft
+int				bfs(t_graph* data, int start_i);
+int				queue_is_empty(t_queue *q);
+void			remove_from_queue(t_queue *q, int room_number);
+void			add_to_queue(t_queue *q, t_room	*room);
+t_queue			*create_queue(int size, t_queue *new);
 
 #endif
