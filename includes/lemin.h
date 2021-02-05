@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 12:51:02 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/05 13:07:39 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	*ft_firstword(char **line, int i);
 
 
 //draft
-int				bfs(t_graph* data, int start_i);
+int				bfs(t_graph* data);
 int				queue_is_empty(t_queue *q);
 void			remove_from_queue(t_queue *q, int room_number);
 void			add_to_queue(t_queue *q, t_room	*room);

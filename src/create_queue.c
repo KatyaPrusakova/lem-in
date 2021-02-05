@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 12:45:38 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/05 13:08:33 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,21 @@ int				queue_is_empty(t_queue *q)
 	return (0);
 }
 
-int				bfs(t_graph* data, int start_i)
+int				bfs(t_graph* data)
 {
-	t_queue		*q;
+	t_queue		*wait_list;
+	int			i;
 	t_room		*tmp;
 
-	q = create_queue(data->room_total, data->q);
-	print_queue(q, 0);
-	tmp = data->adlist[start_i];
+	i = 0;
+	wait_list = create_queue(data->room_total, data->q);
+	print_queue(wait_list, 0);
+	tmp = data->adlist[i];
 	//tmp->visited = 1;
 	
 	// while didn't reach all nodes
-		add_to_queue(q, tmp);
-	print_queue(q, 0);
+		add_to_queue(wait_list, tmp);
+	print_queue(wait_list, 0);
 	
 	// while (!queue_is_empty)
 	// {
