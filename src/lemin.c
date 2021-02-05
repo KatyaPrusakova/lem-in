@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 13:09:05 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/05 17:29:32 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-t_graph*		lem_in(char **line, t_graph* graph) 
+t_graph*		lem_in(char **line, t_graph* graph)
 {
 	int		i;
 
@@ -20,7 +20,7 @@ t_graph*		lem_in(char **line, t_graph* graph)
 	i = parse_room(line, graph);
 	parse_link(i, line, graph);
 
-	bfs(graph);
+//	bfs(graph);
 
 	printf("\n");
 	print_rooms(graph);

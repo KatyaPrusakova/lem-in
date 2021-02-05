@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 17:28:24 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/05 21:27:14 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_queue	*create_queue(int size, t_queue *new);
 // 	return (head);
 // }
 
-t_queue		*enqueue(int index, t_queue *q, t_room **adlist)
+t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 {
 	t_room	*new;
 
@@ -109,6 +109,7 @@ t_queue		*enqueue(int index, t_queue *q, t_room **adlist)
 	new = (t_room*)ft_memdup(adlist[index], sizeof(t_room));
 	// if (!new)
 	// 	ft_error(2);
+	new->prev_room_index = prev;
 	new->next = NULL;
 	if (!q->head)
 		q->head = new;
