@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_queue.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 13:08:33 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/05 16:35:34 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void			print_queue(t_queue *q, int i)
 	}
 }
 
-void			remove_from_queue(t_queue *q, int room_number)
-{
-	q->index = q->index;
-	room_number =  0;
-	//remove link from linked list
-}
+// void			remove_from_queue(t_queue *q, int room_number)
+// {
+// 	q->index = q->index;
+// 	room_number =  0;
+// 	//remove link from linked list
+// }
 
 int				queue_is_empty(t_queue *q)
 {
@@ -66,11 +66,11 @@ int				bfs(t_graph* data)
 	print_queue(wait_list, 0);
 	tmp = data->adlist[i];
 	//tmp->visited = 1;
-	
+
 	// while didn't reach all nodes
 		add_to_queue(wait_list, tmp);
 	print_queue(wait_list, 0);
-	
+
 	// while (!queue_is_empty)
 	// {
 	// 	start_i = find_index_name_room(data, tmp->name);
