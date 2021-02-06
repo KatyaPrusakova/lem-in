@@ -5,52 +5,68 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/01/22 12:49:02 by eprusako          #+#    #+#              #
-#    Updated: 2021/02/05 22:44:48 by ksuomala         ###   ########.fr        #
+#    Created: 2021/02/06 10:12:45 by ksuomala          #+#    #+#              #
+#    Updated: 2021/02/06 10:17:12 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME =			lem-in
+NAME = lem-in
 
-LIBFT = ./libft/
-DIR_SRC = src
-HEADER = -I includes/
+SRCS = lemin.c \
+	malloc_and_free.c \
+	parse_input.c \
+	parse_ants.c \
+	parse_link.c \
+	parse_room.c \
+	create_queue.c \
+	print_out.c \
+	ft_strisdigit.c \
+	path_finding.c
 
-SRC =	lemin.c \
-		malloc_and_free.c \
-		parse_input.c \
-		parse_ants.c \
-		parse_link.c \
-		parse_room.c \
-		create_queue.c \
-		print_out.c \
-		ft_strisdigit.c \
-		path_finding.c
+SRCS_DIR = src
 
-YELLOW = "\033[1;33m"
-NOCOLOR = "\033[0m"
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
-SRCS = $(addprefix $(DIR_SRC)/, $(SRC))
-OBJS=$(notdir $(SRCS:.c=.o))
+OBJ_DIR = obj
+
+LIBFT = libft/libft.a
+
+CC = gcc
+
+FLAGS = -g -Wall -Wextra -Werror
+
+LINKS = -L libft -lft
+
+INCL = -I includes -I libft
+
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(NAME):
-	@echo $(YELLOW)Compiling LEM-IN...$(NOCOLOR)
-	@make -C $(LIBFT)
-	@gcc -g -Wall -Wextra -Werror -c $(SRCS) $(HEADER)
-	@gcc -g $(HEADER) $(OBJS) libft/libft.a -o $(NAME)
+$(NAME): $(OBJS)
+	@$(CC) $(FLAGS) $(OBJS) -o $(NAME) $(LINKS)
+	@echo "executable compiled!"
+
+$(OBJS): $(LIBFT) $(addprefix $(SRCS_DIR)/, $(SRCS)) $(OBJ_DIR)
+	@echo "Compiling..."
+	@$(CC) $(FLAGS) -c $(addprefix $(SRCS_DIR)/, $(SRCS)) $(INCL)
+	@echo "Compiled. Moving .o files..."
+	@mv $(SRCS:.c=.o) $(OBJ_DIR)/
+
+$(LIBFT):
+	@make -s -C libft
+
+$(OBJ_DIR):
+	mkdir $(OBJ_DIR)
 
 clean:
-	@echo $(YELLOW)Cleaning...$(NOCOLOR)
-	@/bin/rm -rf $(OBJS)
-	@make -C $(LIBFT) clean
+	@make -s -C libft clean
+	@rm -f $(OBJS)
+	@echo "*.o removed!"
 
 fclean: clean
-	@echo $(YELLOW)F-cleaning...$(NOCOLOR)
-	@/bin/rm -f $(NAME)
-	@make -C $(LIBFT) fclean
+	@make -s -C libft fclean
+	@rm -f $(NAME)
+	@echo "Targets removed!"
 
 re: fclean all
-
-.PHONY: $(NAME), all, clean, fclean, re
