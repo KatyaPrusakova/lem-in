@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/06 14:05:25 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/06 14:23:34 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,10 +162,36 @@ void	print_path(t_path *path)
 
 // test>
 
+int		count_paths(t_graph *graph)
+{
+	t_room	*tmp;
+	int		start;
+	int		end;
+
+	start = 0;
+	end = 0;
+	tmp = graph->adlist[0]
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+		start++;
+	}
+	tmp = graph->adlist[graph->rooms_total - 1];
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+		end++;
+	}
+	start = (start < end) ? start : end;
+	return (start);
+}
+
 int		**find_paths(t_graph *graph)
 {
 	t_path		**paths;
+	int			max_paths;
 
+	max_paths = count_paths(graph);
 	paths = ft_memalloc(sizeof(t_path*) * graph->room_total);
 //	if (!paths)
 //		ft_error(2);
