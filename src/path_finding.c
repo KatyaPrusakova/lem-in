@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/06 12:02:06 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/06 12:13:25 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_path		*shortest_path(t_queue q, int *visited, int end_index)
 		tmp = head;
 		end_index = visited[end_index];
 	}
-	ft_memdel((void**)visited);
+	ft_memdel((void**)&visited);
 	return (head);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/06 11:57:22 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/06 12:09:49 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,9 @@ t_queue		*dequeue(t_queue *q)
 	if (!q->head)
 		return (NULL);
 	tmp = q->head;
-	ft_memdel((void**)&tmp);
-	if (q->tail == q->head)
-		q->tail = NULL;
 	q->head = q->head->next;
+	ft_memdel((void**)&tmp);
+	if (!q->head)
+		q->tail = NULL;
 	return (q);
 }
