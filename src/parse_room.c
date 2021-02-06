@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 22:01:33 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/06 11:52:38 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,17 @@ void			add_room(int flag, char *room_name, t_graph *graph)
 	if (flag == 1)
 		graph->adlist[0] = new;
 	else if (flag == 2)
+	{
 		graph->adlist[graph->room_total - 1] = new;
+		graph->adlist[graph->room_total - 1]->e = 1;
+		graph->adlist[graph->room_total - 1]->index = graph->room_total - 1;
+	}
 	else
 	{
 		while (graph->adlist[i])
 			i++;
 		graph->adlist[i] = new;
+		graph->adlist[i]->index = i;
 	}
 	new->name = room_name;
 }
