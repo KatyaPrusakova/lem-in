@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/06 09:14:41 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/06 10:07:16 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_path		*first_bfs(t_graph *graph)
 	{
 		tmp = current->next;
 		printf("current %d\n", current->index);
+		// What if q is empty?
 		while (tmp)
 		{
 			printf("tmp index %d", tmp->index);
