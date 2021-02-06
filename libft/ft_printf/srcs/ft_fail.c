@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_fail.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuomala <ksuomala@student.hive.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/09 14:30:45 by ksuomala          #+#    #+#             */
-/*   Updated: 2020/09/24 18:11:30 by ksuomala         ###   ########.fr       */
+/*   Created: 2020/10/13 21:04:38 by ksuomala          #+#    #+#             */
+/*   Updated: 2020/10/13 21:11:47 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strdup(const char *str)
+int	ft_fail(t_struct *f)
 {
-	int		l;
-	int		i;
-	char	*dup;
-
-	if (!str)
-		return (NULL);
-	i = 0;
-	l = ft_strlen(str);
-	dup = (char *)malloc(sizeof(char) * l + 1);
-	if (!dup)
-		return (NULL);
-	dup[l] = '\0';
-	while (str[i] != '\0')
+	if (f->spe->convert)
 	{
-		dup[i] = str[i];
-		i++;
+		free(f->spe->convert);
+		f->spe->convert = NULL;
 	}
-	return (dup);
+	if (f->out)
+	{
+		free(f->out);
+		f->out = NULL;
+	}
+	if (f->dup)
+	{
+		free(f->dup);
+		f->dup = NULL;
+	}
+	if (f->spe)
+	{
+		free(f->spe);
+		f->spe = NULL;
+	}
+	return (-1);
 }

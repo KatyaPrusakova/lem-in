@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstfree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuomala <ksuomala@student.hive.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/09 14:30:45 by ksuomala          #+#    #+#             */
-/*   Updated: 2020/09/24 18:11:30 by ksuomala         ###   ########.fr       */
+/*   Created: 2020/09/15 20:20:59 by ksuomala          #+#    #+#             */
+/*   Updated: 2020/09/15 20:23:37 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *str)
+void	ft_lstfree(t_list **ptr)
 {
-	int		l;
-	int		i;
-	char	*dup;
+	t_list	*temp;
 
-	if (!str)
-		return (NULL);
-	i = 0;
-	l = ft_strlen(str);
-	dup = (char *)malloc(sizeof(char) * l + 1);
-	if (!dup)
-		return (NULL);
-	dup[l] = '\0';
-	while (str[i] != '\0')
+	while (*ptr)
 	{
-		dup[i] = str[i];
-		i++;
+		temp = (*ptr)->next;
+		free(*ptr);
+		*ptr = temp;
 	}
-	return (dup);
+	*ptr = NULL;
 }

@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.com>       +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 10:45:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2020/07/14 21:55:36 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/01/21 19:48:48 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static	char	**ft_free(char **arr)
+{
+	int i;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		arr[i] = NULL;
+		i++;
+	}
+	free(arr);
+	arr = NULL;
+	return (NULL);
+}
 
 static size_t	ft_splitlen(char const *s, char c)
 {
@@ -76,17 +92,19 @@ char			**ft_strsplit(char const *s, char c)
 	size_t	i;
 	size_t	i_new;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	i_new = 0;
 	words = ft_words(s, c);
-	split = (char **)malloc(sizeof(char*) * words + 1);
+	split = (char **)malloc(sizeof(char*) * (words + 1));
 	if (!split)
 		return (NULL);
 	while (i < words)
 	{
 		split[i] = ft_returnstring(&s[i_new], c);
 		if (!split[i])
-			return (NULL);
+			return (ft_free(split));
 		i++;
 		i_new = i_new + ft_splitlen(&s[i_new], c);
 	}

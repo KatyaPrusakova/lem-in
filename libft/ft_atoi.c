@@ -6,18 +6,20 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 13:08:23 by ksuomala          #+#    #+#             */
-/*   Updated: 2020/06/30 18:59:39 by ksuomala         ###   ########.fr       */
+/*   Updated: 2020/12/23 08:39:06 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
-	size_t i;
-	size_t ret;
-	size_t neg;
+	size_t		i;
+	long long	ret;
+	int			neg;
 
+	if (str == NULL)
+		return (0);
 	i = 0;
 	neg = 1;
 	ret = 0;

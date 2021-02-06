@@ -6,13 +6,13 @@
 /*   By: ksuomala <ksuomala@student.hive.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 18:50:19 by ksuomala          #+#    #+#             */
-/*   Updated: 2020/07/29 17:06:17 by ksuomala         ###   ########.fr       */
+/*   Updated: 2020/09/15 16:46:38 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char				*ft_strcut(char **s)
+static char			*ft_strcut(char **s)
 {
 	char			*ret;
 	char			*tmp;

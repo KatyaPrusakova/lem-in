@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:07:29 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/01/05 21:47:50 by ksuomala         ###   ########.fr       */
+/*   Updated: 2020/11/25 22:06:12 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
-# include "ft_printf/includes/ft_printf.h"
+# include "ft_printf.h"
 
 typedef struct		s_list
 {
@@ -38,8 +38,7 @@ void				ft_lstfree(t_list **ptr);
 
 int					get_next_line(const int fd, char **line);
 int					ft_sqrt(int nb);
-void				ft_free2d(void **arr);
-void				ft_free_n_2d(void **arr, size_t n);
+void				ft_free2d(char **arr);
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
@@ -113,8 +112,5 @@ void				ft_swap_ptr(void **dest, void **src);
 void				*ft_replace_ptr(void *new, void *old);
 int					ft_count_digits_s(char *s);
 long double			ft_mod_double(long double x, long double y);
-
-void				ft_putgrid_chr(char **grid, int y);
-void				ft_putgrid_int(int **grid, int y, int x, int min_width);
 
 #endif

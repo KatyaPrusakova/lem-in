@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/11 11:25:39 by ksuomala          #+#    #+#             */
-/*   Updated: 2020/12/23 07:49:20 by ksuomala         ###   ########.fr       */
+/*   Created: 2020/09/15 14:41:13 by ksuomala          #+#    #+#             */
+/*   Updated: 2021/01/22 22:25:47 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-** The strchr() function returns a pointer to the first occurrence of
-** the character c in the string s. If c is not found in *s or *s is NULL,
-** NULL is returned.
-*/
-
-char	*ft_strchr(const char *s, int c)
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	size_t i;
+	t_list	*temp;
 
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (s[i] != c && s[i] != '\0')
+	while (*alst)
 	{
-		i++;
+		temp = (*alst)->next;
+		del((*alst)->content, (*alst)->content_size);
+		free(*alst);
+		*alst = temp;
 	}
-	if (s[i] == c)
-		return ((char *)&s[i]);
-	else
-		return (NULL);
+	*alst = NULL;
 }

@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_putgrid_eol.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/11 11:25:39 by ksuomala          #+#    #+#             */
-/*   Updated: 2020/12/23 07:49:20 by ksuomala         ###   ########.fr       */
+/*   Created: 2020/12/20 18:44:37 by ksuomala          #+#    #+#             */
+/*   Updated: 2020/12/24 02:02:01 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
-** The strchr() function returns a pointer to the first occurrence of
-** the character c in the string s. If c is not found in *s or *s is NULL,
-** NULL is returned.
+** Writes y amount of strings stored as char **. '\nˇ will be added to the end
+** of every string. If y == 0, strings will be printed until a null terminating
+** pointer is encountered.
 */
 
-char	*ft_strchr(const char *s, int c)
+void	ft_putgrid_chr(char **grid, int y)
 {
-	size_t i;
+	int i;
 
-	if (!s)
-		return (NULL);
 	i = 0;
-	while (s[i] != c && s[i] != '\0')
+	while (i < y || (y == 0 && grid[i]))
 	{
+		ft_putendl(grid[i]);
 		i++;
 	}
-	if (s[i] == c)
-		return ((char *)&s[i]);
-	else
-		return (NULL);
 }

@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_count_digits_s.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuomala <ksuomala@student.hive.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/09 14:30:45 by ksuomala          #+#    #+#             */
-/*   Updated: 2020/09/24 18:11:30 by ksuomala         ###   ########.fr       */
+/*   Created: 2020/10/06 22:45:04 by ksuomala          #+#    #+#             */
+/*   Updated: 2020/10/12 17:14:27 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *str)
+int		ft_count_digits_s(char *s)
 {
-	int		l;
-	int		i;
-	char	*dup;
+	int i;
+	int digits;
 
-	if (!str)
-		return (NULL);
+	digits = 0;
 	i = 0;
-	l = ft_strlen(str);
-	dup = (char *)malloc(sizeof(char) * l + 1);
-	if (!dup)
-		return (NULL);
-	dup[l] = '\0';
-	while (str[i] != '\0')
+	while (s[i])
 	{
-		dup[i] = str[i];
+		if (ft_isdigit(s[i]))
+			digits++;
 		i++;
 	}
-	return (dup);
+	return (digits);
 }

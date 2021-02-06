@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/09 11:51:40 by ksuomala          #+#    #+#              #
-#    Updated: 2021/02/05 17:28:44 by ksuomala         ###   ########.fr        #
+#    Updated: 2020/12/24 02:02:53 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,27 +21,37 @@ ft_tolower.c ft_toupper.c ft_bzero.c ft_putnstr.c ft_putendl.c ft_n.c\
 ft_memalloc.c ft_strnew.c ft_strdel.c ft_strclr.c ft_striter.c ft_striteri.c\
 ft_strmap.c ft_strmapi.c ft_strequ.c ft_strnequ.c ft_strtrim.c ft_strjoin.c\
 ft_strsplit.c ft_strsub.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c\
-ft_putnbr_fd.c get_next_line.c ft_sqrt.c ft_memdup.c
+ft_putnbr_fd.c get_next_line.c ft_sqrt.c ft_lstnew.c ft_lstdelone.c\
+ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_lstfree.c ft_putnchar.c\
+ft_itoa_base.c ft_toupper_str.c ft_strfjoin.c ft_swap_ptr.c ft_replace_ptr.c\
+ft_count_digits_s.c ft_dtoa.c ft_strndup.c ft_mod_double.c ft_u_itoa_base.c\
+ft_free2d.c ft_memdup.c ft_putgrid_chr.c ft_putgrid_int.c ft_free2d_n.c
 
-CC = gcc -Wall -Wextra -Werror -c
+CC = gcc -Wall -Wextra -Werror -g -c
 
 OBJS = $(SRCS:.c=.o)
 
 NAME = libft.a
 
+PRINTF = ft_printf/libftprintf.a
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
+	make -C ft_printf/
+	cp $(PRINTF) $(NAME)
 
 $(OBJS): $(SRCS)
 	@$(CC) $(SRCS)
 
 clean:
 	@rm -f $(OBJS)
+	@make clean -C ft_printf/
 
 fclean: clean
 	@rm -f libft.a
+	@rm -f $(PRINTF)
 
 re: fclean $(NAME)
 
