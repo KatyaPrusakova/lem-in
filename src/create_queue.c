@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 21:27:14 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/05 23:06:48 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,9 @@ t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 {
 	t_room	*new;
 
+	printf("new node i");
 //	I'm uncertain about the functionality of ft_memdup.
-	new = (t_room*)ft_memdup(adlist[index], sizeof(t_room));
+	new = (t_room*)ft_memdup(&adlist[index], sizeof(t_room));
 	// if (!new)
 	// 	ft_error(2);
 	new->prev_room_index = prev;

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/05 23:00:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/06 09:14:41 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,27 @@ t_path		*first_bfs(t_graph *graph)
 	t_room		*tmp;
 	int			*visited;
 
+	ft_bzero(&q, sizeof(t_queue));
 	visited = init_visited(graph->room_total);
 	current = graph->adlist[0];
 	while(1)
 	{
 		tmp = current->next;
+		printf("current %d\n", current->index);
 		while (tmp)
 		{
-			if (!visited[tmp->index])
+			printf("tmp index %d", tmp->index);
+			if (visited[tmp->index] < 0)
 				enqueue(tmp->index, &q, graph->adlist, current->index);
 			tmp = tmp->next;
 		}
+		printf("tmp");
 		visited[current->index] = current->prev_room_index;
 		if (current->e)
 			break;
-		current = q.head;
+		//segfault here. Enqueue returns null.
+		ft_memdel((void**)current);
+		current = ft_memdup(q.head, sizeof(t_path));
 		dequeue(&q);
 	}
 	return (shortest_path(q, visited, graph->room_total - 1));
