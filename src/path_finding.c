@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/06 13:31:08 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/06 14:05:25 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ void	remove_link(t_graph *graph, int src, int dst)
 
 /*
 ** Remove the links used in the shortest path of the graph.
+** The first and the last link are not removed.
 */
 
 void	reverse_path(t_path *head, t_graph *graph)
 {
 	if (!head)
 		return;
-	while (head->next)
+	head = head->next;
+	while (head->next && head->next->next)
 	{
 		remove_link(graph, head->i, head->next->i);
 		head = head->next;
@@ -72,11 +74,13 @@ t_path		*shortest_path(t_queue q, int *visited, int end_index)
 {
 	t_path	*head;
 	t_path	*tmp;
+	int		len;
 
 //	ft_printf("shortest path");
 	while (q.head)
 		dequeue(&q);
 	tmp = NULL;
+	len = -1;
 	while (end_index)
 	{
 		head = ft_memalloc(sizeof(t_path));
@@ -86,9 +90,11 @@ t_path		*shortest_path(t_queue q, int *visited, int end_index)
 		head->next = tmp;
 		tmp = head;
 		end_index = visited[end_index];
+		len++;
 	}
 	head = ft_memalloc(sizeof(t_path));
 	head->next = tmp;
+	head->len = len;
 	ft_memdel((void**)&visited);
 	return (head);
 }
@@ -145,7 +151,7 @@ t_path		*first_bfs(t_graph *graph)
 
 void	print_path(t_path *path)
 {
-	ft_printf("Shortest path:\n");
+	ft_printf("Shortest path len %d :\n", path->len);
 	while (path)
 	{
 		ft_printf("%d |", path->i);
