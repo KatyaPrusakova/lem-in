@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/06 12:09:49 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/06 13:32:19 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 	new = ft_memdup(adlist[index], sizeof(t_room));
 	// if (!new)
 	// 	ft_error(2);
-	ft_printf("index %d new room index %d, adlist i index %d end? new %d old %d\n", index, new->index, adlist[index]->index, new->e, adlist[index]->e);
+//	ft_printf("index %d new room index %d, adlist i index %d end? new %d old %d\n", index, new->index, adlist[index]->index, new->e, adlist[index]->e);
 	new->prev_room_index = prev;
 	new->index = index;
 	new->next = NULL;
