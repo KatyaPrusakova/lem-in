@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/06 10:53:26 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/06 12:02:06 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ t_path		*first_bfs(t_graph *graph)
 		}
 		//segfault here. Enqueue returns null.
 //		ft_memdel((void**)current);
-		current = ft_memdup(q.head, sizeof(t_path));
+		current = ft_memdup(q.head, sizeof(t_room));
 		dequeue(&q);
 	}
 	return (shortest_path(q, visited, graph->room_total - 1));
