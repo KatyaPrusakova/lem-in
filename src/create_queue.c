@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 23:06:48 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/06 09:27:36 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 	// if (!new)
 	// 	ft_error(2);
 	new->prev_room_index = prev;
+	new->index = index;
 	new->next = NULL;
 	if (!q->head)
 		q->head = new;
