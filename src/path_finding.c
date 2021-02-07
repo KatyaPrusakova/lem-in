@@ -6,12 +6,15 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/07 14:35:49 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/07 15:30:14 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
+/*
+** Removes a link node from the adlist.
+*/
 
 void	remove_link(t_graph *graph, int src, int dst)
 {
@@ -33,7 +36,7 @@ void	remove_link(t_graph *graph, int src, int dst)
 }
 
 /*
-** Remove the links used in the shortest path of the graph.
+** Removes the links used in the shortest path of the graph.
 ** The first and the last link are not removed.
 */
 
@@ -50,7 +53,8 @@ void	reverse_path(t_path *head, t_graph *graph)
 }
 
 /*
-** Allocate memroy for visited array. Initializing all values to -1.
+** Allocate memroy for visited array. Initializing start node value to 0 and all
+** other values to -1.
 */
 
 int		*init_visited(int room_count)
@@ -72,34 +76,9 @@ int		*init_visited(int room_count)
 }
 
 /*
-t_path		*shortest_path(t_queue q, int *visited, int end_index)
-{
-	t_path	*head;
-	t_path	*tmp;
-	int		len;
-
-//	ft_printf("shortest path");
-	while (q.head)
-		dequeue(&q);
-	tmp = NULL;
-	len = -1;
-	while (end_index)
-	{
-		head = ft_memalloc(sizeof(t_path));
-//		if (!head)
-//			ft_error(2);
-		head->i = end_index;
-		head->next = tmp;
-		tmp = head;
-		end_index = visited[end_index];
-		len++;
-	}
-	head = ft_memalloc(sizeof(t_path));
-	head->next = tmp;
-	head->len = len;
-	ft_memdel((void**)&visited);
-	return (head);
-}
+** The path is saved in the *visited array. visited[room->index] contains
+** the index of the room it was visited from. Returns the found path as
+** a linked list.
 */
 
 t_path		*save_path(int *visited, int end_index)
@@ -133,56 +112,6 @@ t_path		*save_path(int *visited, int end_index)
 }
 
 /*
-** bfs to find the shortest path from start to end.
-** visited array is initialized to -1. If visited[index] > -1, the value is
-** the index to the node it was visited from.
-*/
-
-/*
-t_path		**first_bfs(t_graph *graph, int connections)
-{
-	t_queue		q;
-	t_path		**set_1;
-	t_room		*current;
-	t_room		*tmp;
-	int			*visited;
-
-	if (connections) //use var
-		ft_bzero(&q, sizeof(t_queue));
-	visited = init_visited(graph->room_total);
-//	ft_printf("end room e value %d", graph->adlist[5]->e);
-	current = graph->adlist[0];
-	while(1)
-	{
-		tmp = graph->adlist[current->index]->next;
-//		printf("current %d\n", current->index);
-		// What if q is empty?
-		while (tmp)
-		{
-//			printf("tmp index %d", tmp->index);
-			if (visited[tmp->index] < 0)
-				enqueue(tmp->index, &q, graph->adlist, current->index);
-			if (graph->adlist[tmp->index]->e)
-			{
-
-				dequeue(&q);
-			}
-			tmp = tmp->next;
-		}
-		visited[current->index] = current->prev_room_index;
-		if (current->e)
-		{
-			set_1 =
-		}
-		ft_memdel((void**)current);
-		current = ft_memdup(q.head, sizeof(t_room));
-		dequeue(&q);
-	}
-//	return (shortest_path(q, visited, graph->room_total - 1));
-}
-*/
-
-/*
 ** Checking if the current node is connected to the end node.
 */
 
@@ -197,6 +126,11 @@ int		end_is_neighbour(t_room *head)
 	return (0);
 }
 
+/*
+** Saving the current room as visited, and the index of the room it was visited
+** from. Adds the linked rooms to the queue.
+*/
+
 void	visit_room(t_room *current, t_queue *q, int *visited, t_room **adlist)
 {
 	t_room	*tmp;
@@ -210,6 +144,17 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_room **adlist)
 		tmp = tmp->next;
 	}
 }
+
+/*
+** Traversing through the graph using BFS, until all the rooms are visited
+** or the max_paths amount of paths is found(the amount of rooms linked to start or end).
+**
+** Int array *visited is used to track which rooms have been visited. Values are initialized
+** to -1. When a room is visited, visited[room->index] is set to the index of the previous
+** room.
+**
+** If the current room is linked to the end room, The path will be saved in the 2d array.
+*/
 
 t_path	**bfs(int max_paths, t_graph *graph, t_room	*room)
 {
@@ -246,7 +191,6 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room)
 
 /*
 ** Returns the possible paths, starting from the shortest path[0].
-**
 */
 
 // <test
@@ -278,6 +222,11 @@ void	print_paths(t_path **path)
 }
 
 // test>
+
+/*
+** Counts the maximum amount of needed paths. Maximum path count is the
+** min amount of rooms linked to start or end rooms.
+*/
 
 int		count_paths(t_graph *graph)
 {
