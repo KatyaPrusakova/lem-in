@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/06 14:23:34 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/07 13:38:17 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,11 @@ int		*init_visited(int room_count)
 		visited[i] = -1;
 		i++;
 	}
+	visited[0] = 0;
 	return (visited);
 }
 
+/*
 t_path		*shortest_path(t_queue q, int *visited, int end_index)
 {
 	t_path	*head;
@@ -98,6 +100,37 @@ t_path		*shortest_path(t_queue q, int *visited, int end_index)
 	ft_memdel((void**)&visited);
 	return (head);
 }
+*/
+
+t_path		*save_path(int *visited, int end_index)
+{
+	t_path	*head;
+	t_path	*tmp;
+	int		len;
+
+	ft_printf("path found at %d\n", end_index);
+//	ft_printf("shortest path");
+	if (!end_index)
+		return(NULL);
+	tmp = NULL;
+	len = -1;
+	while (end_index)
+	{
+		head = ft_memalloc(sizeof(t_path));
+//		if (!head)
+//			ft_error(2);
+		head->i = end_index;
+		head->next = tmp;
+		tmp = head;
+		end_index = visited[end_index];
+		ft_printf("- %d -", end_index);
+		len++;
+	}
+	head = ft_memalloc(sizeof(t_path));
+	head->next = tmp;
+	head->len = len;
+	return (head);
+}
 
 /*
 ** bfs to find the shortest path from start to end.
@@ -105,14 +138,17 @@ t_path		*shortest_path(t_queue q, int *visited, int end_index)
 ** the index to the node it was visited from.
 */
 
-t_path		*first_bfs(t_graph *graph)
+/*
+t_path		**first_bfs(t_graph *graph, int connections)
 {
 	t_queue		q;
+	t_path		**set_1;
 	t_room		*current;
 	t_room		*tmp;
 	int			*visited;
 
-	ft_bzero(&q, sizeof(t_queue));
+	if (connections) //use var
+		ft_bzero(&q, sizeof(t_queue));
 	visited = init_visited(graph->room_total);
 //	ft_printf("end room e value %d", graph->adlist[5]->e);
 	current = graph->adlist[0];
@@ -126,20 +162,81 @@ t_path		*first_bfs(t_graph *graph)
 //			printf("tmp index %d", tmp->index);
 			if (visited[tmp->index] < 0)
 				enqueue(tmp->index, &q, graph->adlist, current->index);
+			if (graph->adlist[tmp->index]->e)
+			{
+
+				dequeue(&q);
+			}
 			tmp = tmp->next;
 		}
 		visited[current->index] = current->prev_room_index;
 		if (current->e)
 		{
-//			ft_printf("end?");
-			break;
+			set_1 =
 		}
-		//segfault here. Enqueue returns null.
-//		ft_memdel((void**)current);
+		ft_memdel((void**)current);
 		current = ft_memdup(q.head, sizeof(t_room));
 		dequeue(&q);
 	}
-	return (shortest_path(q, visited, graph->room_total - 1));
+//	return (shortest_path(q, visited, graph->room_total - 1));
+}
+*/
+
+/*
+** Checking if the current node is connected to the end node.
+*/
+
+int		end_is_neighbour(t_room *head)
+{
+	while (head)
+	{
+		if (head->e)
+			return (1);
+		head = head->next;
+	}
+	return (0);
+}
+
+void	visit_room(t_room *current, t_queue *q, int *visited, t_room **adlist)
+{
+	visited[current->index] = current->prev_room_index;
+	current = current->next;
+	while (current)
+	{
+		if (visited[current->index] < 0)
+			enqueue(current->index, q, adlist, current->index);
+		current = current->next;
+	}
+}
+
+t_path	**bfs(int max_paths, t_graph *graph, t_room	*room)
+{
+	t_path	**set_1;
+	t_queue	q;
+	t_room	*tmp;
+	int		*visited;
+	int		i;
+
+	i = -1;
+	ft_bzero(&q, sizeof(t_queue));
+	visited = init_visited(graph->room_total);
+	set_1 = ft_memalloc(sizeof(t_path*) * max_paths);
+	if (!set_1)
+		ft_printf("malloc fail"); //change
+	enqueue(room->index, &q, graph->adlist, 0);
+	while (q.head && i < max_paths)
+	{
+		room = ft_memdup(graph->adlist[q.head->index], sizeof(t_room));
+		room->prev_room_index = q.head->prev_room_index;
+		dequeue(&q);
+		tmp = room->next;
+		if (end_is_neighbour(tmp))
+			set_1[++i] = save_path(visited, room->index);
+		else
+			visit_room(room, &q, visited, graph->adlist);
+		ft_memdel((void**)&room);
+	}
+	return (set_1);
 }
 
 /*
@@ -151,6 +248,11 @@ t_path		*first_bfs(t_graph *graph)
 
 void	print_path(t_path *path)
 {
+	if (!path)
+	{
+		ft_printf("START has a link to END\n");
+		return ;
+	}
 	ft_printf("Shortest path len %d :\n", path->len);
 	while (path)
 	{
@@ -170,13 +272,13 @@ int		count_paths(t_graph *graph)
 
 	start = 0;
 	end = 0;
-	tmp = graph->adlist[0]
+	tmp = graph->adlist[0];
 	while (tmp->next)
 	{
 		tmp = tmp->next;
 		start++;
 	}
-	tmp = graph->adlist[graph->rooms_total - 1];
+	tmp = graph->adlist[graph->room_total - 1];
 	while (tmp->next)
 	{
 		tmp = tmp->next;
@@ -195,7 +297,8 @@ int		**find_paths(t_graph *graph)
 	paths = ft_memalloc(sizeof(t_path*) * graph->room_total);
 //	if (!paths)
 //		ft_error(2);
-	paths[0] = first_bfs(graph);
+	paths = bfs(max_paths, graph, graph->adlist[0]);
+	ft_printf("paths found\n");
 	print_path(paths[0]);
 // remove the shortest paths links from the graph;
 	reverse_path(paths[0], graph);

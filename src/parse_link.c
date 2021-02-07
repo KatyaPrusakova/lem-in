@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_link.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 00:21:47 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/07 11:59:11 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				is_link(char *line, t_graph* data)
 
 	i = 0;
 	flag = 0;
-	room = ft_strsplit(line, '-'); 
+	room = ft_strsplit(line, '-');
 	while (data->adlist[i])
 	{
 		if (!(ft_strcmp(data->adlist[i]->name, room[0])))
@@ -56,13 +56,14 @@ int				link_rooms(char *room, int i, t_graph* data)
 	}
 	tmp->next = new;
 	new->name = room;
+	new->next = NULL;
 	return (1);
 }
 
 void			add_index_to_room(t_graph* data, char *name, int index, int i)
 {
 	t_room	*tmp;
-	
+
 
 	tmp = data->adlist[i];
 	//printf("data->adlist[%d]\n", i);
@@ -72,6 +73,7 @@ void			add_index_to_room(t_graph* data, char *name, int index, int i)
 		if (tmp->name == name)
 		{
 			tmp->index = index;
+			tmp->e = data->adlist[index]->e;
 			return;
 		}
 		tmp = tmp->next;
