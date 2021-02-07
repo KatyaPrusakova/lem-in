@@ -1,0 +1,4 @@
+b bfs
+b visit_room
+b save_room
+r < maps/valid/map_subject_3
