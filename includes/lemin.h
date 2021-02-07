@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 22:59:42 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/07 12:00:22 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct		s_graph
 typedef	struct 		s_path
 {
 	int				i;
+	int				len;
 	struct s_path	*next;
 }					t_path;
 
@@ -112,7 +113,8 @@ char				*ft_firstword(char **line, int i);
 
 
 //draft
-int					bfs(t_graph* data);
+// int					bfs(t_graph* data);
+t_path				**bfs(int max_paths, t_graph *graph, t_room	*room);
 int					queue_is_empty(t_queue *q);
 void				remove_from_queue(t_queue *q, int room_number);
 void				add_to_queue(t_queue *q, t_room	*room);
