@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/07 13:38:17 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/07 14:35:49 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,13 +199,15 @@ int		end_is_neighbour(t_room *head)
 
 void	visit_room(t_room *current, t_queue *q, int *visited, t_room **adlist)
 {
+	t_room	*tmp;
+
 	visited[current->index] = current->prev_room_index;
-	current = current->next;
-	while (current)
+	tmp = current->next;
+	while (tmp)
 	{
-		if (visited[current->index] < 0)
-			enqueue(current->index, q, adlist, current->index);
-		current = current->next;
+		if (visited[tmp->index] < 0)
+			enqueue(tmp->index, q, adlist, current->index);
+		tmp = tmp->next;
 	}
 }
 
@@ -231,7 +233,10 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room)
 		dequeue(&q);
 		tmp = room->next;
 		if (end_is_neighbour(tmp))
+		{
+			visited[room->index] = room->prev_room_index;
 			set_1[++i] = save_path(visited, room->index);
+		}
 		else
 			visit_room(room, &q, visited, graph->adlist);
 		ft_memdel((void**)&room);
@@ -246,20 +251,30 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room)
 
 // <test
 
-void	print_path(t_path *path)
+void	print_paths(t_path **path)
 {
+	t_path *tmp;
+	int	i = -1;
 	if (!path)
 	{
 		ft_printf("START has a link to END\n");
 		return ;
 	}
-	ft_printf("Shortest path len %d :\n", path->len);
-	while (path)
+	else
 	{
-		ft_printf("%d |", path->i);
-		path = path->next;
+		ft_printf("Shortest path len %d :\n", path[0]->len);
+		while (path[++i])
+		{
+			tmp = path[i];
+			ft_printf("path n %d: ", i);
+			while (tmp)
+			{
+				ft_printf("%d |", tmp->i);
+				tmp = tmp->next;
+			}
+			ft_n(1);
+		}
 	}
-	ft_n(1);
 }
 
 // test>
@@ -299,7 +314,7 @@ int		**find_paths(t_graph *graph)
 //		ft_error(2);
 	paths = bfs(max_paths, graph, graph->adlist[0]);
 	ft_printf("paths found\n");
-	print_path(paths[0]);
+	print_paths(paths);
 // remove the shortest paths links from the graph;
 	reverse_path(paths[0], graph);
 
