@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_room.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/06 11:52:38 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/09 16:25:03 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ int				count_rooms(char **line)
 	{
 		if (!ft_strcmp(line[i], "##start") || !ft_strcmp(line[i], "##end"))
 			start_end++;
-		if (ft_strchr(line[i], ' ') && is_room(line[i]))
+		if (ft_strchr(line[i], ' ') && line[i][0] != '#' && is_room(line[i]))
 			room++;
 		i++;
 	}
+	printf("%d\n", room);
 	start_end != 2 ?  print_error(8) : 0;
-	return (room ? room : print_error(4));
+	return (room ? room : print_error(9));
 }
 
 /*
@@ -59,7 +60,7 @@ void			add_room(int flag, char *room_name, t_graph *graph)
 	else if (flag == 2)
 	{
 		graph->adlist[graph->room_total - 1] = new;
-		graph->adlist[graph->room_total - 1]->e = 1;
+		graph->adlist[graph->room_total - 1]->end = 1;
 		graph->adlist[graph->room_total - 1]->index = graph->room_total - 1;
 	}
 	else
@@ -106,8 +107,9 @@ char*			is_room(char *line)
 	if (line[0] == 'L' || !line)
 		print_error(4);
 	room = ft_strsplit(line, ' ');
+	printf("room |%s|%s|%s\n", room[0], room[1], room[2]);
 	if (!room[0] || room[3] || !ft_strisdigit(room[1]) \
-	|| !ft_strisdigit(room[2]) || room[1] == room[2])
+	|| !ft_strisdigit(room[2]))
 		print_error(4);
 	return (room[0]);
 }

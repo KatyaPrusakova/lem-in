@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/09 11:35:58 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/09 15:51:26 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct		s_room
 	char			*name;
 	int				index;
 	int				prev_room_index;
-	int				e;
+	int				end;
 	int				visited;
 	struct s_room	*next;
 }					t_room;

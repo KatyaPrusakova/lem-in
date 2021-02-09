@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/09 11:46:49 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/09 15:51:26 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int		end_is_neighbour(t_room *head)
 {
 	while (head)
 	{
-		if (head->e)
+		if (head->end)
 			return (1);
 		head = head->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_link.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/07 11:59:11 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/09 15:51:26 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			add_index_to_room(t_graph* data, char *name, int index, int i)
 		if (tmp->name == name)
 		{
 			tmp->index = index;
-			tmp->e = data->adlist[index]->e;
+			tmp->end = data->adlist[index]->end;
 			return;
 		}
 		tmp = tmp->next;
