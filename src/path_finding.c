@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/07 15:30:14 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/09 18:10:00 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,12 +199,7 @@ void	print_paths(t_path **path)
 {
 	t_path *tmp;
 	int	i = -1;
-	if (!path)
-	{
-		ft_printf("START has a link to END\n");
-		return ;
-	}
-	else
+	if (path[0])
 	{
 		ft_printf("Shortest path len %d :\n", path[0]->len);
 		while (path[++i])
@@ -219,6 +214,8 @@ void	print_paths(t_path **path)
 			ft_n(1);
 		}
 	}
+	else
+		ft_printf("START is connected to END\n");
 }
 
 // test>
