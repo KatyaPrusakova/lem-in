@@ -203,17 +203,7 @@ void	print_paths(t_path **path)
 {
 	t_path *tmp;
 	int	i = -1;
-<<<<<<< HEAD
 	if (path[0])
-=======
-
-	if (!path)
-	{
-		ft_printf("START has a link to END\n");
-		return ;
-	}
-	else
->>>>>>> 171b87e15568b50daf4a9ad36eee58c00e37850f
 	{
 		ft_printf("Shortest path len %d :\n", path[0]->len);
 		while (path[++i])
