@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/05 00:43:18 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/09 16:18:58 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int				print_error(int opt)
 	if (opt == 3)
 		write(1, "ants number is wrong\n", 22);
 	if (opt == 4)
-		write(1, "room is wrong\n", 22);
+		write(1, "room is wrong\n", 15);
 	if (opt == 5)
 		write(1, "link is wrong\n", 15);
 	if (opt == 6)
@@ -56,5 +56,7 @@ int				print_error(int opt)
 		write(1, "empty line in the map file\n", 28);
 	if (opt == 8)
 		write(1, "map file is not valid\n", 23);
+	if (opt == 9)
+		write(1, "count room is wrong\n", 21);
 	exit(0);
 }
