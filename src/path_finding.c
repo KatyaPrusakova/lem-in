@@ -6,7 +6,11 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2021/02/09 18:10:00 by ksuomala         ###   ########.fr       */
+=======
 /*   Updated: 2021/02/09 15:51:26 by eprusako         ###   ########.fr       */
+>>>>>>> 171b87e15568b50daf4a9ad36eee58c00e37850f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +203,9 @@ void	print_paths(t_path **path)
 {
 	t_path *tmp;
 	int	i = -1;
+<<<<<<< HEAD
+	if (path[0])
+=======
 
 	if (!path)
 	{
@@ -206,6 +213,7 @@ void	print_paths(t_path **path)
 		return ;
 	}
 	else
+>>>>>>> 171b87e15568b50daf4a9ad36eee58c00e37850f
 	{
 		ft_printf("Shortest path len %d :\n", path[0]->len);
 		while (path[++i])
@@ -220,6 +228,8 @@ void	print_paths(t_path **path)
 			ft_n(1);
 		}
 	}
+	else
+		ft_printf("START is connected to END\n");
 }
 
 // test>
