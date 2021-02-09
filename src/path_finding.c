@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_finding.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/02/09 18:10:00 by ksuomala         ###   ########.fr       */
-=======
-/*   Updated: 2021/02/09 15:51:26 by eprusako         ###   ########.fr       */
->>>>>>> 171b87e15568b50daf4a9ad36eee58c00e37850f
+/*   Updated: 2021/02/09 18:35:29 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
