@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/07 12:00:22 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/09 11:35:58 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct		s_room
 	char			*name;
 	int				index;
 	int				prev_room_index;
-	int				s;
 	int				e;
 	int				visited;
 	struct s_room	*next;
@@ -106,19 +105,14 @@ void				print_rooms(t_graph* graph);
 int					print_error(int opt);
 
 
-
 //add to libft
 int					ft_strisdigit(char *s);
 char				*ft_firstword(char **line, int i);
 
 
 //draft
-// int					bfs(t_graph* data);
+
 t_path				**bfs(int max_paths, t_graph *graph, t_room	*room);
-int					queue_is_empty(t_queue *q);
-void				remove_from_queue(t_queue *q, int room_number);
-void				add_to_queue(t_queue *q, t_room	*room);
-t_queue				*create_queue(int size, t_queue *new);
 
 //queue functions
 

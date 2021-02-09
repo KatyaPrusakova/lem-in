@@ -6,13 +6,15 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/08 23:13:56 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/09 11:46:27 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-t_queue	*create_queue(int size, t_queue *new);
+/*
+** Add room to the queue
+*/
 
 t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 {
@@ -22,7 +24,7 @@ t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 	new = ft_memdup(adlist[index], sizeof(t_room));
 	// if (!new)
 	// 	ft_error(2);
-//	ft_printf("index %d new room index %d, adlist i index %d end? new %d old %d\n", index, new->index, adlist[index]->index, new->e, adlist[index]->e);
+	ft_printf("index %d new room index %d, adlist i index %d end? new %d old %d\n", index, new->index, adlist[index]->index, new->e, adlist[index]->e);
 	new->prev_room_index = prev;
 	new->index = index;
 	new->next = NULL;
@@ -37,6 +39,11 @@ t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 	}
 	return (q);
 }
+
+
+/*
+** Delete room from the queue
+*/
 
 t_queue		*dequeue(t_queue *q)
 {
