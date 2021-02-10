@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/10 15:17:48 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/10 15:24:07 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char*			is_room(char *line)
 	if (line[0] == 'L' || !line)
 		print_error(4);
 	room = ft_strsplit(line, ' ');
-	printf("room |%s|%s|%s\n", room[0], room[1], room[2]);
+	ft_dprintf(fd, "room |%s|%s|%s\n", room[0], room[1], room[2]); //test
 	if (!room[0] || room[3] || !ft_strisdigit(room[1]) \
 	|| !ft_strisdigit(room[2]))
 		print_error(4);
