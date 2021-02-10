@@ -99,6 +99,7 @@ t_room		add_room(char *line);
 t_edge		*new_edge(t_edge *head, char *src, char *dst);
 t_edge		*add_edges(char **input, int room_count);
 t_map		save_rooms(char **input, int room_count);
+int			move_index(char **input);
 
 /*
 **
@@ -119,7 +120,7 @@ t_ant	*ant_destinations(char *line, t_ant *head, t_room *room, int wave);
 ** Drawing the path finding algorithms.
 */
 
-void	draw_algorithm(t_pointers *p, t_data *scl, t_room *rooms, char **input);
+void	draw_algorithm(/*t_pointers *p, t_data *scl, t_room *rooms, */char **input);
 
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/10 15:16:32 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/10 17:54:33 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,10 @@ void	draw_queue(t_room **adlist, t_queue *q)
 	t_room	*tmp;
 
 	tmp = q->head;
+	if (!q || !tmp)
+	{
+		return;
+	}
 	while (tmp)
 	{
 		ft_printf("%s-%s\n", adlist[tmp->prev_room_index]->name, adlist[tmp->index]->name);
@@ -177,25 +181,26 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_room **adlist)
 t_path	**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
 {
 	t_path	**set_1;
-	t_queue	q;
+	t_queue	*q;
 	t_room	*tmp;
 	int		*visited;
 	int		i;
 
 	i = -1;
-	ft_bzero(&q, sizeof(t_queue));
+	q = NULL;
 	if (visualize)
 		ft_dprintf(fd, "use visualizer\n"); //test
 	visited = init_visited(graph->room_total);
 	set_1 = ft_memalloc(sizeof(t_path*) * max_paths);
 	if (!set_1)
 		ft_printf("malloc fail"); //change
-	enqueue(room->index, &q, graph->adlist, 0);
-	while (q.head && i < max_paths)
+	q = enqueue(room->index, q, graph->adlist, 0);
+	while (q->head && i < max_paths)
 	{
-		room = ft_memdup(graph->adlist[q.head->index], sizeof(t_room));
-		room->prev_room_index = q.head->prev_room_index;
-		dequeue(&q);
+		room = ft_memdup(graph->adlist[q->head->index], sizeof(t_room));
+		room->prev_room_index = q->head->prev_room_index;
+		if (q->head)
+			dequeue(q);
 		tmp = room->next;
 		if (end_is_neighbour(tmp))
 		{
@@ -203,9 +208,10 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
 			set_1[++i] = save_path(visited, room->index);
 		}
 		else
-			visit_room(room, &q, visited, graph->adlist);
+			visit_room(room, q, visited, graph->adlist);
 		ft_memdel((void**)&room);
 	}
+	ft_printf("START_ANT_MOVEMENT\n");
 	return (set_1);
 }
 

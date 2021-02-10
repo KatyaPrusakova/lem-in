@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/10 14:19:20 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/10 17:23:30 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ char	**parse_input(void)
 
 int		move_index(char **input)
 {
-	int i;
+	static int i;
 
-	i = 0;
 	while (ft_strcmp(input[i], ""))
 		i++;
 	return (i + 1);
@@ -157,12 +156,11 @@ int			main(void)
 
 	map = save_rooms(input, scale.room_count);
 
-	ft_printf("whats goin on here\n");
 
 	sdl = initialize(&map, &scale, sdl);
 
 	ft_printf("MAP ROOM SIZE = %d\n", scale.room_size); //test
-	draw_algorithm(sdl, &scale, map.rooms, input);
+	draw_algorithm(/*sdl, &scale, map.rooms, */input);
 	play(sdl, &scale, map.rooms, input);
 	kill_all(sdl, map, input);
 }
