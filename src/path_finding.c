@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/10 12:08:20 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/10 14:14:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,22 @@ int		end_is_neighbour(t_room *head)
 }
 
 /*
+** Prints the current state of queue to stdout.
+*/
+
+void	draw_queue(t_room **adlist, t_queue *q)
+{
+	t_room	*tmp;
+
+	tmp = q->head;
+	while (tmp)
+	{
+		ft_printf("%s-%s\n", adlist[tmp->prev_room_index]->name, adlist[tmp->index]->name);
+		tmp = tmp->next;
+	}
+}
+
+/*
 ** Saving the current room as visited, and the index of the room it was visited
 ** from. Adds the linked rooms to the queue.
 */
@@ -143,6 +159,8 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_room **adlist)
 			enqueue(tmp->index, q, adlist, current->index);
 		tmp = tmp->next;
 	}
+	ft_printf("%s\n", current->name);
+	draw_queue(adlist, q);
 }
 
 /*
@@ -156,7 +174,7 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_room **adlist)
 ** If the current room is linked to the end room, The path will be saved in the 2d array.
 */
 
-t_path	**bfs(int max_paths, t_graph *graph, t_room	*room)
+t_path	**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
 {
 	t_path	**set_1;
 	t_queue	q;
@@ -166,6 +184,8 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room)
 
 	i = -1;
 	ft_bzero(&q, sizeof(t_queue));
+	if (visualize)
+		ft_printf("yes\n");
 	visited = init_visited(graph->room_total);
 	set_1 = ft_memalloc(sizeof(t_path*) * max_paths);
 	if (!set_1)
@@ -258,7 +278,7 @@ int		**find_paths(t_graph *graph)
 	paths = ft_memalloc(sizeof(t_path*) * graph->room_total);
 //	if (!paths)
 //		ft_error(2);
-	paths = bfs(max_paths, graph, graph->adlist[0]);
+	paths = bfs(max_paths, graph, graph->adlist[0], graph->visualize);
 	ft_printf("paths found\n");
 	print_paths(paths);
 // remove the shortest paths links from the graph;
@@ -266,7 +286,7 @@ int		**find_paths(t_graph *graph)
 	{
 		ft_printf("\nBFS 2.0\n");
 		reverse_path(paths[0], graph);
-		paths = bfs(max_paths, graph, graph->adlist[0]);
+		paths = bfs(max_paths, graph, graph->adlist[0], graph->visualize);
 		print_rooms(graph);
 	}
 //	print_paths(paths);

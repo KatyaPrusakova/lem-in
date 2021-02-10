@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/10 12:21:07 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:38:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ int				main(int argc, char **argv)
 		return (0);
 	line = parse_input(argv);
 	data = create_graph(count_rooms(line));
-
+	if (argc == 2 && !ft_strcmp(argv[1], "-v"))
+	{
+		ft_printf("visualizer activated\n"); //test
+		data->visualize = 1;
+	}
 	lem_in(line, data);
 	return (0);
 }

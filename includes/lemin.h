@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/09 15:51:26 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:32:28 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef	struct		s_queue
 typedef struct		s_graph
 {
 	int				ants;
+	int				visualize;
 	int				room_total;
 	char			*room_name;
 	t_room			**adlist;
@@ -112,7 +113,7 @@ char				*ft_firstword(char **line, int i);
 
 //draft
 
-t_path				**bfs(int max_paths, t_graph *graph, t_room	*room);
+t_path				**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize);
 
 //queue functions
 
