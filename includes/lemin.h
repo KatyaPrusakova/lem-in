@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/10 12:32:28 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/10 15:12:43 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 #define LEMIN_H
 
 #include <stdio.h> // test
+#include <fcntl.h> //test
 #include <stdlib.h>
 #include "../libft/libft.h"
 
 #define SIZE 400
+
+int fd; //test
 
 typedef struct		s_room
 {

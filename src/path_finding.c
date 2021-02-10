@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/10 14:14:03 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/10 15:16:32 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	remove_link(t_graph *graph, int src, int dst)
 	t_room	*tmp;
 	t_room	*prev;
 
-	ft_printf("remove %d\n", dst);
+	ft_dprintf(fd, "remove %d\n", dst); //test
 	tmp = graph->adlist[src];
 	while (tmp->index != dst)
 	{
@@ -87,7 +87,7 @@ t_path		*save_path(int *visited, int end_index)
 	t_path	*tmp;
 	int		len;
 
-	ft_printf("path found at %d\n", end_index);
+	ft_dprintf(fd, "path found at %d\n", end_index); //test
 //	ft_printf("shortest path");
 	if (!end_index)
 		return(NULL);
@@ -102,7 +102,7 @@ t_path		*save_path(int *visited, int end_index)
 		head->next = tmp;
 		tmp = head;
 		end_index = visited[end_index];
-		ft_printf("- %d -", end_index);
+		ft_dprintf(fd, "- %d -", end_index); //test
 		len++;
 	}
 	head = ft_memalloc(sizeof(t_path));
@@ -185,7 +185,7 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
 	i = -1;
 	ft_bzero(&q, sizeof(t_queue));
 	if (visualize)
-		ft_printf("yes\n");
+		ft_dprintf(fd, "use visualizer\n"); //test
 	visited = init_visited(graph->room_total);
 	set_1 = ft_memalloc(sizeof(t_path*) * max_paths);
 	if (!set_1)
@@ -221,21 +221,21 @@ void	print_paths(t_path **path)
 	int	i = -1;
 	if (path[0])
 	{
-		ft_printf("Shortest path len %d :\n", path[0]->len);
+		ft_dprintf(fd, "Shortest path len %d :\n", path[0]->len);
 		while (path[++i])
 		{
 			tmp = path[i];
-			ft_printf("path n %d: ", i);
+			ft_dprintf(fd, "path n %d: ", i);
 			while (tmp)
 			{
-				ft_printf("%d |", tmp->i);
+				ft_dprintf(fd, "%d |", tmp->i);
 				tmp = tmp->next;
 			}
 			ft_n(1);
 		}
 	}
 	else
-		ft_printf("START is connected to END\n");
+		ft_dprintf(fd, "START is connected to END\n");
 }
 
 // test>
@@ -279,12 +279,12 @@ int		**find_paths(t_graph *graph)
 //	if (!paths)
 //		ft_error(2);
 	paths = bfs(max_paths, graph, graph->adlist[0], graph->visualize);
-	ft_printf("paths found\n");
+	ft_dprintf(fd, "paths found\n");
 	print_paths(paths);
 // remove the shortest paths links from the graph;
 	if (paths[0]->len > 1)
 	{
-		ft_printf("\nBFS 2.0\n");
+		ft_dprintf(fd, "\nBFS 2.0\n");
 		reverse_path(paths[0], graph);
 		paths = bfs(max_paths, graph, graph->adlist[0], graph->visualize);
 		print_rooms(graph);

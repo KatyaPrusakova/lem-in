@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/10 15:05:38 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/10 15:19:17 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ t_graph*		lem_in(char **line, t_graph* graph)
 
 	parse_ants(line[0], graph);
 	i = parse_room(line, graph);
-	ft_printf("rooms: %d\n", i); // test
+	ft_dprintf(fd, "rooms: %d\n", i); // test
 	parse_link(i, line, graph);
 
-	printf("\n");
+	ft_dprintf(fd, "\n");
 	print_rooms(graph);
 	find_paths(graph);
 
