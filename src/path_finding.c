@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/10 11:57:44 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/10 12:08:20 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,10 +262,13 @@ int		**find_paths(t_graph *graph)
 	ft_printf("paths found\n");
 	print_paths(paths);
 // remove the shortest paths links from the graph;
-	reverse_path(paths[0], graph);
-	print_rooms(graph);
-	ft_printf("\nBFS 2.0\n");
-//	paths = bfs(max_paths, graph, graph->adlist[0]);
+	if (paths[0]->len > 1)
+	{
+		ft_printf("\nBFS 2.0\n");
+		reverse_path(paths[0], graph);
+		paths = bfs(max_paths, graph, graph->adlist[0]);
+		print_rooms(graph);
+	}
 //	print_paths(paths);
 
 	return(NULL);
