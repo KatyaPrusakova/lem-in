@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/09 16:11:09 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/10 15:51:09 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ t_graph*		lem_in(char **line, t_graph* graph)
 
 	parse_ants(line[0], graph);
 	i = parse_room(line, graph);
-	printf("rooms: %d\n", i); // test
+	ft_dprintf(fd, "rooms: %d\n", i); // test
 	parse_link(i, line, graph);
 
-	printf("\n");
+	ft_dprintf(fd, "\n");
 	print_rooms(graph);
 	find_paths(graph);
 
@@ -33,11 +33,21 @@ int				main(int argc, char **argv)
 	t_graph*	data;
 	char		**line;
 
+	// test
+	fd = open("lemin.txt", O_RDWR);
+	if (!fd)
+		ft_printf("error opening file");
+	// test
+
 	if (argc < 1)
 		return (0);
 	line = parse_input(argv);
 	data = create_graph(count_rooms(line));
-
+	if (argc == 2 && !ft_strcmp(argv[1], "-v"))
+	{
+//		ft_printf("visualizer activated\n"); //test
+		data->visualize = 1;
+	}
 	lem_in(line, data);
 	return (0);
 }

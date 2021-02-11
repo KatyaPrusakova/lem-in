@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/09 18:49:52 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/10 17:54:33 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	remove_link(t_graph *graph, int src, int dst)
 	t_room	*tmp;
 	t_room	*prev;
 
-	ft_printf("remove %d\n", dst);
+	ft_dprintf(fd, "remove %d\n", dst); //test
 	tmp = graph->adlist[src];
 	while (tmp->index != dst)
 	{
@@ -87,7 +87,7 @@ t_path		*save_path(int *visited, int end_index)
 	t_path	*tmp;
 	int		len;
 
-	ft_printf("path found at %d\n", end_index);
+	ft_dprintf(fd, "path found at %d\n", end_index); //test
 //	ft_printf("shortest path");
 	if (!end_index)
 		return(NULL);
@@ -102,7 +102,7 @@ t_path		*save_path(int *visited, int end_index)
 		head->next = tmp;
 		tmp = head;
 		end_index = visited[end_index];
-		ft_printf("- %d -", end_index);
+		ft_dprintf(fd, "- %d -", end_index); //test
 		len++;
 	}
 	head = ft_memalloc(sizeof(t_path));
@@ -127,6 +127,26 @@ int		end_is_neighbour(t_room *head)
 }
 
 /*
+** Prints the current state of queue to stdout.
+*/
+
+void	draw_queue(t_room **adlist, t_queue *q)
+{
+	t_room	*tmp;
+
+	tmp = q->head;
+	if (!q || !tmp)
+	{
+		return;
+	}
+	while (tmp)
+	{
+		ft_printf("%s-%s\n", adlist[tmp->prev_room_index]->name, adlist[tmp->index]->name);
+		tmp = tmp->next;
+	}
+}
+
+/*
 ** Saving the current room as visited, and the index of the room it was visited
 ** from. Adds the linked rooms to the queue.
 */
@@ -143,6 +163,8 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_room **adlist)
 			enqueue(tmp->index, q, adlist, current->index);
 		tmp = tmp->next;
 	}
+	ft_printf("%s\n", current->name);
+	draw_queue(adlist, q);
 }
 
 /*
@@ -156,26 +178,29 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_room **adlist)
 ** If the current room is linked to the end room, The path will be saved in the 2d array.
 */
 
-t_path	**bfs(int max_paths, t_graph *graph, t_room	*room)
+t_path	**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
 {
 	t_path	**set_1;
-	t_queue	q;
+	t_queue	*q;
 	t_room	*tmp;
 	int		*visited;
 	int		i;
 
 	i = -1;
-	ft_bzero(&q, sizeof(t_queue));
+	q = NULL;
+	if (visualize)
+		ft_dprintf(fd, "use visualizer\n"); //test
 	visited = init_visited(graph->room_total);
 	set_1 = ft_memalloc(sizeof(t_path*) * max_paths);
 	if (!set_1)
 		ft_printf("malloc fail"); //change
-	enqueue(room->index, &q, graph->adlist, 0);
-	while (q.head && i < max_paths)
+	q = enqueue(room->index, q, graph->adlist, 0);
+	while (q->head && i < max_paths)
 	{
-		room = ft_memdup(graph->adlist[q.head->index], sizeof(t_room));
-		room->prev_room_index = q.head->prev_room_index;
-		dequeue(&q);
+		room = ft_memdup(graph->adlist[q->head->index], sizeof(t_room));
+		room->prev_room_index = q->head->prev_room_index;
+		if (q->head)
+			dequeue(q);
 		tmp = room->next;
 		if (end_is_neighbour(tmp))
 		{
@@ -183,9 +208,10 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room)
 			set_1[++i] = save_path(visited, room->index);
 		}
 		else
-			visit_room(room, &q, visited, graph->adlist);
+			visit_room(room, q, visited, graph->adlist);
 		ft_memdel((void**)&room);
 	}
+	ft_printf("START_ANT_MOVEMENT\n");
 	return (set_1);
 }
 
@@ -201,21 +227,21 @@ void	print_paths(t_path **path)
 	int	i = -1;
 	if (path[0])
 	{
-		ft_printf("Shortest path len %d :\n", path[0]->len);
+		ft_dprintf(fd, "Shortest path len %d :\n", path[0]->len);
 		while (path[++i])
 		{
 			tmp = path[i];
-			ft_printf("path n %d: ", i);
+			ft_dprintf(fd, "path n %d: ", i);
 			while (tmp)
 			{
-				ft_printf("%d |", tmp->i);
+				ft_dprintf(fd, "%d |", tmp->i);
 				tmp = tmp->next;
 			}
 			ft_n(1);
 		}
 	}
 	else
-		ft_printf("START is connected to END\n");
+		ft_dprintf(fd, "START is connected to END\n");
 }
 
 // test>
@@ -258,14 +284,17 @@ int		**find_paths(t_graph *graph)
 	paths = ft_memalloc(sizeof(t_path*) * graph->room_total);
 //	if (!paths)
 //		ft_error(2);
-	paths = bfs(max_paths, graph, graph->adlist[0]);
-	ft_printf("paths found\n");
+	paths = bfs(max_paths, graph, graph->adlist[0], graph->visualize);
+	ft_dprintf(fd, "paths found\n");
 	print_paths(paths);
 // remove the shortest paths links from the graph;
-	reverse_path(paths[0], graph);
-//	ft_bzero(paths, sizeof(t_path*) * graph->room_total);
-//	ft_printf("\nBFS 2.0\n");
-//	paths = bfs(max_paths, graph, graph->adlist[0]);
+	if (paths[0]->len > 1)
+	{
+		ft_dprintf(fd, "\nBFS 2.0\n");
+		reverse_path(paths[0], graph);
+		paths = bfs(max_paths, graph, graph->adlist[0], graph->visualize);
+		print_rooms(graph);
+	}
 //	print_paths(paths);
 
 	return(NULL);
