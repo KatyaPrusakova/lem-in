@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/11 13:01:03 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:13:09 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	draw_queue(t_room **adlist, t_queue *q)
 ** from. Adds the linked rooms to the queue.
 */
 
-void	visit_room(t_room *current, t_queue *q, int *visited, t_room **adlist)
+void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph)
 {
 	t_room	*tmp;
 
@@ -160,11 +160,14 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_room **adlist)
 	while (tmp)
 	{
 		if (visited[tmp->index] < 0)
-			enqueue(tmp->index, q, adlist, current->index);
+			enqueue(tmp->index, q, graph->adlist, current->index);
 		tmp = tmp->next;
 	}
-	ft_printf("%s\n", current->name);
-	draw_queue(adlist, q);
+	if(graph->visualize)
+	{
+		ft_printf("%s\n", current->name);
+		draw_queue(graph->adlist, q);
+	}
 }
 
 /*
@@ -208,7 +211,7 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
 			set_1[++i] = save_path(visited, room->index);
 		}
 		else
-			visit_room(room, q, visited, graph->adlist);
+			visit_room(room, q, visited, graph);
 		ft_memdel((void**)&room);
 	}
 	ft_printf("START_ANT_MOVEMENT\n");
@@ -288,7 +291,7 @@ int		**find_paths(t_graph *graph)
 	ft_dprintf(fd, "paths found\n");
 	print_paths(paths);
 // remove the shortest paths links from the graph;
-	if (paths[0]->len > 1)
+	if (paths[0] && paths[0]->len > 1)
 	{
 		ft_dprintf(fd, "\nBFS 2.0\n");
 		reverse_path(paths[0], graph);
