@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/11 13:09:54 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:15:34 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				main(int argc, char **argv)
 
 	if (argc < 1)
 		return (0);
-	line = parse_input(argv);
+	line = parse_input();
 	data = create_graph(count_rooms(line));
 	if (argc == 2 && !ft_strcmp(argv[1], "-v"))
 	{

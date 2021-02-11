@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/10 15:12:43 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:15:16 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_graph*			create_graph(int rooms);
 ** PARSE_INPUT.C
 */
 
-char				**parse_input(char **av);
+char				**parse_input(void);
 
 /*
 ** PARSE_LINK.C
