@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/11 12:46:09 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/11 12:48:02 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char **parse_input(char **av)
 		input[i] = line;
 		i++;
 	}
-	print_2dstr(input);
+//	print_2dstr(input);
 	return (input);
 }
 

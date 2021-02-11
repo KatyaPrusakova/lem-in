@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/10 17:54:33 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:01:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ void	print_paths(t_path **path)
 				ft_dprintf(fd, "%d |", tmp->i);
 				tmp = tmp->next;
 			}
-			ft_n(1);
+			ft_dprintf(fd, "\n");
 		}
 	}
 	else
