@@ -73,12 +73,19 @@ typedef struct s_map
 typedef struct s_data
 {
 	int	room_count;
-	int room_size;
-	int win_w;
-	int max_y;
-	int max_x;
-	int ants;
+	int	room_size;
+	int	win_w;
+	int	max_y;
+	int	max_x;
+	int	ants;
 } t_data;
+
+typedef struct		s_bfs
+{
+	char	**queue;
+	int		*visited;
+}					t_bfs;
+
 
 typedef struct		s_pointers
 {
@@ -120,7 +127,7 @@ t_ant	*ant_destinations(char *line, t_ant *head, t_room *room, int wave);
 ** Drawing the path finding algorithms.
 */
 
-void	draw_algorithm(/*t_pointers *p, t_data *scl, t_room *rooms, */char **input);
+void	draw_algorithm(t_pointers *p, t_data *scl, t_room *rooms, char **input);
 
 
 /*
@@ -128,5 +135,8 @@ void	draw_algorithm(/*t_pointers *p, t_data *scl, t_room *rooms, */char **input)
 */
 
 int move_ants(t_pointers *sdl, t_ant *head, t_data *scale);
+
+SDL_Renderer	*links(SDL_Renderer *renderer, int size, t_map *map);
+
 
 #endif

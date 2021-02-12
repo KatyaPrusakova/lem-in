@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/10 17:23:30 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/12 14:18:37 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,9 +158,10 @@ int			main(void)
 
 
 	sdl = initialize(&map, &scale, sdl);
+	SDL_Delay(3000);
 
 	ft_printf("MAP ROOM SIZE = %d\n", scale.room_size); //test
-	draw_algorithm(/*sdl, &scale, map.rooms, */input);
-	play(sdl, &scale, map.rooms, input);
-	kill_all(sdl, map, input);
+	draw_algorithm(sdl, &scale, map.rooms, input);
+//	play(sdl, &scale, map.rooms, input);
+//	kill_all(sdl, map, input);
 }

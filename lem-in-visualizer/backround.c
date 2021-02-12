@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:59:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/01/25 13:00:57 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/12 13:35:21 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ SDL_Renderer	*links(SDL_Renderer *renderer, int size, t_map *map)
 	t_edge	*tmp;
 	t_line	line;
 
-
 	//issue here. src and dst null.
 	tmp = map->edges;
 	while (tmp)
@@ -78,7 +77,7 @@ int			background(t_data *scale, t_map *map, t_pointers *sdl)
 	int size;
 	int i;
 
-	SDL_SetRenderTarget(sdl->renderer, sdl->backround);
+	SDL_SetRenderTarget(sdl->renderer, sdl->backround); //Setting the renderer target to backround texture.
 	i = 0;
 	size = (scale->max_y > scale->max_x) ? scale->max_y : scale->max_x;
 	size = WIN_W / size * 0.8;
@@ -87,6 +86,7 @@ int			background(t_data *scale, t_map *map, t_pointers *sdl)
 	SDL_SetRenderDrawColor(sdl->renderer, 55, 55, 55, 255);
 	while (i < map->count)
 	{
+		ft_printf("bg room count %d\n", map->count); //test
 		room.h = size;
 		room.w = size;
 		map->rooms[i].x = map->rooms[i].x * size + 50;

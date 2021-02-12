@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/11 13:13:09 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/12 12:37:47 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ void	draw_queue(t_room **adlist, t_queue *q)
 {
 	t_room	*tmp;
 
+	if (!adlist)
+		ft_printf("unused variable");
 	tmp = q->head;
 	if (!q || !tmp)
 	{
@@ -141,7 +143,7 @@ void	draw_queue(t_room **adlist, t_queue *q)
 	}
 	while (tmp)
 	{
-		ft_printf("%s-%s\n", adlist[tmp->prev_room_index]->name, adlist[tmp->index]->name);
+		ft_printf("%d-%d\n", tmp->prev_room_index, tmp->index);
 		tmp = tmp->next;
 	}
 }
@@ -165,7 +167,7 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph)
 	}
 	if(graph->visualize)
 	{
-		ft_printf("%s\n", current->name);
+		ft_printf("%d %d\n", current->index, current->prev_room_index);
 		draw_queue(graph->adlist, q);
 	}
 }
@@ -214,7 +216,8 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
 			visit_room(room, q, visited, graph);
 		ft_memdel((void**)&room);
 	}
-	ft_printf("START_ANT_MOVEMENT\n");
+	if (graph->visualize)
+		ft_printf("START_ANT_MOVEMENT\n");
 	return (set_1);
 }
 

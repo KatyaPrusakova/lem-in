@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/11 13:15:02 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:20:36 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char **parse_input(void)
 	input = ft_memalloc(sizeof(char*) * len);
 	while (get_next_line(0, &line))
 	{
+		ft_printf("%s\n", line);
 		if (i == len)
 		{
 			input = ft_realloc(input, len);
@@ -42,6 +43,7 @@ char **parse_input(void)
 		input[i] = line;
 		i++;
 	}
+	ft_printf("\n");
 //	print_2dstr(input);
 	return (input);
 }
