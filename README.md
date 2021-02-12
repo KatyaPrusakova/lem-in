@@ -1,5 +1,4 @@
-# lem-in
-Elementary max flow algorithmic project.
+# WORK IN PROGRESS
 
 # Lem_in
 
