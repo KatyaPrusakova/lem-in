@@ -6,7 +6,11 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2021/02/12 20:41:22 by eprusako         ###   ########.fr       */
+=======
+/*   Updated: 2021/02/12 11:39:57 by eprusako         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
