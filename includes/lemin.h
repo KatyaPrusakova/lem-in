@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/11 13:15:16 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/12 20:36:56 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ char				**parse_input(void);
 ** PARSE_LINK.C
 */
 
-int					is_link(char *line, t_graph* data);
+int					is_link(char **room, t_graph* data);
 int					link_rooms(char *room, int i, t_graph* data);
 void				add_index_to_room(t_graph* data, char *name, int index, int i);
-void				parse_link(int i, char **line, t_graph* graph);
+int					parse_link(int i, char **line, t_graph* graph);
 
 /*
 ** PARSE_ROOM.C
@@ -92,7 +92,7 @@ void				parse_link(int i, char **line, t_graph* graph);
 
 int					count_rooms(char **line);
 int					parse_room(char **line, t_graph* graph);
-void				add_room(int flag, char *room_name, t_graph *graph);
+int					add_room(int flag, char *room_name, t_graph *graph);
 char*				is_room(char *line);
 
 /*

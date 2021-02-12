@@ -1,5 +1,9 @@
 10
 3 2 2
+#lal1
+#lal2
+#lal3
+#lal4
 ##start
 start 4 0
 ##end
@@ -9,6 +13,7 @@ end 4 6
 2 4 4
 5 8 2
 6 8 4
+#lala
 start-1
 3-4
 2-4
