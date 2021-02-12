@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/11 13:15:34 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/12 12:33:37 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_graph*		lem_in(char **line, t_graph* graph)
 
 	parse_ants(line[0], graph);
 	i = parse_room(line, graph);
-	ft_dprintf(fd, "rooms: %d\n", i); // test
 	parse_link(i, line, graph);
 
 	ft_dprintf(fd, "\n");
@@ -41,7 +40,7 @@ int				main(int argc, char **argv)
 
 	if (argc < 1)
 		return (0);
-	line = parse_input();
+	line = parse_input();//argv  delete
 	data = create_graph(count_rooms(line));
 	if (argc == 2 && !ft_strcmp(argv[1], "-v"))
 	{

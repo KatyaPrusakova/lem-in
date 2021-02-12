@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/11 12:40:36 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/12 12:36:25 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int				count_rooms(char **line)
 ** !flag == rooms between start too end
 */
 
-void			add_room(int flag, char *room_name, t_graph *graph)
+int			add_room(int flag, char *room_name, t_graph *graph)
 {
 	int			i;
 	t_room		*new;
@@ -71,6 +71,7 @@ void			add_room(int flag, char *room_name, t_graph *graph)
 		graph->adlist[i]->index = i;
 	}
 	new->name = room_name;
+	return  (1);
 }
 
 /*
@@ -85,12 +86,11 @@ int			parse_room(char **line, t_graph* graph)
 	i = 0;
 	while (line[++i] && !ft_strchr(line[i], '-'))  // add comment function
 	{
-		//printf("%s\n", line[i]);
 			if (!ft_strcmp(line[i], "##start"))
 				add_room(1, ft_firstword(line, ++i), graph);
 			else if (!ft_strcmp(line[i], "##end"))
 				add_room(2, ft_firstword(line, ++i), graph);
-			else if (line[i][0]  == '#')
+			else if (line[i][0]  == '#' && !ft_strchr(line[i+1], '-'))
 				i++;
 			else
 				add_room(0, ft_firstword(line, i), graph);
@@ -109,7 +109,7 @@ char*			is_room(char *line)
 	if (line[0] == 'L' || !line)
 		print_error(4);
 	room = ft_strsplit(line, ' ');
-	ft_dprintf(fd, "room |%s|%s|%s\n", room[0], room[1], room[2]); //test
+	// ft_dprintf(fd, "room |%s|%s|%s\n", room[0], room[1], room[2]); //test
 	if (!room[0] || room[3] || !ft_strisdigit(room[1]) \
 	|| !ft_strisdigit(room[2]))
 		print_error(4);
