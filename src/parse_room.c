@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/12 12:36:25 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/13 11:16:34 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int			parse_room(char **line, t_graph* graph)
 				add_room(1, ft_firstword(line, ++i), graph);
 			else if (!ft_strcmp(line[i], "##end"))
 				add_room(2, ft_firstword(line, ++i), graph);
-			else if (line[i][0]  == '#' && !ft_strchr(line[i+1], '-'))
+			else if (line[i][0]  == '#')
 				i++;
 			else
 				add_room(0, ft_firstword(line, i), graph);

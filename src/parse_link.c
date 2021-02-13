@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/12 12:41:40 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/13 11:15:34 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int				is_link(char **room, t_graph* data)
 	flag = 0;
 	while (data->adlist[i])
 	{
-		ft_dprintf(fd, "l%s l %s\n", room[0], room[1]);//
+	//	ft_dprintf(fd, "l%s l %s\n", room[0], room[1]);//
 		if (!(ft_strcmp(data->adlist[i]->name, room[0])))
 		{
 			flag += link_rooms(room[1], i, data);
