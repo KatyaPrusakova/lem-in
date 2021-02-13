@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/13 11:33:01 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:19:22 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_graph*		lem_in(char **line, t_graph* graph)
 	parse_link(i, line, graph);
 
 	ft_dprintf(fd, "\n");
-	print_rooms(graph);
+	print_input(line);
 	find_paths(graph);
 
 	return (graph); // change

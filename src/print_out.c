@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_out.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/10 15:18:26 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:13:47 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ void	print_rooms(t_graph* graph)
 		ft_dprintf(fd, "\n");
 		i++;
 	}
+}
+
+void		print_input(char **line)
+{
+	int		i;
+
+	i = -1;
+	while (line[++i])
+	{
+		ft_printf("%s\n", line[i]);
+	}
+	ft_printf("\n");
 }
 
 int				print_error(int opt)

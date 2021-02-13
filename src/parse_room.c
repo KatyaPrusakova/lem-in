@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/13 11:59:40 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:22:57 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,16 @@
 int				count_rooms(char **line)
 {
 	int		i;
+	int		ant;
 	int		start_end;
 	int		room;
 
 	i = 0;
 	start_end = 0;
 	room = 0;
+	ant  = atoi(line[i]);
+	if (!line || !(ft_strisdigit(line[i])) || ant <= 0 || ant >= 2147483647)
+		print_error(3);
 	while (line[i])
 	{
 		if (!ft_strcmp(line[i], "##start") || !ft_strcmp(line[i], "##end"))

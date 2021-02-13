@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/13 11:57:12 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:13:40 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void				parse_ants(char *line, t_graph* data);
 
 void				print_rooms(t_graph* graph);
 int					print_error(int opt);
-
+void				print_input(char **line);
 
 //add to libft
 int					ft_strisdigit(char *s);
