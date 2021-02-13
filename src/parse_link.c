@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/13 11:15:34 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:00:07 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int				is_link(char **room, t_graph* data)
 	flag = 0;
 	while (data->adlist[i])
 	{
-	//	ft_dprintf(fd, "l%s l %s\n", room[0], room[1]);//
+		//ft_dprintf(fd, "l%s l %s\n", room[0], room[1]); //
 		if (!(ft_strcmp(data->adlist[i]->name, room[0])))
 		{
 			flag += link_rooms(room[1], i, data);
@@ -35,7 +35,6 @@ int				is_link(char **room, t_graph* data)
 		}
 		i++;
 	}
-	ft_dprintf(fd, "room 0 %s room 1 %s\n", room[0], room[1]);
 	add_index_to_room(data, room[1], index[1], index[0]);
 	add_index_to_room(data, room[0], index[0], index[1]);
 	return (flag == 2 ? 1 : print_error(5));
@@ -91,7 +90,6 @@ int			parse_link(int i, char **line, t_graph* graph)
 	end =  graph->adlist[graph->room_total - 1]->name;
 	while (line[i] && (ft_strchr(line[i], '-') || line[i][0] == '#')) //  add comment function
 	{
-		ft_dprintf(fd, "line is %s\n", line[i]);
 		if (ft_strchr(line[i], '-'))
 		{	
 			room = ft_strsplit(line[i], '-');
