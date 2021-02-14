@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:59:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/12 13:35:21 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/14 13:33:47 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ SDL_Renderer	*links(SDL_Renderer *renderer, int size, t_map *map)
 
 int			background(t_data *scale, t_map *map, t_pointers *sdl)
 {
-	SDL_Rect room;
 	int size;
 	int i;
 
@@ -83,20 +82,17 @@ int			background(t_data *scale, t_map *map, t_pointers *sdl)
 	size = WIN_W / size * 0.8;
 	SDL_SetRenderDrawColor(sdl->renderer, 0, 0, 0, 255);
 	SDL_RenderClear(sdl->renderer);
-	SDL_SetRenderDrawColor(sdl->renderer, 55, 55, 55, 255);
 	while (i < map->count)
 	{
 		ft_printf("bg room count %d\n", map->count); //test
-		room.h = size;
-		room.w = size;
 		map->rooms[i].x = map->rooms[i].x * size + 50;
 		map->rooms[i].y = map->rooms[i].y * size + 50;
-		room.x = map->rooms[i].x;
-		room.y = map->rooms[i].y;
-		SDL_RenderFillRect(sdl->renderer, &room);
+		draw_room(sdl->renderer, size, &map->rooms[i], (t_rgb){79, 79, 79, 255});
 		i++;
 	}
 	sdl->renderer = links(sdl->renderer, size, map);
+	draw_room(sdl->renderer, size, &map->rooms[0], (t_rgb){200, 200, 200, 255});
+	draw_room(sdl->renderer, size, &map->rooms[map->count - 1], (t_rgb){35, 35, 35, 255});
 	SDL_RenderPresent(sdl->renderer);
 	return (size);
 }

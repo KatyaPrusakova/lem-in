@@ -6,13 +6,13 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 14:19:34 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/14 12:55:21 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/14 14:57:41 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin_visual.h"
 
-void	draw_room(SDL_Renderer *renderer, int size, t_room *room)
+void	draw_room(SDL_Renderer *renderer, int size, t_room *room, t_rgb clr)
 {
 	SDL_Rect	rect;
 
@@ -20,6 +20,7 @@ void	draw_room(SDL_Renderer *renderer, int size, t_room *room)
 	rect.w = size;
 	rect.x = room->x;
 	rect.y = room->y;
+	SDL_SetRenderDrawColor(renderer, clr.r, clr.g, clr.b, clr.a);
 	SDL_RenderFillRect(renderer, &rect);
 }
 
@@ -54,17 +55,18 @@ void draw_queue(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
 	char	**split_link;
 
 	i = 0;
-	SDL_SetRenderDrawColor(renderer, 100, 0, 0, 255);
 	split_queue = ft_strsplit(line, ' ');
 	while(split_queue[i])
 	{
 		split_link = ft_strsplit(split_queue[i], '-');
 		index[0] = ft_atoi(split_link[0]);
 		index[1] = ft_atoi(split_link[1]);
-		draw_room(renderer, scl->room_size, &rooms[index[1]]);
+		draw_room(renderer, scl->room_size, &rooms[index[1]], (t_rgb){100, 0, 0, 255});
 		draw_link_bfs(renderer, scl->room_size, rooms, index);
+		draw_room(renderer, scl->room_size, &rooms[index[0]], (t_rgb){0, 0, 100, 255});
 		i++;
 	}
+		draw_room(renderer, scl->room_size, rooms, (t_rgb){200, 200, 200, 255});
 }
 
 void visit_room(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
@@ -77,11 +79,46 @@ void visit_room(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
 	index[0] = ft_atoi(visited[0]);
 	index[1] = ft_atoi(visited[1]);
 	ft_printf("visit room %d\n", visited[0]); //tmp
-	SDL_SetRenderDrawColor(renderer, 0, 0, 100, 255);
-	draw_room(renderer, scl->room_size, &rooms[index[0]]);
+	if (!index[0])
+		return;
+	draw_room(renderer, scl->room_size, &rooms[index[0]], (t_rgb){0, 0, 100, 255});
 	draw_link_bfs(renderer, scl->room_size, rooms, index);
+	draw_room(renderer, scl->room_size, rooms, (t_rgb){200, 200, 200, 255});
 	SDL_RenderPresent(renderer);
-	SDL_Delay(1000);
+	SDL_Delay(500);
+}
+
+
+void	draw_path(t_pointers *p, t_data *scl, t_room *rooms, char *input)
+{
+	char	**split;
+	int		*path;
+	int		i;
+
+	i = 0;
+//	ft_printf("%s\n", input);
+	split = ft_strsplit(input, '|');
+	if (!split)
+		ft_error("split fail\n");
+	path = ft_memalloc(sizeof(int) * scl->room_count);
+	if (!path)
+		ft_error("malloc fail\n");
+	while (split[i])
+	{
+		path[i] = ft_atoi(split[i]);
+		i++;
+	}
+	draw_room(p->renderer, scl->room_size, &rooms[path[--i]], (t_rgb){0, 100, 0, 255});
+	SDL_RenderPresent(p->renderer);
+	SDL_Delay(500);
+	while (--i)
+	{
+		ft_printf("draw room %d\n", i);
+		draw_room(p->renderer, scl->room_size, &rooms[path[i]], (t_rgb){0, 100, 0, 255});
+		draw_link_bfs(p->renderer, scl->room_size, rooms, (int[2]){path[i], path[i + 1]});
+		SDL_RenderPresent(p->renderer);
+		SDL_Delay(500);
+	}
 }
 
 /*
@@ -102,7 +139,9 @@ void	draw_algorithm(t_pointers *p, t_data *scl, t_room *rooms, char **input)
 	i = move_index(input);
 	while(ft_strcmp(input[i], "START_ANT_MOVEMENT"))
 	{
-		if (!ft_strchr(input[i], '-'))
+		if (ft_strchr(input[i], '|'))
+			draw_path(p, scl, rooms, input[i]);
+		else if (!ft_strchr(input[i], '-'))
 		{
 			ft_printf("%s\n", input[i]);
 			draw_queue(p->renderer, scl, rooms, input[i + 1]);
@@ -112,7 +151,6 @@ void	draw_algorithm(t_pointers *p, t_data *scl, t_room *rooms, char **input)
 		i++;
 	}
 	ft_n(1);
-	if (!ft_strcmp(input[i], "START_ANT_MOVEMENT"))
-		ft_printf("path found\n");
+	SDL_Delay(3000);
 }
 

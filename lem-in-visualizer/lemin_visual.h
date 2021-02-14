@@ -128,6 +128,7 @@ t_ant	*ant_destinations(char *line, t_ant *head, t_room *room, int wave);
 */
 
 void	draw_algorithm(t_pointers *p, t_data *scl, t_room *rooms, char **input);
+void	draw_room(SDL_Renderer *renderer, int size, t_room *room, t_rgb color);
 
 
 /*
