@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/13 12:22:57 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/14 22:50:01 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,22 @@
 int				count_rooms(char **line)
 {
 	int		i;
-	int		ant;
 	int		start_end;
 	int		room;
 
-	i = 0;
 	start_end = 0;
 	room = 0;
-	ant  = atoi(line[i]);
-	if (!line || !(ft_strisdigit(line[i])) || ant <= 0 || ant >= 2147483647)
-		print_error(3);
-	while (line[i])
+	i = valid_ants(1, line);
+	while (line[i] && !ft_strchr(line[i], '-'))
 	{
+		//ft_dprintf(fd, "|%s\n", line[i]); //test
 		if (!ft_strcmp(line[i], "##start") || !ft_strcmp(line[i], "##end"))
 			start_end++;
 		if (ft_strchr(line[i], ' ') && line[i][0] != '#' && is_room(line[i]))
 			room++;
 		i++;
 	}
-	ft_dprintf(fd, "%d\n", room);
+	ft_dprintf(fd, " count_rooms %d\n", room);
 	start_end != 2 ?  print_error(8) : 0;
 	return (room ? room : print_error(9));
 }
@@ -83,13 +80,12 @@ int			add_room(int flag, char *room_name, t_graph *graph)
 ** for addlist struct
 */
 
-int			parse_room(char **line, t_graph* graph)
+int			parse_room(int i, char **line, t_graph* graph)
 {
-	int		i;
 
-	i = 0;
-	while (line[++i] && !ft_strchr(line[i], '-'))  // add comment function
+	while (line[i] && !ft_strchr(line[i], '-'))  // add comment function
 	{
+		 // ft_dprintf(fd, "loop %s\n", line[i]); //test
 			if (!ft_strcmp(line[i], "##start"))
 				add_room(1, ft_firstword(line, ++i), graph);
 			else if (!ft_strcmp(line[i], "##end"))
@@ -98,6 +94,7 @@ int			parse_room(char **line, t_graph* graph)
 				i++;
 			else
 				add_room(0, ft_firstword(line, i), graph);
+			i++;
 	}
 	if (ft_strchr(line[i-1], '-'))
 		i--;

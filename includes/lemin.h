@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/13 12:13:40 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/14 23:04:53 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int					parse_link(int i, char **line, t_graph* graph);
 */
 
 int					count_rooms(char **line);
-int					parse_room(char **line, t_graph* graph);
+int					parse_room(int i, char **line, t_graph* graph);
 int					add_room(int flag, char *room_name, t_graph *graph);
 char*				is_room(char *line);
 
@@ -100,8 +100,8 @@ char*				is_room(char *line);
 ** PARSE_ANTS.C
 */
 
-void				parse_ants(char *line, t_graph* data);
-
+int				parse_ants(char **line, t_graph* data);
+int				git valid_ants(int flag, char **line);
 /*
 ** PRINT_OUT.C
 */

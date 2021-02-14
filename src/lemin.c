@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/13 12:19:22 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/14 22:56:13 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,21 @@ t_graph*		lem_in(char **line, t_graph* graph)
 {
 	int		i;
 
-	parse_ants(line[0], graph);
-	i = parse_room(line, graph);
+
+	i = parse_ants(line, graph);
+	
+	//ft_dprintf(fd, "after_parse ant %s\n", line[i]); //test
+	
+	i = parse_room(i, line, graph);
+	//ft_dprintf(fd, "lem_in  2%d\n", i); //test
+	
 	parse_link(i, line, graph);
 
-	ft_dprintf(fd, "\n");
+	// ft_dprintf(fd, "after parse link %d\n", i); //test
+	// ft_dprintf(fd, "\n");
 	print_input(line);
+	print_rooms(graph); //test
+	ft_dprintf(fd, "\n"); //test
 	find_paths(graph);
 
 	return (graph); // change
@@ -40,11 +49,12 @@ int				main(int argc, char **argv)
 
 	if (argc < 1)
 		return (0);
-	line = parse_input();//argv  delete
+	line = parse_input();//argv 
 	data = create_graph(count_rooms(line));
+	ft_dprintf(fd, "graph %s\n", line[0]); //test
 	if (argc == 2 && !ft_strcmp(argv[1], "-v"))
 	{
-//		ft_printf("visualizer activated\n"); //test
+	//	ft_printf("visualizer activated\n"); //test
 		data->visualize = 1;
 	}
 	lem_in(line, data);
