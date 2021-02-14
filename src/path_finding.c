@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_finding.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/13 12:13:12 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/14 14:36:22 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,13 @@ t_path		*save_path(int *visited, int end_index)
 	head = ft_memalloc(sizeof(t_path));
 	head->next = tmp;
 	head->len = len;
+	tmp = head;
+	while (tmp)
+	{
+		ft_printf("%d |", tmp->i);
+		tmp = tmp->next;
+	}
+	ft_n(1);
 	return (head);
 }
 
@@ -143,9 +150,10 @@ void	draw_queue(t_room **adlist, t_queue *q)
 	}
 	while (tmp)
 	{
-		ft_printf("%d-%d\n", tmp->prev_room_index, tmp->index);
+		ft_printf("%d-%d ", tmp->prev_room_index, tmp->index);
 		tmp = tmp->next;
 	}
+	ft_n(1);
 }
 
 /*
