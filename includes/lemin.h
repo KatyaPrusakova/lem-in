@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/14 23:04:53 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/14 23:10:04 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char*				is_room(char *line);
 */
 
 int				parse_ants(char **line, t_graph* data);
-int				git valid_ants(int flag, char **line);
+int				valid_ants(int flag, char **line);
 /*
 ** PRINT_OUT.C
 */
