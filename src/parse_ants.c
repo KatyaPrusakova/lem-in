@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ants.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/13 12:17:09 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/14 12:44:08 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void			parse_ants(char *line, t_graph* data)
 	int		ant;
 
 	ant = ft_atoi(line);
-	ft_printf("%d\n", ant);
+	ft_dprintf(fd, "%d\n", ant);
 	if (!line || !(ft_strisdigit(line)) || ant <= 0 || ant >= 2147483647) //limit?
 		print_error(3);
 	data->ants = ant;

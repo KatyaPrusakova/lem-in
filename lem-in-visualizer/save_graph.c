@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:49:29 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/01/25 13:13:25 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/14 12:47:50 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ t_map		save_rooms(char **input, int room_count)
 			list.rooms[0] = add_room(input[++i]);
 		else if (!ft_strcmp(input[i], "##end"))
 			list.rooms[room_count - 1] = add_room(input[++i]);
+		else if (input[i][0] == '#')
+			i++;
 		else
 			list.rooms[j++] = add_room(input[i]);
 		i++;

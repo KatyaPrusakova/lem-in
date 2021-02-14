@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 14:19:34 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/12 15:32:15 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/14 12:55:21 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void draw_queue(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
 	}
 }
 
-
 void visit_room(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
 {
 //	SDL_Rect	room;
@@ -106,12 +105,9 @@ void	draw_algorithm(t_pointers *p, t_data *scl, t_room *rooms, char **input)
 		if (!ft_strchr(input[i], '-'))
 		{
 			ft_printf("%s\n", input[i]);
+			draw_queue(p->renderer, scl, rooms, input[i + 1]);
 			visit_room(p->renderer, scl, rooms, input[i]);
 		//	ft_printf("visited %s\n", input[i]);
-		}
-		else
-		{
-			draw_queue(p->renderer, scl, rooms, input[i]);
 		}
 		i++;
 	}
