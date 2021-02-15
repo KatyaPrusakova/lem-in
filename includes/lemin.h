@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/14 23:10:04 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/15 13:58:02 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char				**parse_input(void);
 ** PARSE_LINK.C
 */
 
-int					is_link(char **room, t_graph* data);
+int					is_link(char **room, int *index, t_graph* data);
 int					link_rooms(char *room, int i, t_graph* data);
 void				add_index_to_room(t_graph* data, char *name, int index, int i);
 int					parse_link(int i, char **line, t_graph* graph);
