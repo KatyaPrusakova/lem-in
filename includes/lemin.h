@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/15 13:58:02 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/15 16:49:56 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char				*ft_firstword(char **line, int i);
 
 //draft
 
-t_path				**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize);
+t_path				*bfs(int max_paths, t_graph *graph, t_room	*room, int visualize);
 
 //queue functions
 
