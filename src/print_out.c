@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/14 22:57:03 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/15 16:19:19 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void		print_input(char **line)
 	i = -1;
 	while (line[++i])
 	{
-		ft_dprintf(fd, "%s\n", line[i]);
+		ft_printf("%s\n", line[i]);
 	}
-	ft_dprintf(fd, "\n");
+	ft_printf("\n");
 }
 
 int				print_error(int opt)
