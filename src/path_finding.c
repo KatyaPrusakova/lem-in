@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_finding.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/14 23:28:55 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:34:21 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,9 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
 	if (visualize)
 		ft_dprintf(fd, "use visualizer\n"); //test
 	visited = init_visited(graph->room_total);
-	set_1 = ft_memalloc(sizeof(t_path*) * max_paths);
+	
+	//(max_paths + 2) in order to fix segfault on map/valid/map_flow_max
+	set_1 = ft_memalloc(sizeof(t_path*) * (max_paths + 2));
 	if (!set_1)
 		ft_printf("malloc fail"); //change
 	q = enqueue(room->index, q, graph->adlist, 0);

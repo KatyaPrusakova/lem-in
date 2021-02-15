@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/14 22:50:01 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:07:28 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int			parse_room(int i, char **line, t_graph* graph)
 				add_room(0, ft_firstword(line, i), graph);
 			i++;
 	}
+	
 	if (ft_strchr(line[i-1], '-'))
 		i--;
 	return(i);
