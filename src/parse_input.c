@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/15 17:28:46 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/15 17:49:45 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,26 @@ void	valid_map(char **input)
 	int		i;
 
 	i = 0;
-	while (input[i][0] == '#' || ft_strisdigit(input[i]))
+	while (input[i])
 	{
-		ft_dprintf(fd, "%s\n", input[i]);
-		i++;
+		if (input[i][0] == '#' || ft_strisdigit(input[i]))
+			i++;
+		else
+			break;
 	}
-	while (input[i][0] == '#' || ft_strchr(input[i], ' '))
+	while (input[i])
 	{
-		ft_dprintf(fd, "%s\n", input[i]);
-		i++;
+		if (input[i][0] == '#' || ft_strchr(input[i], ' '))
+			i++;
+		else
+			break;
 	}
-	while (input[i][0] == '#' || ft_strchr(input[i], '-'))
+	while (input[i])
 	{
-		ft_dprintf(fd, "%s\n", input[i]);
-		i++;
+		if (input[i][0] == '#' || ft_strchr(input[i], '-'))
+			i++;
+		else
+			break;
 	}
 	if (input[i])
 		print_error(10);
