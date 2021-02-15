@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/15 16:19:19 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/15 16:57:04 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ int				print_error(int opt)
 		write(1, "map file is not valid\n", 23);
 	if (opt == 9)
 		write(1, "count room is wrong\n", 21);
+	if (opt == 10)
+		write(1, "invalid map\n", 13);
 	exit(0);
 }

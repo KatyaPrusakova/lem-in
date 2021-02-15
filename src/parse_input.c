@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/15 14:27:06 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/15 17:26:36 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,29 @@ char	**ft_realloc(char **input, int len)
 	return(tmp);
 }
 
-// int		ft_arraylen(char **s)
-// {
-// 	int		i;
+void	valid_map(char **input)
+{
+	int		i;
 
-// 	i = 0;
-// 	if (!s)
-// 		return (0);
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
+	i = 0;
+	while (input[i][0] == '#' || ft_strisdigit(input[i]))
+	{
+		ft_dprintf(fd, "%s\n", input[i]);
+		i++;
+	}
+	while (input[i][0] == '#' || ft_strchr(input[i], ' '))
+	{
+		ft_dprintf(fd, "%s\n", input[i]);
+		i++;
+	}
+	while (input[i][0] == '#' || ft_strchr(input[i], '-'))
+	{
+		ft_dprintf(fd, "%s\n", input[i]);
+		i++;
+	}
+	if (input[i])
+		print_error(10);
+}
 
 char		**parse_input(void)
 {
@@ -42,9 +54,9 @@ char		**parse_input(void)
 	char **input;
 
 	i = 0;
-	len = 5;
+	len = 10000;
 	input = ft_memalloc(sizeof(char*) * len + 1);
-	while (get_next_line(0, &line) == 1)
+	while (get_next_line(0, &line))
 	{
 		//ft_dprintf(fd, "%s\n", line);
 		if (i == len)
@@ -55,8 +67,9 @@ char		**parse_input(void)
 		input[i] = line;
 		i++;
 	}
-	// if (len == 5)  // file should have at least 6 lines 
-	// 	print_error(1);
+	if (i < 5)  // file should have at least 6 lines 
+		print_error(1);
+	valid_map(input);
 	return (input);
 }
 

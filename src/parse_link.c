@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/15 13:59:24 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/15 16:35:03 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ int			parse_link(int i, char **line, t_graph* graph)
 	end =  graph->adlist[graph->room_total - 1]->name;
 	while (line[i] && (ft_strchr(line[i], '-') || line[i][0] == '#')) //  add comment function
 	{
-		//ft_dprintf(fd, "ff %s\n", line[i]);
 		if (ft_strchr(line[i], '-'))
 		{	
 			room = ft_strsplit(line[i], '-');
@@ -119,5 +118,7 @@ int			parse_link(int i, char **line, t_graph* graph)
 			e = 1;
 		i++;
 	}
+	if (line[i]) // "\n" line
+		print_error(10);
 	return (s + e == 2 ? 1 : print_error(5));
 }
