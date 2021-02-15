@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/12 14:18:37 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/15 17:20:35 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,20 @@ char	**parse_input(void)
 	char	**input;
 	char	*line;
 	int		i;
-	int		x;
+	int		buf;
 
 	i = -1;
-	x = 0;
-	input = ft_memalloc(sizeof(char*) * 10000);
-	while (++i < 10000 && (x = get_next_line(0, &line)) > 0)
+	buf = 10000;
+	input = ft_memalloc(sizeof(char*) * buf + 1);
+	while ((x = get_next_line(0, &line)) > 0)
+	{
 		input[i] = line;
-	if (x == -1)
-		ft_error("GNL failed");
+		if (i == 9999)
+		{
+			ft_printf("9999999999999999999999999999999999\n");
+			exit(0);
+		}
+	}
 	ft_printf("amount of lines = %d\n", i); //test
 	return (input);
 }
