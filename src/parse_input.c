@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/15 15:58:03 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/15 16:10:14 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char		**parse_input(void)
 	while (get_next_line(0, &line) == 1)
 	{
 		ft_printf("%s\n", line);
-		if (i == (len - 1))
+		if (i == len)
 		{
 			input = ft_realloc(input, len);
 			len += len;
