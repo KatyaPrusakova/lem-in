@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_finding.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/15 14:34:21 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/15 16:50:21 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,9 +191,9 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph)
 ** If the current room is linked to the end room, The path will be saved in the 2d array.
 */
 
-t_path	**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
+t_path	*bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
 {
-	t_path	**set_1;
+	t_path	*set_1;
 	t_queue	*q;
 	t_room	*tmp;
 	int		*visited;
@@ -204,11 +204,6 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
 	if (visualize)
 		ft_dprintf(fd, "use visualizer\n"); //test
 	visited = init_visited(graph->room_total);
-	
-	//(max_paths + 2) in order to fix segfault on map/valid/map_flow_max
-	set_1 = ft_memalloc(sizeof(t_path*) * (max_paths + 2));
-	if (!set_1)
-		ft_printf("malloc fail"); //change
 	q = enqueue(room->index, q, graph->adlist, 0);
 	while (q->head && i < max_paths)
 	{
@@ -220,7 +215,8 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
 		if (end_is_neighbour(tmp))
 		{
 			visited[room->index] = room->prev_room_index;
-			set_1[++i] = save_path(visited, room->index);
+			set_1 = save_path(visited, room->index);
+			break;
 		}
 		else
 			visit_room(room, q, visited, graph);
@@ -300,7 +296,7 @@ int		**find_paths(t_graph *graph)
 	paths = ft_memalloc(sizeof(t_path*) * graph->room_total);
 //	if (!paths)
 //		ft_error(2);
-	paths = bfs(max_paths, graph, graph->adlist[0], graph->visualize);
+	paths[0] = bfs(max_paths, graph, graph->adlist[0], graph->visualize);
 	ft_dprintf(fd, "paths found\n");
 	print_paths(paths);
 // remove the shortest paths links from the graph;
@@ -308,7 +304,7 @@ int		**find_paths(t_graph *graph)
 	{
 		ft_dprintf(fd, "\nBFS 2.0\n");
 		reverse_path(paths[0], graph);
-		paths = bfs(max_paths, graph, graph->adlist[0], graph->visualize);
+		paths[1] = bfs(max_paths, graph, graph->adlist[0], graph->visualize);
 		print_rooms(graph);
 	}
 //	print_paths(paths);

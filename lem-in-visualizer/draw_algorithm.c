@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 14:19:34 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/14 14:57:41 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/15 16:20:24 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	draw_link_bfs(SDL_Renderer *renderer, int size, t_room *rooms, int i[2])
 
 void draw_queue(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
 {
-//	t_line	link;
 	int		i;
 	int		index[2];
 	char	**split_queue;
@@ -71,7 +70,6 @@ void draw_queue(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
 
 void visit_room(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
 {
-//	SDL_Rect	room;
 	char		**visited;
 	int			index[2];
 
@@ -96,7 +94,6 @@ void	draw_path(t_pointers *p, t_data *scl, t_room *rooms, char *input)
 	int		i;
 
 	i = 0;
-//	ft_printf("%s\n", input);
 	split = ft_strsplit(input, '|');
 	if (!split)
 		ft_error("split fail\n");
@@ -128,9 +125,6 @@ void	draw_path(t_pointers *p, t_data *scl, t_room *rooms, char *input)
 void	draw_algorithm(t_pointers *p, t_data *scl, t_room *rooms, char **input)
 {
 	int				i;
-//	t_room			*visited;
-//	t_edge			*edges;
-//	t_room			*q;
 
 	SDL_SetRenderTarget(p->renderer, NULL);
 	SDL_RenderCopy(p->renderer, p->backround, NULL, NULL);
@@ -146,7 +140,6 @@ void	draw_algorithm(t_pointers *p, t_data *scl, t_room *rooms, char **input)
 			ft_printf("%s\n", input[i]);
 			draw_queue(p->renderer, scl, rooms, input[i + 1]);
 			visit_room(p->renderer, scl, rooms, input[i]);
-		//	ft_printf("visited %s\n", input[i]);
 		}
 		i++;
 	}
