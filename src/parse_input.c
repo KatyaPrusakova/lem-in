@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/15 17:28:17 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/15 17:28:46 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,9 @@ char		**parse_input(void)
 		input[i] = line;
 		i++;
 	}
-<<<<<<< HEAD
 	if (i < 5)  // file should have at least 6 lines 
 		print_error(1);
 	valid_map(input);
-=======
-	// if (len == 5)  // file should have at least 6 lines
-	// 	print_error(1);
->>>>>>> 6b6dd7d7afae8f428ced65ff1c4b31ff0291fc3c
 	return (input);
 }
 
