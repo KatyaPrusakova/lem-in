@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/15 14:07:28 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/16 23:33:44 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char*			is_room(char *line)
 		print_error(4);
 	room = ft_strsplit(line, ' ');
 	// ft_dprintf(fd, "room |%s|%s|%s\n", room[0], room[1], room[2]); //test
-	if (!room[0] || room[3] || !ft_strisdigit(room[1]) \
+	if (!room[0] || !room[1] || !room[2] || room[3] || !ft_strisdigit(room[1]) \
 	|| !ft_strisdigit(room[2]))
 		print_error(4);
 	return (room[0]);
