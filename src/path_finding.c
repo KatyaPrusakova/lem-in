@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/15 17:49:30 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/17 13:27:44 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,6 +302,7 @@ int		**find_paths(t_graph *graph)
 	paths = bfs(max_paths, graph, graph->adlist[0], graph->visualize);
 	ft_dprintf(fd, "paths found\n");
 	print_paths(paths);
+	allocate_ants_to_rooms(paths, graph);
 // remove the shortest paths links from the graph;
 	if (paths[0] && paths[0]->len > 1)
 	{

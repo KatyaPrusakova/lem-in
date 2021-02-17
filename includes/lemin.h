@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/16 23:37:50 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/17 13:34:11 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char				*ft_firstword(char **line, int i);
 
 //draft
 
-t_path				*bfs(int max_paths, t_graph *graph, t_room	*room, int visualize);
+t_path				**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize);
 
 //queue functions
 
@@ -129,5 +129,11 @@ t_queue		*dequeue(t_queue *q);
 */
 
 int		**find_paths(t_graph *graph);
+
+/*
+** ANTS_FLOW.C
+*/
+
+int		*allocate_ants_to_rooms(t_path **path, t_graph *graph);
 
 #endif
