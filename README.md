@@ -38,7 +38,7 @@ In addition :
 * All lines starting with "#" are comments.
 * All lines starting with "##" are commands.
 
-[`img/input_lem_in.png`]
+![input](img/input_lem_in.png)
 
 ### Visualizer
 
