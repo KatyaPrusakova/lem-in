@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:59:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/14 13:33:47 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/16 10:09:47 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,14 @@ int			background(t_data *scale, t_map *map, t_pointers *sdl)
 	SDL_SetRenderTarget(sdl->renderer, sdl->backround); //Setting the renderer target to backround texture.
 	i = 0;
 	size = (scale->max_y > scale->max_x) ? scale->max_y : scale->max_x;
-	size = WIN_W / size * 0.8;
+	if (size < 2)
+		size++;
+	size = WIN_W / size * 0.7;
 	SDL_SetRenderDrawColor(sdl->renderer, 0, 0, 0, 255);
 	SDL_RenderClear(sdl->renderer);
 	while (i < map->count)
 	{
-		ft_printf("bg room count %d\n", map->count); //test
+//		ft_printf("bg room count %d\n", map->count); //test
 		map->rooms[i].x = map->rooms[i].x * size + 50;
 		map->rooms[i].y = map->rooms[i].y * size + 50;
 		draw_room(sdl->renderer, size, &map->rooms[i], (t_rgb){79, 79, 79, 255});

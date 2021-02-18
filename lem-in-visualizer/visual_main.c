@@ -6,10 +6,9 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/15 17:20:35 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/17 19:21:30 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libft.h"
 #include "lemin_visual.h"
@@ -20,6 +19,16 @@ void	ft_error(const char *str_err)
 	exit(0);
 }
 
+char	**ft_realloc(char **input, int len)
+{
+	char **tmp;
+
+	tmp = ft_memalloc(sizeof(char*) * (len * 2 + 1));
+	tmp = ft_memcpy(tmp, input, sizeof(char*) * len);
+	free(input);
+	return(tmp);
+}
+
 char	**parse_input(void)
 {
 	char	**input;
@@ -27,17 +36,17 @@ char	**parse_input(void)
 	int		i;
 	int		buf;
 
-	i = -1;
+	i = 0;
 	buf = 10000;
 	input = ft_memalloc(sizeof(char*) * buf + 1);
-	while ((x = get_next_line(0, &line)) > 0)
+	while (get_next_line(0, &line) == 1)
 	{
-		input[i] = line;
-		if (i == 9999)
+		if (i == buf)
 		{
-			ft_printf("9999999999999999999999999999999999\n");
-			exit(0);
+			input = ft_realloc(input, buf);
+			buf += buf;
 		}
+		input[i++] = line;
 	}
 	ft_printf("amount of lines = %d\n", i); //test
 	return (input);
@@ -156,6 +165,7 @@ int			main(void)
 	sdl = ft_memalloc(sizeof(t_pointers));
 	if (!sdl)
 		ft_error("malloc fail");
+	ft_printf("%LF\n", 1.42l);
 	input = parse_input();
 	scale = scale_map(input);
 

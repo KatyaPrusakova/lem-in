@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:49:29 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/14 12:47:50 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/16 10:43:29 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,17 @@ t_edge		*add_edges(char **input, int room_count)
 	return (head);
 }
 
+//test
+
+void		print_edges(t_edge *list)
+{
+	while (list)
+	{
+		ft_printf("EDGE: src: %s dst %s\n", list->src, list->dst);
+		list = list->next;
+	}
+}
+
 t_map		save_rooms(char **input, int room_count)
 {
 	int		i;
@@ -119,9 +130,7 @@ t_map		save_rooms(char **input, int room_count)
 			list.rooms[0] = add_room(input[++i]);
 		else if (!ft_strcmp(input[i], "##end"))
 			list.rooms[room_count - 1] = add_room(input[++i]);
-		else if (input[i][0] == '#')
-			i++;
-		else
+		else if (input[i][0] != '#')
 			list.rooms[j++] = add_room(input[i]);
 		i++;
 	}
@@ -130,12 +139,12 @@ t_map		save_rooms(char **input, int room_count)
 	i = 0;
 	while (i < list.count)
 	{  //test
-		ft_printf("test");
-		ft_printf("room n%d = %s\n", i, list.rooms[i].name);
+	//	ft_printf("test");
+	//	ft_printf("room n%d = %s\n", i, list.rooms[i].name);
 		i++;
 	} //test
 	// test
 	list.edges = add_edges(input, room_count);
-
+	print_edges(list.edges);
 	return (list);
 }

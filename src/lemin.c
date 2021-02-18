@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/15 16:56:18 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/18 11:39:00 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ t_graph*		lem_in(char **line, t_graph* graph)
 
 
 	i = parse_ants(line, graph);
-	
+
 	//ft_dprintf(fd, "after_parse ant %s\n", line[i]); //test
-	
+
 	i = parse_room(i, line, graph);
 	//ft_dprintf(fd, "lem_in  2%d\n", i); //test
-	
+
 	parse_link(i, line, graph);
 
 	//ft_dprintf(fd, "after parse link %d\n", graph->room_total); //test

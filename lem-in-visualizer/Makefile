@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/16 03:21:02 by ksuomala          #+#    #+#              #
-#    Updated: 2021/02/10 14:18:57 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/02/16 10:27:40 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,12 +38,12 @@ INCL = -I ../includes -I ../libft
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -o $(NAME) $(FLAGS) $(L_FLAGS) $(INCL) $(LINKS)
+	$(CC) $(OBJS) -o $(NAME) $(L_FLAGS) $(INCL) $(LINKS)
 	@echo "executable compiled!"
 
 $(OBJS): $(SRCS)
 	@echo "Compiling..."
-	$(CC) $(FLAGS) $(C_FLAGS) $(INCL) -c $(SRCS)
+	$(CC) $(C_FLAGS) $(INCL) -c $(SRCS)
 	@echo "*object files created"
 
 clean:
