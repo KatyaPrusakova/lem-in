@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/18 11:43:51 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/18 11:51:45 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_graph*		lem_in(char **line, t_graph* graph)
 {
 	int		i;
-
 
 	i = parse_ants(line, graph);
 
