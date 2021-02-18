@@ -6,12 +6,11 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/10 12:12:51 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:32:20 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-
 
 int	paths_count(t_path **path)
 {
@@ -20,14 +19,14 @@ int	paths_count(t_path **path)
 	i = 0;
 	while (path[i])
 		i++;
-	ft_printf("total len of all paths: %d\n: ", i);
+	//ft_printf("total len of all paths: %d\n: ", i);
 	return (i);
 }
 
 
 /*
 ** If path lenght plus number of ants in room more then 
-** ant_count moove too next room
+** ant_count move to next room
 ** If path lenght plus number of ants in room less or equal then
 ** add ants to current room
 */
@@ -37,28 +36,36 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 	int		i;
 	int		j;
 	int		ant_count;
-	int		*ants_in_roooms;
+	int		path_total;
+	int		*ants_in_paths;
 
 	i = 0;
-	j = 0;
-	ants_in_roooms = ft_memalloc(sizeof(int) * paths_count(path));
+	j = -1;
+	path_total = paths_count(path);
+	ants_in_paths = ft_memalloc(sizeof(int) * path_total);
 	//  if not malloc, error
+	ft_printf("path_total %d\n",path_total );
+	ant_count = graph->ants;
+
+	while (ant_count > 0)
+	{
+		i = 0;
+		//ft_printf("loop %d\n", ant_count );
+		while (ant_count < path[i]->len && path_total > 1)
+		{
+			path_total--;
+		}
+		//ft_printf("loop path_total %d\n", path_total );
+		while (i < path_total)
+			ants_in_paths[i++]++;
+		ant_count -= path_total;
+	}
+	//test
+	while (++j < i)
+	{
+		ft_printf("number of ants in room %d|%d\n", ants_in_paths[j], j);
+	}
+	//test
 	
-	ant_count = 1;
-	ants_in_roooms[0] = 1;
-	while (ant_count <= graph->ants)
-	{
-		j = 0;
-		while (path[j]->len + ants_in_roooms[j] > ant_count)
-			j++;
-		ant_count++;
-		ants_in_roooms[j] += 1;
-	}
-	j = 0;
-	while (ants_in_roooms[j])
-	{
-		ft_printf("number oof ants in room %d|%d\n", ants_in_roooms[j]);
-		j++;
-	}
-	return (ants_in_roooms);
+	return (ants_in_paths);
 }

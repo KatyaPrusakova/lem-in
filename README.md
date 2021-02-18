@@ -15,13 +15,31 @@ _**You can check [wiki-page](../../wiki/Algorithm) if you want to read descripti
 * Find all best paths in most cases
 * Move ants by found paths in an optimal way
 * Extended error messages
-* Verbose mode
 
 ### How to run program?
 
 ```
 ./lem-in < MAP_FILE
 ```
+
+### Input
+
+The software reads standard entry. It is expecting the description of a farm, which must contains :
+
+* Ant's number (a number)
+* Rooms (syntax : [Name Y X] - where X and Y are coordonates)
+* Links (Syntax : [room(A)-room(B)])
+* Start command (to indicate the ant's spawnig room)
+* End command (to indicate the ant's goal)
+
+In addition :
+
+* Start and end are commands, they starts with "##".
+* All lines starting with "#" are comments.
+* All lines starting with "##" are commands.
+
+![input](img/input_lem_in.png)
+
 ### Visualizer
 
 It was written with **SDL2** library.

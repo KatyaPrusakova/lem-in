@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/14 23:00:33 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/16 23:22:48 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		valid_ants(int flag, char **line)
 	i = 0;
 	i = is_comment(line, i);
 	ant = ft_atoi(line[i]);
-	if (!line[i] || !(ft_strisdigit(line[i])) || ant <= 0 || ant >= 2147483647)
+	if (!line[i] || !(ft_strisdigit(line[i])) || ant <= 0 || ant > 2147483647)
 		print_error(3);
 	i = is_comment(line, i + 1);
 	return(flag == 1 ? i : ant);
