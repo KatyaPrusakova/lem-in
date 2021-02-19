@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 14:19:34 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/15 16:20:24 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/19 16:01:09 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void draw_queue(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
 		draw_room(renderer, scl->room_size, &rooms[index[0]], (t_rgb){0, 0, 100, 255});
 		i++;
 	}
-		draw_room(renderer, scl->room_size, rooms, (t_rgb){200, 200, 200, 255});
 }
 
 void visit_room(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
@@ -76,7 +75,7 @@ void visit_room(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
 	visited = ft_strsplit(line, ' ');
 	index[0] = ft_atoi(visited[0]);
 	index[1] = ft_atoi(visited[1]);
-	ft_printf("visit room %d\n", visited[0]); //tmp
+	ft_printf("visit room %d\n", index[0]); //tmp
 	if (!index[0])
 		return;
 	draw_room(renderer, scl->room_size, &rooms[index[0]], (t_rgb){0, 0, 100, 255});
@@ -94,28 +93,37 @@ void	draw_path(t_pointers *p, t_data *scl, t_room *rooms, char *input)
 	int		i;
 
 	i = 0;
+	ft_printf("input %s\n", input);
 	split = ft_strsplit(input, '|');
 	if (!split)
 		ft_error("split fail\n");
 	path = ft_memalloc(sizeof(int) * scl->room_count);
 	if (!path)
 		ft_error("malloc fail\n");
+	ft_printf("Draw path:\n");
 	while (split[i])
 	{
+		ft_printf("split %d = %d\n", i, ft_atoi(split[i]));
 		path[i] = ft_atoi(split[i]);
+		ft_printf("i = %d path[%d] = %d\n", i, i, path[i]);
 		i++;
 	}
 	draw_room(p->renderer, scl->room_size, &rooms[path[--i]], (t_rgb){0, 100, 0, 255});
+	draw_link_bfs(p->renderer, scl->room_size, rooms, (int[2]){path[i], scl->room_count - 1});
 	SDL_RenderPresent(p->renderer);
 	SDL_Delay(500);
 	while (--i)
 	{
-		ft_printf("draw room %d\n", i);
+		ft_printf("draw room %d\n", path[i]);
 		draw_room(p->renderer, scl->room_size, &rooms[path[i]], (t_rgb){0, 100, 0, 255});
 		draw_link_bfs(p->renderer, scl->room_size, rooms, (int[2]){path[i], path[i + 1]});
 		SDL_RenderPresent(p->renderer);
 		SDL_Delay(500);
 	}
+	draw_link_bfs(p->renderer, scl->room_size, rooms, (int[2]){0, path[1]});
+	draw_room(p->renderer, scl->room_size, rooms, (t_rgb){200, 200, 200, 255});
+	SDL_RenderPresent(p->renderer);
+	SDL_Delay(500);
 }
 
 /*
