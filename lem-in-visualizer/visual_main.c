@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/17 19:21:30 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/18 14:15:28 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int			main(void)
 	sdl = ft_memalloc(sizeof(t_pointers));
 	if (!sdl)
 		ft_error("malloc fail");
-	ft_printf("%LF\n", 1.42l);
+	ft_printf("%.3f\n", 0.1265);
 	input = parse_input();
 	scale = scale_map(input);
 
