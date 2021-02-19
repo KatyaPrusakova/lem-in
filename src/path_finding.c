@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/19 14:08:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/19 14:17:34 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ t_path **check_path(int *visited, int end_index, t_path **path, int *path_no)
 	found_path = save_path(visited, end_index);
 	if (!found_path)
 		return (path);
+	ft_dprintf(fd, "path saved in [%d]\n", *path_no);
 	path[*path_no] = found_path;
 	*path_no += 1;
 	return (path);
@@ -233,7 +234,7 @@ t_path	**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize)
 	int		*visited;
 	int		i;
 
-	i = -1;
+	i = 0;
 	q = NULL;
 	if (visualize)
 		ft_dprintf(fd, "use visualizer\n"); //test
