@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/21 19:26:02 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/21 23:09:55 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ typedef	struct 		s_path
 	struct s_path	*next;
 }					t_path;
 
+
+/*
+** Create weight matrix
+*/
+
+int **create_matrix(int height, int width);
 
 /*
 ** LEMIN.C

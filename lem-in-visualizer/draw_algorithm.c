@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 14:19:34 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/21 18:27:06 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/22 12:10:23 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void visit_room(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
 	draw_link_bfs(renderer, scl->room_size, rooms, index);
 	draw_room(renderer, scl->room_size, rooms, (t_rgb){200, 200, 200, 255});
 	SDL_RenderPresent(renderer);
-	SDL_Delay(1500);
+	SDL_Delay(500);
 }
 
 
@@ -111,14 +111,14 @@ void	draw_path(t_pointers *p, t_data *scl, t_room *rooms, char *input)
 	draw_room(p->renderer, scl->room_size, &rooms[path[--i]], (t_rgb){0, 100, 0, 255});
 	draw_link_bfs(p->renderer, scl->room_size, rooms, (int[2]){path[i], scl->room_count - 1});
 	SDL_RenderPresent(p->renderer);
-	SDL_Delay(1500);
+	SDL_Delay(500);
 	while (--i)
 	{
 		ft_printf("draw room %d\n", path[i]);
 		draw_room(p->renderer, scl->room_size, &rooms[path[i]], (t_rgb){0, 100, 0, 255});
 		draw_link_bfs(p->renderer, scl->room_size, rooms, (int[2]){path[i], path[i + 1]});
 		SDL_RenderPresent(p->renderer);
-		SDL_Delay(1500);
+		SDL_Delay(500);
 	}
 	draw_link_bfs(p->renderer, scl->room_size, rooms, (int[2]){0, path[1]});
 	draw_room(p->renderer, scl->room_size, rooms, (t_rgb){200, 200, 200, 255});

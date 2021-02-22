@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/06 10:12:45 by ksuomala          #+#    #+#              #
-#    Updated: 2021/02/06 10:17:12 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/02/22 11:02:06 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS = lemin.c \
 	create_queue.c \
 	print_out.c \
 	ft_strisdigit.c \
-	path_finding.c
+	path_finding_2.c
 
 SRCS_DIR = src
 
