@@ -1,6 +1,11 @@
 #executables
+
 lem-in
 lem-in-visualizer/visualizer
+
+# SLD2 built
+
+lem-in-visualizer/lib
 
 # SDL2config files
 

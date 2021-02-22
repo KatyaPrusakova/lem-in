@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:59:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/22 22:39:47 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/23 00:24:07 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int			background(t_data *scale, t_map *map, t_pointers *sdl)
 
 t_pointers	*initialize(t_map *map, t_data *scale, t_pointers *sdl)
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING))
+	if (SDL_Init(SDL_INIT_VIDEO))
 		ft_error(SDL_GetError());
 //	if (TTF_Init() == -1)
 //		ft_error(SDL_GetError());

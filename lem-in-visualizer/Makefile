@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/16 03:21:02 by ksuomala          #+#    #+#              #
-#    Updated: 2021/02/22 23:12:33 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/02/23 00:25:09 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME) $(L_FLAGS) $(INCL) $(LINKS)
 	@echo "executable compiled!"
 
-$(OBJS): $(LIBSDL2) | $(lib_dir)
+$(OBJS): $(SRCS) $(LIBSDL2) | $(lib_dir)
 	@echo "Compiling..."
 	$(CC) $(C_FLAGS) $(INCL) -c $(SRCS)
 	@echo "*object files created"
