@@ -6,8 +6,8 @@
 # define PI  3.14159
 
 # include "libft.h"
-# include <SDL2/SDL.h>
-# include <SDL_ttf.h>
+# include "SDL2/SDL.h"
+//# include <SDL_ttf.h>
 #include <math.h>
 
 

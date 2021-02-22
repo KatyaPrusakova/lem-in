@@ -1,3 +1,19 @@
+#executables
+lem-in
+lem-in-visualizer/visualizer
+
+# SDL2config files
+
+lem-in-visualizer/libSDL2/sdl2-config-version.cmake
+lem-in-visualizer/libSDL2/sdl2-config.cmake
+lem-in-visualizer/libSDL2/sdl2.pc
+
+# test files.txt
+
+lemin.txt
+out.txt
+valgrind.txt
+
 # Prerequisites
 *.d
 .DS_Store

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:59:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/22 19:26:21 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/22 22:39:47 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ t_pointers	*initialize(t_map *map, t_data *scale, t_pointers *sdl)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING))
 		ft_error(SDL_GetError());
-	if (TTF_Init() == -1)
-		ft_error(SDL_GetError());
+//	if (TTF_Init() == -1)
+//		ft_error(SDL_GetError());
 	if (!(sdl->window = SDL_CreateWindow("Lem-in", SDL_WINDOWPOS_UNDEFINED,\
 	SDL_WINDOWPOS_UNDEFINED, WIN_W + 50, WIN_H + 50, 0)))
 		ft_error(SDL_GetError());
