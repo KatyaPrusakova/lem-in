@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:59:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/16 10:09:47 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/22 19:26:21 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ t_pointers	*initialize(t_map *map, t_data *scale, t_pointers *sdl)
 	if (!(sdl->window = SDL_CreateWindow("Lem-in", SDL_WINDOWPOS_UNDEFINED,\
 	SDL_WINDOWPOS_UNDEFINED, WIN_W + 50, WIN_H + 50, 0)))
 		ft_error(SDL_GetError());
-	if (!(sdl->renderer = SDL_CreateRenderer(sdl->window, -1, SDL_RENDERER_ACCELERATED)))
+	if (!(sdl->renderer = SDL_CreateRenderer(sdl->window, -1, 0)))
 		ft_error(SDL_GetError());
 	sdl->backround = SDL_CreateTexture(sdl->renderer,\
 	SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIN_H + 50, WIN_W + 50);
