@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:49:29 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/16 10:43:29 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/22 18:19:11 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_map		save_rooms(char **input, int room_count)
 
 	i = 1;
 	j = 1;
-	if (!(list.rooms = ft_memalloc(sizeof(t_room) * room_count)))
+	if (!(list.rooms = ft_memalloc(sizeof(t_room) * (room_count + 1)))
 		ft_error("Malloc fail");
 	list.count = room_count;
 	while (!ft_strchr(input[i], '-'))
@@ -134,7 +134,7 @@ t_map		save_rooms(char **input, int room_count)
 			list.rooms[j++] = add_room(input[i]);
 		i++;
 	}
-	ft_bzero(&list.rooms[room_count], sizeof(t_room));
+
 	// test
 	i = 0;
 	while (i < list.count)
