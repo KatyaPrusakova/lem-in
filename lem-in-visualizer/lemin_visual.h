@@ -139,5 +139,15 @@ int move_ants(t_pointers *sdl, t_ant *head, t_data *scale);
 
 SDL_Renderer	*links(SDL_Renderer *renderer, int size, t_map *map);
 
+int			events(void);
+
+
+/*
+** free_all.c
+*/
+
+t_ant			*free_ants(t_ant *head);
+void			kill_all(t_pointers *sdl, t_map map, char **input);
+
 
 #endif

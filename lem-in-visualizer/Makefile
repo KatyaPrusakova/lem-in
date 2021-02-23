@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/16 03:21:02 by ksuomala          #+#    #+#              #
-#    Updated: 2021/02/23 00:25:09 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/02/23 11:28:06 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ save_graph.c \
 backround.c \
 ants.c \
 animation.c \
-draw_algorithm.c
+draw_algorithm.c \
+free_all.c
 
 LIBSDL2 = lib/libSDL2/lib/libSDL2.a
 
