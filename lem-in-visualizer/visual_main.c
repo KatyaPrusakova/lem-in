@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/23 12:09:14 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/23 12:46:59 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ void		play(t_pointers *sdl, t_data *scale, t_room *rooms, char **input)
 	while (!events() && input[i])
 	{
 		if (!ft_strcmp("0 0", input[i]))
+		{
+			ft_printf("stop\n");
 			break;
+		}
 		list = ant_destinations(input[i], list, rooms, wave);
 		SDL_Delay(300);
 		while (move_ants(sdl, list, scale))

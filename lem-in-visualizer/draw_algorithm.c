@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 14:19:34 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/23 11:50:25 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/23 12:47:49 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	draw_algorithm(t_pointers *p, t_data *scl, t_room *rooms, char **input)
 	i = move_index(input);
 	while(ft_strcmp(input[i], "START_ANT_MOVEMENT"))
 	{
-		if (!events())
+		if (events())
 			break;
 		if (ft_strchr(input[i], '|'))
 			draw_path(p, scl, rooms, input[i]);
