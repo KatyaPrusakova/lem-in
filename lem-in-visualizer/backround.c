@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:59:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/24 17:20:49 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/24 19:39:05 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,10 @@ t_room *room_coordinates(t_room *rooms, int size, int room_count)
 	{
 		rooms[i].x = rooms[i].x * size + 50;
 		rooms[i].y = rooms[i].y * size + 50;
+		ft_printf("room[%d] x|%d| y|%d|\n", i, rooms[i].x, rooms[i].y);
 		i++;
 	}
+
 	return (rooms);
 }
 

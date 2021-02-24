@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:49:29 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/24 16:27:08 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/24 20:03:39 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_data	scale_map(char **input)
 		if (input[i][0] != '#')
 		{
 			new.room_count += 1;
-			ft_printf("input line %s\n", input[i]); //test
+//			ft_printf("input line %s\n", input[i]); //test
 			split = ft_strsplit(input[i], ' ');
 			if (!split)
 				ft_error("ft_strsplit fail");
@@ -50,7 +50,7 @@ t_data	scale_map(char **input)
 			ft_free2d((void**)split);
 		}
 	}
-	ft_printf("i = %d\n", i);
+//	ft_printf("i = %d\n", i);
 	return (new);
 }
 
@@ -70,7 +70,7 @@ t_room		add_room(char *line, int index)
 	new.weight = -1;
 	new.q = -1;
 	new.index = index;
-	new.visited_from = 0;
+	new.visited_from = -1;
 	ft_free2d((void**)split);
 	return (new);
 }
@@ -110,8 +110,8 @@ t_edge		*add_edges(t_room *rooms, char **input, int room_count)
 	{
 		if (!(split = ft_strsplit(input[room_count], '-')))
 			ft_error("split fail");
-		ft_printf("split0 = %s, split1 = %s\n", split[0], split[1]);
-		ft_printf("tttttttttttttttttttttttttttttttttttt\n");
+//		ft_printf("split0 = %s, split1 = %s\n", split[0], split[1]);
+//		ft_printf("tttttttttttttttttttttttttttttttttttt\n");
 		head = new_edge(head, rooms, split[0], split[1]);
 		free(split);
 		room_count++;
@@ -152,7 +152,7 @@ t_map		save_rooms(char **input, int room_count)
 			j++;
 			list.rooms[j] = add_room(input[i], j);
 		}
-		ft_printf("test\n");
+//		ft_printf("test\n");
 		i++;
 	}
 
