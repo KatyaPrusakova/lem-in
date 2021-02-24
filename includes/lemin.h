@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/21 23:09:55 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/24 21:21:34 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ typedef	struct 		s_path
 {
 	int				i;
 	int				len;
+	int				ants_wait_list; //added
+	int				ant_id; //added
+	int				occupied; //added
 	struct s_path	*next;
 }					t_path;
 
@@ -102,7 +105,7 @@ int					parse_link(int i, char **line, t_graph* graph);
 int					count_rooms(char **line);
 int					parse_room(int i, char **line, t_graph* graph);
 int					add_room(int flag, char *room_name, t_graph *graph);
-char*				is_room(char *line);
+char*				is_room(char **input, int i);
 
 /*
 ** PARSE_ANTS.C
@@ -115,7 +118,7 @@ int				valid_ants(int flag, char **line);
 */
 
 void				print_rooms(t_graph* graph);
-int					print_error(int opt);
+int					print_error(int opt, char **line);
 void				print_input(char **line);
 
 //add to libft
@@ -137,7 +140,7 @@ t_queue		*dequeue(t_queue *q);
 */
 
 int		**find_paths(t_graph *graph);
-
+void	print_paths(t_path **path);
 /*
 ** ANTS_FLOW.C
 */

@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/15 16:57:04 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/24 10:11:31 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ void		print_input(char **line)
 	ft_printf("\n");
 }
 
-int				print_error(int opt)
+int				print_error(int opt, char **input)
 {
+	if (input)
+		ft_free2d((void**)input);
 //	dont forget to free(data);
 	if (opt == 0)
 		exit(0);

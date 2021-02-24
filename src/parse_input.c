@@ -6,7 +6,11 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/02/19 11:42:32 by ksuomala         ###   ########.fr       */
+=======
+/*   Updated: 2021/02/24 10:46:00 by eprusako         ###   ########.fr       */
+>>>>>>> 7b8650c93ffa1333bd20c873257ebbd74f8fad29
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +53,7 @@ void	valid_map(char **input)
 			break;
 	}
 	if (input[i])
-		print_error(10);
+		print_error(10, input);
 }
 
 char		**parse_input(void)
@@ -65,7 +69,7 @@ char		**parse_input(void)
 	while (get_next_line(fd_zero, &line))
 	{
 		if (i == len)
-		{
+			{
 			input = ft_realloc(input, len);
 			len += len;
 		}
@@ -73,7 +77,7 @@ char		**parse_input(void)
 		i++;
 	}
 	if (i < 5)  // file should have at least 6 lines
-		print_error(1);
+		print_error(1, input);
 	valid_map(input);
 	return (input);
 }
