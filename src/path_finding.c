@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/17 13:27:44 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/24 16:45:12 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,7 @@ void	print_paths(t_path **path)
 		while (path[++i])
 		{
 			tmp = path[i];
-			ft_dprintf(fd, "path n %d: ", i);
+			ft_printf("len %d path n %d: ", path[i]->len, i); //just for ant_move
 			while (tmp)
 			{
 				ft_dprintf(fd, "%d |", tmp->i);

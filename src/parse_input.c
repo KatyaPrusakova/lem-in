@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/24 10:26:29 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/24 10:46:00 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char		**parse_input(void)
 	while (get_next_line(0, &line))
 	{
 		if (i == len)
-		{
+			{
 			input = ft_realloc(input, len);
 			len += len;
 		}

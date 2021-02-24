@@ -6,7 +6,7 @@
 #    By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/06 10:12:45 by ksuomala          #+#    #+#              #
-#    Updated: 2021/02/24 10:35:33 by eprusako         ###   ########.fr        #
+#    Updated: 2021/02/24 12:49:30 by eprusako         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS = lemin.c \
 	create_queue.c \
 	print_out.c \
 	ft_strisdigit.c \
+	path_finding.c \
 	ants_flow.c
 
 SRCS_DIR = src

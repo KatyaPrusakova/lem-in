@@ -1,9 +1,21 @@
-8
-10
+ count_rooms 5
+0 |0| -> |1|1 -> |2|2
+1 |1| -> |0|0 -> |4|4
+2 |2| -> |0|0 -> |3|3
+3 |3| -> |2|2 -> |4|4
+4 |4| -> |3|3 -> |1|1
 
-path found at 4
-- 3 -- 0 -path found at 6
-- 5 -- 3 -- 0 -paths found
+path found at 1
+- 0 -path found at 3
+- 2 -- 0 -paths found
+Shortest path len 0 :
+0 |1 |
+0 |2 |3 |
+Shortest path len 0 :
+0 |1 |
+0 |2 |3 |
+ |2 |3 |
+-- 3 -- 0 -paths found
 Shortest path len 1 :
 path n 0: 0 |3 |4 |
 path n 1: 0 |3 |5 |6 |

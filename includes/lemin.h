@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/24 10:19:05 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/24 16:35:11 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef	struct 		s_path
 {
 	int				i;
 	int				len;
+	int				ants_wait_list; //added
+	int				ant_id; //added
+	int				occupied; //added
 	struct s_path	*next;
 }					t_path;
 
@@ -129,7 +132,7 @@ t_queue		*dequeue(t_queue *q);
 */
 
 int		**find_paths(t_graph *graph);
-
+void	print_paths(t_path **path);
 /*
 ** ANTS_FLOW.C
 */
