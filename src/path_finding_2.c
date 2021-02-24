@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/22 12:07:54 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/24 12:11:47 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,8 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int i
 	}
 	if(graph->visualize)
 	{
-		ft_printf("%d %d\n", current->index, current->prev_room_index);
+		ft_printf("%d %d %d\n", current->index, current->prev_room_index,
+		graph->weight[current->prev_room_index][current->index]);
 		draw_queue(graph->adlist, q);
 	}
 	//test

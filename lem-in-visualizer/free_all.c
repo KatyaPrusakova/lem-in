@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:27:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/23 11:47:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/24 15:56:23 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void		kill_all(t_pointers *sdl, t_map map, char **input)
 	while(edge)
 	{
 		edge = map.edges->next;
-		ft_strdel(&map.edges->dst);
-		ft_strdel(&map.edges->src);
+//		ft_strdel(&map.edges->dst);
+//		ft_strdel(&map.edges->src);
 		ft_memdel((void*)&map.edges);
 		map.edges = edge;
 	}

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/23 12:46:59 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/24 16:26:01 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void 	print_rooms(t_room *room, int room_count)
 
 
 
-void		play(t_pointers *sdl, t_data *scale, t_room *rooms, char **input)
+void		visualize_ants(t_pointers *sdl, t_data *scale, t_room *rooms, char **input)
 {
 	t_ant	*list;
 	int		i;
@@ -133,18 +133,12 @@ int			main(void)
 	sdl = ft_memalloc(sizeof(t_pointers));
 	if (!sdl)
 		ft_error("malloc fail");
-	ft_printf("%.3f\n", 0.1265);
 	input = parse_input();
 	scale = scale_map(input);
-
 	map = save_rooms(input, scale.room_count);
-
-
-	sdl = initialize(&map, &scale, sdl);
-	SDL_Delay(3000);
-
-	ft_printf("MAP ROOM SIZE = %d\n", scale.room_size); //test
-	draw_algorithm(sdl, &scale, map.rooms, input);
-	play(sdl, &scale, map.rooms, input);
+	ft_printf("saved rooms\n");
+	sdl = initialize(&scale, sdl, map.rooms);
+	visualize_search(sdl, &scale, &map, input);
+	visualize_ants(sdl, &scale, map.rooms, input);
 	kill_all(sdl, map, input);
 }
