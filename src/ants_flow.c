@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/24 22:07:56 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/25 00:53:01 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	paths_count(t_path **path)
 	i = 0;
 	while (path[i])
 		i++;
-	ft_printf("total len of all paths: %d\n: ", i);
+	//ft_printf("total len of all paths: %d\n: ", i);
 	return (i);
 }
 
@@ -34,14 +34,38 @@ int	paths_count(t_path **path)
 static void		move_ants(t_path *path, t_graph *graph)
 {
 	t_path *temp;
+	t_room *room;
+
 	temp = path->next;
+	room = graph->adlist[temp->i];
+
+	ft_printf("input L%d-%s\n", path->id, graph->adlist[temp->i]->name);
+
+	//put ant to next room in adlist
+	if (!temp->next)
+		return;
+	//if ant is already in next room
+	while (temp->next)
+	{
+		
+		if (!graph->adlist[temp->i]->visited)
+		{
+			graph->adlist[temp->i]->ant_id = path->id;
+			//ft_printf("L%d-%s ", graph->adlist[temp->i]->ant_id, graph->adlist[temp->i]->name);
+			graph->adlist[temp->i]->visited = 1;
 	
-	ft_printf("L%d-%s ", path->ant_id, graph->adlist[temp->i]->name);
-	//put ant to next room in linked list
-	temp = path->next->next;
-	temp->ant_id = path->ant_id;
-	temp->occupied = 1;
-	ft_printf("\n occupied L%d-%s \n", path->ant_id, graph->adlist[temp->i]->name);
+		}
+		else if (graph->adlist[temp->i]->visited)
+		{
+			ft_printf("L%d-%s \n", graph->adlist[temp->i]->ant_id, graph->adlist[temp->i]->name);
+			graph->adlist[temp->i]->visited = 0;
+			if (temp->next)
+				graph->adlist[temp->next->i]->ant_id = graph->adlist[temp->i]->ant_id;
+		}
+		temp = temp->next;
+	}
+		// 	ft_printf("next L%d-%s \n", path->id, graph->adlist[temp->next->i]->name);
+//	ft_printf("\n occupied L%d-%s \n", path->ant_id, graph->adlist[temp->i]->name);
 }
 
 // static void		next_room_busy(t_path *path, t_graph *graph)
@@ -59,51 +83,12 @@ static void		move_ants(t_path *path, t_graph *graph)
 // 	ft_printf(" next room L%d-%s ", path->ant_id, graph->adlist[path->i]->name);
 // }
 
-int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
+void	ant_start(int ant_count, t_path **path, t_graph *graph)
 {
+
 	int		i;
 	int		j;
-	int		ant_count;
-	int		path_total;
-	int		*ants_in_paths;
-
-	i = 0;
-	j = -1;
-	path_total = paths_count(path);
-	ants_in_paths = ft_memalloc(sizeof(int) * path_total);
-	//  if not malloc, error
-	ft_printf("path_total %d\n",path_total );
-	ant_count = graph->ants;
-
-	while (ant_count > 0)
-	{
-		i = 0;
-		ft_printf("loop %d\n", ant_count );
-		while (ant_count < path[i]->len && path_total > 1)
-		{
-			path_total--;
-		}
-		ft_printf("loop path_total %d\n", path_total );
-		while (i < path_total)
-			ants_in_paths[i++]++;
-		ant_count -= path_total;
-	}
-
-	j = -1;
-	while (path[++j])
-	{
-		path[j]->ants_wait_list = ants_in_paths[j];
-	}
-
-	//test
-	print_paths(path);
-	j = -1;
-	while (++j < i)
-	{
-		ft_printf("path distributed %d|%d\n", path[j]->ants_wait_list, path[j]->len);
-	}
-	//test
-	//t_path *tmp;
+	
 	j = 0;
 	ant_count = graph->ants;
 	i = 1;
@@ -114,7 +99,7 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 		{
 			if (path[j]->ants_wait_list) // while there are ants awaiting
 			{
-				path[j]->ant_id = i;
+				path[j]->id = i;
 				move_ants(path[j], graph);
 				path[j]->ants_wait_list--; //sending one to path
 				i++;
@@ -124,5 +109,45 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 		ant_count--;
 	}
 	
-	return (ants_in_paths); //change
+}
+
+int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
+{
+	int		i;
+	int		j;
+	int		ant_count;
+	int		path_total;
+
+	i = 0;
+	j = -1;
+	path_total = paths_count(path);
+	//  if not malloc, error
+	ft_printf("path_total %d\n",path_total );
+	ant_count = graph->ants;
+
+	while (ant_count > 0)
+	{
+		i = 0;
+		//ft_printf("loop %d\n", ant_count );
+		while (ant_count < path[i]->len && path_total > 1)
+		{
+			path_total--;
+		}
+		//ft_printf("loop path_total %d\n", path_total );
+		while (i < path_total)
+			path[i++]->ants_wait_list++;
+		ant_count -= path_total;
+	}
+	//test
+	print_paths(path);
+	j = -1;
+	while (++j < i)
+	{
+		ft_printf("path distributed %s %d|%d\n",  graph->adlist[path[j]->i]->name, path[j]->ants_wait_list, path[j]->len);
+	}
+	//test
+	
+	ant_start(graph->ants, path, graph);
+	
+	return (NULL); //change
 }
