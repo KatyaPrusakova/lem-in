@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/24 17:26:44 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/24 21:37:39 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,30 @@ int	paths_count(t_path **path)
 static void		move_ants(t_path *path, t_graph *graph)
 {
 	t_path *temp;
-
 	temp = path->next;
 	
-		// while (temp->next)
-		// {
-			if (!temp->occupied)
-			{
-				ft_printf("L%d-%s ", path->ant_id, graph->adlist[temp->i]->name);
-				temp = temp->next;
-				temp->ant_id = path->ant_id;
-				temp->occupied = 1;
-			}
-		// 	temp = temp->next;
-		// }
-
+	ft_printf("L%d-%s ", path->ant_id, graph->adlist[temp->i]->name);
+	//put ant to next room in linked list
+	temp = path->next->next;
+	temp->ant_id = path->ant_id;
+	temp->occupied = 1;
 	ft_printf("\n occupied L%d-%s \n", path->ant_id, graph->adlist[temp->i]->name);
-
 }
+
+// static void		next_room_busy(t_path *path, t_graph *graph)
+// {
+// 	int id;
+// 	path = path->next;
+// 	while (path->next)
+// 	{
+// 		path = path->next;
+// 	}
+// 	id = path->ant_id;
+// 	path = path->next;
+// 	path->ant_id = id;
+// 	path->occupied = 1;
+// 	ft_printf(" next room L%d-%s ", path->ant_id, graph->adlist[path->i]->name);
+// }
 
 int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 {
@@ -109,7 +115,7 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 			if (path[j]->ants_wait_list) // while there are ants awaiting
 			{
 				path[j]->ant_id = i;
-				move_ants(path[j], graph); 
+				move_ants(path[j], graph);
 				path[j]->ants_wait_list--; //sending one to path
 				i++;
 			}
@@ -120,44 +126,3 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 	
 	return (ants_in_paths); //change
 }
-
-
-
-// static void		execute_path(t_path *path, int *arrived, int *num)
-// {
-// 	int		i;
-
-// 	i = path->len - 2;
-// 	while (i >= 0)
-// 	{
-// 		if (path->occupied[i]->used >= 0)
-// 			move_ants(path, arrived, i, NULL);
-// 		i -= 1;
-// 	}
-// 	if (path->ants_wait_list > 0)
-// 	{
-// 		move_ants(path, arrived, 0, num);
-// 		*num += 1;
-// 		path->ants_nbr -= 1;
-// 	}
-// }
-
-// void			execute(t_path **path, int n_ants, int size)
-// {
-// 	int		i;
-// 	int		num;
-// 	int		arrived;
-
-// 	num = 0;
-// 	arrived = 0;
-// 	while (arrived != n_ants)
-// 	{
-// 		i = size - 1;
-// 		while (i >= 0)
-// 		{
-// 			execute_path(path[i], &arrived, &num);
-// 			i -= 1;
-// 		}
-// 		ft_putchar('\n');
-// 	}
-// }
