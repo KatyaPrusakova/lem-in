@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_and_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:08:16 by eprusako          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/02/21 23:10:32 by ksuomala         ###   ########.fr       */
-=======
-/*   Updated: 2021/02/24 11:24:03 by eprusako         ###   ########.fr       */
->>>>>>> 7b8650c93ffa1333bd20c873257ebbd74f8fad29
+/*   Updated: 2021/02/24 22:03:48 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/24 21:37:39 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/24 22:07:56 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	paths_count(t_path **path)
 	i = 0;
 	while (path[i])
 		i++;
-	//ft_printf("total len of all paths: %d\n: ", i);
+	ft_printf("total len of all paths: %d\n: ", i);
 	return (i);
 }
 
@@ -78,12 +78,12 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 	while (ant_count > 0)
 	{
 		i = 0;
-		//ft_printf("loop %d\n", ant_count );
+		ft_printf("loop %d\n", ant_count );
 		while (ant_count < path[i]->len && path_total > 1)
 		{
 			path_total--;
 		}
-		//ft_printf("loop path_total %d\n", path_total );
+		ft_printf("loop path_total %d\n", path_total );
 		while (i < path_total)
 			ants_in_paths[i++]++;
 		ant_count -= path_total;
