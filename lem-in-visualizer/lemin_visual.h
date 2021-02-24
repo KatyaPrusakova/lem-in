@@ -1,13 +1,13 @@
 #ifndef _LEM_IN_VISUAL_
 # define _LEM_IN_VISUAL_
 
-# define WIN_W 950
-# define WIN_H 950
+# define WIN_W 999
+# define WIN_H 999
 # define PI  3.14159
 
 # include "libft.h"
-# include <SDL2/SDL.h>
-# include <SDL_ttf.h>
+# include "SDL2/SDL.h"
+//# include <SDL_ttf.h>
 #include <math.h>
 
 
@@ -27,9 +27,17 @@ typedef	struct s_line
 	int end_y;
 }				t_line;
 
+/*
+** visited_from is initialized to -1.
+*/
+
 typedef struct	s_room
 {
 	char			*name;
+	int				index;
+	int				visited_from;
+	int				weight;
+	int				q;
 	int				x;
 	int				y;
 }				t_room;
@@ -48,8 +56,8 @@ typedef struct	s_ant
 
 typedef struct	s_edge
 {
-	char			*src;
-	char 			*dst;
+	int				src;
+	int				dst;
 	struct s_edge	*next;
 }				t_edge;
 
@@ -102,9 +110,9 @@ typedef struct		s_pointers
 */
 
 t_data		scale_map(char **input);
-t_room		add_room(char *line);
-t_edge		*new_edge(t_edge *head, char *src, char *dst);
-t_edge		*add_edges(char **input, int room_count);
+t_room		add_room(char *line, int index);
+t_edge		*new_edge(t_edge *edges, t_room *rooms, char *src, char *dst);
+t_edge		*add_edges(t_room *rooms, char **input, int room_count);
 t_map		save_rooms(char **input, int room_count);
 int			move_index(char **input);
 
@@ -118,7 +126,7 @@ void	ft_error(const char *str_err);
 **
 */
 
-t_pointers	*initialize(t_map *map, t_data *scale, t_pointers *sdl);
+t_pointers	*initialize(t_data *scale, t_pointers *sdl, t_room *rooms);
 
 t_room	*find_room(char *name, t_room *list);
 t_ant	*ant_destinations(char *line, t_ant *head, t_room *room, int wave);
@@ -127,7 +135,7 @@ t_ant	*ant_destinations(char *line, t_ant *head, t_room *room, int wave);
 ** Drawing the path finding algorithms.
 */
 
-void	draw_algorithm(t_pointers *p, t_data *scl, t_room *rooms, char **input);
+void	visualize_search(t_pointers *p, t_data *scl, t_map *map, char **input);
 void	draw_room(SDL_Renderer *renderer, int size, t_room *room, t_rgb color);
 
 
@@ -138,6 +146,16 @@ void	draw_room(SDL_Renderer *renderer, int size, t_room *room, t_rgb color);
 int move_ants(t_pointers *sdl, t_ant *head, t_data *scale);
 
 SDL_Renderer	*links(SDL_Renderer *renderer, int size, t_map *map);
+
+int			events(void);
+
+
+/*
+** free_all.c
+*/
+
+t_ant			*free_ants(t_ant *head);
+void			kill_all(t_pointers *sdl, t_map map, char **input);
 
 
 #endif

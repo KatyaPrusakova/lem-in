@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 13:08:23 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/16 23:21:58 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/19 15:08:35 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,5 @@ long long	ft_atoi(const char *str)
 			return (-1);
 		str++;
 	}
-	if (*str && !ft_isdigit(*str))
-		return (0);
 	return (res * sign);
 }

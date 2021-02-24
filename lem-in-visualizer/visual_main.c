@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/17 19:21:30 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/24 16:26:01 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void 	print_rooms(t_room *room, int room_count)
 }
 
 
-void		play(t_pointers *sdl, t_data *scale, t_room *rooms, char **input)
+
+void		visualize_ants(t_pointers *sdl, t_data *scale, t_room *rooms, char **input)
 {
 	t_ant	*list;
 	int		i;
@@ -105,6 +106,11 @@ void		play(t_pointers *sdl, t_data *scale, t_room *rooms, char **input)
 	SDL_SetRenderTarget(sdl->renderer, NULL);
 	while (!events() && input[i])
 	{
+		if (!ft_strcmp("0 0", input[i]))
+		{
+			ft_printf("stop\n");
+			break;
+		}
 		list = ant_destinations(input[i], list, rooms, wave);
 		SDL_Delay(300);
 		while (move_ants(sdl, list, scale))
@@ -112,47 +118,9 @@ void		play(t_pointers *sdl, t_data *scale, t_room *rooms, char **input)
 		i++;
 		wave++;
 	}
+	if (list)
+		list = free_ants(list);
 	SDL_Delay(3000);
-	exit(0);
-}
-
-void		kill_all(t_pointers *sdl, t_map map, char **input)
-{
-	int		i;
-	t_ant	*ant;
-	t_edge	*edge;
-
-	ft_free2d((void**)input);
-	SDL_DestroyTexture(sdl->backround);
-	SDL_DestroyRenderer(sdl->renderer);
-	SDL_DestroyWindow(sdl->window);
-	free(sdl);
-	i = 0;
-	while (map.rooms[i].name)
-	{
-		ft_strdel(&map.rooms[i].name);
-		ft_printf("del room name\n"); //test
-		i++;
-	}
-	free(map.rooms);
-	ant = map.ants;
-	while(ant)
-	{
-		ant = map.ants->next;
-		ft_memdel((void*)&map.ants);
-		map.ants = ant;
-	}
-	edge = map.edges;
-	while(edge)
-	{
-		edge = map.edges->next;
-		ft_strdel(&map.edges->dst);
-		ft_strdel(&map.edges->src);
-		ft_memdel((void*)&map.edges);
-		map.edges = edge;
-	}
-	SDL_Quit();
-	exit(0);
 }
 
 int			main(void)
@@ -165,18 +133,12 @@ int			main(void)
 	sdl = ft_memalloc(sizeof(t_pointers));
 	if (!sdl)
 		ft_error("malloc fail");
-	ft_printf("%LF\n", 1.42l);
 	input = parse_input();
 	scale = scale_map(input);
-
 	map = save_rooms(input, scale.room_count);
-
-
-	sdl = initialize(&map, &scale, sdl);
-	SDL_Delay(3000);
-
-	ft_printf("MAP ROOM SIZE = %d\n", scale.room_size); //test
-	draw_algorithm(sdl, &scale, map.rooms, input);
-//	play(sdl, &scale, map.rooms, input);
-//	kill_all(sdl, map, input);
+	ft_printf("saved rooms\n");
+	sdl = initialize(&scale, sdl, map.rooms);
+	visualize_search(sdl, &scale, &map, input);
+	visualize_ants(sdl, &scale, map.rooms, input);
+	kill_all(sdl, map, input);
 }

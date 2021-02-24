@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2021/02/19 11:42:32 by ksuomala         ###   ########.fr       */
+=======
 /*   Updated: 2021/02/24 10:46:00 by eprusako         ###   ########.fr       */
+>>>>>>> 7b8650c93ffa1333bd20c873257ebbd74f8fad29
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +66,7 @@ char		**parse_input(void)
 	i = 0;
 	len = 10000;
 	input = ft_memalloc(sizeof(char*) * len + 1);
-	while (get_next_line(0, &line))
+	while (get_next_line(fd_zero, &line))
 	{
 		if (i == len)
 			{
@@ -72,7 +76,7 @@ char		**parse_input(void)
 		input[i] = line;
 		i++;
 	}
-	if (i < 5)  // file should have at least 6 lines 
+	if (i < 5)  // file should have at least 6 lines
 		print_error(1, input);
 	valid_map(input);
 	return (input);

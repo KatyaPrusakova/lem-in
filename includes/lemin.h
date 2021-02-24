@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/24 16:35:11 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/24 21:21:34 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #define SIZE 400
 
 int fd; //test
+int	fd_zero; //test. Use argv instead of stdin.
 
 typedef struct		s_room
 {
@@ -45,6 +46,7 @@ typedef struct		s_graph
 	int				visualize;
 	int				room_total;
 	char			*room_name;
+	int				**weight;
 	t_room			**adlist;
 	t_queue			*q;
 }					t_graph;
@@ -63,6 +65,12 @@ typedef	struct 		s_path
 	struct s_path	*next;
 }					t_path;
 
+
+/*
+** Create weight matrix
+*/
+
+int **create_matrix(int height, int width);
 
 /*
 ** LEMIN.C
