@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/15 16:35:03 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/24 10:32:56 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				link_rooms(char *room, int i, t_graph* data)
 	t_room	*tmp;
 
 	if (!(new = ft_memalloc(sizeof(t_room))))
-		print_error(2);
+		print_error(2, NULL);
 	tmp = data->adlist[i];
 	if (tmp->next)
 	{
@@ -38,7 +38,7 @@ int				link_rooms(char *room, int i, t_graph* data)
 		{
 			if (!(ft_strcmp(tmp->next->name,room))) //if link already exists
 			{ // add free
-				print_error(5);
+				print_error(5, NULL);
 			}
 			tmp = tmp->next;
 		}
@@ -87,13 +87,12 @@ int			*valid_link(int i, char **room, t_graph* graph)
 		}
 		i++;
 	}
-	if (link_name == 2)
-		return (index);
-	print_error(5);
-	return (NULL);
+	if (link_name != 2)
+		print_error(5, NULL);
+	return (index);
 }
 
-int			parse_link(int i, char **line, t_graph* graph)
+int			parse_link(int i, char **input, t_graph* graph)
 {
 	char	**room;
 	char	*start;
@@ -105,11 +104,11 @@ int			parse_link(int i, char **line, t_graph* graph)
 	e = 0;
 	start =  graph->adlist[0]->name;
 	end =  graph->adlist[graph->room_total - 1]->name;
-	while (line[i] && (ft_strchr(line[i], '-') || line[i][0] == '#')) //  add comment function
+	while (input[i] && (ft_strchr(input[i], '-') || input[i][0] == '#')) //  add comment function
 	{
-		if (ft_strchr(line[i], '-'))
+		if (ft_strchr(input[i], '-'))
 		{	
-			room = ft_strsplit(line[i], '-');
+			room = ft_strsplit(input[i], '-');
 			is_link(room, valid_link(0, room, graph), graph);
 		}
 		if (!ft_strcmp(room[0], start) || !ft_strcmp(room[1], start))
@@ -118,7 +117,7 @@ int			parse_link(int i, char **line, t_graph* graph)
 			e = 1;
 		i++;
 	}
-	if (line[i]) // "\n" line
-		print_error(10);
-	return (s + e == 2 ? 1 : print_error(5));
+	if (input[i]) // "\n" line
+		print_error(10, input);
+	return (s + e == 2 ? 1 : print_error(5, input));
 }

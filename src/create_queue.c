@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_queue.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/10 17:48:44 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/24 10:12:54 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 	if (!q)
 		q = ft_memalloc(sizeof(t_queue));
 	if (!q)
-		print_error(2);
+		print_error(2, NULL);
 //	I'm uncertain about the functionality of ft_memdup.
 	new = ft_memdup(adlist[index], sizeof(t_room));
 	// if (!new)
