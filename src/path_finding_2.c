@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_finding_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/25 11:35:20 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/25 21:01:19 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,9 @@ t_path **check_path(t_graph *graph, int *visited, int find_path, t_path **path, 
 {
 	t_path	*found_path;
 
+//if visualize
+//	ft_printf("%d %d %d\n%d-%d\n", find_path, visited[find_path],
+//	graph->weight[visited[find_path]][find_path], find_path, find_path);
 	found_path = save_path(visited, find_path, graph->weight, graph->room_total - 1);
 	if (!found_path)
 		return (path);
@@ -418,10 +421,14 @@ int		**find_paths(t_graph *graph)
 	paths = ft_memalloc(sizeof(t_path*) * graph->room_total);
 //	if (!paths)
 //		ft_error(2);
+	if (graph->visualize)
+		ft_printf("BFS\n");
 	paths[0] = bfs_2(max_paths, graph, graph->adlist[0], graph->visualize);
 
 //	ft_dprintf(fd, "\npaths found\n");
 	print_matrix(graph->weight, graph->room_total);
+	if (graph->visualize)
+		ft_printf("BFS\n");
 	paths[0] = bfs_2(max_paths, graph, graph->adlist[0], graph->visualize);
 	paths = bfs_3(max_paths, graph, graph->adlist[0], graph->visualize);
 

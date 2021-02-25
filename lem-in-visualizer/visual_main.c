@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/24 16:26:01 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/25 20:25:13 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ int			events(void)
 {
 	SDL_Event		event;
 
-	SDL_PollEvent(&event);
-	if (event.type == SDL_QUIT)
-		return (1);
+	while(SDL_PollEvent(&event))
+	{
+		if (event.type == SDL_QUIT)
+			return (1);
+	}
 	return (0);
 }
 

@@ -1,8 +1,8 @@
 #ifndef _LEM_IN_VISUAL_
 # define _LEM_IN_VISUAL_
 
-# define WIN_W 999
-# define WIN_H 999
+# define WIN_W 900
+# define WIN_H 900
 # define PI  3.14159
 
 # include "libft.h"
@@ -88,13 +88,6 @@ typedef struct s_data
 	int	ants;
 } t_data;
 
-typedef struct		s_bfs
-{
-	char	**queue;
-	int		*visited;
-}					t_bfs;
-
-
 typedef struct		s_pointers
 {
 	SDL_Texture		*backround;
@@ -136,7 +129,7 @@ t_ant	*ant_destinations(char *line, t_ant *head, t_room *room, int wave);
 */
 
 void	visualize_search(t_pointers *p, t_data *scl, t_map *map, char **input);
-void	draw_room(SDL_Renderer *renderer, int size, t_room *room, t_rgb color);
+void	draw_room(SDL_Renderer *renderer, int size, t_room room, t_rgb color);
 
 
 /*

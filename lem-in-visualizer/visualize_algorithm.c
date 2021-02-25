@@ -12,22 +12,15 @@
 
 #include "lemin_visual.h"
 
-void	draw_link_bfs(SDL_Renderer *renderer, int size, t_room *rooms, int i[2])
+void	draw_link_bfs(SDL_Renderer *renderer, int size, t_map *map, int i[2])
 {
 	t_line line;
 
 
-//coordinates here get changed on the way ant that breaks the line drawing.
-	ft_printf("line from room %d - %d\n", i[0], i[1]);
-	line.start_x = rooms[i[0]].x + size / 2;
-	line.start_y = rooms[i[0]].y + size / 2;
-	line.end_x = rooms[i[1]].x + size / 2;
-	line.end_y = rooms[i[1]].y + size / 2;
-
-
-	ft_printf("line from %d|%d -> %d|%d\n\n", line.start_x, line.start_y, line.end_x, line.end_y);
-	if (i[0] < 0 || i[1] < 0)
-		ft_printf("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW  \n");
+	line.start_x = map->rooms[i[0]].x + size / 2;
+	line.start_y = map->rooms[i[0]].y + size / 2;
+	line.end_x = map->rooms[i[1]].x + size / 2;
+	line.end_y = map->rooms[i[1]].y + size / 2;
 	SDL_RenderDrawLine(renderer, line.start_x - 1, line.start_y, line.end_x - 1,\
 	line.end_y);
 	SDL_RenderDrawLine(renderer, line.start_x, line.start_y, line.end_x,\
@@ -42,15 +35,14 @@ void	draw_link_bfs(SDL_Renderer *renderer, int size, t_room *rooms, int i[2])
 
 // I give pointer to the room, not the whole array of rooms[0].
 
-void	draw_room(SDL_Renderer *renderer, int size, t_room *room, t_rgb clr)
+void	draw_room(SDL_Renderer *renderer, int size, t_room room, t_rgb clr)
 {
 	SDL_Rect	rect;
 
 	rect.h = size;
 	rect.w = size;
-	rect.x = room->x;
-	rect.y = room->y;
-	ft_printf("Draw room %d\n", room->index);
+	rect.x = room.x;
+	rect.y = room.y;
 	SDL_SetRenderDrawColor(renderer, clr.r, clr.g, clr.b, clr.a);
 //	ft_printf("DRAW ROOM: %d line from %d -> %d |%d|%d|%d\n", room->index, room->index, room->visited_from, clr.r, clr.g, clr.b);
 	SDL_RenderFillRect(renderer, &rect);
@@ -109,93 +101,81 @@ void		visit_room(t_room *rooms, char *line)
 }
 
 
-void	draw_path(t_pointers *p, t_data *scl, t_room *rooms, char *input)
+void	draw_path(t_pointers *p, t_data *scl, t_map *map, t_room *rooms, char *input)
 {
 	char	**split;
 	int		*path;
 	int		i;
 
-	i = 0;
-//	ft_printf("input %s\n", input);
+	i = -1;
 	split = ft_strsplit(input, '|');
-//	if (!split)
-//		ft_error("split fail\n");
+	if (!split)
+		ft_error("split fail\n");
 	path = ft_memalloc(sizeof(int) * scl->room_count);
 	if (!path)
 		ft_error("malloc fail\n");
-//	ft_printf("Draw path:\n");
-	while (split[i])
-	{
-//		ft_printf("split %d = %d\n", i, ft_atoi(split[i]));
+	while (split[++i])
 		path[i] = ft_atoi(split[i]);
-//		ft_printf("i = %d path[%d] = %d\n", i, i, path[i]);
-		i++;
-	}
-	draw_room(p->renderer, scl->room_size, &rooms[path[--i]], (t_rgb){0, 100, 0, 255});
-	draw_link_bfs(p->renderer, scl->room_size, rooms, (int[2]){path[i], scl->room_count - 1});
+	draw_room(p->renderer, scl->room_size, rooms[path[--i]], (t_rgb){0, 100, 0, 255});
+	draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){path[i], scl->room_count - 1});
 	SDL_RenderPresent(p->renderer);
 	SDL_Delay(500);
 	while (--i)
 	{
-	//	ft_printf("draw room %d\n", path[i]);
-		draw_room(p->renderer, scl->room_size, &rooms[path[i]], (t_rgb){0, 100, 0, 255});
-		draw_link_bfs(p->renderer, scl->room_size, rooms, (int[2]){path[i], path[i + 1]});
+		ft_printf("| %d ", path[i]);
+		draw_room(p->renderer, scl->room_size, rooms[path[i]], (t_rgb){0, 100, 0, 255});
+		draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){path[i], path[i + 1]});
 		SDL_RenderPresent(p->renderer);
 		SDL_Delay(500);
 	}
-	draw_link_bfs(p->renderer, scl->room_size, rooms, (int[2]){0, path[1]});
-	draw_room(p->renderer, scl->room_size, rooms, (t_rgb){200, 200, 200, 255});
+	draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){0, path[1]});
+	draw_room(p->renderer, scl->room_size, rooms[0], (t_rgb){200, 200, 200, 255});
 	SDL_RenderPresent(p->renderer);
-	SDL_Delay(500);
+	SDL_Delay(3000);
+	ft_n(1);
 }
 
-void		draw_links(SDL_Renderer *renderer, int size, t_room *room, t_edge *links)
+void		draw_links(SDL_Renderer *renderer, int size, t_map *map)
 {
+	t_edge *links;
+
+	links = map->edges;
 	SDL_SetRenderDrawColor(renderer, 70, 70, 70, 255);
 	while (links)
 	{
-		draw_link_bfs(renderer, size, room, (int[2]){links->src, links->dst});
+		draw_link_bfs(renderer, size, map, (int[2]){links->src, links->dst});
 		links = links->next;
 	}
 }
 
 
-void		draw_graph(t_pointers *p, t_data *scl, t_room *rooms, t_edge *links)
+void		draw_graph(t_pointers *p, t_data *scl, t_map *map)
 {
 //	t_rgb	color;473
 	int		i;
 
-	draw_links(p->renderer, scl->room_size, rooms, links);
+	draw_links(p->renderer, scl->room_size, map);
 	i = scl->room_count;
 	while (i--)
 	{
 //		ft_printf("NAME: %s, Q: %d, VISITED: %d\n", rooms[i].name, rooms[i].q, rooms[i].visited_from);
-		if (rooms[i].q == -1 && rooms[i].visited_from == -1)
+		if (map->rooms[i].q == -1 && map->rooms[i].visited_from == -1)
+			draw_room(p->renderer, scl->room_size, map->rooms[i], (t_rgb){70, 70, 70, 255});
+		else if (map->rooms[i].visited_from > -1)
 		{
-			draw_room(p->renderer, scl->room_size, &rooms[i], (t_rgb){70, 70, 70, 255});
-		}
-		else if (rooms[i].visited_from > -1)
-		{
-			if (rooms[i].weight == 1)
-				SDL_SetRenderDrawColor(p->renderer, 50, 50, 0, 255);
-			else if (rooms[i].weight == -1)
-				SDL_SetRenderDrawColor(p->renderer, 0, 50, 50, 255);
-			else
-				SDL_SetRenderDrawColor(p->renderer, 0, 0, 255, 255);
-			draw_link_bfs(p->renderer, scl->room_size, rooms, (int[2]){i, rooms[i].visited_from});
-			draw_room(p->renderer, scl->room_size, &rooms[i], (t_rgb){0, 0, 255, 255});
-			ft_printf("Visited node %d\n", i);
+			ft_printf("Draw visited room %d\n", i);
+			draw_room(p->renderer, scl->room_size, map->rooms[i], (t_rgb){0, 0, 255, 255});
+			draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){i, map->rooms[i].visited_from});
 		}
 		else
 		{
-			draw_room(p->renderer, scl->room_size, &rooms[i], (t_rgb){0, 0, 55, 255});
-			draw_link_bfs(p->renderer, scl->room_size, rooms, (int[2]){i, rooms[i].q});
-			ft_printf("Queued room %d\n", i);
+			draw_room(p->renderer, scl->room_size, map->rooms[i], (t_rgb){0, 0, 55, 255});
+			draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){i, map->rooms[i].q});
 		}
 	}
 	ft_printf("PRESENT\n");
 	SDL_RenderPresent(p->renderer);
-	SDL_Delay(500);
+	SDL_Delay(1000);
 }
 
 
@@ -214,6 +194,23 @@ void	print_room_coord(t_room* room)
 }
 
 /*
+** Sets all visited_from and q values to -1.
+*/
+
+void	empty_rooms(t_room *rooms, int room_count)
+{
+	int i;
+
+	i = 0;
+	while (i < room_count)
+	{
+		rooms[i].visited_from = -1;
+		rooms[i].q = -1;
+		i++;
+	}
+}
+
+/*
 ** Drawing the path finding algorithm before moving the ants.
 */
 
@@ -222,24 +219,26 @@ void	visualize_search(t_pointers *p, t_data *scl, t_map *map, char **input)
 	int				i;
 
 	i = move_index(input);
-	draw_graph(p, scl, map->rooms, map->edges);
+	draw_graph(p, scl, map);
 	SDL_Delay(2000);
 	while(ft_strcmp(input[i], "START_ANT_MOVEMENT"))
 	{
 	//	print_room_coord(map->rooms);
+		if (!ft_strcmp(input[i], "BFS"))
+		{
+			empty_rooms(map->rooms, scl->room_count);
+			i++;
+		}
 		if (events())
-			break;
+			exit(0);
 		if (ft_strchr(input[i], '|'))
-			draw_path(p, scl, map->rooms, input[i]);
+			draw_path(p, scl, map, map->rooms, input[i]);
 		else if (!ft_strchr(input[i], '-'))
 		{
 			draw_queue(map->rooms, input[i + 1]);
-			//visit_room should only save the room it was visited from, and the edge value. Add one more number to the input as the edge value.
 			visit_room(map->rooms, input[i]);
-			SDL_Delay(1000);
 		}
-		draw_graph(p, scl, map->rooms, map->edges);
-		//draw visited rooms, unvisited rooms and links, start and end rooms.
+		draw_graph(p, scl, map);
 		i++;
 	}
 	ft_n(1);
