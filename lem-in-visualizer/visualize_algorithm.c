@@ -169,11 +169,19 @@ void		draw_graph(t_pointers *p, t_data *scl, t_room *rooms, t_edge *links)
 	{
 //		ft_printf("NAME: %s, Q: %d, VISITED: %d\n", rooms[i].name, rooms[i].q, rooms[i].visited_from);
 		if (rooms[i].q == -1 && rooms[i].visited_from == -1)
+		{
 			draw_room(p->renderer, scl->room_size, &rooms[i], (t_rgb){70, 70, 70, 255});
+		}
 		else if (rooms[i].visited_from > -1)
+		{
 			draw_room(p->renderer, scl->room_size, &rooms[i], (t_rgb){0, 0, 255, 255});
+			ft_printf("Visited node %d\n", i);
+		}
 		else
+		{
 			draw_room(p->renderer, scl->room_size, &rooms[i], (t_rgb){0, 0, 55, 255});
+			ft_printf("Queued room %d\n", i);
+		}
 	}
 	ft_printf("PRESENT\n");
 	SDL_RenderPresent(p->renderer);
