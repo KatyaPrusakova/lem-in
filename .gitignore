@@ -1,3 +1,14 @@
+# SDL2 files
+
+lem-in-visualizer/Notes
+lem-in-visualizer/libSDL2/Makefile
+lem-in-visualizer/libSDL2/build/
+lem-in-visualizer/libSDL2/config.log
+lem-in-visualizer/libSDL2/config.status
+lem-in-visualizer/libSDL2/libtool
+lem-in-visualizer/libSDL2/sdl2-config
+
+
 #executables
 
 lem-in
