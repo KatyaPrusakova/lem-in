@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/24 21:21:34 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/25 00:02:46 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct		s_room
 	int				prev_room_index;
 	int				end;
 	int				visited;
+	int				ant_id;
 	struct s_room	*next;
 }					t_room;
 
@@ -60,11 +61,11 @@ typedef	struct 		s_path
 	int				i;
 	int				len;
 	int				ants_wait_list; //added
-	int				ant_id; //added
+	int				id; //added ant_id
 	int				occupied; //added
+	int				next_i;
 	struct s_path	*next;
 }					t_path;
-
 
 /*
 ** Create weight matrix
