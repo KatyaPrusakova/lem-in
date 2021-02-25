@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_finding_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/24 18:51:22 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/25 10:55:47 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -419,11 +419,12 @@ int		**find_paths(t_graph *graph)
 //		ft_error(2);
 	paths[0] = bfs_2(max_paths, graph, graph->adlist[0], graph->visualize);
 //	ft_dprintf(fd, "\npaths found\n");
-//	print_paths(paths);
 	print_matrix(graph->weight, graph->room_total);
 	paths[0] = bfs_2(max_paths, graph, graph->adlist[0], graph->visualize);
 	paths = bfs_3(max_paths, graph, graph->adlist[0], graph->visualize);
-//	allocate_ants_to_rooms(paths, graph);
+	
+	allocate_ants_to_rooms(paths, graph);
+	print_paths(paths);
 // remove the shortest paths links from the graph;
 /*	if (paths[0] && paths[0]->len > 1)
 	{

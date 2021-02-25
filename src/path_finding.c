@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/24 23:01:42 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/25 10:54:45 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,7 +280,7 @@ void	print_paths(t_path **path)
 		while (path[++i])
 		{
 			tmp = path[i];
-			ft_printf("len %d path n %d: ", path[i]->len, i);
+			//ft_printf("len %d path n %d: ", path[i]->len, i);
 			while (tmp)
 			{
 				ft_dprintf(fd, "%d |", tmp->i);
@@ -330,13 +330,13 @@ int		**find_paths(t_graph *graph)
 	int			max_paths;
 
 	max_paths = count_paths(graph);
-	paths = ft_memalloc(sizeof(t_path*) * graph->room_total);
+	paths = ft_memalloc(sizeof(t_path*) * graph->room_total + 5);
 //	if (!paths)
 //		ft_error(2);
 	paths = bfs(max_paths, graph, graph->adlist[0], graph->visualize);
 //	ft_dprintf(fd, "\npaths found\n");
 		print_paths(paths);
-	allocate_ants_to_rooms(paths, graph);
+	
 // remove the shortest paths links from the graph;
 /*	if (paths[0] && paths[0]->len > 1)
 	{
