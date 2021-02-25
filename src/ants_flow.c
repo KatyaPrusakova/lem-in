@@ -6,57 +6,93 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/25 15:27:26 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/25 21:26:40 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int	paths_count(t_path **path)
+void	create_rooms_in_path(t_path *path, t_graph *farm)
+{
+	t_room	*room;
+	t_path	*prev;
+
+	prev = path;
+	path->prev = prev;
+	while (path)
+	{
+		room = farm->adlist[path->i];
+		path->room = room;
+		path = path->next;
+	}
+	path = prev->next;
+	while (path) //
+	{
+		path->prev = prev;
+		prev = prev->next;
+		path = path->next;
+	}
+}
+
+int	paths_count(t_path **path, t_graph *graph)
 {
 	int		i;
 
 	i = 0;
 	while (path[i])
+	{
+		ft_printf("%d len %d\n: ", i, path[i]->len);
+		create_rooms_in_path(path[i], graph);
 		i++;
-	//ft_printf("total len of all paths: %d\n: ", i);
+	}
 	return (i);
 }
 
-
-void	push_ant_further(t_path *list)
+void	push_ant_further(t_path *path)
 {
-	list = list->prev;
-	while (list && list->room && !list->room->end)
+	path = path->prev;
+	while (path && path->room && !path->room->end)
 	{
-		if (list->room->antnbr > 0)
+		if (path->room->antnbr > 0)
 		{
-			if (list->next->room->end)
+			if (path->next->room->end)
 			{
-				list->next->room->antnbr++;
-				ft_printf("L%d-%s ", list->room->antnbr,
-					list->next->room->name);
+				path->next->room->antnbr++;
+				ft_printf("L%d-%s ", path->room->antnbr,
+					path->next->room->name);
 			}
 			else
 			{
-				list->next->room->antnbr = list->room->antnbr;
-				ft_printf("L%d-%s ", list->next->room->antnbr,
-					list->next->room->name);
+				path->next->room->antnbr = path->room->antnbr;
+				ft_printf("L%d-%s ", path->next->room->antnbr, path->next->room->name);
 			}
-			list->room->antnbr = 0;
+			path->room->antnbr = 0;
 		}
-		list = list->prev;
+		path = path->prev;
 	}
 }
 
-void	push_ant(t_path *list, int ant)
+int	push_ant(t_path **path, int ant, int total_ant)
 {
-	if (list->next->room->end)
-		list->next->room->antnbr++;
-	else
-		list->next->room->antnbr = ant;
-	ft_printf("L%d-%s ", ant,
-		list->next->room->name);
+	t_path *temp;
+	int	i;
+	
+	i = 0;
+	while (path[i])
+	{
+		temp = path[i];
+		total_ant--;
+		if (temp->next->room->end)
+			temp->next->room->antnbr++;
+		else
+			temp->next->room->antnbr = ant;
+		ft_printf("L%d-%s ", ant,
+			temp->next->room->name);
+		path[i]->ants_wait_list--;
+		ant++;
+		i++;
+	}
+	return (total_ant);
 }
 
 int		ants_left_in_path(t_path *path)
@@ -66,20 +102,32 @@ int		ants_left_in_path(t_path *path)
 	q_path = path->next;
 	while (q_path)
 	{
-		if (q_path->room->antnbr > 0 && q_path->room->end)
+		if (q_path->room->antnbr > 0 && !q_path->room->end)
 			return (1);
 		q_path = q_path->next;
 	}
 	return (0);
 }
 
-void	push_ants_to_end(t_path *path, int size)
+void	push_ants_to_end(t_path **path)
 {
-	while (size < path->size)
+	t_path *temp;
+	int i;
+//	int len;
+
+	i = -1;
+	while (path[++i])
 	{
-		if (ants_left_in_path(path[size]))
-			push_ant_further(path[size].endlist);
-		size++;
+		if (ants_left_in_path(path[i]))
+		{
+			temp = path[i];
+			while (temp->next)
+			{
+				temp = temp->next;
+			}
+			push_ant_further(temp);
+		}
+	//	path = path->next;
 	}
 }
 
@@ -88,30 +136,37 @@ void	push_ants_to_end(t_path *path, int size)
 void	run_ants(t_path **path, t_graph *farm)
 {
 	int		i;
-	int		size;
+	int		total_ant;
 	int		ant;
 	t_path *temp;
 
 	ant = 1;
-	// temp = path[0];
-	// temp[i]
-	size = paths_count(path);
-	while (ant != farm->ants) //corr
+
+	i = 0;
+	total_ant = farm->ants;
+	while (path[i]->room->antnbr != farm->ants) //corr
 	{
-		while (i < size)
+		i = 0;
+		while (path[i])
 		{
-			ft_printf("size %d %d\n", path[i]);
+			ft_printf("i %d\n", i);
 			if (ants_left_in_path(path[i]))
-				push_ant_further(path[i].endlist);
-			if (path[i]->ants_wait_list > 0)
 			{
-				push_ant(path[i], ant);
-				path[i]->ants_wait_list--;
+				temp = path[i];
+				while (temp->next)
+				{
+					temp = temp->next;
+				}
+				push_ant_further(path[i]->end);
+			}
+			if (total_ant > 0)
+			{
+				total_ant = push_ant(path, ant, total_ant);
 			}
 			i++;
 			ant++;
-		}
-		push_ants_to_end(path, size);
+		}	
+		push_ants_to_end(path);
 		ft_printf("\n");
 	}
 }
@@ -125,9 +180,11 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 
 	i = 0;
 	j = -1;
-	path_total = paths_count(path);
+	path_total = paths_count(path, graph);
+	
+	
 	//  if not malloc, error
-//	ft_printf("path_total %d\n",path_total );
+	ft_printf("sucsess %s %s\n", path[0]->room->name, path[1]->room->name);
 	ant_count = graph->ants;
 
 	while (ant_count > 0)
