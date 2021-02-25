@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ants_flow.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/25 13:43:23 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/25 17:06:26 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	paths_count(t_path **path)
 
 
 /*
-** If path lenght plus number of ants in room more then 
+** If path lenght plus number of ants in room more then
 ** ant_count move to next room
 ** If path lenght plus number of ants in room less or equal then
 ** add ants to current room
@@ -34,10 +34,10 @@ int	paths_count(t_path **path)
 void			move_ants(t_path *path, t_graph *graph)
 {
 	t_path *temp;
-	t_room *room;
+//	t_room *room;
 
 	temp = path->next;
-	room = graph->adlist[temp->i];
+//	room = graph->adlist[temp->i];
 
 	ft_printf(" L%d-%s ", path->id, graph->adlist[temp->i]->name);
 
@@ -54,7 +54,7 @@ void			move_ants(t_path *path, t_graph *graph)
 			graph->adlist[temp->i]->visited = 1;
 			graph->adlist[temp->i]->fresh = 1;
 		}
-	
+
 
 		// 	ft_printf("next L%d-%s \n", path->id, graph->adlist[temp->next->i]->name);
 //	ft_printf("\n occupied L%d-%s \n", path->ant_id, graph->adlist[temp->i]->name);
@@ -85,7 +85,7 @@ static void		ant_in_rooms_out(t_path **path, t_graph *graph)
 				name = graph->adlist[graph->adlist[temp->i]->prev_room_index]->name;
 				ft_printf("L%d-%s ", id, name);
 				graph->adlist[temp->i]->visited = 0;
-			}	
+			}
 		}
 	}
 	ft_printf("\n");
@@ -97,7 +97,7 @@ void	ant_start(int ant_count, t_path **path, t_graph *graph)
 
 	int		i;
 	int		j;
-	
+
 	j = 0;
 	ant_count = graph->ants;
 	i = 1;
@@ -119,7 +119,7 @@ void	ant_start(int ant_count, t_path **path, t_graph *graph)
 	//	ft_printf("\n");
 		ant_count--;
 	}
-	
+
 }
 
 int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
@@ -157,8 +157,8 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 		ft_printf("path distributed %s %d|%d\n",  graph->adlist[path[j]->i]->name, path[j]->ants_wait_list, path[j]->len);
 	}
 	//test
-	
+
 	ant_start(graph->ants, path, graph);
-	
+
 	return (NULL); //change
 }
