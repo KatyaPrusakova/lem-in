@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/25 00:53:01 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/25 12:34:59 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	paths_count(t_path **path)
 ** add ants to current room
 */
 
-static void		move_ants(t_path *path, t_graph *graph)
+void			move_ants(t_path *path, t_graph *graph)
 {
 	t_path *temp;
 	t_room *room;
@@ -39,49 +39,58 @@ static void		move_ants(t_path *path, t_graph *graph)
 	temp = path->next;
 	room = graph->adlist[temp->i];
 
-	ft_printf("input L%d-%s\n", path->id, graph->adlist[temp->i]->name);
+	ft_printf(" L%d-%s ", path->id, graph->adlist[temp->i]->name);
 
-	//put ant to next room in adlist
 	if (!temp->next)
 		return;
-	//if ant is already in next room
-	while (temp->next)
-	{
-		
+
+	//put ant to next room in adlist
+	temp = temp->next;
 		if (!graph->adlist[temp->i]->visited)
 		{
 			graph->adlist[temp->i]->ant_id = path->id;
-			//ft_printf("L%d-%s ", graph->adlist[temp->i]->ant_id, graph->adlist[temp->i]->name);
+			graph->adlist[temp->i]->prev_room_index = temp->i;
+		//	ft_printf("one L%d-%s \n", graph->adlist[temp->i]->ant_id, graph->adlist[temp->i]->name);
 			graph->adlist[temp->i]->visited = 1;
+			graph->adlist[temp->i]->fresh = 1;
+		}
 	
-		}
-		else if (graph->adlist[temp->i]->visited)
-		{
-			ft_printf("L%d-%s \n", graph->adlist[temp->i]->ant_id, graph->adlist[temp->i]->name);
-			graph->adlist[temp->i]->visited = 0;
-			if (temp->next)
-				graph->adlist[temp->next->i]->ant_id = graph->adlist[temp->i]->ant_id;
-		}
-		temp = temp->next;
-	}
+
 		// 	ft_printf("next L%d-%s \n", path->id, graph->adlist[temp->next->i]->name);
 //	ft_printf("\n occupied L%d-%s \n", path->ant_id, graph->adlist[temp->i]->name);
 }
 
-// static void		next_room_busy(t_path *path, t_graph *graph)
-// {
-// 	int id;
-// 	path = path->next;
-// 	while (path->next)
-// 	{
-// 		path = path->next;
-// 	}
-// 	id = path->ant_id;
-// 	path = path->next;
-// 	path->ant_id = id;
-// 	path->occupied = 1;
-// 	ft_printf(" next room L%d-%s ", path->ant_id, graph->adlist[path->i]->name);
-// }
+static void		ant_in_rooms_out(t_path **path, t_graph *graph)
+{
+	t_path *temp;
+	int i;
+	int id;
+	char *name;
+
+	i = -1;
+	while (path[++i])
+	{
+		temp = path[i]->next;
+		while (temp->next)
+		{
+			temp = temp->next;
+			if (graph->adlist[temp->i]->visited  && graph->adlist[temp->i]->fresh)
+			{
+				graph->adlist[temp->i]->fresh = 0;
+				break;
+			}
+			if (graph->adlist[temp->i]->visited  && !graph->adlist[temp->i]->fresh) //if ant in room print out
+			{
+				id = graph->adlist[temp->i]->ant_id;
+				name = graph->adlist[graph->adlist[temp->i]->prev_room_index]->name;
+				ft_printf("L%d-%s ", id, name);
+				graph->adlist[temp->i]->visited = 0;
+			}	
+		}
+	}
+	ft_printf("\n");
+	//ft_printf(" next room L%d-%s ", path->ant_id, graph->adlist[path->i]->name);
+}
 
 void	ant_start(int ant_count, t_path **path, t_graph *graph)
 {
@@ -100,12 +109,14 @@ void	ant_start(int ant_count, t_path **path, t_graph *graph)
 			if (path[j]->ants_wait_list) // while there are ants awaiting
 			{
 				path[j]->id = i;
-				move_ants(path[j], graph);
-				path[j]->ants_wait_list--; //sending one to path
+				move_ants(path[j], graph); //sending one to path
+				path[j]->ants_wait_list--;
 				i++;
 			}
 			j++;
 		}
+		ant_in_rooms_out(path, graph);
+	//	ft_printf("\n");
 		ant_count--;
 	}
 	
@@ -122,7 +133,7 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 	j = -1;
 	path_total = paths_count(path);
 	//  if not malloc, error
-	ft_printf("path_total %d\n",path_total );
+//	ft_printf("path_total %d\n",path_total );
 	ant_count = graph->ants;
 
 	while (ant_count > 0)

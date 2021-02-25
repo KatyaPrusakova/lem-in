@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_finding_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/25 11:21:25 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/02/25 11:35:20 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ t_path	**bfs_3(int max_paths, t_graph *graph, t_room	*room, int visualize)
 	if (visualize)
 		ft_dprintf(fd, "use visualizer\n"); //test
 	visited = init_visited(graph->room_total);
-	set_1 = ft_memalloc(sizeof(t_path*) * (max_paths));
+	set_1 = ft_memalloc(sizeof(t_path*) * (max_paths + 1));
 	if (!set_1)
 		ft_printf("malloc fail"); //change
 	q = enqueue(room->index, q, graph->adlist, 0);
@@ -279,7 +279,7 @@ t_path	**bfs_3(int max_paths, t_graph *graph, t_room	*room, int visualize)
 	}
 	if (graph->visualize)
 		ft_printf("START_ANT_MOVEMENT\n");
-	return (NULL);
+	return (set_1);
 }
 
 /*
@@ -419,13 +419,14 @@ int		**find_paths(t_graph *graph)
 //	if (!paths)
 //		ft_error(2);
 	paths[0] = bfs_2(max_paths, graph, graph->adlist[0], graph->visualize);
+
 //	ft_dprintf(fd, "\npaths found\n");
 	print_matrix(graph->weight, graph->room_total);
 	paths[0] = bfs_2(max_paths, graph, graph->adlist[0], graph->visualize);
 	paths = bfs_3(max_paths, graph, graph->adlist[0], graph->visualize);
 
+	//print_paths(paths);
 	allocate_ants_to_rooms(paths, graph);
-	print_paths(paths);
 // remove the shortest paths links from the graph;
 /*	if (paths[0] && paths[0]->len > 1)
 	{
