@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/25 12:22:50 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/25 13:27:33 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ t_path				**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize);
 
 t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev);
 t_queue		*dequeue(t_queue *q);
-
+void		draw_queue(t_room **adlist, t_queue *q); //testing
 /*
 ** path finding
 */
