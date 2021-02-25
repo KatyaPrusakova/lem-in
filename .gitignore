@@ -7,7 +7,11 @@ lem-in-visualizer/libSDL2/config.log
 lem-in-visualizer/libSDL2/config.status
 lem-in-visualizer/libSDL2/libtool
 lem-in-visualizer/libSDL2/sdl2-config
+lem-in-visualizer/libSDL2/Makefile.rules
 
+#test files
+
+maps/visualizer/small_x
 
 #executables
 
