@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/28 11:39:30 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/28 12:12:58 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,12 +162,12 @@ void	run_ants_in_one_path(int ant, t_path *path, t_graph *farm)
 		{
 			push_ant(path, ant);
 		}
-		push_ants_to_end(path);
-		ft_printf("\n");
+		push_ants_to_end(end_of_path(path));
+	
 //	}
 }
 
-void	run_ants(t_path **path, t_graph *farm)
+void	run_ants(int path_total, t_path **path, t_graph *farm)
 {
 	int		i;
 	int		total_ant;
@@ -177,7 +177,7 @@ void	run_ants(t_path **path, t_graph *farm)
 	ant = 1;
 
 	i = 0;
-	total_ant = farm->ants; //delete
+	total_ant = 0; //delete
 	while (total_ant <= farm->ants) // path[0]->end is pointer to end room (same for all paths)
 	{
 		i = 0;
@@ -188,7 +188,8 @@ void	run_ants(t_path **path, t_graph *farm)
 			ant++;
 			i++;
 		}
-		total_ant += ant;
+		ft_printf("\n");
+		total_ant += path_total;
 	}
 }
 
@@ -230,7 +231,7 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 	}
 	//test
 	
-	run_ants(path, graph);
+	run_ants(path_total, path, graph);
 	
 	return (NULL); //change
 }
