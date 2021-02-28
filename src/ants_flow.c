@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/28 12:12:58 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/28 12:23:54 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	paths_count(t_path **path, t_graph *graph)
 
 t_path*		end_of_path(t_path *path)
 {
-	while (path->next->next)
+	while (path->next)
 	{
 		path = path->next;
 	}
