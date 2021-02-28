@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/28 11:16:33 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/28 17:17:23 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef	struct		s_queue
 typedef struct		s_graph
 {
 	int				ants;
+	int				ants_end;
 	int				visualize;
 	int				room_total;
 	char			*room_name;
