@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/28 19:09:45 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/28 19:25:29 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	create_rooms_in_path(t_path *path, t_graph *farm)
 	}
 	path = prev;
 	path = path->next;
-	while (path) //
+	while (path)
 	{
 		path->prev = prev;
 		prev = prev->next;
@@ -115,16 +115,10 @@ void	push_ants_to_end(t_path *path)
 	}
 }
 
+
 /*
-** it is main loop functioon
-** sends ants from start room while there is ants_wait_list in path
-** using push_ant function
-**
 ** if there are already ants in the path checked in function (ants_left_in_path)
 ** shall be moved to next room and printed out
-**
-** loop stops when all ants reached end rooom
-**
 */
 
 void	run_ants_in_one_path(int ant, t_path *path)
@@ -142,6 +136,11 @@ void	run_ants_in_one_path(int ant, t_path *path)
 		push_ant(path, ant);
 	}
 }
+
+/*
+** Function to go through the path set and get last ants to end room 
+** loop stops when all ants reached end rooom
+*/
 
 void	last_push(t_path **path, t_graph *farm)
 {
@@ -165,6 +164,11 @@ void	last_push(t_path **path, t_graph *farm)
 			ft_printf("\n");
 	}
 }
+
+/*
+** it is main loop functioon
+** sends ants from start room while there is ants_wait_list in path set
+*/
 
 void	run_ants(int path_total, t_path **path, t_graph *farm)
 {

@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/28 17:17:23 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/28 19:16:15 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct		s_room
 	int				end;
 	int				visited;
 	int				antnbr;
-	int				ant_id;
 	struct s_room	*next;
 }					t_room;
 
@@ -62,7 +61,6 @@ typedef	struct 		s_path
 {
 	int				i;
 	int				len;
-	int				size;
 	int				ants_wait_list; //added
 	t_room			*room;
 	struct s_path	*end;
