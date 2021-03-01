@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/25 20:25:13 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/01 19:23:20 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,20 @@ int		move_index(char **input)
 int			events(void)
 {
 	SDL_Event		event;
+	static int		pause;
 
 	while(SDL_PollEvent(&event))
 	{
 		if (event.type == SDL_QUIT)
-			return (1);
+			exit(0);
+		if (event.key.keysym.sym == SDLK_SPACE
+		&& event.key.type == SDL_KEYUP)
+		{
+			ft_printf("SPACE\n");
+			pause++;
+		}
 	}
-	return (0);
+	return (pause);
 }
 
 /*
@@ -106,7 +113,7 @@ void		visualize_ants(t_pointers *sdl, t_data *scale, t_room *rooms, char **input
 	i = move_index(input);
 	wave = 0;
 	SDL_SetRenderTarget(sdl->renderer, NULL);
-	while (!events() && input[i])
+	while (input[i])
 	{
 		if (!ft_strcmp("0 0", input[i]))
 		{
@@ -143,4 +150,5 @@ int			main(void)
 	visualize_search(sdl, &scale, &map, input);
 	visualize_ants(sdl, &scale, map.rooms, input);
 	kill_all(sdl, map, input);
+	return (0);
 }

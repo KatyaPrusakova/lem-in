@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:49:29 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/24 20:03:39 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:23:00 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ t_edge		*new_edge(t_edge *head, t_room *rooms, char *src, char *dst)
 		ft_error("malloc fail");
 	new->src = edge_index(rooms, src);
 	new->dst = edge_index(rooms, dst);
+	new->rgba = RGBA_VOID;
 	new->next = NULL;
 	if (!head)
 		return (new);

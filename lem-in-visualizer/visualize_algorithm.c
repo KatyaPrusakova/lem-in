@@ -12,6 +12,20 @@
 
 #include "lemin_visual.h"
 
+void	set_edge_color(t_edge *links, int a, int b, t_rgb color)
+{
+	while (links)
+	{
+		if ((links->src == a && links->dst == b)
+		|| (links->src == b && links->dst == a))
+		{
+			links->rgba = color;
+			return ;
+		}
+		links = links->next;
+	}
+}
+
 void	draw_link_bfs(SDL_Renderer *renderer, int size, t_map *map, int i[2])
 {
 	t_line line;
@@ -49,7 +63,7 @@ void	draw_room(SDL_Renderer *renderer, int size, t_room room, t_rgb clr)
 }
 
 
-void draw_queue(t_room *room, char *line)
+void draw_queue(t_map *map, char *line)
 {
 	int		i;
 	int		index[2];
@@ -64,34 +78,34 @@ void draw_queue(t_room *room, char *line)
 		split_link = ft_strsplit(split_queue[i], '-');
 		index[0] = ft_atoi(split_link[0]);
 		index[1] = ft_atoi(split_link[1]);
-		room[index[1]].q = index[0];
+		map->rooms[index[1]].q = index[0];
+		set_edge_color(map->edges, index[0], index[1], RGBA_QUEUED);
 //		draw_room(renderer, scl->room_size, &rooms[index[1]], (t_rgb){100, 0, 0, 255});
 //		draw_link_bfs(renderer, scl->room_size, rooms, index);
 //		draw_room(renderer, scl->room_size, &rooms[index[0]], (t_rgb){0, 0, 100, 255});
 		i++;
 		ft_free2d((void**)split_link);
 	}
-	ft_printf("Room %d queued from %d. New value: %d\n", index[1], index[0], room[index[1]].q);
 	ft_free2d((void**)split_queue);
 }
 
 //void visit_room(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
-void		visit_room(t_room *rooms, char *line)
+void		visit_room(t_map *map, char *line)
 {
 	char		**visited;
-	int			index[3];
+	int			index[2];
 
 	visited = ft_strsplit(line, ' ');
 	index[0] = ft_atoi(visited[0]);
 	index[1] = ft_atoi(visited[1]);
-	index[2] = ft_atoi(visited[2]);
-	ft_printf("LINE TO VISIT ROOM: %s\n Index0: %d index1: %d index2: %d\n", line, index[0], index[1], index[2]);
+	ft_printf("LINE TO VISIT ROOM: %s\n Index0: %d index1: %d\n", line, index[0], index[1]);
 	ft_printf("visit room %d\n", index[0]); //tmp
 	ft_free2d((void**)visited);
 	if (!index[0])
 		return;
-	rooms[index[0]].visited_from = index[1];
-	rooms[index[0]].weight = index[2];
+	map->rooms[index[0]].visited_from = index[1];
+	map->rooms[index[0]].weight = index[2];
+	set_edge_color(map->edges, index[0], index[1], RGBA_VISITED);
 
 //	draw_room(renderer, scl->room_size, &rooms[index[0]], (t_rgb){0, 0, 100, 255});
 //	draw_link_bfs(renderer, scl->room_size, rooms, index);
@@ -140,9 +154,9 @@ void		draw_links(SDL_Renderer *renderer, int size, t_map *map)
 	t_edge *links;
 
 	links = map->edges;
-	SDL_SetRenderDrawColor(renderer, 70, 70, 70, 255);
 	while (links)
 	{
+		SDL_SetRenderDrawColor(renderer, links->rgba.r, links->rgba.g, links->rgba.b, links->rgba.a);
 		draw_link_bfs(renderer, size, map, (int[2]){links->src, links->dst});
 		links = links->next;
 	}
@@ -158,19 +172,18 @@ void		draw_graph(t_pointers *p, t_data *scl, t_map *map)
 	i = scl->room_count;
 	while (i--)
 	{
-//		ft_printf("NAME: %s, Q: %d, VISITED: %d\n", rooms[i].name, rooms[i].q, rooms[i].visited_from);
 		if (map->rooms[i].q == -1 && map->rooms[i].visited_from == -1)
-			draw_room(p->renderer, scl->room_size, map->rooms[i], (t_rgb){70, 70, 70, 255});
+			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_VOID);
 		else if (map->rooms[i].visited_from > -1)
 		{
 			ft_printf("Draw visited room %d\n", i);
-			draw_room(p->renderer, scl->room_size, map->rooms[i], (t_rgb){0, 0, 255, 255});
-			draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){i, map->rooms[i].visited_from});
+			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_VISITED);
+//			draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){i, map->rooms[i].visited_from});
 		}
 		else
 		{
-			draw_room(p->renderer, scl->room_size, map->rooms[i], (t_rgb){0, 0, 55, 255});
-			draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){i, map->rooms[i].q});
+			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_QUEUED);
+//			draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){i, map->rooms[i].q});
 		}
 	}
 	ft_printf("PRESENT\n");
@@ -194,19 +207,45 @@ void	print_room_coord(t_room* room)
 }
 
 /*
+** If the color values of a and b are the same, return 0. Else return 1.
+*/
+
+int		rgba_cmp(t_rgb a, t_rgb b)
+{
+	if (a.a == b.a
+	&& a.r == b.r
+	&& a.g == b.g
+	&& a.b == b.b)
+		return (0);
+	else
+		return (1);
+}
+
+/*
 ** Sets all visited_from and q values to -1.
 */
 
-void	empty_rooms(t_room *rooms, int room_count)
+void	empty_rooms(t_edge *edges, t_room *rooms, int room_count)
 {
 	int i;
 
 	i = 0;
+	ft_printf("empty rooms\n");
 	while (i < room_count)
 	{
 		rooms[i].visited_from = -1;
 		rooms[i].q = -1;
 		i++;
+	}
+	while (edges)
+	{
+		if (!rgba_cmp(edges->rgba, RGBA_QUEUED)
+		|| !rgba_cmp(edges->rgba, RGBA_VISITED))
+		{
+			edges->rgba = RGBA_VOID;
+			ft_printf("Set color to void %d %d\n", edges->dst, edges->src);
+		}
+		edges = edges->next;
 	}
 }
 
@@ -217,6 +256,7 @@ void	empty_rooms(t_room *rooms, int room_count)
 void	visualize_search(t_pointers *p, t_data *scl, t_map *map, char **input)
 {
 	int				i;
+	int				pause;
 
 	i = move_index(input);
 	draw_graph(p, scl, map);
@@ -224,22 +264,25 @@ void	visualize_search(t_pointers *p, t_data *scl, t_map *map, char **input)
 	while(ft_strcmp(input[i], "START_ANT_MOVEMENT"))
 	{
 	//	print_room_coord(map->rooms);
-		if (!ft_strcmp(input[i], "BFS"))
+		pause = events();
+		if (pause % 2 == 0)
 		{
-			empty_rooms(map->rooms, scl->room_count);
+			if (!ft_strcmp(input[i], "BFS"))
+			{
+				empty_rooms(map->edges, map->rooms, scl->room_count);
+				draw_graph(p, scl, map);
+				i++;
+			}
+			if (ft_strchr(input[i], '|'))
+				draw_path(p, scl, map, map->rooms, input[i]);
+			else if (!ft_strchr(input[i], '-'))
+			{
+				draw_queue(map, input[i + 1]);
+				visit_room(map, input[i]);
+			}
+			draw_graph(p, scl, map);
 			i++;
 		}
-		if (events())
-			exit(0);
-		if (ft_strchr(input[i], '|'))
-			draw_path(p, scl, map, map->rooms, input[i]);
-		else if (!ft_strchr(input[i], '-'))
-		{
-			draw_queue(map->rooms, input[i + 1]);
-			visit_room(map->rooms, input[i]);
-		}
-		draw_graph(p, scl, map);
-		i++;
 	}
 	ft_n(1);
 }
