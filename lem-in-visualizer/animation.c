@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 18:22:05 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/01/22 17:45:57 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/02 00:22:24 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_rgb	ant_color(int wave)
 	return (color[wave]);
 }
 
-void	draw_ants(t_pointers *sdl, t_ant *ants, t_data *scale)
+void	draw_ants(t_pointers *sdl, t_ant *ants, t_data *scale, t_map *map)
 {
 	SDL_Rect	pos;
 	t_ant		*tmp;
@@ -52,9 +52,9 @@ void	draw_ants(t_pointers *sdl, t_ant *ants, t_data *scale)
 	pos.w = 10;
 	tmp = ants;
 
-	SDL_RenderCopy(sdl->renderer, sdl->backround, NULL, NULL);
 	while (tmp)
 	{
+		draw_graph(sdl, scale, map);
 		cl = ant_color(tmp->wave);
 		pos.x = tmp->x + scale->room_size / 2 - 5;
 		pos.y = tmp->y + scale->room_size / 2 - 5;
@@ -62,7 +62,9 @@ void	draw_ants(t_pointers *sdl, t_ant *ants, t_data *scale)
 		SDL_RenderFillRect(sdl->renderer, &pos);
 		tmp = tmp->next;
 	}
+	events();
 	SDL_RenderPresent(sdl->renderer);
+	SDL_Delay(2);
 }
 
 /*
@@ -92,7 +94,7 @@ void	walk_ant(t_ant *ant)
 
 
 
-int move_ants(t_pointers *sdl, t_ant *head, t_data *scale)
+int move_ants(t_pointers *sdl, t_ant *head, t_data *scale, t_map *map)
 {
 	t_ant	*tmp;
 	int		ret;
@@ -107,10 +109,8 @@ int move_ants(t_pointers *sdl, t_ant *head, t_data *scale)
 			ret = 1;
 		}
 		tmp = tmp->next;
-		if (!sdl->backround && scale->room_count)
-			ft_printf("using unused variable");
 	}
 	if (ret)
-		draw_ants(sdl, head, scale);
+		draw_ants(sdl, head, scale, map);
 	return (ret);
 }

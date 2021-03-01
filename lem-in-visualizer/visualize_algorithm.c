@@ -12,6 +12,29 @@
 
 #include "lemin_visual.h"
 
+void	add_edge_weight(t_edge *links, int a, int b, int path_no)
+{
+	t_edge	*tmp;
+	while (links)
+	{
+		if ((links->src == a && links->dst == b)
+		|| (links->src == b && links->dst == a))
+		{
+			tmp = links;
+			break ;
+		}
+		links = links->next;
+	}
+	if ((!tmp->weight && path_no == 1)
+	|| (tmp->weight == 1 && path_no == 2))
+		tmp->weight++;
+	else if (path_no == 3)
+	{
+		tmp->weight = 3;
+		tmp->rgba = RGBA_PATH;
+	}
+}
+
 void	set_edge_color(t_edge *links, int a, int b, t_rgb color)
 {
 	while (links)
@@ -58,7 +81,6 @@ void	draw_room(SDL_Renderer *renderer, int size, t_room room, t_rgb clr)
 	rect.x = room.x;
 	rect.y = room.y;
 	SDL_SetRenderDrawColor(renderer, clr.r, clr.g, clr.b, clr.a);
-//	ft_printf("DRAW ROOM: %d line from %d -> %d |%d|%d|%d\n", room->index, room->index, room->visited_from, clr.r, clr.g, clr.b);
 	SDL_RenderFillRect(renderer, &rect);
 }
 
@@ -80,16 +102,12 @@ void draw_queue(t_map *map, char *line)
 		index[1] = ft_atoi(split_link[1]);
 		map->rooms[index[1]].q = index[0];
 		set_edge_color(map->edges, index[0], index[1], RGBA_QUEUED);
-//		draw_room(renderer, scl->room_size, &rooms[index[1]], (t_rgb){100, 0, 0, 255});
-//		draw_link_bfs(renderer, scl->room_size, rooms, index);
-//		draw_room(renderer, scl->room_size, &rooms[index[0]], (t_rgb){0, 0, 100, 255});
 		i++;
 		ft_free2d((void**)split_link);
 	}
 	ft_free2d((void**)split_queue);
 }
 
-//void visit_room(SDL_Renderer *renderer, t_data *scl, t_room *rooms, char *line)
 void		visit_room(t_map *map, char *line)
 {
 	char		**visited;
@@ -104,14 +122,7 @@ void		visit_room(t_map *map, char *line)
 	if (!index[0])
 		return;
 	map->rooms[index[0]].visited_from = index[1];
-	map->rooms[index[0]].weight = index[2];
 	set_edge_color(map->edges, index[0], index[1], RGBA_VISITED);
-
-//	draw_room(renderer, scl->room_size, &rooms[index[0]], (t_rgb){0, 0, 100, 255});
-//	draw_link_bfs(renderer, scl->room_size, rooms, index);
-//	draw_room(renderer, scl->room_size, rooms, (t_rgb){200, 200, 200, 255});
-//	SDL_RenderPresent(renderer);
-//	SDL_Delay(500);
 }
 
 
@@ -120,7 +131,9 @@ void	draw_path(t_pointers *p, t_data *scl, t_map *map, t_room *rooms, char *inpu
 	char	**split;
 	int		*path;
 	int		i;
+	static int	path_no;
 
+	path_no++;
 	i = -1;
 	split = ft_strsplit(input, '|');
 	if (!split)
@@ -132,20 +145,18 @@ void	draw_path(t_pointers *p, t_data *scl, t_map *map, t_room *rooms, char *inpu
 		path[i] = ft_atoi(split[i]);
 	draw_room(p->renderer, scl->room_size, rooms[path[--i]], (t_rgb){0, 100, 0, 255});
 	draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){path[i], scl->room_count - 1});
-	SDL_RenderPresent(p->renderer);
-	SDL_Delay(500);
-	while (--i)
+	while (i--)
 	{
 		ft_printf("| %d ", path[i]);
+		rooms[path[i]].path = 1;
 		draw_room(p->renderer, scl->room_size, rooms[path[i]], (t_rgb){0, 100, 0, 255});
 		draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){path[i], path[i + 1]});
-		SDL_RenderPresent(p->renderer);
-		SDL_Delay(500);
+		add_edge_weight(map->edges, path[i], path[i + 1], path_no);
 	}
 	draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){0, path[1]});
 	draw_room(p->renderer, scl->room_size, rooms[0], (t_rgb){200, 200, 200, 255});
 	SDL_RenderPresent(p->renderer);
-	SDL_Delay(3000);
+	SDL_Delay(1200);
 	ft_n(1);
 }
 
@@ -163,32 +174,48 @@ void		draw_links(SDL_Renderer *renderer, int size, t_map *map)
 }
 
 
+void		edge_colors(t_edge *edges)
+{
+	while (edges)
+	{
+		if (edges->weight && !rgba_cmp(edges->rgba, RGBA_VOID))
+		{
+			if (edges->weight == 1)
+				edges->rgba = RGBA_REVERSED;
+			else if (edges->weight == 2)
+				edges->rgba = RGBA_REMOVED;
+			else if (edges->weight == 3)
+				edges->rgba = RGBA_PATH;
+		}
+		edges = edges->next;
+	}
+}
+
 void		draw_graph(t_pointers *p, t_data *scl, t_map *map)
 {
 //	t_rgb	color;473
 	int		i;
 
+	SDL_SetRenderDrawColor(p->renderer, 0, 0, 0, 255);
+	SDL_RenderClear(p->renderer);
+	edge_colors(map->edges);
 	draw_links(p->renderer, scl->room_size, map);
 	i = scl->room_count;
 	while (i--)
 	{
-		if (map->rooms[i].q == -1 && map->rooms[i].visited_from == -1)
+		if (!i)
+			draw_room(p->renderer, scl->room_size, map->rooms[i], (t_rgb){255, 255, 255, 255});
+		else if (map->rooms[i].path)
+			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_PATH);
+		else if (map->rooms[i].q == -1 && map->rooms[i].visited_from == -1)
 			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_VOID);
 		else if (map->rooms[i].visited_from > -1)
-		{
-			ft_printf("Draw visited room %d\n", i);
 			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_VISITED);
-//			draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){i, map->rooms[i].visited_from});
-		}
 		else
-		{
 			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_QUEUED);
-//			draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){i, map->rooms[i].q});
-		}
 	}
-	ft_printf("PRESENT\n");
-	SDL_RenderPresent(p->renderer);
-	SDL_Delay(1000);
+//	ft_printf("PRESENT\n");
+//	SDL_RenderPresent(p->renderer);
 }
 
 
@@ -235,6 +262,7 @@ void	empty_rooms(t_edge *edges, t_room *rooms, int room_count)
 	{
 		rooms[i].visited_from = -1;
 		rooms[i].q = -1;
+		rooms[i].path = 0;
 		i++;
 	}
 	while (edges)
@@ -258,30 +286,37 @@ void	visualize_search(t_pointers *p, t_data *scl, t_map *map, char **input)
 	int				i;
 	int				pause;
 
-	i = move_index(input);
+	i = move_index(input, "");
 	draw_graph(p, scl, map);
-	SDL_Delay(2000);
+	SDL_RenderPresent(p->renderer);
+	SDL_Delay(1000);
 	while(ft_strcmp(input[i], "START_ANT_MOVEMENT"))
 	{
-	//	print_room_coord(map->rooms);
 		pause = events();
 		if (pause % 2 == 0)
 		{
 			if (!ft_strcmp(input[i], "BFS"))
 			{
+				ft_printf("BFS\n");
 				empty_rooms(map->edges, map->rooms, scl->room_count);
 				draw_graph(p, scl, map);
 				i++;
 			}
+			draw_graph(p, scl, map);
 			if (ft_strchr(input[i], '|'))
+			{
+				ft_printf("Draw path\n");
 				draw_path(p, scl, map, map->rooms, input[i]);
+			}
 			else if (!ft_strchr(input[i], '-'))
 			{
+				ft_printf("Add queue\n");
 				draw_queue(map, input[i + 1]);
 				visit_room(map, input[i]);
 			}
-			draw_graph(p, scl, map);
 			i++;
+			SDL_RenderPresent(p->renderer);
+			SDL_Delay(200);
 		}
 	}
 	ft_n(1);

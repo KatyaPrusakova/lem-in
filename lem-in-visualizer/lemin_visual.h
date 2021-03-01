@@ -44,7 +44,7 @@ typedef struct	s_room
 	char			*name;
 	int				index;
 	int				visited_from;
-	int				weight;
+	int				path;
 	int				q;
 	int				x;
 	int				y;
@@ -66,6 +66,7 @@ typedef struct	s_edge
 {
 	int				src;
 	int				dst;
+	int				weight;
 	t_rgb			rgba;
 	struct s_edge	*next;
 }				t_edge;
@@ -116,7 +117,7 @@ t_room		add_room(char *line, int index);
 t_edge		*new_edge(t_edge *edges, t_room *rooms, char *src, char *dst);
 t_edge		*add_edges(t_room *rooms, char **input, int room_count);
 t_map		save_rooms(char **input, int room_count);
-int			move_index(char **input);
+int			move_index(char **input, char *find);
 
 /*
 **
@@ -145,12 +146,15 @@ void	draw_room(SDL_Renderer *renderer, int size, t_room room, t_rgb color);
 ** These functions are used to draw ant movement on the screen
 */
 
-int move_ants(t_pointers *sdl, t_ant *head, t_data *scale);
+int move_ants(t_pointers *sdl, t_ant *head, t_data *scale, t_map *map);
+
+void		draw_graph(t_pointers *p, t_data *scl, t_map *map);
 
 SDL_Renderer	*links(SDL_Renderer *renderer, int size, t_map *map);
 
 int			events(void);
 
+int		rgba_cmp(t_rgb a, t_rgb b);
 
 /*
 ** free_all.c

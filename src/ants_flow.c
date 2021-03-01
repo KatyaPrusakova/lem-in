@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/25 17:06:26 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/02 00:02:17 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void			move_ants(t_path *path, t_graph *graph)
 	temp = path->next;
 //	room = graph->adlist[temp->i];
 
-	ft_printf(" L%d-%s ", path->id, graph->adlist[temp->i]->name);
+	ft_printf("L%d-%s ", path->id, graph->adlist[temp->i]->name);
 
 	if (!temp->next)
 		return;
@@ -89,7 +89,6 @@ static void		ant_in_rooms_out(t_path **path, t_graph *graph)
 		}
 	}
 	ft_printf("\n");
-	//ft_printf(" next room L%d-%s ", path->ant_id, graph->adlist[path->i]->name);
 }
 
 void	ant_start(int ant_count, t_path **path, t_graph *graph)
@@ -154,7 +153,7 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 	j = -1;
 	while (++j < i)
 	{
-		ft_printf("path distributed %s %d|%d\n",  graph->adlist[path[j]->i]->name, path[j]->ants_wait_list, path[j]->len);
+		ft_dprintf(fd, "path distributed %s %d|%d\n",  graph->adlist[path[j]->i]->name, path[j]->ants_wait_list, path[j]->len);
 	}
 	//test
 

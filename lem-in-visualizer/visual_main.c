@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/01 19:23:20 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/02 00:26:48 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,15 @@ char	**parse_input(void)
 ** Locates the first row of lem-in output and returns it as int index.
 */
 
-int		move_index(char **input)
+int		move_index(char **input, char *find)
 {
 	static int i;
 
-	while (ft_strcmp(input[i], ""))
+	while (ft_strcmp(input[i], find))
 		i++;
-	return (i + 1);
+	ft_printf("Row %d is empty\n", i);
+	i++;
+	return (i);
 }
 
 int			events(void)
@@ -103,26 +105,27 @@ void 	print_rooms(t_room *room, int room_count)
 
 
 
-void		visualize_ants(t_pointers *sdl, t_data *scale, t_room *rooms, char **input)
+void		visualize_ants(t_pointers *sdl, t_data *scale, t_map *map, char **input)
 {
 	t_ant	*list;
 	int		i;
 	int		wave;
 
 	list = NULL;
-	i = move_index(input);
+	i = move_index(input, "START_ANT_MOVEMENT");
+	ft_printf("Index i = %d\n", i);
 	wave = 0;
-	SDL_SetRenderTarget(sdl->renderer, NULL);
 	while (input[i])
 	{
+		ft_printf("MOVING ANTS ..............................\n");
 		if (!ft_strcmp("0 0", input[i]))
 		{
 			ft_printf("stop\n");
 			break;
 		}
-		list = ant_destinations(input[i], list, rooms, wave);
+		list = ant_destinations(input[i], list, map->rooms, wave);
 		SDL_Delay(300);
-		while (move_ants(sdl, list, scale))
+		while (move_ants(sdl, list, scale, map))
 		 	SDL_Delay(2);
 		i++;
 		wave++;
@@ -148,7 +151,7 @@ int			main(void)
 	ft_printf("saved rooms\n");
 	sdl = initialize(&scale, sdl, map.rooms);
 	visualize_search(sdl, &scale, &map, input);
-	visualize_ants(sdl, &scale, map.rooms, input);
+	visualize_ants(sdl, &scale, &map, input);
 	kill_all(sdl, map, input);
 	return (0);
 }
