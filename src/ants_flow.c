@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ants_flow.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/28 19:25:29 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/03/02 11:22:15 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	run_ants_in_one_path(int ant, t_path *path)
 }
 
 /*
-** Function to go through the path set and get last ants to end room 
+** Function to go through the path set and get last ants to end room
 ** loop stops when all ants reached end rooom
 */
 

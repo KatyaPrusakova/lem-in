@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:49:29 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/24 20:03:39 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/01 23:06:21 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ t_room		add_room(char *line, int index)
 	new.name = ft_strdup(split[0]);
 	if (!new.name)
 		ft_error("strdup fail");
+	new.path = 0;
 	new.x = ft_atoi(split[1]);
 	new.y = ft_atoi(split[2]);
-	new.weight = -1;
 	new.q = -1;
 	new.index = index;
 	new.visited_from = -1;
@@ -85,6 +85,7 @@ t_edge		*new_edge(t_edge *head, t_room *rooms, char *src, char *dst)
 		ft_error("malloc fail");
 	new->src = edge_index(rooms, src);
 	new->dst = edge_index(rooms, dst);
+	new->rgba = RGBA_VOID;
 	new->next = NULL;
 	if (!head)
 		return (new);

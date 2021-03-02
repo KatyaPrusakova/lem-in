@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   create_queue.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/24 10:12:54 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/02/25 18:33:20 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+
+int			is_queued(int index, t_queue *q)
+{
+	t_room *tmp;
+
+	if (!q)
+		return (0);
+	tmp = q->head;
+	while (tmp)
+	{
+		if (tmp->index == index)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
 
 /*
 ** Add room to the queue
@@ -20,15 +37,15 @@ t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 {
 	t_room	*new;
 
+	if (is_queued(index, q))
+		return (q);
 	if (!q)
 		q = ft_memalloc(sizeof(t_queue));
 	if (!q)
 		print_error(2, NULL);
-//	I'm uncertain about the functionality of ft_memdup.
 	new = ft_memdup(adlist[index], sizeof(t_room));
-	// if (!new)
-	// 	ft_error(2);
-	//ft_printf("index %d new room index %d, adlist i index %d end? new %d old %d\n", index, new->index, adlist[index]->index, new->end, adlist[index]->end);
+	if (!new)
+		print_error(2, NULL);
 	new->prev_room_index = prev;
 	new->index = index;
 	new->next = NULL;
