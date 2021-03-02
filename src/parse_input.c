@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/03/02 16:45:38 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/03/02 23:25:10 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ char	**ft_realloc(char **input, int len)
 void	valid_map(char **input)
 {
 	int		i;
-	int		start_end;
-	
+
 	i = 0;
-	start_end = 0;
 	while (input[i])
 	{
 		if (input[i][0] == '#' || ft_strisdigit(input[i]))
@@ -40,12 +38,9 @@ void	valid_map(char **input)
 	{
 		if (input[i][0] == '#' || ft_strchr(input[i], ' '))
 			i++;
-		if (!ft_strcmp(input[i], "##start") || !ft_strcmp(input[i], "##end"))
-			start_end++;
-		 else
+		else
 			break;
 	}
-	start_end != 2 ?  print_error(8, input) : 0;
 	while (input[i])
 	{
 		if (input[i][0] == '#' || ft_strchr(input[i], '-'))
@@ -82,4 +77,3 @@ char		**parse_input(void)
 	valid_map(input);
 	return (input);
 }
-
