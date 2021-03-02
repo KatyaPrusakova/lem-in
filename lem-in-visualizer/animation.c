@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 18:22:05 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/02 00:22:24 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/02 10:45:01 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	draw_ants(t_pointers *sdl, t_ant *ants, t_data *scale, t_map *map)
 	pos.w = 10;
 	tmp = ants;
 
+	draw_graph(sdl, scale, map);
 	while (tmp)
 	{
-		draw_graph(sdl, scale, map);
 		cl = ant_color(tmp->wave);
 		pos.x = tmp->x + scale->room_size / 2 - 5;
 		pos.y = tmp->y + scale->room_size / 2 - 5;

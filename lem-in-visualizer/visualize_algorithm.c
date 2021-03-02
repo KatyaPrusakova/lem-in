@@ -28,7 +28,7 @@ void	add_edge_weight(t_edge *links, int a, int b, int path_no)
 	if ((!tmp->weight && path_no == 1)
 	|| (tmp->weight == 1 && path_no == 2))
 		tmp->weight++;
-	else if (path_no == 3)
+	else if (path_no >= 3)
 	{
 		tmp->weight = 3;
 		tmp->rgba = RGBA_PATH;
@@ -297,8 +297,8 @@ void	visualize_search(t_pointers *p, t_data *scl, t_map *map, char **input)
 		{
 			if (!ft_strcmp(input[i], "BFS"))
 			{
-				ft_printf("BFS\n");
 				empty_rooms(map->edges, map->rooms, scl->room_count);
+				ft_printf("BFS\n");
 				draw_graph(p, scl, map);
 				i++;
 			}

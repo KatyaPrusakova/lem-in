@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/02 00:26:48 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/02 11:10:58 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void		visualize_ants(t_pointers *sdl, t_data *scale, t_map *map, char **input)
 	t_ant	*list;
 	int		i;
 	int		wave;
+	int		pause;
 
 	list = NULL;
 	i = move_index(input, "START_ANT_MOVEMENT");
@@ -117,18 +118,21 @@ void		visualize_ants(t_pointers *sdl, t_data *scale, t_map *map, char **input)
 	wave = 0;
 	while (input[i])
 	{
-		ft_printf("MOVING ANTS ..............................\n");
-		if (!ft_strcmp("0 0", input[i]))
+		pause = events();
+		if (pause % 2)
 		{
-			ft_printf("stop\n");
-			break;
+			if (!ft_strcmp("0 0", input[i]))
+			{
+				ft_printf("stop\n");
+				break;
+			}
+			list = ant_destinations(input[i], list, map->rooms, wave);
+			SDL_Delay(300);
+			while (move_ants(sdl, list, scale, map))
+				SDL_Delay(2);
+			i++;
+			wave++;
 		}
-		list = ant_destinations(input[i], list, map->rooms, wave);
-		SDL_Delay(300);
-		while (move_ants(sdl, list, scale, map))
-		 	SDL_Delay(2);
-		i++;
-		wave++;
 	}
 	if (list)
 		list = free_ants(list);
