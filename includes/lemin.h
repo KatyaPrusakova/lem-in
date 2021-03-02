@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/28 19:27:17 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/03/02 16:34:24 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
 #include <stdlib.h>
 #include "../libft/libft.h"
 
-#define SIZE 400
+#define SIZE 400 //is it used anywhere?
+
+#define START	"##start"
+#define END		"##end"
 
 int fd; //test
 int	fd_zero; //test. Use argv instead of stdin.

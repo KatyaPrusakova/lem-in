@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/25 11:44:19 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/03/02 16:46:31 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,18 @@
 int				count_rooms(char **input)
 {
 	int		i;
-	int		start_end;
 	int		room;
 
-	start_end = 0;
+	
 	room = 0;
 	i = valid_ants(1, input);
 	while (input[i] && !ft_strchr(input[i], '-'))
 	{
-		//ft_dprintf(fd, "|%s\n", line[i]); //test
-		if (!ft_strcmp(input[i], "##start") || !ft_strcmp(input[i], "##end"))
-			start_end++;
 		if (ft_strchr(input[i], ' ') && input[i][0] != '#' && is_room(input, i))
 			room++;
 		i++;
 	}
-	ft_dprintf(fd, " count_rooms %d\n", room);
-	start_end != 2 ?  print_error(8, input) : 0;
+//	ft_dprintf(fd, " count_rooms %d\n", room);
 	return (room ? room : print_error(9, input));
 }
 
