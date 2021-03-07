@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/24 10:27:31 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/03/02 23:24:12 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,21 @@ int			parse_ants(char **line, t_graph* data)
 	ant = valid_ants(0, line);
 	data->ants = ant;
 	i = valid_ants(1, line);
+	
+	//ft_dprintf(fd, "i is %d\nant is %d\n", i, ant);
 	return (i);
 }
 
-int		valid_ants(int flag, char **input)
+int		valid_ants(int flag, char **line)
 {
 	int		i;
 	int		ant;
 
 	i = 0;
-	i = is_comment(input, i);
-	ant = ft_atoi(input[i]);
-	if (!input[i] || !(ft_strisdigit(input[i])) || ant <= 0 || ant > 2147483647)
-		print_error(3, input);
-	i = is_comment(input, i + 1);
+	i = is_comment(line, i);
+	ant = ft_atoi(line[i]);
+	if (!line[i] || !(ft_strisdigit(line[i])) || ant <= 0 || ant > 2147483647)
+		print_error(3, line);
+	i = is_comment(line, i + 1);
 	return(flag == 1 ? i : ant);
 }
