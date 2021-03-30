@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 10:45:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/01/21 19:48:48 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/13 20:55:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char			**ft_strsplit(char const *s, char c)
 	i = 0;
 	i_new = 0;
 	words = ft_words(s, c);
-	split = (char **)malloc(sizeof(char*) * (words + 1));
+	split = (char **)ft_memalloc(sizeof(char*) * (words + 1));
 	if (!split)
 		return (NULL);
 	while (i < words)
@@ -108,6 +108,5 @@ char			**ft_strsplit(char const *s, char c)
 		i++;
 		i_new = i_new + ft_splitlen(&s[i_new], c);
 	}
-	split[i] = 0;
 	return (split);
 }

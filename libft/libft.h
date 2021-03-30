@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 12:07:29 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/01/05 21:47:50 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/18 20:17:26 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,7 @@ long double			ft_mod_double(long double x, long double y);
 
 void				ft_putgrid_chr(char **grid, int y);
 void				ft_putgrid_int(int **grid, int y, int x, int min_width);
+int					ft_str_isvalid(char *str, char *valid_characters);
+int					ft_isnumeric_str(char *str);
 
 #endif

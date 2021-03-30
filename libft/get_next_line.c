@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.com>       +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 18:50:19 by ksuomala          #+#    #+#             */
-/*   Updated: 2020/09/15 16:46:38 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/22 17:32:54 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ static char			*ft_strcut(char **s)
 		return (ret);
 	}
 	ret = ft_strsub(*s, 0, i);
-	tmp = ft_strdup(*s + i + 1);
+	if (s[0][i + 1] == '\0')
+		tmp = NULL;
+	else
+		tmp = ft_strdup(*s + i + 1);
 	free(s[0]);
 	*s = tmp;
 	return (ret);

@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/09 11:51:40 by ksuomala          #+#    #+#              #
-#    Updated: 2020/12/16 04:20:34 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/03/12 21:01:28 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,11 @@ modify_g.c parse.c type.c ft_fail.c conv_to_out.c ft_dprintf.c
 
 CC = gcc -Wall -Wextra -Werror -c -g
 
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
 SRCS_DIR = srcs/
 
-OBJ_DIR = obj
+OBJ_DIR = obj/
 
 LIB_DIR = ../
 
@@ -37,15 +37,15 @@ $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
-$(OBJS): $(OBJ_DIR)/ $(addprefix $(SRCS_DIR), $(SRCS))
+$(OBJS): $(OBJ_DIR) $(addprefix $(SRCS_DIR), $(SRCS))
 	@make libft.a -C $(LIB_DIR)
 	@cp $(LIB_DIR)$(LIB) $(NAME)
 #	@cp $(LIB_DIR)libft.h includes/
 	@$(CC) $(addprefix $(SRCS_DIR), $(SRCS)) $(INCL)
-	@mv $(SRCS:.c=.o) $(OBJ_DIR)/
+	@mv $(SRCS:.c=.o) $(OBJ_DIR)
 
 $(OBJ_DIR):
-	@mkdir $(OBJ_DIR)
+	@mkdir $(@)
 
 clean:
 	@rm -f $(OBJS)

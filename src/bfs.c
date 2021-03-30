@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/02 17:05:08 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:57:27 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int i
 	}
 	if(graph->visualize)
 	{
-		ft_printf("%d %d\n", current->index, current->prev_room_index);
-		draw_queue(graph->adlist, q);
+		visited_to_visualizer(current->index, current->prev_room_index, 1);
+		queue_to_visualizer(graph->adlist, q, 1);
 	}
 	//test
 	ft_dprintf(fd, "\n");
@@ -109,7 +109,7 @@ t_path	**bfs_3(int max_paths, t_graph *graph, t_room	*room)
 		{
 			visited[room->index] = room->prev_room_index;
 			ft_printf("%d %d\n", room->index, room->prev_room_index);
-			ft_printf("0-0\n");
+			ft_printf("0-0\n"); //q?
 			set_1 = check_path(graph, visited, room->index, set_1, &i);
 		}
 		else
@@ -132,17 +132,18 @@ t_path	**bfs_3(int max_paths, t_graph *graph, t_room	*room)
 ** If the current room is linked to the end room, The path will be saved in the 2d array.
 */
 
-t_path	*bfs(int max_paths, t_graph *graph, t_room	*room)
+t_path	*bfs(int max_paths, t_graph *graph)
 {
 	t_queue	*q;
 	t_room	*tmp;
+	t_room	*room;
 	int		*visited;
 	int		i;
 
 	i = 0;
 	q = NULL;
 	visited = init_visited(graph->room_total);
-	q = enqueue(room->index, q, graph->adlist, 0);
+	q = enqueue(0, q, graph->adlist, 0);
 	while (q->head && i < max_paths)
 	{
 		room = ft_memdup(graph->adlist[q->head->index], sizeof(t_room));
@@ -153,8 +154,8 @@ t_path	*bfs(int max_paths, t_graph *graph, t_room	*room)
 		if (end_is_neighbour(tmp) && visited[room->index] == -1 && \
 		graph->weight[room->index][graph->room_total - 1] < 1)
 		{
-			ft_printf("%d %d\n", room->index, room->prev_room_index);
-			ft_printf("0-0\n");
+			visited_to_visualizer(room->index, room->prev_room_index, graph->visualize);
+			queue_to_visualizer(graph->adlist, q, graph->visualize);
 			visited[room->index] = room->prev_room_index;
 			return (save_path(visited, room->index, graph->weight, graph->room_total - 1));
 		}

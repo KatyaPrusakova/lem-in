@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free2d.c                                        :+:      :+:    :+:   */
+/*   ft_isnumeric_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/14 17:46:56 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/15 15:54:48 by ksuomala         ###   ########.fr       */
+/*   Created: 2021/03/18 20:16:52 by ksuomala          #+#    #+#             */
+/*   Updated: 2021/03/18 20:39:57 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free2d(void **arr)
+int		ft_isnumeric_str(char *str)
 {
 	int i;
 
 	i = 0;
-	if (!arr)
-		return ;
-	while (arr[i])
+	if (!str || !str[0])
+		return (0);
+	while (str[i])
 	{
-		free(arr[i]);
-		arr[i] = NULL;
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
 		i++;
 	}
-	free(arr);
-	arr = NULL;
+	return (1);
 }

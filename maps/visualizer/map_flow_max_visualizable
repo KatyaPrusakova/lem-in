@@ -1,0 +1,23 @@
+2
+##start
+start 0 0
+A 2 0
+B 4 0
+C 2 2
+D 2 4
+E 0 5
+F 6 6
+##end
+end 6 4
+start-A
+start-E
+start-F
+A-B
+A-E
+B-C
+C-D
+C-E
+D-end
+E-F
+E-end
+F-end

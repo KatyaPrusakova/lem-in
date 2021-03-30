@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/24 21:21:27 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:56:55 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_graph*		lem_in(char **line, t_graph* graph)
 {
 	int		i;
+	t_path	**first_set;
 
 	i = parse_ants(line, graph);
 	//ft_dprintf(fd, "after_parse ant %s\n", line[i]); //test
@@ -26,8 +27,8 @@ t_graph*		lem_in(char **line, t_graph* graph)
 	print_input(line);
 	print_rooms(graph); //test
 	ft_dprintf(fd, "\n"); //test
-	find_paths(graph);
-
+	first_set = find_paths(graph);
+	allocate_ants_to_rooms(first_set, graph);
 	return (graph); // change
 }
 
@@ -49,12 +50,8 @@ int				main(int argc, char **argv)
 		return (0);
 	line = parse_input();
 	data = create_graph(count_rooms(line));
-	//ft_dprintf(fd, "graph %s\n", line[0]); //test
 	if (argc > 1 && !ft_strcmp(argv[1], "-v"))
-	{
-	//	ft_printf("visualizer activated\n"); //test
 		data->visualize = 1;
-	}
 	lem_in(line, data);
 	return (0);
 }

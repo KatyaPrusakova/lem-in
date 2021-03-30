@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 13:08:23 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/19 15:08:35 by ksuomala         ###   ########.fr       */
+/*   Updated: 2020/12/23 08:39:06 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,27 @@
 
 long long	ft_atoi(const char *str)
 {
-	int		res;
-	int		sign;
+	size_t		i;
+	long long	ret;
+	int			neg;
 
-	res = 0;
-	sign = 1;
-	while (*str && (*str == '\r' || *str == '\n' || *str == '\t' ||
-					*str == '\f' || *str == '\v' || *str == ' '))
-		str++;
-	if (str[0] == '-')
-		sign = -1;
-	if (*str == '+' || *str == '-')
-		str++;
-	while (*str && *str >= '0' && *str <= '9')
+	if (str == NULL)
+		return (0);
+	i = 0;
+	neg = 1;
+	ret = 0;
+	while ((str[i] > 8 && str[i] < 14) || str[i] == 32)
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		res = res * 10 + (*str - 48);
-		if (res > 214748364)
-			return (-1);
-		str++;
+		if (str[i] == '-')
+			neg = -1;
+		i++;
 	}
-	return (res * sign);
+	while (str[i] > 47 && str[i] < 58)
+	{
+		ret = ret * 10 + (str[i] - 48);
+		i++;
+	}
+	return (ret * neg);
 }

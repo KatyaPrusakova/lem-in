@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free2d.c                                        :+:      :+:    :+:   */
+/*   ft_str_isvalid.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/14 17:46:56 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/15 15:54:48 by ksuomala         ###   ########.fr       */
+/*   Created: 2021/03/18 18:50:48 by ksuomala          #+#    #+#             */
+/*   Updated: 2021/03/18 19:09:00 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free2d(void **arr)
+/*
+** Checks that every character of *str is within *valid_characters. If an
+** invalid character is found, return NULL.
+*/
+
+int		ft_str_isvalid(char *str, char *valid_characters)
 {
 	int i;
 
 	i = 0;
-	if (!arr)
-		return ;
-	while (arr[i])
+	while (str[i])
 	{
-		free(arr[i]);
-		arr[i] = NULL;
+		if (!ft_strchr(valid_characters, str[i]))
+			return (0);
 		i++;
 	}
-	free(arr);
-	arr = NULL;
+	return (1);
 }

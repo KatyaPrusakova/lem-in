@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/03/02 23:25:10 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/03/29 12:52:52 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-char	**ft_realloc(char **input, int len)
+char	**input_realloc(char **input, int len)
 {
 	char **tmp;
 
@@ -65,8 +65,8 @@ char		**parse_input(void)
 	while (get_next_line(fd_zero, &line))
 	{
 		if (i == len)
-			{
-			input = ft_realloc(input, len);
+		{
+			input = input_realloc(input, len);
 			len += len;
 		}
 		input[i] = line;
