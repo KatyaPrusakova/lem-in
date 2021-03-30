@@ -15,6 +15,10 @@
 void	add_edge_weight(t_edge *links, int a, int b, int path_no)
 {
 	t_edge	*tmp;
+
+	tmp = NULL;
+	if (!links)
+		return ;
 	while (links)
 	{
 		if ((links->src == a && links->dst == b)
