@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:54:23 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/02 17:36:01 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/31 14:17:54 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** min amount of rooms linked to start or end rooms.
 */
 
-int		count_paths(t_graph *graph)
+int		count_max_paths(t_graph *graph)
 {
 	t_room	*tmp;
 	int		start;
@@ -41,7 +41,17 @@ int		count_paths(t_graph *graph)
 	return (start);
 }
 
-int		calculate_set_lenght(t_path **set)
+int		paths_in_array(t_path **set)
+{
+	int i;
+
+	i = 0;
+	while (set[i])
+		i++;
+	return (i);
+}
+
+int		calculate_set_len(t_path **set)
 {
 	int i;
 	int count;

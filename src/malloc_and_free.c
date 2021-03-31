@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_and_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:08:16 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/24 22:03:48 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/03/31 14:05:36 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int **create_matrix(int height, int width)
 	return (matrix);
 }
 
-
 t_graph*		create_graph(int rooms)
 {
 	t_graph		*new;
@@ -45,6 +44,19 @@ t_graph*		create_graph(int rooms)
 	new->room_total = rooms;
 	new->weight = create_matrix(rooms, rooms);
 	return (new);
+}
+
+t_path*			free_path(t_path *path)
+{
+	t_path *tmp;
+
+	while (path)
+	{
+		tmp = path;
+		path = path->next;
+		ft_memdel((void**)&tmp);
+	}
+	return (NULL);
 }
 
 void			adlist_free(t_room **graph, size_t size)

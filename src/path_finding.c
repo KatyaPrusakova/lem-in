@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/30 16:52:35 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/31 14:13:46 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,50 @@
 
 
 /*
-** Returns the possible paths, starting from the shortest path[0].
+** Counts the maximum allowed paths (path bottleneck start/end).
 */
-
 
 t_path		**find_paths(t_graph *graph)
 {
 	t_path		**paths;
 	int			rooms_in_paths;
 	int			max_paths;
+	int			paths_saved;
 
-	max_paths = count_paths(graph);
+	paths_saved = 0; //temporary variable
+	max_paths = count_max_paths(graph);
 	paths = ft_memalloc(sizeof(t_path*) * graph->room_total);
 //	if (!paths)
 //		ft_error(2);
 	if (graph->visualize)
 		ft_printf("BFS\n");
-	paths[0] = bfs(max_paths, graph);
-	rooms_in_paths = calculate_set_lenght(paths);
-	if (rooms_in_paths >= graph->ants)
-		return (paths);
-	// free saved path
-	print_matrix(graph->weight, graph->room_total);
-	if (graph->visualize)
-		ft_printf("BFS\n");
-	paths[0] = bfs(max_paths, graph);
-	if (graph->visualize)
-		ft_printf("BFS\n");
-	// while < max_paths!!!
-	paths = bfs_3(max_paths, graph, graph->adlist[0]);
+	while (paths_saved < max_paths)
+	{
+		ft_printf("PATHS FOUND %d, max %d\n", paths_saved, max_paths);
+		paths[paths_saved] = bfs(max_paths, graph);
+		mod_edge_weight(graph->weight, paths[paths_saved]);
+		rooms_in_paths = calculate_set_len(paths);
+		//free path0
+		if (rooms_in_paths >= graph->ants)
+		{
+			ft_printf("ants %d < rooms %d\n", graph->ants, rooms_in_paths);
+			return (paths);
+		}
+		// free saved path
+		print_matrix(graph->weight, graph->room_total);
+		if (graph->visualize)
+			ft_printf("BFS\n");
+		free_path(paths[paths_saved]);
+		paths[paths_saved] = bfs(max_paths, graph);
+		mod_edge_weight(graph->weight, paths[paths_saved]);
+		print_matrix(graph->weight, graph->room_total);
+		if (graph->visualize)
+			ft_printf("BFS\n");
+		// while < max_paths!!!
+		paths = bfs_3(max_paths, graph, graph->adlist[0]);
+		paths_saved = paths_in_array(paths);
+		ft_printf("PATHS FND %d, mXX %d\n", paths_saved, max_paths);
+	}
 
 	//print_paths(paths);
 // remove the shortest paths links from the graph;

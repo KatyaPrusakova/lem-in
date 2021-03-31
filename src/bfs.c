@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/30 17:57:27 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/31 12:50:49 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ t_path	**bfs_3(int max_paths, t_graph *graph, t_room	*room)
 ** to -1. When a room is visited, visited[room->index] is set to the index of the previous
 ** room.
 **
-** If the current room is linked to the end room, The path will be saved in the 2d array.
+** This function only uses links that have an edge value < 1.
 */
 
 t_path	*bfs(int max_paths, t_graph *graph)
@@ -157,7 +157,7 @@ t_path	*bfs(int max_paths, t_graph *graph)
 			visited_to_visualizer(room->index, room->prev_room_index, graph->visualize);
 			queue_to_visualizer(graph->adlist, q, graph->visualize);
 			visited[room->index] = room->prev_room_index;
-			return (save_path(visited, room->index, graph->weight, graph->room_total - 1));
+			return (save_path(visited, room->index, graph->room_total - 1));
 		}
 		else
 			visit_room(room, q, visited, graph, 1);
