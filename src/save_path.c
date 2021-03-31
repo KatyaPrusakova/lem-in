@@ -6,26 +6,11 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/30 19:43:33 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:36:04 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-
-/*
-** Modify the edge weight values of the graph when a path is found.
-*/
-
-int		**mod_edge_weight(int **matrix, t_path *path)
-{
-	while (path->next)
-	{
-		matrix[path->i][path->next->i] += 1;
-		matrix[path->next->i][path->i] -= 1;
-		path = path->next;
-	}
-	return (matrix);
-}
 
 /*
 ** The path is saved in the *visited array. visited[room->index] contains

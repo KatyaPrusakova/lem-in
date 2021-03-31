@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/03/31 14:04:45 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:51:10 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ int **create_matrix(int height, int width);
 ** LEMIN.C
 */
 
+/*
+** EDGE_WEIGTH.C
+*/
+
+int		**mod_edge_weight(int **matrix, t_path *path);
+int		check_weight(int link_weight, int set_weight);
+
 
 /*
 ** MALLOC_FREE.C
@@ -135,7 +142,7 @@ char				*ft_firstword(char **line, int i);
 
 //draft
 
-t_path				*bfs(int max_paths, t_graph *graph);
+t_path				*bfs(int max_paths, t_graph *graph, int set_weight);
 t_path				**bfs_3(int max_paths, t_graph *graph, t_room	*room);
 
 

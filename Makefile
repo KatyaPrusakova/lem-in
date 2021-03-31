@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/06 10:12:45 by ksuomala          #+#    #+#              #
-#    Updated: 2021/03/31 15:15:08 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/03/31 15:34:32 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRCS = lemin.c \
 	bfs.c \
 	save_path.c \
 	test_dprint.c \
-	visualize.c
+	visualize.c \
+	edge_weight.c
 
 SRCS_DIR = src/
 

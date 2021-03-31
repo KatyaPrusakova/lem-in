@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/31 14:13:46 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:56:51 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_path		**find_paths(t_graph *graph)
 	while (paths_saved < max_paths)
 	{
 		ft_printf("PATHS FOUND %d, max %d\n", paths_saved, max_paths);
-		paths[paths_saved] = bfs(max_paths, graph);
+		paths[paths_saved] = bfs(max_paths, graph, 1);
 		mod_edge_weight(graph->weight, paths[paths_saved]);
 		rooms_in_paths = calculate_set_len(paths);
 		//free path0
@@ -48,13 +48,15 @@ t_path		**find_paths(t_graph *graph)
 		if (graph->visualize)
 			ft_printf("BFS\n");
 		free_path(paths[paths_saved]);
-		paths[paths_saved] = bfs(max_paths, graph);
+		paths[paths_saved] = bfs(max_paths, graph, 1);
 		mod_edge_weight(graph->weight, paths[paths_saved]);
+		free_path(paths[paths_saved]);
 		print_matrix(graph->weight, graph->room_total);
 		if (graph->visualize)
 			ft_printf("BFS\n");
 		// while < max_paths!!!
-		paths = bfs_3(max_paths, graph, graph->adlist[0]);
+		paths[paths_saved] = bfs(max_paths, graph, 2);
+		paths[paths_saved + 1] = bfs(max_paths, graph, 2);
 		paths_saved = paths_in_array(paths);
 		ft_printf("PATHS FND %d, mXX %d\n", paths_saved, max_paths);
 	}
