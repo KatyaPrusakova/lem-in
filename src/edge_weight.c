@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 15:30:46 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/01 12:41:33 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:15:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,26 @@ int		check_weight(int link_weight, int set_weight)
 
 /*
 ** Modify the edge weight values of the graph when a path is found.
+** If the path is in use, all the edges of the rooms along the path will be closed
+** with a value of 3.
 */
 
-int		**mod_edge_weight(int **matrix, t_path *path, int path_is_used)
+int		**mod_edgeweight_path(int **matrix, t_path *path, t_graph *g, int path_is_used)
 {
+	t_room *tmp;
+	if (!path)
+		return (matrix);
 	while (path->next)
 	{
 		if (path_is_used)
 		{
-			matrix[path->i][path->next->i] = 3;
-			matrix[path->next->i][path->i] = 3;
+			tmp = g->adlist[path->i]->next;
+			while (tmp)
+			{
+				matrix[path->i][tmp->index] = 3;
+				matrix[tmp->index][path->i] = 3;
+				tmp = tmp->next;
+			}
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:08:16 by eprusako          #+#    #+#             */
-/*   Updated: 2021/03/31 14:05:36 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:40:26 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_graph*		create_graph(int rooms)
 	new = ft_memalloc(sizeof(t_graph));
 	new->adlist = ft_memalloc(sizeof(t_room*) * (rooms+1));
 	new->room_total = rooms;
-	new->weight = create_matrix(rooms, rooms);
+	new->weight_m = create_matrix(rooms, rooms);
 	return (new);
 }
 

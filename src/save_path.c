@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/31 15:36:04 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:40:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_path **check_path(t_graph *graph, int *visited, int link_index, t_path **set, 
 
 //if visualize
 //	ft_printf("%d %d %d\n%d-%d\n", link_index, visited[link_index],
-//	graph->weight[visited[link_index]][link_index], link_index, link_index);
+//	graph->weight_m[visited[link_index]][link_index], link_index, link_index);
 	found_path = save_path(visited, link_index, graph->room_total - 1);
 	if (!found_path)
 		return (set);

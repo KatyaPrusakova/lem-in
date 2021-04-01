@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/31 15:58:17 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:40:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 	tmp = current->next;
 	while (tmp)
 	{
-		if (visited[tmp->index] == -1 && check_weight(graph->weight[current->index][tmp->index], set_weight))
+		if (visited[tmp->index] == -1 && check_weight(graph->weight_m[current->index][tmp->index], set_weight))
 			enqueue(tmp->index, q, graph->adlist, current->index);
 		tmp = tmp->next;
 	}
@@ -105,7 +105,7 @@ t_path	**bfs_3(int max_paths, t_graph *graph, t_room	*room)
 			dequeue(q);
 		tmp = room->next;
 		if (end_is_neighbour(tmp) && visited[room->index] == -1 && \
-		graph->weight[room->index][graph->room_total - 1] == 1)
+		graph->weight_m[room->index][graph->room_total - 1] == 1)
 		{
 			visited[room->index] = room->prev_room_index;
 			ft_printf("%d %d\n", room->index, room->prev_room_index);
@@ -153,7 +153,7 @@ t_path	*bfs(int max_paths, t_graph *graph, int edge_w)
 			dequeue(q);
 		tmp = room->next;
 		if (end_is_neighbour(tmp) && visited[room->index] == -1 && \
-		check_weight(graph->weight[room->index][graph->room_total - 1], edge_w))
+		check_weight(graph->weight_m[room->index][graph->room_total - 1], edge_w))
 		{
 			visited_to_visualizer(room->index, room->prev_room_index, graph->visualize);
 			queue_to_visualizer(graph->adlist, q, graph->visualize);

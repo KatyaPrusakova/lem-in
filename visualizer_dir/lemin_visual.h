@@ -3,7 +3,7 @@
 
 # define WIN_W 900
 # define WIN_H 900
-# define SEARCH_DELAY 1000
+# define SEARCH_DELAY 300
 # define ANT_DELAY 300
 # define MOVE_ANT_DELAY 2
 # define PI  3.14159

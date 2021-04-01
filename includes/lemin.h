@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/01 12:43:48 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:31:28 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ typedef struct		s_graph
 	int				ants_end;
 	int				visualize;
 	int				room_total;
+	int				max_paths;
 	char			*room_name;
-	int				**weight;
+	int				**weight_m;
 	t_room			**adlist;
 	t_queue			*q;
 }					t_graph;
@@ -162,7 +163,7 @@ void				print_paths(t_path **path);
 */
 
 int					count_max_paths(t_graph *graph);
-int					calculate_set_len(t_path **set);
+int					set_rooms_total(t_path **set);
 int					paths_in_array(t_path **set);
 
 
@@ -172,7 +173,7 @@ int					paths_in_array(t_path **set);
 
 t_path		**check_path(t_graph *graph, int *visited, int find_path, t_path **path, int *path_no);
 t_path		*save_path(int *visited, int find_path, /*int **matrix,*/int end_room);
-int			**mod_edge_weight(int **matrix, t_path *path, int path_is_used);
+int			**mod_edgeweight_path(int **matrix, t_path *path, t_graph *g, int path_is_used);
 
 
 
