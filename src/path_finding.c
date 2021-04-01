@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/01 20:51:57 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 21:19:11 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_path		*search_modify(t_graph *g)
 	t_path *shortest;
 	t_path *find_bottleneck;
 
-	//ft_printf("Search MOD\n");
+	ft_printf("Search MOD\n");
 	if (g->visualize)
 		ft_printf("BFS\n");
 	shortest = bfs(g, 1);
@@ -40,13 +40,13 @@ t_path		*search_modify(t_graph *g)
 	return (shortest);
 }
 
-t_path		**search_save(t_graph *g, t_path **set, t_path *shortest)
+t_path		**search_save(t_graph *g, t_path **set)
 {
-	//ft_printf("Search 2nd\n");
+	ft_printf("Search 2nd\n");
 	if (g->visualize)
 		ft_printf("BFS\n");
 	set[0] = bfs(g, 2);
-	if (!set[0] || !path_cmp(set[0], shortest))
+	if (!set[0])
 		return (NULL);
 	else
 		mod_edgeweight_path(g->weight_m, set[0], g, 1);
@@ -61,6 +61,13 @@ t_path		**search_save(t_graph *g, t_path **set, t_path *shortest)
 	return (set);
 }
 
+t_path		**path_to_array(t_path **array, t_path *p, int *i)
+{
+	array[*i] = p;
+	*i += 1;
+	return (array);
+}
+
 t_path		**compare_disjoint(t_graph *g, t_path **disjoint, t_path **shortest, t_path **final)
 {
 	int array_size;
@@ -71,7 +78,7 @@ t_path		**compare_disjoint(t_graph *g, t_path **disjoint, t_path **shortest, t_p
 	if (disjoint_len && g->ants < disjoint_len)
 	{
 	//	ft_printf("Shortest is more efficient\n");
-		final[array_size] = *shortest;
+		final = path_to_array(final, *shortest, &array_size);
 		mod_edgeweight_path(g->weight_m, *shortest, g, 1);
 		disjoint[0] = free_path(disjoint[0]);
 		disjoint[1] = free_path(disjoint[1]);
@@ -81,8 +88,10 @@ t_path		**compare_disjoint(t_graph *g, t_path **disjoint, t_path **shortest, t_p
 	{
 	//	ft_printf("Alternative set is more efficient\n");
 		*shortest = free_path(*(shortest));
-		final[array_size] = disjoint[0];
-		final[array_size + 1] = disjoint[1];
+		final = path_to_array(final, disjoint[0], &array_size);
+		mod_edgeweight_path(g->weight_m, disjoint[0], g, 1);
+		final = path_to_array(final, disjoint[1], &array_size);
+		mod_edgeweight_path(g->weight_m, disjoint[1], g, 1);
 		free(disjoint);
 	}
 	return (final);
@@ -115,7 +124,7 @@ t_path		**find_paths(t_graph *graph)
 			break ;
 		}
 		disjoint_set = ft_memalloc(sizeof(t_path*) * 3);
-		disjoint_set = search_save(graph, disjoint_set, shortest);
+		disjoint_set = search_save(graph, disjoint_set);
 		if (disjoint_set)
 		{
 			final_set = compare_disjoint(graph, disjoint_set, &shortest, final_set);
@@ -124,7 +133,7 @@ t_path		**find_paths(t_graph *graph)
 		else
 		{
 			final_set[paths_saved] = shortest;
-			break ;
+			paths_saved++;
 		}
 	}
 	return (final_set);
