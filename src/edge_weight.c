@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 15:30:46 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/01 13:15:03 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:40:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int		**mod_edgeweight_path(int **matrix, t_path *path, t_graph *g, int path_is_u
 	{
 		if (path_is_used)
 		{
+			if (!path->i)
+				path = path->next;
 			tmp = g->adlist[path->i]->next;
 			while (tmp)
 			{

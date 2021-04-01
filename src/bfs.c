@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/01 13:40:03 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:17:26 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,19 +133,17 @@ t_path	**bfs_3(int max_paths, t_graph *graph, t_room	*room)
 ** with values < 1.Third search uses edges with value of 1.
 */
 
-t_path	*bfs(int max_paths, t_graph *graph, int edge_w)
+t_path	*bfs(t_graph *graph, int edge_w)
 {
 	t_queue	*q;
 	t_room	*tmp;
 	t_room	*room;
 	int		*visited;
-	int		i;
 
-	i = 0;
 	q = NULL;
 	visited = init_visited(graph->room_total);
 	q = enqueue(0, q, graph->adlist, 0);
-	while (q->head && i < max_paths)
+	while (q->head)
 	{
 		room = ft_memdup(graph->adlist[q->head->index], sizeof(t_room));
 		room->prev_room_index = q->head->prev_room_index;
