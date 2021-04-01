@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 15:30:46 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/31 15:47:12 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 12:41:33 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,21 @@ int		check_weight(int link_weight, int set_weight)
 ** Modify the edge weight values of the graph when a path is found.
 */
 
-int		**mod_edge_weight(int **matrix, t_path *path)
+int		**mod_edge_weight(int **matrix, t_path *path, int path_is_used)
 {
 	while (path->next)
 	{
-		matrix[path->i][path->next->i] += 1;
-		matrix[path->next->i][path->i] -= 1;
-		path = path->next;
+		if (path_is_used)
+		{
+			matrix[path->i][path->next->i] = 3;
+			matrix[path->next->i][path->i] = 3;
+		}
+		else
+		{
+			matrix[path->i][path->next->i] += 1;
+			matrix[path->next->i][path->i] -= 1;
+		}
+			path = path->next;
 	}
 	return (matrix);
 }

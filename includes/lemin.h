@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/03/31 15:51:10 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 12:43:48 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int **create_matrix(int height, int width);
 ** EDGE_WEIGTH.C
 */
 
-int		**mod_edge_weight(int **matrix, t_path *path);
 int		check_weight(int link_weight, int set_weight);
 
 
@@ -173,7 +172,7 @@ int					paths_in_array(t_path **set);
 
 t_path		**check_path(t_graph *graph, int *visited, int find_path, t_path **path, int *path_no);
 t_path		*save_path(int *visited, int find_path, /*int **matrix,*/int end_room);
-int			**mod_edge_weight(int **matrix, t_path *path);
+int			**mod_edge_weight(int **matrix, t_path *path, int path_is_used);
 
 
 
