@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:54:23 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/01 13:28:36 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 19:17:16 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,20 @@ int		set_rooms_total(t_path **set)
 		i++;
 	}
 	return (count);
+}
+
+int		path_cmp(t_path *p1, t_path *p2)
+{
+	while (p1 && p2)
+	{
+		if (p1->i != p2->i)
+			return (1);
+		p1 = p1->next;
+		p2 = p2->next;
+	}
+	if (p1 || p2)
+		return (1);
+	else
+		return (0);
+
 }

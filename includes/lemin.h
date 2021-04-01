@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/01 16:17:45 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 19:17:39 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ void				print_paths(t_path **path);
 int					count_max_paths(t_graph *graph);
 int					set_rooms_total(t_path **set);
 int					paths_in_array(t_path **set);
+int					path_cmp(t_path *p1, t_path *p2);
 
 
 /*
@@ -193,6 +194,8 @@ int					*allocate_ants_to_rooms(t_path **path, t_graph *graph);
 //test
 
 void	print_matrix(int **matrix, int size);
+
+
 
 
 #endif

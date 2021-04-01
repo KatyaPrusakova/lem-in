@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/01 16:52:58 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 20:39:35 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_path		*search_modify(t_graph *g)
 	t_path *shortest;
 	t_path *find_bottleneck;
 
+	//ft_printf("Search MOD\n");
 	if (g->visualize)
 		ft_printf("BFS\n");
 	shortest = bfs(g, 1);
@@ -39,49 +40,89 @@ t_path		*search_modify(t_graph *g)
 	return (shortest);
 }
 
-t_path		**search_save(t_graph *g, t_path **set, int *paths_saved)
+t_path		**search_save(t_graph *g, t_path **set, t_path *shortest)
 {
+	//ft_printf("Search 2nd\n");
 	if (g->visualize)
 		ft_printf("BFS\n");
-	print_rooms(g); //test
-	set[*paths_saved] = bfs(g, 2);
-	print_matrix(g->weight_m, g->room_total); //test
-	if (set[*paths_saved])
+	set[0] = bfs(g, 2);
+	if (!set[0] || !path_cmp(set[0], shortest))
+		return (NULL);
+	else
+		mod_edgeweight_path(g->weight_m, set[0], g, 1);
+	set[1] = bfs(g, 2);
+	if (!set[1])
 	{
-		mod_edgeweight_path(g->weight_m, set[*paths_saved], g, 1);
-		*paths_saved += 1;
+		free_path(set[0]);
+		return (NULL);
 	}
-	print_rooms(g); //test
-	print_matrix(g->weight_m, g->room_total); //test
-	set[*paths_saved] = bfs(g, 2);
-	if (set[*paths_saved])
-	{
-		mod_edgeweight_path(g->weight_m, set[*paths_saved], g, 1);
-		*paths_saved += 1;
-	}
+	else
+		mod_edgeweight_path(g->weight_m, set[1], g, 1);
 	return (set);
 }
 
+t_path		**compare_disjoint(t_graph *g, t_path **disjoint, t_path **shortest, t_path **final)
+{
+	int array_size;
+	int disjoint_len;
+
+	disjoint_len = set_rooms_total(disjoint);
+	array_size = paths_in_array(final);
+	if (disjoint_len && g->ants < disjoint_len)
+	{
+		//ft_printf("Shortest is more efficient\n");
+		final[array_size] = *shortest;
+		mod_edgeweight_path(g->weight_m, *shortest, g, 1);
+		disjoint[0] = free_path(disjoint[0]);
+		disjoint[1] = free_path(disjoint[1]);
+		free(disjoint);
+	}
+	else
+	{
+		//ft_printf("Alternative set is more efficient\n");
+		*shortest = free_path(*(shortest));
+		final[array_size] = disjoint[0];
+		final[array_size + 1] = disjoint[1];
+		free(disjoint);
+	}
+	return (final);
+}
+
 /*
-** Counts the maximum allowed paths (path bottleneck start/end).
+** Finds the shortest path and two alternative paths. Compares them and chooses
+** the most efficient set according to the number of ants. Keeps going until the
+** (int)max_paths of paths is found.
 */
 
 t_path		**find_paths(t_graph *graph)
 {
-	t_path		**paths;
+	t_path		**final_set;
+	t_path		**disjoint_set;
 	t_path		*shortest;
 	int			paths_saved;
 
 	paths_saved = 0;
 	graph->max_paths = count_max_paths(graph);
-	paths = ft_memalloc(sizeof(t_path*) * graph->room_total);
-	shortest = search_modify(graph);
-	ft_printf("Shortest path found\n"); //test
-	if (shortest->len >= graph->ants)
+	final_set = ft_memalloc(sizeof(t_path*) * graph->room_total);
+	while (paths_saved < graph->max_paths)
 	{
-		paths[0] = shortest;
-		return (paths);
+		shortest = search_modify(graph);
+		if (!shortest)
+			return (final_set);
+		if (shortest->len >= graph->ants || paths_saved + 1 == graph->max_paths)
+		{
+			final_set[paths_saved] = shortest;
+			return (final_set);
+		}
+		disjoint_set = ft_memalloc(sizeof(t_path*) * 3);
+		disjoint_set = search_save(graph, disjoint_set, shortest);
+		if (disjoint_set)
+			final_set = compare_disjoint(graph, disjoint_set, &shortest, final_set);
+		else
+		{
+			final_set[paths_saved] = shortest;
+			paths_saved++;
+		}
 	}
-	paths = search_save(graph, paths, &paths_saved);
-	return (paths);
+	return (final_set);
 }
