@@ -4,8 +4,8 @@
 # define WIN_W 900
 # define WIN_H 900
 # define SEARCH_DELAY 300
-# define ANT_DELAY 300
-# define MOVE_ANT_DELAY 2
+# define ANT_DELAY 100
+# define MOVE_ANT_DELAY 1
 # define PI  3.14159
 
 # define RGBA_VOID (t_rgb){70, 70, 70, 255}

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/01 20:39:35 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/01 20:51:57 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_path		**compare_disjoint(t_graph *g, t_path **disjoint, t_path **shortest, t_p
 	array_size = paths_in_array(final);
 	if (disjoint_len && g->ants < disjoint_len)
 	{
-		//ft_printf("Shortest is more efficient\n");
+	//	ft_printf("Shortest is more efficient\n");
 		final[array_size] = *shortest;
 		mod_edgeweight_path(g->weight_m, *shortest, g, 1);
 		disjoint[0] = free_path(disjoint[0]);
@@ -79,7 +79,7 @@ t_path		**compare_disjoint(t_graph *g, t_path **disjoint, t_path **shortest, t_p
 	}
 	else
 	{
-		//ft_printf("Alternative set is more efficient\n");
+	//	ft_printf("Alternative set is more efficient\n");
 		*shortest = free_path(*(shortest));
 		final[array_size] = disjoint[0];
 		final[array_size + 1] = disjoint[1];
@@ -108,20 +108,23 @@ t_path		**find_paths(t_graph *graph)
 	{
 		shortest = search_modify(graph);
 		if (!shortest)
-			return (final_set);
+			break ;
 		if (shortest->len >= graph->ants || paths_saved + 1 == graph->max_paths)
 		{
 			final_set[paths_saved] = shortest;
-			return (final_set);
+			break ;
 		}
 		disjoint_set = ft_memalloc(sizeof(t_path*) * 3);
 		disjoint_set = search_save(graph, disjoint_set, shortest);
 		if (disjoint_set)
+		{
 			final_set = compare_disjoint(graph, disjoint_set, &shortest, final_set);
+			paths_saved = paths_in_array(final_set);
+		}
 		else
 		{
 			final_set[paths_saved] = shortest;
-			paths_saved++;
+			break ;
 		}
 	}
 	return (final_set);
