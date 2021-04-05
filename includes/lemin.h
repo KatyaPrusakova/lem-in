@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/03/02 16:34:24 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/04/01 19:17:39 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ typedef struct		s_graph
 	int				ants_end;
 	int				visualize;
 	int				room_total;
+	int				max_paths;
 	char			*room_name;
-	int				**weight;
+	int				**weight_m;
 	t_room			**adlist;
 	t_queue			*q;
 }					t_graph;
@@ -81,12 +82,20 @@ int **create_matrix(int height, int width);
 ** LEMIN.C
 */
 
+/*
+** EDGE_WEIGTH.C
+*/
+
+int		check_weight(int link_weight, int set_weight);
+
 
 /*
 ** MALLOC_FREE.C
 */
 
 t_graph*			create_graph(int rooms);
+t_path*				free_path(t_path *path);
+
 
 /*
 ** PARSE_INPUT.C
@@ -133,24 +142,60 @@ char				*ft_firstword(char **line, int i);
 
 //draft
 
-t_path				**bfs(int max_paths, t_graph *graph, t_room	*room, int visualize);
+t_path				*bfs(t_graph *graph, int set_weight);
+t_path				**bfs_3(int max_paths, t_graph *graph, t_room	*room);
+
 
 //queue functions
 
-t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev);
-t_queue		*dequeue(t_queue *q);
-void		draw_queue(t_room **adlist, t_queue *q); //testing
+t_queue				*enqueue(int index, t_queue *q, t_room **adlist, int prev);
+t_queue				*dequeue(t_queue *q);
 
 /*
 ** path finding
 */
 
-int		**find_paths(t_graph *graph);
-void	print_paths(t_path **path);
+t_path				**find_paths(t_graph *graph);
+void				print_paths(t_path **path);
+
+/*
+** path_calculations.c
+*/
+
+int					count_max_paths(t_graph *graph);
+int					set_rooms_total(t_path **set);
+int					paths_in_array(t_path **set);
+int					path_cmp(t_path *p1, t_path *p2);
+
+
+/*
+** save_path.c
+*/
+
+t_path		**check_path(t_graph *graph, int *visited, int find_path, t_path **path, int *path_no);
+t_path		*save_path(int *visited, int find_path, /*int **matrix,*/int end_room);
+int			**mod_edgeweight_path(int **matrix, t_path *path, t_graph *g, int path_is_used);
+
+
+
+/*
+** visualize.c
+*/
+
+void				queue_to_visualizer(t_room **adlist, t_queue *q, int visualize); //testing
+void				visited_to_visualizer(int current_index, int visited_from, int visualize);
+
 /*
 ** ANTS_FLOW.C
 */
 
-int		*allocate_ants_to_rooms(t_path **path, t_graph *graph);
+int					*allocate_ants_to_rooms(t_path **path, t_graph *graph);
+
+//test
+
+void	print_matrix(int **matrix, int size);
+
+
+
 
 #endif
