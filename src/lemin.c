@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/01 20:52:54 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/05 13:19:42 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ int				main(int argc, char **argv)
 	// test
 	fd = open("lemin.txt", O_RDWR);
 	if (argc)
-	fd_zero = open (argv[2], O_RDONLY);
+//	fd_zero = open (argv[2], O_RDONLY);
+	fd_zero = 0;
 	if (!fd)
 		ft_printf("error opening file");
 	// test
-	if (!fd_zero)
-		ft_printf("error opening %s\n", argv[2]);
+//	if (!fd_zero)
+//		ft_printf("error opening %s\n", argv[2]);
 	if (argc < 1)
 		return (0);
 	line = parse_input();
