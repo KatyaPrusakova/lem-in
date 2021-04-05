@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ants_flow.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/03/02 11:25:17 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/05 15:54:34 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,6 @@ void	push_ants_to_end(t_path *path)
 
 void	run_ants_in_one_path(int ant, t_path *path)
 {
-//	int i;
-
-//	i = 0;
 	if (ants_left_in_path(path))
 		{
 			//ft_printf("list %s prev %s\n",  temp->room->name, temp->prev->room->name);
@@ -184,7 +181,6 @@ void	run_ants(int path_total, t_path **path, t_graph *farm)
 		i = 0;
 		while (path[i])
 		{
-			//ft_printf("i %d\n", i);
 			run_ants_in_one_path(ant, path[i]);
 			ant++;
 			i++;
@@ -198,12 +194,10 @@ void	run_ants(int path_total, t_path **path, t_graph *farm)
 int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 {
 	int		i;
-//	int		j;
 	int		ant_count;
 	int		path_total;
 
 	i = 0;
-//	j = -1;
 	path_total = paths_count(path, graph);
 //	ft_printf("sucsess %s %s\n", path[0]->room->name, path[1]->room->name);
 	ant_count = graph->ants;
@@ -220,13 +214,6 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 			path[i++]->ants_wait_list++;
 		ant_count -= path_total;
 	}
-	//print_paths(path);
-	// j = -1;
-	// while (++j < i)
-	// {
-	// 	ft_printf("path distributed %s %d|%d\n",  graph->adlist[path[j]->i]->name, path[j]->ants_wait_list, path[j]->len);
-	// }
-	//test
 	run_ants(path_total, path, graph);
 	return (NULL); //change
 }
