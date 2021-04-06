@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/01 21:23:50 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:02:18 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,45 @@ t_path	*bfs(t_graph *graph, int edge_w)
 			queue_to_visualizer(graph->adlist, q, graph->visualize);
 			visited[room->index] = room->prev_room_index;
 			return (save_path(visited, room->index, graph->room_total - 1));
+		}
+		else
+			visit_room(room, q, visited, graph, edge_w);
+		ft_memdel((void**)&room);
+	}
+	return (NULL);
+}
+
+
+/*
+** BFS that finds a full set of paths and modifies the edge values.
+*/
+
+t_path	**bfs_set(t_graph *graph, int edge_w, t_path **set)
+{
+	t_queue	*q;
+	t_room	*tmp;
+	t_room	*room;
+	int		*visited;
+	int		path_no;
+
+	path_no = 0;
+	q = NULL;
+	visited = init_visited(graph->room_total);
+	q = enqueue(0, q, graph->adlist, 0);
+	while (q->head)
+	{
+		room = ft_memdup(graph->adlist[q->head->index], sizeof(t_room));
+		room->prev_room_index = q->head->prev_room_index;
+		if (q->head)
+			dequeue(q);
+		tmp = room->next;
+		if (end_is_neighbour(tmp) && visited[room->index] == -1 && \
+		check_weight(graph->weight_m[room->index][graph->room_total - 1], edge_w))
+		{
+			visited_to_visualizer(room->index, room->prev_room_index, graph->visualize);
+			queue_to_visualizer(graph->adlist, q, graph->visualize);
+			visited[room->index] = room->prev_room_index;
+			return (check_path(graph, visited, room->index, set, &path_no));
 		}
 		else
 			visit_room(room, q, visited, graph, edge_w);

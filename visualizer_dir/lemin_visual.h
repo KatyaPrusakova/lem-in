@@ -14,6 +14,7 @@
 # define RGBA_QUEUED (t_rgb){0, 0, 70, 255}
 # define RGBA_VISITED (t_rgb){0, 0, 170, 255}
 # define RGBA_PATH (t_rgb){0, 120, 0, 255}
+# define RGBA_END (t_rgb){50, 0, 50, 255}
 
 
 # include "libft.h"
