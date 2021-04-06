@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/04 15:46:24 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/06 12:53:26 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_path		*search_modify(t_graph *g)
 	if (g->visualize)
 		ft_printf("BFS\n");
 	shortest = bfs(g, 1);
+	if (!shortest)
+		return (NULL);
 	if (shortest->len >= g->ants)
 		return (shortest);
 	mod_edgeweight_path(g->weight_m, shortest, g, 0);

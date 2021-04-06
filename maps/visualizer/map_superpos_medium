@@ -1,0 +1,34 @@
+12
+##start
+A 0 6
+B 0 0
+C 4 3
+D 6 6
+E 8 0
+F 10 3
+G 10 6
+H 8 10
+I 11 12
+J 15 0
+K 15 6
+M 15 9
+N 15 15
+##end
+Z 19 6
+A-B
+A-C
+A-D
+B-E
+C-F
+F-G
+D-G
+D-H
+H-I
+E-J
+J-K
+G-K
+G-M
+K-Z
+M-Z
+N-Z
+N-I
