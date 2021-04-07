@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/01 19:17:39 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/07 12:00:22 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,11 @@ char				*ft_firstword(char **line, int i);
 //draft
 
 t_path				*bfs(t_graph *graph, int set_weight);
-t_path				**bfs_3(int max_paths, t_graph *graph, t_room	*room);
+t_path				**bfs_set(t_graph *graph, int edge_w, t_path **set, int max_paths);
+t_path				**bfs_set_modify(t_graph *graph, int edge_w, t_path **set);
+
+
+t_path				*mod_path(int *visited, int link_index, /*int **matrix, */int end_room);
 
 
 //queue functions
@@ -156,6 +160,7 @@ t_queue				*dequeue(t_queue *q);
 */
 
 t_path				**find_paths(t_graph *graph);
+t_path				**find_sets(t_graph *graph);
 void				print_paths(t_path **path);
 
 /*

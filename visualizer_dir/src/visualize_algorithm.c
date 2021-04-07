@@ -29,15 +29,14 @@ void	add_edge_weight(t_edge *links, int a, int b, int path_no)
 		}
 		links = links->next;
 	}
-	// if ((!tmp->weight && path_no == 1)
-	// || (tmp->weight == 1 && path_no == 2))
-	if (path_no) //test
+	if ((!tmp->weight && path_no == 1)
+	 || (tmp->weight == 1 && path_no == 2))
 		tmp->weight++;
-	// // else if (path_no >= 3)
-	// // {
-	// // 	tmp->weight = 3;
-	// // 	tmp->rgba = RGBA_PATH;
-	// // }
+	 else if (path_no >= 3)
+	 {
+		tmp->weight = 3;
+		tmp->rgba = RGBA_PATH;
+	}
 }
 
 void	set_edge_color(t_edge *links, int a, int b, t_rgb color)
