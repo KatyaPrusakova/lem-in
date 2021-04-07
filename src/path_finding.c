@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/07 12:40:43 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:09:08 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 ** the edge values for the next search in search_save. search_modify
 ** returns the first shortest path found in the graph.
 */
+
+/*
 
 t_path		*search_modify(t_graph *g)
 {
@@ -71,6 +73,9 @@ t_path		**path_to_array(t_path **array, t_path *p, int *i)
 	*i += 1;
 	return (array);
 }
+*/
+
+/*
 
 t_path		**compare_disjoint(t_graph *g, t_path **disjoint, t_path **shortest, t_path **final)
 {
@@ -100,6 +105,8 @@ t_path		**compare_disjoint(t_graph *g, t_path **disjoint, t_path **shortest, t_p
 	}
 	return (final);
 }
+
+*/
 
 /*
 ** Finds the shortest path and two alternative paths. Compares them and chooses
@@ -158,9 +165,7 @@ t_path		**find_sets(t_graph *graph)
 	set_1 = bfs_set(graph, 1, set_1, graph->max_paths);
 	if (set_rooms_total(set_1) >= graph->ants)
 		return (set_1);
-	if (graph->visualize)
-		ft_printf("BFS\n");
-	set_2 = bfs_set(graph, 1, set_2, graph->max_paths);
+	set_2[0] = set_1[0];
 	while (set_2[0])
 	{
 		i = -1;
@@ -173,5 +178,22 @@ t_path		**find_sets(t_graph *graph)
 	if (graph->visualize)
 		ft_printf("BFS\n");
 	set_2 = bfs_set(graph, 2, set_2, graph->max_paths);
+	//compare the path sets.
 	return (set_2);
+}
+
+
+/*
+** Returns a paths set with one path with a length of 0. This leads to all ants to be able to flow straight to
+** the end room in one line.
+*/
+
+t_path **unlimited_flow(void)
+{
+	t_path	**no_rooms;
+
+	no_rooms = ft_memalloc(sizeof(t_path*) * 2);
+	no_rooms[0] = ft_memalloc(sizeof(t_path));
+	no_rooms[0]->len = 0;
+	return (no_rooms);
 }

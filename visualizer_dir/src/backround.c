@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:59:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/24 19:39:05 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:51:35 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,11 @@ int			room_size(t_data *scale)
 	size = (scale->max_y > scale->max_x) ? scale->max_y : scale->max_x;
 	if (size < 2)
 		size++;
+	if (size > WIN_H)
+		ft_error("The map is too big\n");
 	size = (WIN_H - 50) / size * 0.75;
+	if (!size)
+		size = 2;
 	return (size);
 }
 

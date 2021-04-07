@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/06 15:22:56 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:10:20 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ t_graph*		lem_in(char **line, t_graph* graph)
 	print_rooms(graph); //test
 	ft_dprintf(fd, "\n"); //test
 //	first_set = find_paths(graph);
-	first_set = find_sets(graph);
+	if (end_is_neighbour(graph->adlist[0]->next))
+		first_set = unlimited_flow();
+	else
+		first_set = find_sets(graph);
 	if (graph->visualize)
 		ft_printf("START_ANT_MOVEMENT\n");
 	allocate_ants_to_rooms(first_set, graph);

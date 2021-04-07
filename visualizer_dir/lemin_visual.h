@@ -1,8 +1,8 @@
 #ifndef _LEM_IN_VISUAL_
 # define _LEM_IN_VISUAL_
 
-# define WIN_W 900
-# define WIN_H 900
+# define WIN_W 999
+# define WIN_H 999
 # define SEARCH_DELAY 300
 # define ANT_DELAY 100
 # define MOVE_ANT_DELAY 1

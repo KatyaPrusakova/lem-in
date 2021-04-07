@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/07 12:00:22 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:09:30 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int **create_matrix(int height, int width);
 ** EDGE_WEIGTH.C
 */
 
-int		check_weight(int link_weight, int set_weight);
+int					check_weight(int link_weight, int set_weight);
 
 
 /*
@@ -125,8 +125,8 @@ char*				is_room(char **input, int i);
 ** PARSE_ANTS.C
 */
 
-int				parse_ants(char **line, t_graph* data);
-int				valid_ants(int flag, char **line);
+int					parse_ants(char **line, t_graph* data);
+int					valid_ants(int flag, char **line);
 /*
 ** PRINT_OUT.C
 */
@@ -139,12 +139,15 @@ void				print_input(char **line);
 int					ft_strisdigit(char *s);
 char				*ft_firstword(char **line, int i);
 
-
 //draft
 
 t_path				*bfs(t_graph *graph, int set_weight);
 t_path				**bfs_set(t_graph *graph, int edge_w, t_path **set, int max_paths);
 t_path				**bfs_set_modify(t_graph *graph, int edge_w, t_path **set);
+int					end_is_neighbour(t_room *head);
+t_path 				**unlimited_flow(void);
+
+
 
 
 t_path				*mod_path(int *visited, int link_index, /*int **matrix, */int end_room);
