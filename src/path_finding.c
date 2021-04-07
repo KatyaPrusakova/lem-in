@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/07 12:12:39 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/07 12:27:20 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ t_path		**find_sets(t_graph *graph)
 {
 	t_path	**set_1;
 	t_path	**set_2;
+	int		i;
 
 	graph->max_paths = count_max_paths(graph);
 	set_1 = ft_memalloc(sizeof(t_path*) * graph->room_total);
@@ -154,14 +155,21 @@ t_path		**find_sets(t_graph *graph)
 	if (graph->visualize)
 		ft_printf("BFS\n");
 	set_1 = bfs_set(graph, 1, set_1, graph->max_paths);
-	print_matrix(graph->weight_m, graph->room_total);
 	if (graph->visualize)
 		ft_printf("BFS\n");
 	bfs_set(graph, 1, set_2, graph->max_paths);
-	print_matrix(graph->weight_m, graph->room_total);
-	if (graph->visualize)
-		ft_printf("BFS\n");
-	bfs_set(graph, 1, set_2, graph->max_paths);
+	while (set_2[0])
+	{
+		i = -1;
+		while (set_2[++i])
+		{
+			set_2[i] = free_path(set_2[i]);
+		}
+		if (graph->visualize)
+			ft_printf("BFS\n");
+		set_2 = bfs_set(graph, 1, set_2, graph->max_paths);
+
+	}
 	if (graph->visualize)
 		ft_printf("BFS\n");
 	set_2 = bfs_set(graph, 2, set_2, graph->max_paths);
