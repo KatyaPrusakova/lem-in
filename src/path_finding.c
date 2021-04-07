@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/07 12:27:20 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/07 12:40:43 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_path		**compare_disjoint(t_graph *g, t_path **disjoint, t_path **shortest, t_p
 ** the most efficient set according to the number of ants. Keeps going until the
 ** (int)max_paths of paths is found.
 */
-
+/*
 t_path		**find_paths(t_graph *graph)
 {
 	t_path		**final_set;
@@ -142,6 +142,7 @@ t_path		**find_paths(t_graph *graph)
 	}
 	return (final_set);
 }
+*/
 
 t_path		**find_sets(t_graph *graph)
 {
@@ -155,20 +156,19 @@ t_path		**find_sets(t_graph *graph)
 	if (graph->visualize)
 		ft_printf("BFS\n");
 	set_1 = bfs_set(graph, 1, set_1, graph->max_paths);
+	if (set_rooms_total(set_1) >= graph->ants)
+		return (set_1);
 	if (graph->visualize)
 		ft_printf("BFS\n");
-	bfs_set(graph, 1, set_2, graph->max_paths);
+	set_2 = bfs_set(graph, 1, set_2, graph->max_paths);
 	while (set_2[0])
 	{
 		i = -1;
 		while (set_2[++i])
-		{
 			set_2[i] = free_path(set_2[i]);
-		}
 		if (graph->visualize)
 			ft_printf("BFS\n");
 		set_2 = bfs_set(graph, 1, set_2, graph->max_paths);
-
 	}
 	if (graph->visualize)
 		ft_printf("BFS\n");

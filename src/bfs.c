@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/07 12:01:08 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/07 12:42:27 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ t_path	**bfs_set(t_graph *graph, int edge_w, t_path **set, int max_paths)
 	q = NULL;
 	visited = init_visited(graph->room_total);
 	q = enqueue(0, q, graph->adlist, 0);
-	while (q->head && path_no < max_paths)
+	while (q->head && path_no < max_paths && set_rooms_total(set) < graph->ants)
 	{
 		room = ft_memdup(graph->adlist[q->head->index], sizeof(t_room));
 		room->prev_room_index = q->head->prev_room_index;
