@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ants_flow.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/05 15:54:34 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/04/08 14:19:00 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,21 @@ void	run_ants(int path_total, t_path **path, t_graph *farm)
 	last_push(path, farm);
 }
 
+void	move_all_to_end(int ant_amount, char *end_room)
+{
+	int i;
+
+	i = 1;
+	while (i <= ant_amount)
+	{
+		ft_printf("L%d-%s", i, end_room);
+		i++;
+		if (i <= ant_amount)
+			write(1, " ", 1);
+	}
+	ft_n(1);
+}
+
 int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 {
 	int		i;
@@ -199,6 +214,11 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 
 	i = 0;
 	path_total = paths_count(path, graph);
+	if (!path[0]->len)
+	{
+		move_all_to_end(graph->ants, graph->adlist[graph->room_total - 1]->name);
+		return (NULL);
+	}
 //	ft_printf("sucsess %s %s\n", path[0]->room->name, path[1]->room->name);
 	ant_count = graph->ants;
 	while (ant_count > 0)
