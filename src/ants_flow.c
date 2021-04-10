@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ants_flow.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/08 16:36:41 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/05 15:54:34 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-
-/*
-** Adding room, prev and next pointers to the path nodes.
-*/
 
 void	create_rooms_in_path(t_path *path, t_graph *farm)
 {
@@ -91,7 +87,7 @@ void	push_ant(t_path *path, int ant)
 		path->next->room->antnbr = ant;
 	ft_printf("L%d-%s ", ant,
 		path->next->room->name);
-	path->ant_queue--;
+	path->ants_wait_list--;
 }
 
 int		ants_left_in_path(t_path *q_path)
@@ -132,7 +128,7 @@ void	run_ants_in_one_path(int ant, t_path *path)
 			//ft_printf("list %s prev %s\n",  temp->room->name, temp->prev->room->name);
 			push_ant_further(end_of_path(path));
 		}
-	if (path->ant_queue) //modify its segfault
+	if (path->ants_wait_list) //modify its segfault
 	{
 		push_ant(path, ant);
 	}
@@ -168,7 +164,7 @@ void	last_push(t_path **path, t_graph *farm)
 
 /*
 ** it is main loop functioon
-** sends ants from start room while there is ant_queue in path set
+** sends ants from start room while there is ants_wait_list in path set
 */
 
 void	run_ants(int path_total, t_path **path, t_graph *farm)
@@ -195,24 +191,6 @@ void	run_ants(int path_total, t_path **path, t_graph *farm)
 	last_push(path, farm);
 }
 
-void	move_all_to_end(int ant_amount, char *end_room)
-{
-	int i;
-
-	i = 1;
-	while (i <= ant_amount)
-	{
-		ft_printf("L%d-%s", i, end_room);
-		i++;
-		if (i <= ant_amount)
-			write(1, " ", 1);
-	}
-	ft_n(1);
-}
-
-// It seems like there is something wrong with the path_total and ant_queue correlation.
-// Sometimes wrong amount of ants is used. Sometimes optimal paths are not used.
-
 int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 {
 	int		i;
@@ -221,33 +199,21 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 
 	i = 0;
 	path_total = paths_count(path, graph);
-	if (!path[0]->len)
-	{
-		move_all_to_end(graph->ants, graph->adlist[graph->room_total - 1]->name);
-		return (NULL);
-	}
 //	ft_printf("sucsess %s %s\n", path[0]->room->name, path[1]->room->name);
 	ant_count = graph->ants;
-	while (ant_count)
+	while (ant_count > 0)
 	{
 		i = 0;
-		while (path[i] && ant_count)
+		//ft_printf("loop %d\n", ant_count );
+		while (ant_count < path[i]->len && path_total > 1)
 		{
-			path[i++]->ant_queue++;
-			ant_count--;
+			path_total--;
 		}
-		// //ft_printf("loop %d\n", ant_count );
-		// while (ant_count < path[i]->len && path_total > 1)
-		// {
-		// 	path_total--;
-		// }
-		// //ft_printf("loop path_total %d\n", path_total );
-		// while (i < path_total)
-		// 	path[i++]->ant_queue++;
-		// ant_count -= path_total;
-
+		//ft_printf("loop path_total %d\n", path_total );
+		while (i < path_total)
+			path[i++]->ants_wait_list++;
+		ant_count -= path_total;
 	}
-	//ft_printf("ant_count %d, path_total %d\n", ant_count, path_total); //test ant_count endds up 0 and path_total 1
 	run_ants(path_total, path, graph);
 	return (NULL); //change
 }

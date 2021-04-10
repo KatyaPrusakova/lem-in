@@ -6,11 +6,26 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/10 22:02:32 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/10 22:18:23 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+void	move_all_to_end(int ant_amount, char *end_room)
+{
+	int i;
+
+	i = 1;
+	while (i <= ant_amount)
+	{
+		ft_printf("L%d-%s", i, end_room);
+		i++;
+		if (i <= ant_amount)
+			write(1, " ", 1);
+	}
+	ft_n(1);
+}
 
 /*
 ** Pushes all ants forward in all paths of the pathset **p. Adds add_ant to the
