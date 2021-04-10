@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/07 12:42:27 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/10 17:38:32 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 		queue_to_visualizer(graph->adlist, q, 1);
 	}
 	//test
-	ft_dprintf(fd, "\n");
-	for (int i = 0; i < graph->room_total; i++)
-	{
-		ft_dprintf(fd, "|%d", visited[i]);
-	}
-	ft_dprintf(fd, "|\n");
+//	ft_dprintf(fd, "\n");
+	// for (int i = 0; i < graph->room_total; i++)
+	// {
+	// 	ft_dprintf(fd, "|%d", visited[i]);
+	// }
+	// ft_dprintf(fd, "|\n");
 }
 
 /*
@@ -117,7 +117,7 @@ t_path	*bfs(t_graph *graph, int edge_w)
 			visited_to_visualizer(room->index, room->prev_room_index, graph->visualize);
 			queue_to_visualizer(graph->adlist, q, graph->visualize);
 			visited[room->index] = room->prev_room_index;
-			return (save_path(visited, room->index, graph->room_total - 1));
+			return (save_path(visited, room->index, graph->visualize, graph->room_total - 1));
 		}
 		else
 			visit_room(room, q, visited, graph, edge_w);
@@ -143,7 +143,7 @@ t_path	**bfs_set(t_graph *graph, int edge_w, t_path **set, int max_paths)
 	q = NULL;
 	visited = init_visited(graph->room_total);
 	q = enqueue(0, q, graph->adlist, 0);
-	while (q->head && path_no < max_paths && set_rooms_total(set) < graph->ants)
+	while (q->head && path_no < max_paths)
 	{
 		room = ft_memdup(graph->adlist[q->head->index], sizeof(t_room));
 		room->prev_room_index = q->head->prev_room_index;

@@ -1,7 +1,7 @@
 #ifndef _LEM_IN_VISUAL_
 # define _LEM_IN_VISUAL_
 
-# define WIN_W 999
+# define WIN_W 1600
 # define WIN_H 999
 # define SEARCH_DELAY 50
 # define ANT_DELAY 50
@@ -96,6 +96,7 @@ typedef struct s_data
 {
 	int	room_count;
 	int	room_size;
+	int	pos;
 	int	win_w;
 	int	max_y;
 	int	max_x;

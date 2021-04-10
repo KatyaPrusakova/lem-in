@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/08 16:22:47 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/10 18:17:06 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ int					path_cmp(t_path *p1, t_path *p2);
 */
 
 t_path		**check_path(t_graph *graph, int *visited, int find_path, t_path **path, int *path_no);
-t_path		*save_path(int *visited, int find_path, /*int **matrix,*/int end_room);
+t_path		*save_path(int *visited, int find_path, int visualize, int end_room);
 int			**mod_edgeweight_path(int **matrix, t_path *path, t_graph *g, int path_is_used);
 
 
@@ -202,6 +202,12 @@ int					*allocate_ants_to_rooms(t_path **path, t_graph *graph);
 //test
 
 void	print_matrix(int **matrix, int size);
+
+/*
+** ant movement functions
+*/
+
+void	move_ants(t_path **p, t_graph *g);
 
 
 

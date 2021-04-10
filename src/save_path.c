@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/10 14:50:56 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/10 16:20:36 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** a linked list.
 */
 
-t_path		*save_path(int *visited, int link_index, /*int **matrix, */int end_room)
+t_path		*save_path(int *visited, int link_index, int visualize, int end_room)
 {
 	t_path	*head;
 	t_path	*tmp;
@@ -53,21 +53,24 @@ t_path		*save_path(int *visited, int link_index, /*int **matrix, */int end_room)
 		head->next = tmp;
 		tmp = head;
 		link_index = prev;
-		ft_dprintf(fd, "- %d -", link_index); //test
+	//	ft_dprintf(fd, "- %d -", link_index); //test
 		len++;
 	}
 	head = ft_memalloc(sizeof(t_path));
 	head->next = tmp;
 	head->len = len;
 	tmp = head;
-	while (tmp)
+	if (visualize)
 	{
-	//	ft_printf("%d |", tmp->i);
-		tmp = tmp->next;
+		while (tmp)
+		{
+			ft_printf("%d |", tmp->i);
+			tmp = tmp->next;
+		}
+		ft_n(1);
 	}
-//	ft_n(1);
 	return (head);
-}
+	}
 
 /*
 ** Check if any of the rooms in the found path are already used on a saved
@@ -84,7 +87,7 @@ t_path **check_path(t_graph *graph, int *visited, int link_index, t_path **set, 
 //if visualize
 //	ft_printf("%d %d %d\n%d-%d\n", link_index, visited[link_index],
 //	graph->weight_m[visited[link_index]][link_index], link_index, link_index);
-	found_path = save_path(visited, link_index, graph->room_total - 1);
+	found_path = save_path(visited, link_index, graph->visualize, graph->room_total - 1);
 	if (!found_path)
 	{
 		ft_printf("NULL path\n"); //test
@@ -126,7 +129,7 @@ t_path		*mod_path(int *visited, int link_index, /*int **matrix, */int end_room)
 		head->next = tmp;
 		tmp = head;
 		link_index = prev;
-		ft_dprintf(fd, "- %d -", link_index); //test
+	//	ft_dprintf(fd, "- %d -", link_index); //test
 		len++;
 	}
 	head = ft_memalloc(sizeof(t_path));

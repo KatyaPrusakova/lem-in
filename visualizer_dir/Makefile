@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/16 03:21:02 by ksuomala          #+#    #+#              #
-#    Updated: 2021/04/08 13:59:28 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/04/10 15:41:58 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ ants.c \
 animation.c \
 visualize_algorithm.c \
 free_all.c
+
+H_FILES = includes/lemin_visual.h
 
 LIBSDL2 = lib/libSDL2/lib/libSDL2.a
 
@@ -63,7 +65,7 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME) $(LINKS)
 	@echo "executable compiled!"
 
-$(OBJS):  $(addprefix $(SRCS_DIR), $(SRCS)) $(LIBSDL2) | $(OBJ_DIR) $(lib_dir)
+$(OBJS):  $(addprefix $(SRCS_DIR), $(SRCS)) $(LIBSDL2) $(H_FILES) | $(OBJ_DIR) $(lib_dir)
 	@echo "Compiling..."
 	$(CC) $(C_FLAGS) $(INCL) -c $(addprefix $(SRCS_DIR), $(SRCS))
 	@echo "*object files created"

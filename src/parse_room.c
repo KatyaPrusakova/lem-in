@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_room.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/05 15:55:02 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/04/10 16:21:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				count_rooms(char **input)
 			room++;
 		i++;
 	}
-	ft_dprintf(fd, " count_rooms %d\n", room);
+//	ft_dprintf(fd, " count_rooms %d\n", room);
 	start_end != 2 ?  print_error(8, input) : 0;
 	return (room ? room : print_error(9, input));
 }
