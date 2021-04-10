@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/10 17:38:32 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/10 19:19:09 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_path	*bfs(t_graph *graph, int edge_w)
 			visited_to_visualizer(room->index, room->prev_room_index, graph->visualize);
 			queue_to_visualizer(graph->adlist, q, graph->visualize);
 			visited[room->index] = room->prev_room_index;
-			return (save_path(visited, room->index, graph->visualize, graph->room_total - 1));
+			return (save_path(visited, room->index, graph, graph->room_total - 1));
 		}
 		else
 			visit_room(room, q, visited, graph, edge_w);

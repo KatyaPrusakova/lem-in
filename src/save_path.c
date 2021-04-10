@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/10 16:20:36 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/10 20:14:31 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** a linked list.
 */
 
-t_path		*save_path(int *visited, int link_index, int visualize, int end_room)
+t_path		*save_path(int *visited, int link_index, t_graph *g, int end_room)
 {
 	t_path	*head;
 	t_path	*tmp;
@@ -34,6 +34,7 @@ t_path		*save_path(int *visited, int link_index, int visualize, int end_room)
 	if (!head)
 		ft_printf("error");
 	head->i = end_room;
+	head->name = g->adlist[end_room]->name;
 	head->next = NULL;
 	tmp = head;
 	while (link_index)
@@ -50,6 +51,7 @@ t_path		*save_path(int *visited, int link_index, int visualize, int end_room)
 //		if (!head)
 //			ft_error(2);
 		head->i = link_index;
+		head->name = g->adlist[link_index]->name;
 		head->next = tmp;
 		tmp = head;
 		link_index = prev;
@@ -60,7 +62,7 @@ t_path		*save_path(int *visited, int link_index, int visualize, int end_room)
 	head->next = tmp;
 	head->len = len;
 	tmp = head;
-	if (visualize)
+	if (g->visualize)
 	{
 		while (tmp)
 		{
@@ -87,10 +89,10 @@ t_path **check_path(t_graph *graph, int *visited, int link_index, t_path **set, 
 //if visualize
 //	ft_printf("%d %d %d\n%d-%d\n", link_index, visited[link_index],
 //	graph->weight_m[visited[link_index]][link_index], link_index, link_index);
-	found_path = save_path(visited, link_index, graph->visualize, graph->room_total - 1);
+	found_path = save_path(visited, link_index, graph, graph->room_total - 1);
 	if (!found_path)
 	{
-		ft_printf("NULL path\n"); //test
+	//	ft_printf("NULL path\n"); //test
 		return (set);
 	}
 	mod_edgeweight_path(graph->weight_m, found_path, graph, 0);

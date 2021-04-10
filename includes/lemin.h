@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/10 18:17:06 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/10 19:22:15 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ typedef	struct 		s_path
 	int				i;
 	int				len;
 	int				ant_queue; //added
+	int				ant;
+	char			*name;
 	t_room			*room;
-	struct s_path	*end;
+	struct s_path	*end; //paths are null terminated. Why do you need end pointer?
 	struct s_path	*prev;
 	struct s_path	*next;
 }					t_path;
@@ -181,7 +183,7 @@ int					path_cmp(t_path *p1, t_path *p2);
 */
 
 t_path		**check_path(t_graph *graph, int *visited, int find_path, t_path **path, int *path_no);
-t_path		*save_path(int *visited, int find_path, int visualize, int end_room);
+t_path		*save_path(int *visited, int find_path, t_graph *g, int end_room);
 int			**mod_edgeweight_path(int **matrix, t_path *path, t_graph *g, int path_is_used);
 
 

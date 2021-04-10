@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/06 10:12:45 by ksuomala          #+#    #+#              #
-#    Updated: 2021/03/31 15:34:32 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/04/10 20:01:43 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,11 +28,12 @@ SRCS = lemin.c \
 	save_path.c \
 	test_dprint.c \
 	visualize.c \
-	edge_weight.c
+	edge_weight.c \
+	move_ants.c \
 
 SRCS_DIR = src/
 
-OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
 OBJ_DIR = obj/
 
