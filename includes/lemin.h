@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/07 15:09:30 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/08 16:22:47 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef	struct 		s_path
 {
 	int				i;
 	int				len;
-	int				ants_wait_list; //added
+	int				ant_queue; //added
 	t_room			*room;
 	struct s_path	*end;
 	struct s_path	*prev;
