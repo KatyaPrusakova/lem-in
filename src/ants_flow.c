@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ants_flow.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/05 15:54:34 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/04/10 22:22:02 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	push_ant(t_path *path, int ant)
 		path->next->room->antnbr = ant;
 	ft_printf("L%d-%s ", ant,
 		path->next->room->name);
-	path->ants_wait_list--;
+	path->ant_queue--;
 }
 
 int		ants_left_in_path(t_path *q_path)
@@ -128,7 +128,7 @@ void	run_ants_in_one_path(int ant, t_path *path)
 			//ft_printf("list %s prev %s\n",  temp->room->name, temp->prev->room->name);
 			push_ant_further(end_of_path(path));
 		}
-	if (path->ants_wait_list) //modify its segfault
+	if (path->ant_queue) //modify its segfault
 	{
 		push_ant(path, ant);
 	}
@@ -164,7 +164,7 @@ void	last_push(t_path **path, t_graph *farm)
 
 /*
 ** it is main loop functioon
-** sends ants from start room while there is ants_wait_list in path set
+** sends ants from start room while there is ant_queue in path set
 */
 
 void	run_ants(int path_total, t_path **path, t_graph *farm)
@@ -211,7 +211,7 @@ int		*allocate_ants_to_rooms(t_path **path, t_graph *graph)
 		}
 		//ft_printf("loop path_total %d\n", path_total );
 		while (i < path_total)
-			path[i++]->ants_wait_list++;
+			path[i++]->ant_queue++;
 		ant_count -= path_total;
 	}
 	run_ants(path_total, path, graph);
