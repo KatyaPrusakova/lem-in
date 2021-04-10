@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/06 16:42:07 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/10 14:50:56 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ t_path		*save_path(int *visited, int link_index, /*int **matrix, */int end_room)
 	tmp = head;
 	while (tmp)
 	{
-		ft_printf("%d |", tmp->i);
+	//	ft_printf("%d |", tmp->i);
 		tmp = tmp->next;
 	}
-	ft_n(1);
+//	ft_n(1);
 	return (head);
 }
 
@@ -91,7 +91,7 @@ t_path **check_path(t_graph *graph, int *visited, int link_index, t_path **set, 
 		return (set);
 	}
 	mod_edgeweight_path(graph->weight_m, found_path, graph, 0);
-	ft_printf("path saved in [%d]\n", *path_no);
+//	ft_printf("path saved in [%d]\n", *path_no);
 	set[*path_no] = found_path;
 	*path_no += 1;
 	return (set);
