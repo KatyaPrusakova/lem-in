@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/12 14:19:06 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/12 17:05:07 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void		move_ants(t_path **p, t_graph *g)
 			if (i && p[i]->len > p[i - 1]->len + ants_at_start)
 			{
 				p[i] = free_path(p[i]);
+				ft_printf("Previous path[%d] is the longest one we will use!\n", i-1); //test
 				break;
 			}
 			push_path(p[i], ant_no);
@@ -112,6 +113,8 @@ void		move_ants(t_path **p, t_graph *g)
 			ant_no++;
 			ants_at_start--;
 		}
+		if (!ants_at_start && p[i])
+			p[i] = free_path(p[i]);
 		ft_n(1);
 	}
 	empty_paths(p);
