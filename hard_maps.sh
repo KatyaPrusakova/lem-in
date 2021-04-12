@@ -22,8 +22,10 @@ function generate () {
 				lines_required=$(echo $line | tr -dc '0-9')
 				echo "lines REQUIRED : $lines_required"
 			fi
+			if [[ $line == "" ]]
+				break
 		done < $output
-			index=$(($index+1))
+		index=$(($index+1))
 	done
 }
 
