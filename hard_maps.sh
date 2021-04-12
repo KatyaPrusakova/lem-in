@@ -18,7 +18,7 @@ function generate () {
 		do
 			echo "read"
 			echo $line
-			if [ "$line" == *"#number of"*]
+			if [[ "$line" == *"#Here is the number of"* ]]
 			then
 				echo "FOUND IN STRING"
 			fi
