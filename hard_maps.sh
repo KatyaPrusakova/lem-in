@@ -18,6 +18,10 @@ function generate () {
 		do
 			echo "read"
 			echo $line
+			if [ "$line" == *"#number of"*]
+			then
+				echo "FOUND IN STRING"
+			fi
 			index=$(($index+1))
 		done < $output
 	done
