@@ -5,7 +5,6 @@ output="$test_dir/output.txt"
 mkdir -p $test_dir
 
 touch $output
-index="0"
 
 
 function generate () {
@@ -14,18 +13,23 @@ function generate () {
 		echo run
 		./generator --flow-$1 > $2
 		./lem-in < $2 > $output
+		index="0"
 		while IFS= read -r line
 		do
-			echo "read"
 			if [[ "$line" == *"#Here is the number of"* ]]
 			then
 				lines_required=$(echo $line | tr -dc '0-9')
-				echo "lines REQUIRED : $lines_required"
 			fi
 			if [[ $line == "" ]]
-				break
+			then
+				index=$(($index+1))
+			fi
+			if [[ $index -gt "0" ]]
+			then
+				index=$(($index+1))
+			fi
 		done < $output
-		index=$(($index+1))
+		index=$(($index-2))
 	done
 }
 
