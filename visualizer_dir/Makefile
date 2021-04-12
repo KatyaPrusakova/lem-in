@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/16 03:21:02 by ksuomala          #+#    #+#              #
-#    Updated: 2021/04/10 15:41:58 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/04/12 15:45:03 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,14 @@ LIBSDL_MAKE = SDL2/libSDL2/Makefile
 
 LIBSDL2_TTF = $(LIB_DIR)lib/libSDL2_ttf.a
 
+SDL2_CONFIG = $(abspath $(LIB_DIR)libSDL2/bin/sdl2-config)
+
+FT2_CONFIG = $(FREETYPE_BUILD)/builds/unix/freetype-config
+
 LIB_FT2 = $(LIB_DIR)libft2/lib/libfreetype.a
+#FT2 freetype-config is searched for in system.
+
+FREETYPE_BUILD = SDL2/SDL2_ttf/external/freetype-2.9.1/
 
 LIBFT = ../libft/libft.a
 
@@ -65,19 +72,19 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME) $(LINKS)
 	@echo "executable compiled!"
 
-$(OBJS):  $(addprefix $(SRCS_DIR), $(SRCS)) $(LIBSDL2) $(H_FILES) | $(OBJ_DIR) $(lib_dir)
+$(OBJS):  $(addprefix $(SRCS_DIR), $(SRCS)) $(LIBSDL2) $(H_FILES) | $(OBJ_DIR) $(lib_dir) $(LIBSDL2_TTF)
 	@echo "Compiling..."
 	$(CC) $(C_FLAGS) $(INCL) -c $(addprefix $(SRCS_DIR), $(SRCS))
 	@echo "*object files created"
 	mv $(SRCS:.c=.o) $(OBJ_DIR)
 
-$(LIBSDL2_TTF): | $(UNZIP_TTF)
+$(LIBSDL2_TTF): | $(UNZIP_TTF) $(LIB_FT2)
 	@echo "Configuring SDL2_ttf..."
-	cd SDL2/SDL2_ttf && ./configure --prefix=$(abspath $(LIB_DIR)) SDL2_CONFIG=$(SDL2_CONFIG)
+	cd SDL2/SDL2_ttf && ./configure --prefix=$(abspath $(LIB_DIR)) SDL2_CONFIG=$(SDL2_CONFIG) FT2_CONFIG=$(FT2_CONFIG)
 	@echo "SDL2_ttf configured!"
 	@echo "bulding SDL2_ttf"
-	$(MAKE) SDL2_CONFIG=$(SDL2_CONFIG) --directory=SDL2/SDL2_ttf
-	$(MAKE) SDL2_CONFIG=$(SDL2_CONFIG) --directory=SDL2/SDL2_ttf install
+	$(MAKE) SDL2_CONFIG=$(SDL2_CONFIG) FT2_CONFIG=$(FT2_CONFIG) --directory=SDL2/SDL2_ttf
+	$(MAKE) SDL2_CONFIG=$(SDL2_CONFIG) FT2_CONFIG=$(FT2_CONFIG) --directory=SDL2/SDL2_ttf install
 	@echo "SDL2_ttf BUILT!"
 
 $(LIB_FT2): | $(UNZIP_TTF)
@@ -90,7 +97,7 @@ $(LIB_FT2): | $(UNZIP_TTF)
 	@echo "LFT2 BUILT!"
 
 
-$(LIBSDL2): $(LIB_DIR) | $(LIBSDL2_TTF) $(UNZIP_SDL)
+$(LIBSDL2): $(LIB_DIR) | $(UNZIP_SDL)
 	@echo "Configuring SDL2..."
 	cd SDL2/libSDL2 && ./configure --prefix=$(abspath $(LIB_DIR)libSDL2) --disable-shared --disable-video-wayland
 	@echo "SDL2 configured"
@@ -103,13 +110,13 @@ clean:
 	@rm -f $(OBJS)
 	@rm -rf $(OBJ_DIR)
 	@echo "*.o removed!"
-	if test -f $(LIBSDL_MAKE); then $(MAKE) AUTOMAKE=: --directory=libSDL2 clean; fi
+	if test -f $(LIBSDL_MAKE); then $(MAKE) AUTOMAKE=: --directory=SDL2/libSDL2 clean; fi
 	@echo "*LIBSDL2 cleaned!"
 
 fclean: clean
 	@rm -f $(NAME)
 	@echo "Targets removed!"
-	if test -f $(LIBSDL_MAKE); then $(MAKE) AUTOMAKE=: --directory=libSDL2 distclean; fi
+	if test -f $(LIBSDL_MAKE); then $(MAKE) AUTOMAKE=: --directory=SDL2/libSDL2 distclean; fi
 	rm -rf $(LIB_DIR) $(BUILD_DIR)
 	@echo "*LIBSDL2 removed!"
 
