@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/16 03:21:02 by ksuomala          #+#    #+#              #
-#    Updated: 2021/04/12 15:56:57 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/04/12 16:00:16 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ LIBSDL2_TTF = $(LIB_DIR)lib/libSDL2_ttf.a
 
 SDL2_CONFIG = $(abspath $(LIB_DIR)libSDL2/bin/sdl2-config)
 
-FT2_CONFIG = $(FREETYPE_BUILD)builds/unix/freetype-config
+FT2_CONFIG = $(abspath $(FREETYPE_BUILD)builds/unix/freetype-config)
 
 LIB_FT2 = $(LIB_DIR)libft2/lib/libfreetype.a
 #FT2 freetype-config is searched for in system.
