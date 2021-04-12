@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/12 14:00:13 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/12 14:19:06 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,25 @@ int			push_path(t_path *p, int add_ant)
 
 void		empty_paths(t_path **p)
 {
-	int	paths_left;
+	int	longest_path;
 	int i;
 
 //	ft_printf("empty paths\n");
-	paths_left = 0;
-	while (p[paths_left])
-		paths_left++;
-	paths_left--;
-//	ft_printf("paths left %d\n", paths_left);
-	while (p[paths_left])
+	longest_path = 0;
+	while (p[longest_path])
+		longest_path++;
+	longest_path--;
+//	ft_printf("paths left %d\n", longest_path);
+	while (p[longest_path])
 	{
-		i = paths_left;
-		while (i && p[i])
+		i = longest_path;
+		while (i >= 0 && p[i])
 		{
 			if (!push_path(p[i], 0))
 				p[i] = free_path(p[i]);
 			i--;
 		}
-		if (p[paths_left])
+	//	if (p[longest_path])
 			ft_n(1);
 	}
 }
