@@ -1,25 +1,29 @@
 #!/bin/bash
 
 test_dir="script_maps"
-flow_one="$test_dir/f1"
-
+output="$test_dir/output.txt"
 mkdir -p $test_dir
 
-./generator --flow-one > $flow_one
-
+touch $output
 index="0"
 
-for i in {1..10}
-do
-	echo run
-	./lem-in < $flow_one > "$test_dir/output.txt"
-	while IFS= read -r line
+
+function generate () {
+	for i in {1..10}
 	do
-		echo "read"
-		echo $index
-		index = $(($index+1))
+		echo run
+		./generator --flow-$1 > $2
+		./lem-in < $2 > $output
+		while IFS= read -r line
+		do
+			echo "read"
+			echo $line
+			index=$(($index+1))
+		done < $output
 	done
-done
+}
+
+generate "one" "map_f1"
 
 
 
