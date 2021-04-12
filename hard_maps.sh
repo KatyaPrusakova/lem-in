@@ -17,13 +17,13 @@ function generate () {
 		while IFS= read -r line
 		do
 			echo "read"
-			echo $line
 			if [[ "$line" == *"#Here is the number of"* ]]
 			then
-				$lines_required=$(echo "I am 999 years old." | tr -dc '0-9')
+				lines_required=$(echo $line | tr -dc '0-9')
+				echo "lines REQUIRED : $lines_required"
 			fi
-			index=$(($index+1))
 		done < $output
+			index=$(($index+1))
 	done
 }
 
