@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/10 22:18:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/12 14:00:13 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			push_path(t_path *p, int add_ant)
 	room = p->next;
 	while (room)
 	{
-		if (room->ant)
+		if (room->ant && room->next)
 			ants_in_path++;
 		if (prev_ant)
 			ft_printf("L%d-%s ", prev_ant, room->name);
