@@ -20,7 +20,7 @@ function generate () {
 			echo $line
 			if [[ "$line" == *"#Here is the number of"* ]]
 			then
-				echo "FOUND IN STRING"
+				$lines_required=$(echo "I am 999 years old." | tr -dc '0-9')
 			fi
 			index=$(($index+1))
 		done < $output
