@@ -18,7 +18,6 @@ maps_saved="0"
 function generate () {
 	for i in {1..10}
 	do
-		echo .
 		./generator --flow-$1 > $2
 		./lem-in < $2 > $output
 		index="0"
@@ -38,6 +37,7 @@ function generate () {
 			fi
 		done < $output
 		index=$(($index-2))
+		echo $(($index-$lines_required))
 		if [ $index -gt $(($lines_required+3)) ]
 		then
 			echo "Difference greater than 3"
