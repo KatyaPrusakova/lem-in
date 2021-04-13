@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/06 10:12:45 by ksuomala          #+#    #+#              #
-#    Updated: 2021/04/10 20:01:43 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/04/13 19:51:44 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ SRCS = lemin.c \
 	print_out.c \
 	ft_strisdigit.c \
 	path_finding.c \
-	ants_flow.c \
 	path_calculations.c \
 	bfs.c \
 	save_path.c \

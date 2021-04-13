@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/13 14:15:37 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/13 19:36:49 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef	struct 		s_path
 {
 	int				i;
 	int				len;
-	int				ant_queue; //added
+	int				queue; //added
 	int				ant;
 	char			*name;
 	t_room			*room;
@@ -173,7 +173,7 @@ void				print_paths(t_path **path);
 */
 
 int					count_max_paths(t_graph *graph);
-int					set_rooms_total(t_path **set);
+int					set_rooms_total(t_path **set, int last_room);
 int					paths_in_array(t_path **set);
 int					path_cmp(t_path *p1, t_path *p2);
 
