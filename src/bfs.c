@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/13 14:38:42 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:44:04 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ t_path	**bfs_set(t_graph *graph, int edge_w, t_path **set, int max_paths)
 			check_path(graph, visited, room->index, set, &path_no);
 			if (path_no > 1 && set[path_no - 1]->len > set[path_no - 2]->len + (graph->ants - path_no))
 			{
-				ft_printf("PATH IS TOO LONG"); //this might cause problems when modifying the edge weights.
 				set[path_no - 1] = free_path(set[path_no - 1]);
 				return (set);
 			}

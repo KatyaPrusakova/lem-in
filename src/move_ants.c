@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/13 13:13:06 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:32:10 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,16 @@ void		move_ants(t_path **p, t_graph *g)
 	int	ant_no;
 	int	i;
 
+
+	//test
+	ft_dprintf(fd, "PATHS:\n");
+	int x = 0;
+	while (p[x])
+	{
+		ft_dprintf(fd, "%d\n", p[x]->len);
+		x++;
+	}
+	//test
 	ant_no = 1;
 	ants_at_start = g->ants;
 	max_path_len = 0;

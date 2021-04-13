@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/13 14:40:29 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:25:55 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,42 @@ t_path		**find_paths(t_graph *graph)
 }
 */
 
+
+/*
+** Returns the set with more paths being used (larger flow). If the flow is equal,
+** the lengh of the longest path in the set determines which path is used.
+*/
+
+t_path		**set_cmp(t_path **p1, t_path **p2)
+{
+	int i;
+
+	i = 0;
+	while (p1[i] && p2[i])
+		i++;
+	if (p2[i] || ((!p1[i] && !p2[i]) && p1[i - 1]->len > p2[i - 1]->len))
+	{
+		i = 0;
+		while (p1[i])
+		{
+			p1[i] = free_path(p1[i]);
+			i++;
+		}
+		return (p2);
+	}
+	else
+	{
+		i = 0;
+		while (p2[i])
+		{
+			p2[i] = free_path(p2[i]);
+			i++;
+		}
+		return (p1);
+	}
+
+}
+
 t_path		**find_sets(t_graph *graph)
 {
 	t_path	**set_1;
@@ -163,11 +199,11 @@ t_path		**find_sets(t_graph *graph)
 	if (graph->visualize)
 		ft_printf("BFS\n");
 	set_1 = bfs_set(graph, 1, set_1, graph->max_paths);
-	print_paths(set_1);
+//	print_paths(set_1);
 	ft_dprintf(fd, "fd\n");
 //	if (set_rooms_total(set_1) >= graph->ants)
 //		return (set_1);
-	set_2[0] = set_1[0];
+	set_2 = bfs_set_modify(graph, 1, set_2);
 	while (set_2[0])
 	{
 		i = -1;
@@ -180,8 +216,8 @@ t_path		**find_sets(t_graph *graph)
 	if (graph->visualize)
 		ft_printf("BFS\n");
 	set_2 = bfs_set(graph, 2, set_2, graph->max_paths);
-	print_paths(set_2);
-	//compare the path sets.
+//	print_paths(set_2);
+	set_2 = set_cmp(set_1, set_2);
 	return (set_2);
 }
 
