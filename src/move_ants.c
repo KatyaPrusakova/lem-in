@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/13 15:54:01 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/13 17:09:36 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ void		move_ants(t_path **p, t_graph *g)
 	ant_no = 1;
 	ants_at_start = g->ants;
 	max_path_len = 0;
-	while (ant_no <= g->ants)
+	while (ants_at_start)
 	{
 		i = 0;
-		while (p[i] && ants_at_start)
+		while (p[i])
 		{
 			if (i && p[i]->len > max_path_len)
 			{
@@ -124,7 +124,7 @@ void		move_ants(t_path **p, t_graph *g)
 				push_path(p[i], ant_no);
 				ant_no++;
 				ants_at_start--;
-				max_path_len = p[0]->len + ants_at_start;
+				max_path_len = p[0]->len + (ants_at_start);
 			}
 			i++;
 		}
