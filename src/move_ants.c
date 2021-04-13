@@ -6,11 +6,26 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/13 17:55:10 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/13 19:52:22 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+
+/*
+void	set_ant_queues(t_path **set, int ants)
+{
+	int i;
+
+	while (ants)
+	{
+		i = 0;
+
+	}
+}
+*/
+
 
 void	move_all_to_end(int ant_amount, char *end_room)
 {
@@ -59,46 +74,57 @@ int			push_path(t_path *p, int add_ant)
 }
 
 /*
-** The remaining paths that still have ants are pushed empty. The path set
-** is looped reversly, because the first ones in the set are the shortest and will
-** be empty first.
 */
 
 void		empty_paths(t_path **p)
 {
 	int	longest_path;
+	int paths_left;
 	int i;
 
-//	ft_printf("empty paths\n");
 	longest_path = 0;
 	while (p[longest_path])
 		longest_path++;
+	paths_left = longest_path;
 	longest_path--;
-//	ft_printf("paths left %d\n", longest_path);
-	while (p[longest_path])
+
+	while (paths_left)
 	{
 		i = longest_path;
-		while (i >= 0 && p[i])
+		while (i >= 0)
 		{
-			if (!push_path(p[i], 0))
+			if (p[i] && !push_path(p[i], 0))
+			{
 				p[i] = free_path(p[i]);
+				paths_left--;
+			}
 			i--;
 		}
-	//	if (p[longest_path])
-			ft_n(1);
+		ft_n(1);
 	}
+}
+
+int			pathlen_is_optimal(t_path **p, int path_nbr, int ants_left)
+{
+	int	pathset_capacity;
+	int	flow_potential;
+
+	pathset_capacity = set_rooms_total(p, path_nbr);
+	flow_potential = p[path_nbr]->len * path_nbr;
+	if (ants_left > flow_potential - pathset_capacity)
+		return (1);
+	else
+		return (0);
 }
 
 void		move_ants(t_path **p, t_graph *g)
 {
 	int	ants_at_start;
-	int	max_path_len;
 	int	ant_no;
 	int	i;
 
-
 	//test
-	ft_dprintf(fd, "PATHS:\n");
+	ft_dprintf(fd, "PATHS:\nANTS: %d\n", g->ants);
 	int x = 0;
 	while (p[x])
 	{
@@ -108,14 +134,12 @@ void		move_ants(t_path **p, t_graph *g)
 	//test
 	ant_no = 1;
 	ants_at_start = g->ants;
-	max_path_len = 0;
 	while (ants_at_start)
 	{
 		i = 0;
 		while (p[i])
 		{
-			ft_dprintf(fd, "I = %d max len %d len %d\n", i, max_path_len, p[i]->len);
-			if (!ants_at_start || (i && p[i]->len >= max_path_len))
+			if (!ants_at_start || !pathlen_is_optimal(p, i, ants_at_start))
 			{
 				if (!push_path(p[i], 0))
 					p[i] = free_path(p[i]);
@@ -125,7 +149,6 @@ void		move_ants(t_path **p, t_graph *g)
 				push_path(p[i], ant_no);
 				ant_no++;
 				ants_at_start--;
-				max_path_len = p[0]->len + (ants_at_start);
 			}
 			i++;
 		}
