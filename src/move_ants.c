@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/12 17:12:24 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/13 13:13:06 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,28 +92,32 @@ void		empty_paths(t_path **p)
 void		move_ants(t_path **p, t_graph *g)
 {
 	int	ants_at_start;
+	int	max_path_len;
 	int	ant_no;
 	int	i;
 
 	ant_no = 1;
 	ants_at_start = g->ants;
+	max_path_len = 0;
 	while (ant_no <= g->ants)
 	{
 		i = 0;
 		while (p[i] && ants_at_start)
 		{
-			if (i && p[i]->len > p[i - 1]->len + ants_at_start)
+			if (i && p[i]->len > max_path_len)
 			{
-				p[i] = free_path(p[i]);
-				break;
+				if (!push_path(p[i], 0))
+					p[i] = free_path(p[i]);
 			}
-			push_path(p[i], ant_no);
+			else
+			{
+				push_path(p[i], ant_no);
+				ant_no++;
+				ants_at_start--;
+				max_path_len = p[i]->len + ants_at_start;
+			}
 			i++;
-			ant_no++;
-			ants_at_start--;
 		}
-		if (!ants_at_start && p[i])
-			p[i] = free_path(p[i]);
 		ft_n(1);
 	}
 	empty_paths(p);
