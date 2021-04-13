@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/10 19:22:15 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:15:37 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,10 @@ int			**mod_edgeweight_path(int **matrix, t_path *path, t_graph *g, int path_is_
 ** visualize.c
 */
 
-void				queue_to_visualizer(t_room **adlist, t_queue *q, int visualize); //testing
-void				visited_to_visualizer(int current_index, int visited_from, int visualize);
+void	visualize_search(t_room *room, t_queue *q);
+
+//void				queue_to_visualizer(t_room **adlist, t_queue *q, int visualize); //testing
+//void				visited_to_visualizer(int current_index, int visited_from, int visualize);
 
 /*
 ** ANTS_FLOW.C
