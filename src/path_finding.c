@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/10 17:38:41 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:40:29 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ t_path		**find_sets(t_graph *graph)
 			set_2[i] = free_path(set_2[i]);
 		if (graph->visualize)
 			ft_printf("BFS\n");
-		set_2 = bfs_set(graph, 1, set_2, graph->max_paths);
+		set_2 = bfs_set_modify(graph, 1, set_2);
 	}
 	if (graph->visualize)
 		ft_printf("BFS\n");

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/13 14:15:29 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:38:42 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ t_path	**bfs_set(t_graph *graph, int edge_w, t_path **set, int max_paths)
 			check_path(graph, visited, room->index, set, &path_no);
 			if (path_no > 1 && set[path_no - 1]->len > set[path_no - 2]->len + (graph->ants - path_no))
 			{
-				ft_printf("PATH IS TOO LONG");
+				ft_printf("PATH IS TOO LONG"); //this might cause problems when modifying the edge weights.
 				set[path_no - 1] = free_path(set[path_no - 1]);
 				return (set);
 			}
@@ -167,6 +167,42 @@ t_path	**bfs_set(t_graph *graph, int edge_w, t_path **set, int max_paths)
 	}
 	return (set);
 }
+
+
+t_path	**bfs_set_modify(t_graph *graph, int edge_w, t_path **set)
+{
+	t_queue	*q;
+	t_room	*tmp;
+	t_room	*room;
+	int		*visited;
+	int		path_no;
+
+	path_no = 0;
+	q = NULL;
+	visited = init_visited(graph->room_total);
+	q = enqueue(0, q, graph->adlist, 0);
+	while (q->head)
+	{
+		room = ft_memdup(graph->adlist[q->head->index], sizeof(t_room));
+		room->prev_room_index = q->head->prev_room_index;
+		if (q->head)
+			dequeue(q);
+		tmp = room->next;
+		if (end_is_neighbour(tmp) && visited[room->index] == -1 && \
+		check_weight(graph->weight_m[room->index][graph->room_total - 1], edge_w))
+		{
+			if (graph->visualize)
+				visualize_search(room, q);
+			visited[room->index] = room->prev_room_index;
+			check_path(graph, visited, room->index, set, &path_no);
+		}
+		else
+			visit_room(room, q, visited, graph, edge_w);
+		ft_memdel((void**)&room);
+	}
+	return (set);
+}
+
 
 // t_path	**bfs_set_modify(t_graph *graph, int edge_w, t_path **set)
 // {
