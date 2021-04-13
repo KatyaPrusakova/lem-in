@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/13 15:40:16 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:54:01 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void		move_ants(t_path **p, t_graph *g)
 				push_path(p[i], ant_no);
 				ant_no++;
 				ants_at_start--;
-				max_path_len = p[i]->len + ants_at_start;
+				max_path_len = p[0]->len + ants_at_start;
 			}
 			i++;
 		}
