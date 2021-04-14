@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/14 12:23:33 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/14 13:05:05 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,16 @@ t_path		*save_path(int *visited, int link_index, t_graph *g, int end_room)
 	return (head);
 	}
 
+void	modify_visited_array(int *visited, t_path *path)
+{
+	path = path->next;
+	while (path)
+	{
+		visited[path->i] = -2;
+		path = path->next;
+	}
+}
+
 /*
 ** Check if any of the rooms in the found path are already used on a saved
 ** path. If not, save the path, and return the paths array. Otherwise return
@@ -98,6 +108,7 @@ t_path **check_path(t_graph *graph, int *visited, int link_index, t_path **set, 
 		ft_dprintf(fd, "NULL path\n"); //test
 		return (set);
 	}
+	modify_visited_array(visited, found_path);
 	mod_edgeweight_path(graph->weight_m, found_path, graph, 0);
 //	ft_printf("path saved in [%d]\n", *path_no);
 	set[*path_no] = found_path;
