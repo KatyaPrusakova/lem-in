@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/13 15:25:55 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:01:24 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ t_path		**find_sets(t_graph *graph)
 	if (graph->visualize)
 		ft_printf("BFS\n");
 	set_1 = bfs_set(graph, 1, set_1, graph->max_paths);
+	print_paths(set_1); //test
 //	print_paths(set_1);
 	ft_dprintf(fd, "fd\n");
 //	if (set_rooms_total(set_1) >= graph->ants)
@@ -216,6 +217,7 @@ t_path		**find_sets(t_graph *graph)
 	if (graph->visualize)
 		ft_printf("BFS\n");
 	set_2 = bfs_set(graph, 2, set_2, graph->max_paths);
+	print_paths(set_2); //test
 //	print_paths(set_2);
 	set_2 = set_cmp(set_1, set_2);
 	return (set_2);

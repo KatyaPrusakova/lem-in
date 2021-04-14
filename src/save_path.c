@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/10 20:14:31 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:23:33 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,14 @@ t_path		*save_path(int *visited, int link_index, t_graph *g, int end_room)
 	{
 		//leaking
 		if (link_index == -2)
+		{
+			ft_dprintf(fd, "link index == -2\n");
 			return NULL;
+		}
 		else
 		{
 			prev = visited[link_index];
-			visited[link_index] = -2;
+		//	visited[link_index] = -2;
 		}
 		head = ft_memalloc(sizeof(t_path));
 //		if (!head)
@@ -92,7 +95,7 @@ t_path **check_path(t_graph *graph, int *visited, int link_index, t_path **set, 
 	found_path = save_path(visited, link_index, graph, graph->room_total - 1);
 	if (!found_path)
 	{
-	//	ft_printf("NULL path\n"); //test
+		ft_dprintf(fd, "NULL path\n"); //test
 		return (set);
 	}
 	mod_edgeweight_path(graph->weight_m, found_path, graph, 0);

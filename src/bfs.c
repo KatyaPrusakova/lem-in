@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/13 14:44:04 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:09:25 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ t_path	**bfs_set(t_graph *graph, int edge_w, t_path **set, int max_paths)
 	int		*visited;
 	int		path_no;
 
+
+	ft_dprintf(fd, "ASDFASDF\n");
 	path_no = 0;
 	q = NULL;
 	visited = init_visited(graph->room_total);
@@ -157,6 +159,7 @@ t_path	**bfs_set(t_graph *graph, int edge_w, t_path **set, int max_paths)
 			if (path_no > 1 && set[path_no - 1]->len > set[path_no - 2]->len + (graph->ants - path_no))
 			{
 				set[path_no - 1] = free_path(set[path_no - 1]);
+				ft_dprintf(fd, "PATH TOO LONG\n");
 				return (set);
 			}
 		}
