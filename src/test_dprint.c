@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:28:51 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/10 16:24:38 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/14 17:08:19 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_paths(t_path **path)
 		while (path[++i])
 		{
 			tmp = path[i];
-			ft_dprintf(fd, "path n %d: ", i);
+			ft_dprintf(fd, "path n %d: len %d:\n", i, path[i]->len);
 			while (tmp)
 			{
 				ft_dprintf(fd, "%d |", tmp->i);

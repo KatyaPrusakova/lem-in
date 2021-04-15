@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:54:23 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/13 19:37:33 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/14 18:28:26 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		set_rooms_total(t_path **set, int last_room)
 
 	i = 0;
 	count = 0;
-	while (set[i] && i < last_room)
+	while (set[i] && i <= last_room)
 	{
 		count += set[i]->len;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/14 13:05:05 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 15:15:24 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,25 +95,30 @@ void	modify_visited_array(int *visited, t_path *path)
 
 
 
-t_path **check_path(t_graph *graph, int *visited, int link_index, t_path **set, int *path_no)
+int		check_path(t_graph *graph, t_bfs s, int link_index, int *path_no)
 {
 	t_path	*found_path;
 
-//if visualize
-//	ft_printf("%d %d %d\n%d-%d\n", link_index, visited[link_index],
-//	graph->weight_m[visited[link_index]][link_index], link_index, link_index);
-	found_path = save_path(visited, link_index, graph, graph->room_total - 1);
+	if (graph->visualize)
+		visualize_search(s.room, s.q);
+	s.visited[s.room->index] = s.room->prev_room_index;
+	found_path = save_path(s.visited, link_index, graph, graph->room_total - 1);
 	if (!found_path)
 	{
 		ft_dprintf(fd, "NULL path\n"); //test
-		return (set);
+		return (1);
 	}
-	modify_visited_array(visited, found_path);
+	modify_visited_array(s.visited, found_path);
 	mod_edgeweight_path(graph->weight_m, found_path, graph, 0);
-//	ft_printf("path saved in [%d]\n", *path_no);
-	set[*path_no] = found_path;
+	s.set[*path_no] = found_path;
 	*path_no += 1;
-	return (set);
+	if (!pathlen_is_optimal(s.set, *path_no - 1, graph->ants))
+	{
+		s.set[*path_no - 1] = free_path(s.set[*path_no - 1]);
+		ft_dprintf(fd, "PATH TOO LONG\n");
+		return (0);
+	}
+	return (1);
 }
 
 t_path		*mod_path(int *visited, int link_index, /*int **matrix, */int end_room)

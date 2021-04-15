@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/13 19:36:49 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 15:16:57 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,17 @@ typedef struct		s_room
 	int				antnbr;
 	struct s_room	*next;
 }					t_room;
+
+typedef	struct		s_bfs
+{
+	struct s_queue	*q;
+	struct s_room	*tmp;
+	struct s_room	*room;
+	struct s_path	**set;
+	int				*visited;
+	int				path_no;
+}					t_bfs;
+
 
 typedef	struct		s_queue
 {
@@ -97,6 +108,8 @@ int					check_weight(int link_weight, int set_weight);
 
 t_graph*			create_graph(int rooms);
 t_path*				free_path(t_path *path);
+t_path**			free_path_set(t_path **set);
+
 
 
 /*
@@ -144,7 +157,7 @@ char				*ft_firstword(char **line, int i);
 //draft
 
 t_path				*bfs(t_graph *graph, int set_weight);
-t_path				**bfs_set(t_graph *graph, int edge_w, t_path **set, int max_paths);
+t_path				**bfs_set(t_graph *graph, int edge_w);
 t_path				**bfs_set_modify(t_graph *graph, int edge_w, t_path **set);
 int					end_is_neighbour(t_room *head);
 t_path 				**unlimited_flow(void);
@@ -182,7 +195,7 @@ int					path_cmp(t_path *p1, t_path *p2);
 ** save_path.c
 */
 
-t_path		**check_path(t_graph *graph, int *visited, int find_path, t_path **path, int *path_no);
+int			check_path(t_graph *graph, t_bfs s, int link_index, int *path_no);
 t_path		*save_path(int *visited, int find_path, t_graph *g, int end_room);
 int			**mod_edgeweight_path(int **matrix, t_path *path, t_graph *g, int path_is_used);
 
@@ -212,6 +225,8 @@ void	print_matrix(int **matrix, int size);
 */
 
 void	move_ants(t_path **p, t_graph *g);
+int			pathlen_is_optimal(t_path **p, int path_nbr, int ants_left);
+
 
 
 
