@@ -97,7 +97,7 @@ void queue_to_visualizer(t_map *map, char *line)
 	char	**split_link;
 
 	i = 0;
-	ft_printf("%s\n", line);
+	//ft_printf("%s\n", line);
 	split_queue = ft_strsplit(line, ' ');
 	while(split_queue[i])
 	{
@@ -120,8 +120,8 @@ void		visit_room(t_map *map, char *line)
 	visited = ft_strsplit(line, ' ');
 	index[0] = ft_atoi(visited[0]);
 	index[1] = ft_atoi(visited[1]);
-	ft_printf("LINE TO VISIT ROOM: %s\n Index0: %d index1: %d\n", line, index[0], index[1]);
-	ft_printf("visit room %d\n", index[0]); //tmp
+	//ft_printf("LINE TO VISIT ROOM: %s\n Index0: %d index1: %d\n", line, index[0], index[1]);
+	//ft_printf("visit room %d\n", index[0]); //tmp
 	ft_free2d((void**)visited);
 	if (!index[0])
 		return;
@@ -151,7 +151,7 @@ void	draw_path(t_pointers *p, t_data *scl, t_map *map, t_room *rooms, char *inpu
 	draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){path[i], scl->room_count - 1});
 	while (i--)
 	{
-		ft_printf("| %d ", path[i]);
+		//ft_printf("| %d ", path[i]);
 		rooms[path[i]].path = 1;
 		draw_room(p->renderer, scl->room_size, rooms[path[i]], (t_rgb){0, 100, 0, 255});
 		draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){path[i], path[i + 1]});
@@ -220,7 +220,7 @@ void		draw_graph(t_pointers *p, t_data *scl, t_map *map)
 		else
 			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_QUEUED);
 	}
-//	ft_printf("PRESENT\n");
+//	//ft_printf("PRESENT\n");
 //	SDL_RenderPresent(p->renderer);
 }
 
@@ -263,7 +263,7 @@ void	empty_rooms(t_edge *edges, t_room *rooms, int room_count)
 	int i;
 
 	i = 0;
-	ft_printf("empty rooms\n");
+	//ft_printf("empty rooms\n");
 	while (i < room_count)
 	{
 		rooms[i].visited_from = -1;
@@ -277,7 +277,7 @@ void	empty_rooms(t_edge *edges, t_room *rooms, int room_count)
 		|| !rgba_cmp(edges->rgba, RGBA_VISITED))
 		{
 			edges->rgba = RGBA_VOID;
-			ft_printf("Set color to void %d %d\n", edges->dst, edges->src);
+			//ft_printf("Set color to void %d %d\n", edges->dst, edges->src);
 		}
 		edges = edges->next;
 	}
@@ -303,19 +303,19 @@ void	visualize_search(t_pointers *p, t_data *scl, t_map *map, char **input)
 			if (!ft_strcmp(input[i], "BFS"))
 			{
 				empty_rooms(map->edges, map->rooms, scl->room_count);
-				ft_printf("BFS\n");
+				//ft_printf("BFS\n");
 				draw_graph(p, scl, map);
 				i++;
 			}
 			draw_graph(p, scl, map);
 			if (ft_strchr(input[i], '|'))
 			{
-				ft_printf("Draw path\n");
+				//ft_printf("Draw path\n");
 				draw_path(p, scl, map, map->rooms, input[i]);
 			}
 			else if (!ft_strchr(input[i], '-'))
 			{
-				ft_printf("Add queue\n");
+				//ft_printf("Add queue\n");
 				queue_to_visualizer(map, input[i + 1]);
 				visit_room(map, input[i]);
 			}

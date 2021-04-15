@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 18:22:05 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/31 14:24:00 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:42:24 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_rgb	ant_color(int wave)
 {
 	t_rgb	color[20];
 
-	ft_printf("Ant wave no %d\n", wave);
+	//ft_printf("Ant wave no %d\n", wave);
 	if (wave > 19)
 		wave = wave % 19;
 	color[0] = (t_rgb){0, 0, 255, 255};
@@ -78,13 +78,13 @@ void	walk_ant(t_ant *ant)
 	float	dy;
 	float	step;
 
-	ft_printf("I'm walking here. pos %f %f\n", ant->x, ant->y);
+	//ft_printf("I'm walking here. pos %f %f\n", ant->x, ant->y);
 	dx = (ant->dest_x - ant->x);
 	dy = (ant->dest_y - ant->y);
 	step = ((fabsf(dx) >= fabsf(dy)) ? fabsf(dx) : fabsf(dy));
 	ant->x += dx / step;
 	ant->y += dy / step;
-	ft_printf("Ant n %d new position %f %f\n", ant->i, ant->x, ant->y);
+	//ft_printf("Ant n %d new position %f %f\n", ant->i, ant->x, ant->y);
 }
 
 /*

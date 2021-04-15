@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 11:27:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/02/24 15:56:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:42:24 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		kill_all(t_pointers *sdl, t_map map, char **input)
 	while (map.rooms[i].name)
 	{
 		ft_strdel(&map.rooms[i].name);
-		ft_printf("del room name\n"); //test
+		//ft_printf("del room name\n"); //test
 		i++;
 	}
 	free(map.rooms);

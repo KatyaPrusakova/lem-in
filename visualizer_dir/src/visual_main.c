@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/10 16:05:20 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:45:25 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**parse_input(void)
 		}
 		input[i++] = line;
 	}
-	ft_printf("amount of lines = %d\n", i); //test
+	//ft_printf("amount of lines = %d\n", i); //test
 	return (input);
 }
 
@@ -62,7 +62,7 @@ int		move_index(char **input, char *find)
 
 	while (ft_strcmp(input[i], find))
 		i++;
-	ft_printf("Row %d is empty\n", i);
+	//ft_printf("Row %d is empty\n", i);
 	i++;
 	return (i);
 }
@@ -79,7 +79,7 @@ int			events(void)
 		if (event.key.keysym.sym == SDLK_SPACE
 		&& event.key.type == SDL_KEYUP)
 		{
-			ft_printf("SPACE\n");
+			//ft_printf("SPACE\n");
 			pause++;
 		}
 	}
@@ -114,7 +114,7 @@ void		visualize_ants(t_pointers *sdl, t_data *scale, t_map *map, char **input)
 
 	list = NULL;
 	i = move_index(input, "START_ANT_MOVEMENT");
-	ft_printf("Index i = %d\n", i);
+	//ft_printf("Index i = %d\n", i);
 	wave = 0;
 	while (input[i])
 	{
@@ -123,7 +123,7 @@ void		visualize_ants(t_pointers *sdl, t_data *scale, t_map *map, char **input)
 		{
 			if (!ft_strcmp("0 0", input[i]))
 			{
-				ft_printf("stop\n");
+				//ft_printf("stop\n");
 				break;
 			}
 			list = ant_destinations(input[i], list, map->rooms, wave);
@@ -169,10 +169,10 @@ void		modify_coordinates(t_map *map, t_data *scale)
 	scale->max_y = y;
 
 	side_len = get_side_len(map->count);
-	ft_printf("map->count %d, sidelen %d\n", map->count, side_len);
+	//ft_printf("map->count %d, sidelen %d\n", map->count, side_len);
 	while (i < map->count)
 	{
-		ft_printf("map->room y = %d x = %d\n", map->rooms[i].y, map->rooms[i].x);
+		//ft_printf("map->room y = %d x = %d\n", map->rooms[i].y, map->rooms[i].x);
 		map->rooms[i].x = x;
 		map->rooms[i].y = y;
 		if (x > scale->max_x)
@@ -187,7 +187,7 @@ void		modify_coordinates(t_map *map, t_data *scale)
 			y--;
 		if (x > side_len * 4)
 		{
-			ft_printf("side_len = %d, x = %d\n", side_len, x);
+			//ft_printf("side_len = %d, x = %d\n", side_len, x);
 			x = 0;
 			y += 3;
 		}
@@ -208,13 +208,13 @@ int			main(int argc, char **argv)
 	input = parse_input();
 	scale = scale_map(input);
 	map = save_rooms(input, scale.room_count);
-	ft_printf("saved rooms\n");
+	//ft_printf("saved rooms\n");
 	if (argc > 1 && !strcmp(argv[1], "--pos"))
 		scale.pos = 1;
 	if (scale.pos)
 		modify_coordinates(&map, &scale);
 	sdl = initialize(&scale, sdl, map.rooms);
-	ft_printf("ROOM SIZE = %d\n ", scale.room_size);
+	//ft_printf("ROOM SIZE = %d\n ", scale.room_size);
 	visualize_search(sdl, &scale, &map, input);
 	visualize_ants(sdl, &scale, &map, input);
 	kill_all(sdl, map, input);

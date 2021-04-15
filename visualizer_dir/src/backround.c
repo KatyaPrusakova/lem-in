@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:59:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/10 18:46:56 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:42:24 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_line			path_coordinates(char *src, char *dst, t_room *rooms, int size)
 	t_line	line;
 	int		i;
 
-	ft_printf("src %s dst %s\n", src, dst);
+	//ft_printf("src %s dst %s\n", src, dst);
 	i = 0;
 	while (ft_strcmp(rooms[i].name, src))
 		i++;
@@ -96,7 +96,7 @@ int			background(t_data *scale, t_map *map, t_pointers *sdl)
 	while (i < map->count)
 	{
 		//this is needed
-//		ft_printf("bg room count %d\n", map->count); //test
+//		//ft_printf("bg room count %d\n", map->count); //test
 		map->rooms[i].x = map->rooms[i].x * size + 50;
 		map->rooms[i].y = map->rooms[i].y * size + 50;
 		draw_room(sdl->renderer, size, &map->rooms[i], (t_rgb){79, 79, 79, 255});
@@ -121,7 +121,7 @@ t_room *room_coordinates(t_room *rooms, int size, int room_count)
 	{
 		rooms[i].x = rooms[i].x * size + 50;
 		rooms[i].y = rooms[i].y * size + 50;
-		ft_printf("room[%d] x|%d| y|%d|\n", i, rooms[i].x, rooms[i].y);
+		//ft_printf("room[%d] x|%d| y|%d|\n", i, rooms[i].x, rooms[i].y);
 		i++;
 	}
 
@@ -133,7 +133,7 @@ int			room_size(t_data *scale)
 	int size;
 
 	size = (WIN_H / scale->max_y > WIN_W / scale->max_x) ? scale->max_y : scale->max_x;
-	ft_printf("size = %d\n", size);
+	//ft_printf("size = %d\n", size);
 	if (size < 2)
 		size++;
 	if (size > WIN_H && !scale->pos)

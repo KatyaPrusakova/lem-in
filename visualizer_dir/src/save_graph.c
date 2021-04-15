@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:49:29 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/03/01 23:06:21 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:42:24 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_data	scale_map(char **input)
 		if (input[i][0] != '#')
 		{
 			new.room_count += 1;
-//			ft_printf("input line %s\n", input[i]); //test
+//			//ft_printf("input line %s\n", input[i]); //test
 			split = ft_strsplit(input[i], ' ');
 			if (!split)
 				ft_error("ft_strsplit fail");
@@ -50,7 +50,7 @@ t_data	scale_map(char **input)
 			ft_free2d((void**)split);
 		}
 	}
-//	ft_printf("i = %d\n", i);
+//	//ft_printf("i = %d\n", i);
 	return (new);
 }
 
@@ -111,8 +111,8 @@ t_edge		*add_edges(t_room *rooms, char **input, int room_count)
 	{
 		if (!(split = ft_strsplit(input[room_count], '-')))
 			ft_error("split fail");
-//		ft_printf("split0 = %s, split1 = %s\n", split[0], split[1]);
-//		ft_printf("tttttttttttttttttttttttttttttttttttt\n");
+//		//ft_printf("split0 = %s, split1 = %s\n", split[0], split[1]);
+//		//ft_printf("tttttttttttttttttttttttttttttttttttt\n");
 		head = new_edge(head, rooms, split[0], split[1]);
 		free(split);
 		room_count++;
@@ -126,7 +126,7 @@ void		print_edges(t_edge *list)
 {
 	while (list)
 	{
-		ft_printf("EDGE: src: %s dst %s\n", list->src, list->dst);
+		//ft_printf("EDGE: src: %s dst %s\n", list->src, list->dst);
 		list = list->next;
 	}
 }
@@ -153,7 +153,7 @@ t_map		save_rooms(char **input, int room_count)
 			j++;
 			list.rooms[j] = add_room(input[i], j);
 		}
-//		ft_printf("test\n");
+//		//ft_printf("test\n");
 		i++;
 	}
 
@@ -161,8 +161,8 @@ t_map		save_rooms(char **input, int room_count)
 	i = 0;
 	while (i < list.count)
 	{  //test
-	//	ft_printf("test");
-	//	ft_printf("room n%d = %s\n", i, list.rooms[i].name);
+	//	//ft_printf("test");
+	//	//ft_printf("room n%d = %s\n", i, list.rooms[i].name);
 		i++;
 	} //test
 	// test
