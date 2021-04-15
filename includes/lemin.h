@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/15 15:16:57 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 17:56:38 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef	struct		s_bfs
 	struct s_path	**set;
 	int				*visited;
 	int				path_no;
+	int				mod_weight;
 }					t_bfs;
 
 
@@ -108,7 +109,7 @@ int					check_weight(int link_weight, int set_weight);
 
 t_graph*			create_graph(int rooms);
 t_path*				free_path(t_path *path);
-t_path**			free_path_set(t_path **set);
+t_path**			free_path_set(t_path ***set);
 
 
 
@@ -197,7 +198,7 @@ int					path_cmp(t_path *p1, t_path *p2);
 
 int			check_path(t_graph *graph, t_bfs s, int link_index, int *path_no);
 t_path		*save_path(int *visited, int find_path, t_graph *g, int end_room);
-int			**mod_edgeweight_path(int **matrix, t_path *path, t_graph *g, int path_is_used);
+int			**mod_edgeweight_path(int **matrix, t_path *path);
 
 
 
