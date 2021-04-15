@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/15 17:28:29 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 19:06:59 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,11 @@ int			pathlen_is_optimal(t_path **p, int path_nbr, int ants_left)
 	if (ants_left > flow_potential - pathset_capacity)
 		return (1);
 	else
+	{
+		ft_dprintf(fd, "pathno: %d pathlen = %d ants left = %d PATHSET:\n", path_nbr, flow_potential - pathset_capacity, ants_left);
+		print_paths(p);
 		return (0);
+	}
 }
 
 void		move_ants(t_path **p, t_graph *g)

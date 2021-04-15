@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/15 17:56:38 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 22:19:31 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef	struct		s_bfs
 	int				*visited;
 	int				path_no;
 	int				mod_weight;
+	int				start;
+	int				end;
 }					t_bfs;
 
 
@@ -158,9 +160,10 @@ char				*ft_firstword(char **line, int i);
 //draft
 
 t_path				*bfs(t_graph *graph, int set_weight);
-t_path				**bfs_set(t_graph *graph, int edge_w);
-t_path				**bfs_set_modify(t_graph *graph, int edge_w, t_path **set);
-int					end_is_neighbour(t_room *head);
+t_path				**bfs_set(t_graph *graph, int edge_w, int start, int end);
+int					bfs_set_modify(t_graph *graph, int edge_w, int start, int end);
+
+int					end_is_neighbour(t_room *head, int end);
 t_path 				**unlimited_flow(void);
 
 
@@ -197,7 +200,7 @@ int					path_cmp(t_path *p1, t_path *p2);
 */
 
 int			check_path(t_graph *graph, t_bfs s, int link_index, int *path_no);
-t_path		*save_path(int *visited, int find_path, t_graph *g, int end_room);
+t_path		*save_path(int *visited, int find_path, t_graph *g, t_bfs s);
 int			**mod_edgeweight_path(int **matrix, t_path *path);
 
 

@@ -3,7 +3,7 @@
 
 # define WIN_W 1600
 # define WIN_H 999
-# define SEARCH_DELAY 0
+# define SEARCH_DELAY 500
 # define ANT_DELAY 0
 # define MOVE_ANT_DELAY 0
 # define PI  3.14159
@@ -30,6 +30,13 @@ typedef struct	s_color
 	unsigned char b;
 	unsigned char a;
 }				t_rgb;
+
+typedef	struct s_flag
+{
+	int	algorithm;
+	int mod_position;
+}				t_flag;
+
 
 typedef	struct s_line
 {

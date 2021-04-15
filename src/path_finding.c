@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/15 17:41:39 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/16 00:04:50 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,31 +214,36 @@ t_path		**find_sets(t_graph *graph)
 {
 	t_path	**set_1;
 	t_path	**set_2;
+//	t_path	**reverse;
 
 	graph->max_paths = count_max_paths(graph);
 //	set_1 = ft_memalloc(sizeof(t_path*) * graph->room_total);
 //	set_2 = ft_memalloc(sizeof(t_path*) * graph->room_total);
 	if (graph->visualize)
 		ft_printf("BFS\n");
-	set_1 = bfs_set(graph, 1);
+	set_1 = bfs_set(graph, 1, 0, graph->room_total - 1);
 	ft_dprintf(fd, "First set\n");
 	print_paths(set_1);
-	set_2 = bfs_set(graph, 1);
-	ft_dprintf(fd, "Second set\n");
-	print_paths(set_2);
-	ft_dprintf(fd, "Compare sets\n");
-	set_1 = set_cmp(set_1, set_2, graph->ants);
-	ft_dprintf(fd, "compared set\n");
-	set_2 = bfs_set(graph, 2);
-	set_1 = set_cmp(set_1, set_2, graph->ants);
-	print_paths(set_1);
-	while ((set_2 = bfs_set(graph, 1)))
+	set_2 = NULL;
+//	bfs_set_modify(graph, 1);
+//	ft_dprintf(fd, "Second set\n");
+//	print_paths(set_2);
+//	ft_dprintf(fd, "Compare sets\n");
+//	set_1 = set_cmp(set_1, set_2, graph->ants);
+//	ft_dprintf(fd, "compared set\n");
+	//set_2 = bfs_set(graph, 2, 0, graph->room_total);
+	//set_1 = set_cmp(set_1, set_2, graph->ants);
+//	print_paths(set_1);
+	while ((bfs_set_modify(graph, 1, 0, graph->room_total - 1)))
 	{
-		print_paths(set_2);
-		set_1 = set_cmp(set_1, set_2, graph->ants);
+	//		print_paths(set_2);
+	//	set_1 = set_cmp(set_1, set_2, graph->ants);
+	//	set_2 = bfs_set(graph, 2, 0, graph->room_total);
+	//	set_1 = set_cmp(set_1, set_2, graph->ants);
 	}
-	set_2 = bfs_set(graph, 2);
+	set_2 = bfs_set(graph, 2, 0, graph->room_total - 1);
 	set_1 = set_cmp(set_1, set_2, graph->ants);
+//	reverse = bfs_set(graph, 4, graph->room_total - 1, 0);
 	ft_dprintf(fd, "SETS FOUND\n");
 	return (set_1);
 }

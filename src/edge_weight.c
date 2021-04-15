@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 15:30:46 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/15 17:56:20 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 21:59:24 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int		check_weight(int link_weight, int set_weight)
 	else if (set_weight == 2 && link_weight == 1)
 		return (1);
 	else if (set_weight == 3 && !link_weight)
+		return (1);
+	else if (set_weight == 4)
 		return (1);
 	else
 		return (0);

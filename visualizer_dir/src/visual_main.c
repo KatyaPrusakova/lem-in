@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/14 12:45:25 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 22:54:06 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void		visualize_ants(t_pointers *sdl, t_data *scale, t_map *map, char **input)
 	int		pause;
 
 	list = NULL;
-	i = move_index(input, "START_ANT_MOVEMENT");
+	i = move_index(input, "");
 	//ft_printf("Index i = %d\n", i);
 	wave = 0;
 	while (input[i])
@@ -195,11 +195,31 @@ void		modify_coordinates(t_map *map, t_data *scale)
 	}
 }
 
+t_flag		parse_flags(int argc, char **argv)
+{
+	t_flag	f;
+	int		i;
+
+	f.mod_position = 0;
+	f.algorithm = 0;
+	i = 1;
+	while (i < argc)
+	{
+		if (!ft_strcmp(argv[i], "--pos"))
+			f.mod_position = 1;
+		if (!ft_strcmp(argv[i], "--algorithm"))
+			f.algorithm = 1;
+		i++;
+	}
+	return (f);
+}
+
 int			main(int argc, char **argv)
 {
 	t_pointers	*sdl;
 	t_data		scale;
 	t_map		map;
+	t_flag		flag;
 	char		**input;
 
 	sdl = ft_memalloc(sizeof(t_pointers));
@@ -209,13 +229,13 @@ int			main(int argc, char **argv)
 	scale = scale_map(input);
 	map = save_rooms(input, scale.room_count);
 	//ft_printf("saved rooms\n");
-	if (argc > 1 && !strcmp(argv[1], "--pos"))
-		scale.pos = 1;
+	flag = parse_flags(argc, argv);
 	if (scale.pos)
 		modify_coordinates(&map, &scale);
 	sdl = initialize(&scale, sdl, map.rooms);
 	//ft_printf("ROOM SIZE = %d\n ", scale.room_size);
-	visualize_search(sdl, &scale, &map, input);
+	if (flag.algorithm)
+		visualize_search(sdl, &scale, &map, input);
 	visualize_ants(sdl, &scale, &map, input);
 	kill_all(sdl, map, input);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/13 15:27:10 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 21:49:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_graph*		lem_in(char **line, t_graph* graph)
 //	print_rooms(graph); //test
 	ft_dprintf(fd, "\n"); //test
 //	first_set = find_paths(graph);
-	if (end_is_neighbour(graph->adlist[0]->next))
+	if (end_is_neighbour(graph->adlist[0]->next, graph->room_total - 1))
 		first_set = unlimited_flow();
 	else
 		first_set = find_sets(graph);

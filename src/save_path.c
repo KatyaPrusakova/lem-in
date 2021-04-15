@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/15 17:57:08 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/16 00:27:28 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** a linked list.
 */
 
-t_path		*save_path(int *visited, int link_index, t_graph *g, int end_room)
+t_path		*save_path(int *visited, int link_index, t_graph *g, t_bfs s)
 {
 	t_path	*head;
 	t_path	*tmp;
@@ -33,11 +33,11 @@ t_path		*save_path(int *visited, int link_index, t_graph *g, int end_room)
 	head = ft_memalloc(sizeof(t_path));
 	if (!head)
 		ft_printf("error");
-	head->i = end_room;
-	head->name = g->adlist[end_room]->name;
+	head->i = s.end;
+	head->name = g->adlist[s.end]->name;
 	head->next = NULL;
 	tmp = head;
-	while (link_index)
+	while (link_index != s.start)
 	{
 		//leaking
 		if (link_index == -2)
@@ -102,15 +102,15 @@ int		check_path(t_graph *graph, t_bfs s, int link_index, int *path_no)
 	if (graph->visualize)
 		visualize_search(s.room, s.q);
 	s.visited[s.room->index] = s.room->prev_room_index;
-	found_path = save_path(s.visited, link_index, graph, graph->room_total - 1);
+	found_path = save_path(s.visited, link_index, graph, s);
 	if (!found_path)
 	{
-		ft_dprintf(fd, "NULL path\n"); //test
+		ft_printf("NULL path\n"); //test
 		return (1);
 	}
-	modify_visited_array(s.visited, found_path);
 	if (s.mod_weight)
-		mod_edgeweight_path(graph->weight_m, found_path);
+		modify_visited_array(s.visited, found_path);
+	mod_edgeweight_path(graph->weight_m, found_path);
 	s.set[*path_no] = found_path;
 	*path_no += 1;
 	if (!pathlen_is_optimal(s.set, *path_no - 1, graph->ants))
