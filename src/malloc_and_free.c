@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:08:16 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/14 18:35:59 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 16:27:33 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,19 @@ t_path*			free_path(t_path *path)
 	return (NULL);
 }
 
-t_path**		free_path_set(t_path **set)
+t_path**		free_path_set(t_path ***set)
 {
 	int i;
 
 	i = 0;
-	while (set[i])
+	if (!set[0])
+		return (NULL);
+	while (set[0][i])
 	{
-		set[i] = free_path(set[i]);
+		set[0][i] = free_path(set[0][i]);
 		i++;
 	}
+	free(*set);
 	return (NULL);
 }
 void			adlist_free(t_room **graph, size_t size)

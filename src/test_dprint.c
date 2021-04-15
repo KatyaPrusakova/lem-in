@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:28:51 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/14 17:08:19 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 16:12:44 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	print_paths(t_path **path)
 {
 	t_path *tmp;
 	int	i = -1;
+	if (!path)
+		return;
 	if (path[0])
 	{
 		ft_dprintf(fd, "Shortest path len %d :\n", path[0]->len);

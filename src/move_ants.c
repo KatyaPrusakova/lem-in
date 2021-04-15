@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/13 19:52:22 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 17:28:29 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ void		move_ants(t_path **p, t_graph *g)
 	//test
 	ft_dprintf(fd, "PATHS:\nANTS: %d\n", g->ants);
 	int x = 0;
+	if (!p[x])
+		ft_printf("PATH SET IS EMPTY\n");
 	while (p[x])
 	{
 		ft_dprintf(fd, "%d\n", p[x]->len);

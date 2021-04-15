@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/15 15:52:41 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 17:41:39 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,20 +196,15 @@ t_path		**set_cmp(t_path **p1, t_path **p2, int ants)
 	print_paths(p2);
 	p1_lines = count_moves(p1, ants);
 	p2_lines = count_moves(p2, ants);
-	if (!p2_lines || p1_lines <= p2_lines)
+	if (!p2_lines || (p1_lines && p1_lines <= p2_lines))
 	{
-		p2 = free_path_set(p2);
-		///
-		///
-		/// This is an allocation problem. The problem is that I have two pointers to the same memory location that I keep updating. I need to
-		// set some pointers to null or change the bfs_set function to allocate memory for a new set. I should probably parse that and split it so
-		// it fits the norme anyway.
+		p2 = free_path_set(&p2);
 		ft_dprintf(fd, "SET1\n");
 		return (p1);
 	}
 	else
 	{
-		p1 = free_path_set(p1);
+		p1 = free_path_set(&p1);
 		ft_dprintf(fd, "SET2\n");
 		return (p2);
 	}
@@ -234,22 +229,18 @@ t_path		**find_sets(t_graph *graph)
 	ft_dprintf(fd, "Compare sets\n");
 	set_1 = set_cmp(set_1, set_2, graph->ants);
 	ft_dprintf(fd, "compared set\n");
+	set_2 = bfs_set(graph, 2);
+	set_1 = set_cmp(set_1, set_2, graph->ants);
 	print_paths(set_1);
 	while ((set_2 = bfs_set(graph, 1)))
 	{
-		ft_dprintf(fd, "loop\n");
 		print_paths(set_2);
 		set_1 = set_cmp(set_1, set_2, graph->ants);
-		if (graph->visualize)
-			ft_printf("BFS\n");
 	}
-	set_2 = set_1;
 	set_2 = bfs_set(graph, 2);
-//	print_paths(set_2); //test
-//	print_paths(set_2);
-	set_2 = set_cmp(set_1, set_2, graph->ants);
+	set_1 = set_cmp(set_1, set_2, graph->ants);
 	ft_dprintf(fd, "SETS FOUND\n");
-	return (set_2);
+	return (set_1);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/15 15:17:10 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/15 17:55:43 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +127,15 @@ t_path	*bfs(t_graph *graph, int edge_w)
 **initializes variables used in bfs_set and returns the visited int array.
 */
 
-t_bfs		init_bfs(t_graph *g)
+t_bfs		init_bfs(t_graph *g, int mod_edge)
 {
 	t_bfs search;
 	int i;
 
 	i = 0;
+	search.mod_weight = 0;
+	if (mod_edge == 1)
+		search.mod_weight = 1;
 	search.q = NULL;
 	search.visited = ft_memalloc(sizeof(int) * g->room_total);
 	if (!search.visited)
@@ -158,7 +161,7 @@ t_path	**bfs_set(t_graph *graph, int edge_w)
 {
 	t_bfs	s;
 
-	s = init_bfs(graph);
+	s = init_bfs(graph, edge_w);
 	while (s.q->head && s.path_no < graph->max_paths)
 	{
 		s.room = ft_memdup(graph->adlist[s.q->head->index], sizeof(t_room));
