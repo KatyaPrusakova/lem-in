@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/15 22:19:31 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/18 19:16:54 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct		s_room
 	struct s_room	*next;
 }					t_room;
 
-typedef	struct		s_bfs
+typedef	struct		s_search
 {
 	struct s_queue	*q;
 	struct s_room	*tmp;
@@ -46,10 +46,10 @@ typedef	struct		s_bfs
 	struct s_path	**set;
 	int				*visited;
 	int				path_no;
-	int				mod_weight;
+	int				continue_alternative_edges;
 	int				start;
 	int				end;
-}					t_bfs;
+}					t_search;
 
 
 typedef	struct		s_queue
@@ -167,6 +167,10 @@ int					end_is_neighbour(t_room *head, int end);
 t_path 				**unlimited_flow(void);
 
 
+//DFS
+
+t_path		*dfs_find_path(t_graph *g, t_room *current, t_search s);
+
 
 
 t_path				*mod_path(int *visited, int link_index, /*int **matrix, */int end_room);
@@ -196,12 +200,22 @@ int					path_cmp(t_path *p1, t_path *p2);
 
 
 /*
+** sort_adlist.c
+*/
+
+t_room *adlist_mergesort(t_room *head, int start, int **weight_matrix);
+
+/*
 ** save_path.c
 */
 
-int			check_path(t_graph *graph, t_bfs s, int link_index, int *path_no);
-t_path		*save_path(int *visited, int find_path, t_graph *g, t_bfs s);
+int			check_path(t_graph *graph, t_search s, int link_index, int *path_no);
+t_path		*save_path(int *visited, int find_path, t_graph *g, t_search s);
+
+
 int			**mod_edgeweight_path(int **matrix, t_path *path);
+int			**mod_edgeweight_set(int **matrix, t_path **set);
+
 
 
 
