@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/15 21:49:03 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/18 16:54:05 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@ t_graph*		lem_in(char **line, t_graph* graph)
 {
 	int		i;
 	t_path	**first_set;
+	//test
+	/*
+	*/
+	t_search s;
+	ft_bzero(&s, sizeof(t_search));
+	s.end = graph->room_total - 1;
+	first_set = ft_memalloc(sizeof(t_path*) * graph->room_total);
+	//test
 
 	i = parse_ants(line, graph);
 	//ft_dprintf(fd, "after_parse ant %s\n", line[i]); //test
@@ -28,12 +36,13 @@ t_graph*		lem_in(char **line, t_graph* graph)
 //	print_rooms(graph); //test
 	ft_dprintf(fd, "\n"); //test
 //	first_set = find_paths(graph);
-	if (end_is_neighbour(graph->adlist[0]->next, graph->room_total - 1))
-		first_set = unlimited_flow();
-	else
-		first_set = find_sets(graph);
+//	if (end_is_neighbour(graph->adlist[0]->next, graph->room_total - 1))
+//		first_set = unlimited_flow();
+//	else
+//		first_set = find_sets(graph);
+	first_set[0] = dfs_find_path(graph, graph->adlist[0], s);
 	if (graph->visualize)
-		ft_printf("START_ANT_MOVEMENT\n");
+		ft_printf("\n");
 	//allocate_ants_to_rooms(first_set, graph);
 	move_ants(first_set, graph);
 	return (graph); // change

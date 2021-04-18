@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 15:30:46 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/15 21:59:24 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/16 11:35:29 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		check_weight(int link_weight, int set_weight)
 {
 	if (set_weight == 1 && link_weight < 1)
 		return (1);
-	else if (set_weight == 2 && link_weight == 1)
+	else if (set_weight == 2 && link_weight > 0)
 		return (1);
 	else if (set_weight == 3 && !link_weight)
 		return (1);
@@ -46,6 +46,19 @@ int		**mod_edgeweight_path(int **matrix, t_path *path)
 			matrix[path->i][path->next->i] += 1;
 			matrix[path->next->i][path->i] -= 1;
 			path = path->next;
+	}
+	return (matrix);
+}
+
+int		**mod_edgeweight_set(int **matrix, t_path **set)
+{
+	int i;
+
+	i = 0;
+	while (set[i])
+	{
+		mod_edgeweight_path(matrix, set[i]);
+		i++;
 	}
 	return (matrix);
 }

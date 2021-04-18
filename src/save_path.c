@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/16 00:27:28 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/18 16:20:28 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** a linked list.
 */
 
-t_path		*save_path(int *visited, int link_index, t_graph *g, t_bfs s)
+t_path		*save_path(int *visited, int link_index, t_graph *g, t_search s)
 {
 	t_path	*head;
 	t_path	*tmp;
@@ -95,7 +95,7 @@ void	modify_visited_array(int *visited, t_path *path)
 
 
 
-int		check_path(t_graph *graph, t_bfs s, int link_index, int *path_no)
+int		check_path(t_graph *graph, t_search s, int link_index, int *path_no)
 {
 	t_path	*found_path;
 
@@ -105,12 +105,14 @@ int		check_path(t_graph *graph, t_bfs s, int link_index, int *path_no)
 	found_path = save_path(s.visited, link_index, graph, s);
 	if (!found_path)
 	{
-		ft_printf("NULL path\n"); //test
+		ft_dprintf(fd, "NULL path\n"); //test
 		return (1);
 	}
-	if (s.mod_weight)
+	if (!s.continue_alternative_edges)
+	{
 		modify_visited_array(s.visited, found_path);
-	mod_edgeweight_path(graph->weight_m, found_path);
+		mod_edgeweight_path(graph->weight_m, found_path);
+	}
 	s.set[*path_no] = found_path;
 	*path_no += 1;
 	if (!pathlen_is_optimal(s.set, *path_no - 1, graph->ants))

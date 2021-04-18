@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/16 00:27:41 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:07:13 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
 ** other values to -1.
 */
 
-int		*init_visited(int room_count)
-{
-	int	*visited;
-	int	i;
+// int		*init_visited(int room_count)
+// {
+// 	int	*visited;
+// 	int	i;
 
-	visited = ft_memalloc(sizeof(int) * room_count);
-//	if (!visited)
-//		ft_error(2);
-	i = 0;
-	while (i < room_count)
-	{
-		visited[i] = -1;
-		i++;
-	}
-	return (visited);
-}
+// 	visited = ft_memalloc(sizeof(int) * room_count);
+// //	if (!visited)
+// //		ft_error(2);
+// 	i = 0;
+// 	while (i < room_count)
+// 	{
+// 		visited[i] = -1;
+// 		i++;
+// 	}
+// 	return (visited);
+// }
 
 /*
 ** Checking if the current node is connected to the end node.
@@ -47,6 +47,20 @@ int		end_is_neighbour(t_room *head, int end)
 		head = head->next;
 	}
 	return (0);
+}
+
+void	queue_neighbours(t_search s, t_graph *g, int edge_w)
+{
+	t_room *tmp;
+
+	tmp = s.room->next;
+	ft_printf("queue %d : tmp->index%d\n", s.room->index, tmp->index);
+	while(tmp)
+	{
+		if (s.visited[tmp->index == -1 && check_weight(g->weight_m[s.room->index][tmp->index], edge_w)] && tmp->index != s.end)
+			enqueue(tmp->index, s.q, g->adlist, s.room->index);
+		tmp = tmp->next;
+	}
 }
 
 /*
@@ -127,15 +141,15 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 **initializes variables used in bfs_set and returns the visited int array.
 */
 
-t_bfs		init_bfs(t_graph *g, int mod_edge, int start, int end)
+t_search		init_search(t_graph *g, int mod_edge, int start, int end)
 {
-	t_bfs search;
+	t_search search;
 	int i;
 
 	i = 0;
-	search.mod_weight = 0;
-	if (mod_edge == 4)
-		search.mod_weight = 1;
+	search.continue_alternative_edges = 0;
+	if (mod_edge == 3)
+		search.continue_alternative_edges = 1;
 	search.q = NULL;
 	search.visited = ft_memalloc(sizeof(int) * g->room_total);
 	if (!search.visited)
@@ -161,11 +175,11 @@ t_bfs		init_bfs(t_graph *g, int mod_edge, int start, int end)
 
 t_path	**bfs_set(t_graph *graph, int edge_w, int start, int end)
 {
-	t_bfs	s;
+	t_search	s;
 
 	if (graph->visualize)
 		ft_printf("BFS\n");
-	s = init_bfs(graph, edge_w, start, end);
+	s = init_search(graph, edge_w, start, end);
 	while (s.q->head && s.path_no < graph->max_paths)
 	{
 		s.room = ft_memdup(graph->adlist[s.q->head->index], sizeof(t_room));
@@ -191,11 +205,11 @@ t_path	**bfs_set(t_graph *graph, int edge_w, int start, int end)
 
 int			bfs_set_modify(t_graph *graph, int edge_w, int start, int end)
 {
-	t_bfs	s;
+	t_search	s;
 
 	if (graph->visualize)
 		ft_printf("BFS\n");
-	s = init_bfs(graph, 4, start, end);
+	s = init_search(graph, 3, start, end);
 	while (s.q->head && s.path_no < graph->max_paths)
 	{
 		s.room = ft_memdup(graph->adlist[s.q->head->index], sizeof(t_room));
@@ -203,8 +217,19 @@ int			bfs_set_modify(t_graph *graph, int edge_w, int start, int end)
 		if (s.q->head)
 			dequeue(s.q);
 		s.tmp = s.room->next;
-		if (end_is_neighbour(s.tmp, graph->room_total - 1) && s.visited[s.room->index] == -1)
+		if (end_is_neighbour(s.tmp, graph->room_total - 1) && s.visited[s.room->index] == -1
+		&& check_weight(graph->weight_m[s.room->index][s.end], edge_w))
+		{
+			// find paths
+			// only modify the paths when all of them have been found
+			// also check neighbours and alternative paths from the room that is connected to the end room
+			if (graph->visualize)
+				ft_printf("end is neighbour %d\n", s.room->index);
 			check_path(graph, s, s.room->index, &s.path_no);
+			visit_room(s.room, s.q, s.visited, graph, edge_w);
+
+			queue_neighbours(s, graph, edge_w);
+		}
 		else
 			visit_room(s.room, s.q, s.visited, graph, edge_w);
 		ft_memdel((void**)&s.room);
@@ -212,5 +237,8 @@ int			bfs_set_modify(t_graph *graph, int edge_w, int start, int end)
 	if (!s.path_no || !s.set[0])
 		return (0);
 	else
+	{
+		mod_edgeweight_set(graph->weight_m, s.set);
 		return (1);
+	}
 }
