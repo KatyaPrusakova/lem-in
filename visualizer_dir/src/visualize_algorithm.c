@@ -98,9 +98,12 @@ void queue_to_visualizer(t_map *map, char *line)
 
 	i = 0;
 	//ft_printf("%s\n", line);
+	if (!ft_strchr(line, '-'))
+		return ;
 	split_queue = ft_strsplit(line, ' ');
 	while(split_queue[i])
 	{
+		ft_printf("add queue\n");
 		split_link = ft_strsplit(split_queue[i], '-');
 		index[0] = ft_atoi(split_link[0]);
 		index[1] = ft_atoi(split_link[1]);
