@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/19 15:56:01 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/19 19:54:31 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,8 @@ t_path		**find_sets(t_graph *graph)
 //	print_paths(&dfs);
 //	print_paths(set_1);
 	set_2 = NULL;
-	set_2 = dfs_mod_all(graph, graph->adlist[0], &s, NULL);
+	set_2 = bfs_set_weightend(graph, 1, 0, graph->room_total - 1);
+//	set_2 = dfs_mod_all(graph, graph->adlist[0], &s, NULL);
 	print_matrix(graph->weight_m, graph->room_total);
 	mod_edgeweight_set(graph->weight_m, set_2);
 	print_matrix(graph->weight_m, graph->room_total);
@@ -254,11 +255,28 @@ t_path		**find_sets(t_graph *graph)
 	//	set_2 = bfs_set(graph, 2, 0, graph->room_total);
 	//	set_1 = set_cmp(set_1, set_2, graph->ants);
 	//}
-	set_2 = bfs_set(graph, 2, 0, graph->room_total - 1);
+//	set_2 = bfs_set(graph, 2, 0, graph->room_total - 1);
 //	set_1 = set_cmp(set_1, set_2, graph->ants);
 //	reverse = bfs_set(graph, 4, graph->room_total - 1, 0);
 	set_1 = set_cmp(set_1, set_2, graph->ants);
 	ft_dprintf(fd, "SETS FOUND\n");
+	return (set_1);
+}
+
+t_path	**edmonds(t_graph *g)
+{
+	t_path **set_1;
+	int		paths;
+
+	paths = 0;
+	set_1 = ft_memalloc(sizeof(t_path*) * g->room_total);
+	set_1[paths++] = bfs(g, 1, 0, g->room_total - 1);
+	mod_edgeweight_path(g->weight_m, set_1[paths - 1]);
+	while (set_1[paths - 1])
+	{
+		set_1[paths++] = bfs(g, 1, 0, g->room_total - 1);
+		mod_edgeweight_path(g->weight_m, set_1[paths - 1]);
+	}
 	return (set_1);
 }
 

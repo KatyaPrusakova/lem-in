@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:08:16 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/15 16:27:33 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/19 19:40:39 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_path**		free_path_set(t_path ***set)
 	free(*set);
 	return (NULL);
 }
+
 void			adlist_free(t_room **graph, size_t size)
 {
 	size_t		i;

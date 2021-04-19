@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/19 15:31:36 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/19 20:19:55 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,33 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 	// ft_dprintf(fd, "|\n");
 }
 
+t_path		*bfs(t_graph *g, int edge_w, int start, int end)
+{
+	t_search s;
+
+	if (g->visualize)
+		ft_printf("BFS\n");
+	s = init_search(g, edge_w, start, end);
+	while (!s.path && s.q->head)
+	{
+		s.room = ft_memdup((void*)g->adlist[s.q->head->index], sizeof(t_room));
+		s.room->prev_room_index = s.q->head->prev_room_index;
+		if (!s.room)
+			print_error(2, NULL);
+		dequeue(s.q);
+		if (end_is_neighbour(s.room, end) && check_weight(g->weight_m[s.room->index][end], edge_w))
+		{
+			s.visited[s.room->index] = s.room->prev_room_index;
+			s.path = save_path(s.visited, s.room->index, g, s);
+		}
+		else
+			visit_room(s.room, s.q, s.visited, g, edge_w);
+		free(s.room);
+		s.room = NULL;
+	}
+	return (s.path);
+}
+
 /*
 ** Traversing through the graph using BFS, until all the rooms are visited
 ** or the max_paths amount of paths is found(the amount of rooms linked to start or end).
@@ -104,6 +131,7 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 ** edge_w variable defines which links can be used. First two searches use edges
 ** with values < 1.Third search uses edges with value of 1.
 */
+
 
 /*t_path	*bfs(t_graph *graph, int edge_w)
 {
@@ -139,6 +167,7 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 
 /*
 **initializes variables used in bfs_set and returns the visited int array.
+** Creates visited array, enqueues the first room.
 */
 
 t_search		init_search(t_graph *g, int mod_edge, int start, int end)
@@ -150,6 +179,7 @@ t_search		init_search(t_graph *g, int mod_edge, int start, int end)
 	search.continue_alternative_edges = 0;
 	if (mod_edge == 3)
 		search.continue_alternative_edges = 1;
+	search.path = NULL;
 	search.q = NULL;
 	search.visited = ft_memalloc(sizeof(int) * g->room_total);
 	if (!search.visited)
@@ -201,6 +231,42 @@ t_path	**bfs_set(t_graph *graph, int edge_w, int start, int end)
 	else
 		return (s.set);
 }
+
+
+t_path	**bfs_set_weightend(t_graph *graph, int edge_w, int start, int end)
+{
+	t_search	s;
+
+	if (graph->visualize)
+		ft_printf("BFS\n");
+	s = init_search(graph, edge_w, start, end);
+	s.tmp = graph->adlist[s.start]->next;
+	while (s.tmp)
+	{
+		enqueue(s.tmp->index, s.q, graph->adlist, s.start);
+		s.tmp = s.tmp->next;
+	}
+	while (s.q->head && s.path_no < graph->max_paths)
+	{
+		s.room = ft_memdup(graph->adlist[s.q->head->index], sizeof(t_room));
+		s.room->prev_room_index = s.q->head->prev_room_index;
+		if (s.q->head)
+			dequeue(s.q);
+		if (end_is_neighbour(s.room->next, end) && s.visited[s.room->index] == -1)
+		{
+			if (!check_path(graph, s, s.room->index, &s.path_no))
+				return (s.set);
+		}
+		else
+			visit_room(s.room, s.q, s.visited, graph, edge_w);
+		ft_memdel((void**)&s.room);
+	}
+	if (!s.path_no || !s.set[0])
+		return (NULL);
+	else
+		return (s.set);
+}
+
 
 int			bfs_set_modify(t_graph *graph, int edge_w, int start, int end)
 {
