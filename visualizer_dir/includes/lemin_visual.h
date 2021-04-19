@@ -3,7 +3,7 @@
 
 # define WIN_W 1600
 # define WIN_H 999
-# define SEARCH_DELAY 500
+# define SEARCH_DELAY 50
 # define ANT_DELAY 0
 # define MOVE_ANT_DELAY 0
 # define PI  3.14159
@@ -19,7 +19,7 @@
 
 # include "libft.h"
 # include "SDL2/SDL.h"
-//# include <SDL_ttf.h>
+# include <SDL_ttf.h>
 #include <math.h>
 
 
@@ -115,6 +115,7 @@ typedef struct		s_pointers
 	SDL_Texture		*backround;
 	SDL_Renderer	*renderer;
 	SDL_Window		*window;
+	TTF_Font		*font;
 
 }					t_pointers;
 

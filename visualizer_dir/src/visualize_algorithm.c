@@ -158,7 +158,7 @@ void	draw_path(t_pointers *p, t_data *scl, t_map *map, t_room *rooms, char *inpu
 		rooms[path[i]].path = 1;
 		draw_room(p->renderer, scl->room_size, rooms[path[i]], (t_rgb){0, 100, 0, 255});
 		draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){path[i], path[i + 1]});
-		add_edge_weight(map->edges, path[i], path[i + 1], path_no);
+	//	add_edge_weight(map->edges, path[i], path[i + 1], path_no);
 	}
 	draw_link_bfs(p->renderer, scl->room_size, map, (int[2]){0, path[1]});
 	draw_room(p->renderer, scl->room_size, rooms[0], (t_rgb){200, 200, 200, 255});
@@ -198,6 +198,44 @@ void		edge_colors(t_edge *edges)
 	}
 }
 
+void		room_name(SDL_Renderer *renderer, int scale, t_room room, TTF_Font *f)
+{
+	SDL_Surface	*surface;
+	SDL_Texture	*texture;
+	SDL_Rect	rect;
+	char		*nbr;
+
+	nbr = ft_itoa(room.index);
+	if (!nbr)
+		ft_error("Malloc fail in itoa\n");
+	surface = TTF_RenderText_Solid(f, room.name, (SDL_Color){255, 255, 255, 255});
+	if (!surface)
+		ft_error("failed to crate surface from font\n");
+	texture = SDL_CreateTextureFromSurface(renderer, surface);
+	if (!texture)
+		ft_error("Failed to create Texture from text surface\n");
+	TTF_SizeText(f, room.name, &rect.w, &rect.h);
+	rect.x = room.x + scale / 5;
+	rect.y = room.y + scale / 5;
+	SDL_RenderCopy(renderer, texture, NULL, &rect);
+	SDL_FreeSurface(surface);
+	SDL_DestroyTexture(texture);
+	surface = TTF_RenderText_Solid(f, nbr, (SDL_Color){150, 150, 150, 255});
+	texture = SDL_CreateTextureFromSurface(renderer, surface);
+	TTF_SizeText(f, nbr, &rect.w, &rect.h);
+	rect.y = rect.y - scale;
+	SDL_RenderCopy(renderer, texture, NULL, &rect);
+	SDL_FreeSurface(surface);
+	SDL_DestroyTexture(texture);
+
+
+	/*
+	ft_printf("size = %d  ", scale);
+	ft_printf("Draw %d = %s\n", room.index, room.name);
+	SDL_RenderPresent(renderer);
+	*/
+}
+
 void		draw_graph(t_pointers *p, t_data *scl, t_map *map)
 {
 //	t_rgb	color;473
@@ -222,6 +260,7 @@ void		draw_graph(t_pointers *p, t_data *scl, t_map *map)
 			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_VISITED);
 		else
 			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_QUEUED);
+		room_name(p->renderer, scl->room_size, map->rooms[i], p->font);
 	}
 //	//ft_printf("PRESENT\n");
 //	SDL_RenderPresent(p->renderer);
@@ -298,31 +337,33 @@ void	visualize_search(t_pointers *p, t_data *scl, t_map *map, char **input)
 	i = move_index(input, "");
 	draw_graph(p, scl, map);
 	SDL_RenderPresent(p->renderer);
-	while(ft_strcmp(input[i], "START_ANT_MOVEMENT"))
+	while(ft_strcmp(input[i], ""))
 	{
 		pause = events();
 		if (pause % 2 == 0)
 		{
 			if (!ft_strcmp(input[i], "BFS"))
 			{
+				ft_printf("BFS\n");
 				empty_rooms(map->edges, map->rooms, scl->room_count);
 				//ft_printf("BFS\n");
 				draw_graph(p, scl, map);
 				i++;
 			}
-			draw_graph(p, scl, map);
-			if (ft_strchr(input[i], '|'))
+			else if (ft_strchr(input[i], '|'))
 			{
 				//ft_printf("Draw path\n");
 				draw_path(p, scl, map, map->rooms, input[i]);
 			}
-			else if (!ft_strchr(input[i], '-'))
+			else if (ft_strchr(input[i], '-'))
 			{
 				//ft_printf("Add queue\n");
-				queue_to_visualizer(map, input[i + 1]);
-				visit_room(map, input[i]);
+				queue_to_visualizer(map, input[i]);
 			}
+			else if (ft_strchr(input[i], ' '))
+				visit_room(map, input[i]);
 			i++;
+			draw_graph(p, scl, map);
 			SDL_RenderPresent(p->renderer);
 		}
 		SDL_Delay(SEARCH_DELAY);

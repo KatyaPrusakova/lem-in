@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/18 19:16:54 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/19 15:55:38 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,11 @@ t_path 				**unlimited_flow(void);
 
 //DFS
 
-t_path		*dfs_find_path(t_graph *g, t_room *current, t_search s);
+t_path				*dfs_find_path(t_graph *g, t_room *current, t_search s);
+t_path				**dfs_mod_edges(t_graph *g, t_room *current, t_search s, int *visited);
+t_path				**dfs_mod_all(t_graph *g, t_room *current, t_search *s, int *visited);
+
+
 
 
 
@@ -203,7 +207,7 @@ int					path_cmp(t_path *p1, t_path *p2);
 ** sort_adlist.c
 */
 
-t_room *adlist_mergesort(t_room *head, int start, int **weight_matrix);
+t_room		*adlist_mergesort(t_room *head, int start, int **weight_matrix);
 
 /*
 ** save_path.c
@@ -223,7 +227,8 @@ int			**mod_edgeweight_set(int **matrix, t_path **set);
 ** visualize.c
 */
 
-void	visualize_search(t_room *room, t_queue *q);
+void	visualize_search(t_room *room, t_queue *q, int **matrix);
+
 
 //void				queue_to_visualizer(t_room **adlist, t_queue *q, int visualize); //testing
 //void				visited_to_visualizer(int current_index, int visited_from, int visualize);
@@ -242,7 +247,7 @@ void	print_matrix(int **matrix, int size);
 ** ant movement functions
 */
 
-void	move_ants(t_path **p, t_graph *g);
+void		move_ants(t_path **p, t_graph *g);
 int			pathlen_is_optimal(t_path **p, int path_nbr, int ants_left);
 
 

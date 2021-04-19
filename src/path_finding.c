@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/16 00:48:21 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/19 15:56:01 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,16 +214,30 @@ t_path		**find_sets(t_graph *graph)
 {
 	t_path	**set_1;
 	t_path	**set_2;
+//	t_path	*dfs;
+	t_search s;
 //	t_path	**reverse;
 
+	ft_bzero(&s, sizeof(t_search));
+	s.start = 0;
+	s.end = graph->room_total - 1;
 	graph->max_paths = count_max_paths(graph);
 //	set_1 = ft_memalloc(sizeof(t_path*) * graph->room_total);
 //	set_2 = ft_memalloc(sizeof(t_path*) * graph->room_total);
 	set_1 = bfs_set(graph, 1, 0, graph->room_total - 1);
 	ft_dprintf(fd, "First set\n");
-	print_paths(set_1);
+	if (graph->visualize)
+		ft_printf("BFS\n");
+//	dfs = dfs_find_path(graph, graph->adlist[0], s);
+	//set_1[8] = dfs;
+//	print_paths(&dfs);
+//	print_paths(set_1);
 	set_2 = NULL;
-//	bfs_set_modify(graph, 1);
+	set_2 = dfs_mod_all(graph, graph->adlist[0], &s, NULL);
+	print_matrix(graph->weight_m, graph->room_total);
+	mod_edgeweight_set(graph->weight_m, set_2);
+	print_matrix(graph->weight_m, graph->room_total);
+//	bfs_set_modify(graph, 1, 0, graph->room_total);
 //	ft_dprintf(fd, "Second set\n");
 //	print_paths(set_2);
 //	ft_dprintf(fd, "Compare sets\n");
@@ -234,7 +248,7 @@ t_path		**find_sets(t_graph *graph)
 //	print_paths(set_1);
 	//while ((bfs_set_modify(graph, 1, 0, graph->room_total - 1)))
 	//{
-		bfs_set_modify(graph, 1, 0, graph->room_total - 1);
+	//bfs_set_modify(graph, 1, 0, graph->room_total - 1);
 	//		print_paths(set_2);
 	//	set_1 = set_cmp(set_1, set_2, graph->ants);
 	//	set_2 = bfs_set(graph, 2, 0, graph->room_total);
@@ -243,8 +257,9 @@ t_path		**find_sets(t_graph *graph)
 	set_2 = bfs_set(graph, 2, 0, graph->room_total - 1);
 //	set_1 = set_cmp(set_1, set_2, graph->ants);
 //	reverse = bfs_set(graph, 4, graph->room_total - 1, 0);
+	set_1 = set_cmp(set_1, set_2, graph->ants);
 	ft_dprintf(fd, "SETS FOUND\n");
-	return (set_2);
+	return (set_1);
 }
 
 

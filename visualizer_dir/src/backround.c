@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:59:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/15 21:35:26 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/19 13:38:58 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,10 @@ t_pointers	*initialize(t_data *scale, t_pointers *sdl, t_room *rooms)
 		ft_error(SDL_GetError());
 	if (!(sdl->renderer = SDL_CreateRenderer(sdl->window, -1, SDL_RENDERER_TARGETTEXTURE)))
 		ft_error(SDL_GetError());
-
+	if (TTF_Init() == -1)
+		ft_error("TTF_INIT ERROR\n");
+	if (!(sdl->font = TTF_OpenFont("visualizer_dir/Ubuntu-M.ttf", 24)))
+		ft_error(SDL_GetError());
 //	sdl->backround = SDL_CreateTexture(sdl->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIN_H, visualize_ants);
 //	if (!sdl->backround)
 //		ft_error(SDL_GetError());

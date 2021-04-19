@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/18 17:07:13 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/19 15:31:36 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 		tmp = tmp->next;
 	}
 	if(graph->visualize)
-		visualize_search(current, q);
+		visualize_search(current, q, graph->weight_m);
 		//test
 //	ft_dprintf(fd, "\n");
 	// for (int i = 0; i < graph->room_total; i++)
@@ -186,8 +186,7 @@ t_path	**bfs_set(t_graph *graph, int edge_w, int start, int end)
 		s.room->prev_room_index = s.q->head->prev_room_index;
 		if (s.q->head)
 			dequeue(s.q);
-		s.tmp = s.room->next;
-		if (end_is_neighbour(s.tmp, end) && s.visited[s.room->index] == -1 && \
+		if (end_is_neighbour(s.room->next, end) && s.visited[s.room->index] == -1 && \
 		check_weight(graph->weight_m[s.room->index][graph->room_total - 1], edge_w))
 		{
 			if (!check_path(graph, s, s.room->index, &s.path_no))

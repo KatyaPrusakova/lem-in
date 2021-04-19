@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 15:30:46 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/16 11:35:29 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/19 15:06:11 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int		**mod_edgeweight_path(int **matrix, t_path *path)
 		return (matrix);
 	while (path->next)
 	{
-			matrix[path->i][path->next->i] += 1;
-			matrix[path->next->i][path->i] -= 1;
-			path = path->next;
+		matrix[path->i][path->next->i] += 1;
+		matrix[path->next->i][path->i] -= 1;
+		path = path->next;
 	}
 	return (matrix);
 }
