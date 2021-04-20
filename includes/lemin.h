@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/19 19:56:45 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/20 14:04:56 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,8 @@ t_path				*dfs_find_path(t_graph *g, t_room *current, t_search s);
 t_path				**dfs_mod_edges(t_graph *g, t_room *current, t_search s, int *visited);
 t_path				**dfs_mod_all(t_graph *g, t_room *current, t_search *s, int *visited);
 t_path				**bfs_set_weightend(t_graph *graph, int edge_w, int start, int end);
+t_path **set_search_to_modifyPaths(t_graph *g);
+
 
 
 

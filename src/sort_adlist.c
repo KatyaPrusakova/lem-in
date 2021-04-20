@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 18:04:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/18 19:16:09 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/20 12:58:28 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,38 @@ void		partition_lst(t_room *head, t_room **a, t_room **b)
 t_room *merge_lists(t_room *a, t_room *b, int start, int **weight_matrix)
 {
 	t_room *head;
+//	t_room	*print; //tst
 
 	if (!a)
+	{
+//		ft_printf("a null\n");
 		return (b);
+	}
 	else if (!b)
+	{
+//		ft_printf("b null\n");
 		return (a);
-	if (weight_matrix[start][a->index] <= weight_matrix[start][b->index])
+	}
+/*
+	print = a;
+	ft_printf("A: ");
+	while (print)
+	{
+		ft_printf("%d -> ", print->index);
+		print = print->next;
+	}
+	ft_n(1);
+	print = b;
+	ft_printf("B: ");
+	while (print)
+	{
+		ft_printf("%d -> ", print->index);
+		print = print->next;
+	}
+	ft_n(1);
+*/
+
+	if (weight_matrix[start][a->index] >= weight_matrix[start][b->index])
 	{
 		head = a;
 		head->next = merge_lists(a->next, b, start, weight_matrix);
@@ -62,6 +88,15 @@ t_room *merge_lists(t_room *a, t_room *b, int start, int **weight_matrix)
 		head = b;
 		head->next = merge_lists(b->next, a, start, weight_matrix);
 	}
+/*
+	print = head;
+	ft_printf("merged list: ");
+	while (print)
+	{
+		ft_printf("%d - ", print->index);
+		print = print->next;
+	}
+	ft_n(2); */
 	return (head);
 }
 
@@ -75,6 +110,18 @@ t_room *adlist_mergesort(t_room *head, int start, int **weight_matrix)
 	t_room	*a;
 	t_room	*b;
 
+/*
+	t_room *print;
+
+
+	print = head;
+	while (print)
+	{
+		ft_printf("%d -- ", print->index);
+		print = print->next;
+	}
+	ft_n(2);
+*/
 	if (!head || !head->next)
 		return (head);
 	partition_lst(head, &a, &b);

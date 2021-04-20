@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/19 20:19:55 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/20 13:45:18 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 	if (visited[current->index] != -1)
 		return;
 	visited[current->index] = current->prev_room_index;
+//	graph->adlist[current->index]->next = adlist_mergesort(current->next, current->index, graph->weight_m);
 	tmp = current->next;
 	while (tmp)
 	{
