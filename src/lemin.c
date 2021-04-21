@@ -6,11 +6,33 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/20 13:52:52 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/21 18:54:45 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+void			set_room_capacity(t_graph * g)
+{
+	t_room	*tmp;
+	int		edges;
+	int		i;
+
+	i = 0;
+	while (i < g->room_total)
+	{
+		tmp = g->adlist[i];
+		edges = -1;
+		while (tmp->next)
+		{
+			tmp = tmp->next;
+			edges++;
+		}
+		g->adlist[i]->max_capacity = edges;
+		g->adlist[i]->remaining_capacity = edges;
+		i++;
+	}
+}
 
 t_graph*		lem_in(char **line, t_graph* graph)
 {
@@ -30,6 +52,7 @@ t_graph*		lem_in(char **line, t_graph* graph)
 	i = parse_room(i, line, graph);
 	//ft_dprintf(fd, "lem_in  2%d\n", i); //test
 	parse_link(i, line, graph);
+	set_room_capacity(graph);
 	//ft_dprintf(fd, "after parse link %d\n", graph->room_total); //test
 	// ft_dprintf(fd, "\n");
 	print_input(line);
@@ -41,7 +64,8 @@ t_graph*		lem_in(char **line, t_graph* graph)
 //	else
 	//	first_set = find_sets(graph);
 	//first_set = edmonds(graph);
-	first_set = set_search_to_modifyPaths(graph);
+	//first_set = set_search_to_modifyPaths(graph);
+	first_set = sorted_search(graph);
 //	first_set[0] = dfs_find_path(graph, graph->adlist[0], s);
 	if (graph->visualize)
 		ft_printf("\n");

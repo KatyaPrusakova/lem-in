@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 15:30:46 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/19 15:06:11 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:34:28 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,27 @@ int		check_weight(int link_weight, int set_weight)
 ** with a value of 3.
 */
 
-int		**mod_edgeweight_path(int **matrix, t_path *path)
+void		mod_edgeweight_path(t_graph *g, t_path *path)
 {
 	if (!path)
-		return (matrix);
+		return;
 	while (path->next)
 	{
-		matrix[path->i][path->next->i] += 1;
-		matrix[path->next->i][path->i] -= 1;
+		g->adlist[path->i]->remaining_capacity -= 1;
+		g->weight_m[path->i][path->next->i] += 1;
+		g->weight_m[path->next->i][path->i] -= 1;
 		path = path->next;
 	}
-	return (matrix);
 }
 
-int		**mod_edgeweight_set(int **matrix, t_path **set)
+void		mod_edgeweight_set(t_graph *g, t_path **set)
 {
 	int i;
 
 	i = 0;
 	while (set[i])
 	{
-		mod_edgeweight_path(matrix, set[i]);
+		mod_edgeweight_path(g, set[i]);
 		i++;
 	}
-	return (matrix);
 }

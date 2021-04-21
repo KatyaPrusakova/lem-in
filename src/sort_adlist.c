@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 18:04:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/20 12:58:28 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:38:42 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,16 @@ t_room *adlist_mergesort(t_room *head, int start, int **weight_matrix)
 	b = adlist_mergesort(b, start, weight_matrix);
 	head = merge_lists(a, b, start, weight_matrix);
 	return (head);
+}
+
+void	sort_adlist_array(t_graph *g)
+{
+	int i;
+
+	i = 0;
+	while (i < g->room_total)
+	{
+		g->adlist[i]->next = adlist_mergesort(g->adlist[i]->next,g->adlist[i]->index, g->weight_m);
+		i++;
+	}
 }

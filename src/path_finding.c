@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/20 14:04:46 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:41:39 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ t_path		*search_modify(t_graph *g)
 		return (NULL);
 	if (shortest->len >= g->ants)
 		return (shortest);
-	mod_edgeweight_path(g->weight_m, shortest, g, 0);
+	mod_edgeweight_path(g, shortest, g, 0);
 	print_matrix(g->weight_m, g->room_total); //test
 	if (g->visualize)
 		ft_printf("BFS\n");
 	find_bottleneck = bfs(g, 1);
-	mod_edgeweight_path(g->weight_m, find_bottleneck, g, 0);
+	mod_edgeweight_path(g, find_bottleneck, g, 0);
 	print_matrix(g->weight_m, g->room_total); //test
 	find_bottleneck = free_path(find_bottleneck);
 	return (shortest);
@@ -55,7 +55,7 @@ t_path		**search_save(t_graph *g, t_path **set)
 	if (!set[0])
 		return (NULL);
 	else
-		mod_edgeweight_path(g->weight_m, set[0], g, 1);
+		mod_edgeweight_path(g, set[0], g, 1);
 	set[1] = bfs(g, 2);
 	if (!set[1])
 	{
@@ -63,7 +63,7 @@ t_path		**search_save(t_graph *g, t_path **set)
 		return (NULL);
 	}
 	else
-		mod_edgeweight_path(g->weight_m, set[1], g, 1);
+		mod_edgeweight_path(g, set[1], g, 1);
 	return (set);
 }
 
@@ -88,7 +88,7 @@ t_path		**compare_disjoint(t_graph *g, t_path **disjoint, t_path **shortest, t_p
 	{
 	//	ft_printf("Shortest is more efficient\n");
 		final = path_to_array(final, *shortest, &array_size);
-		mod_edgeweight_path(g->weight_m, *shortest, g, 1);
+		mod_edgeweight_path(g, *shortest, g, 1);
 		disjoint[0] = free_path(disjoint[0]);
 		disjoint[1] = free_path(disjoint[1]);
 		free(disjoint);
@@ -98,9 +98,9 @@ t_path		**compare_disjoint(t_graph *g, t_path **disjoint, t_path **shortest, t_p
 	//	ft_printf("Alternative set is more efficient\n");
 		*shortest = free_path(*(shortest));
 		final = path_to_array(final, disjoint[0], &array_size);
-		mod_edgeweight_path(g->weight_m, disjoint[0], g, 1);
+		mod_edgeweight_path(g, disjoint[0], g, 1);
 		final = path_to_array(final, disjoint[1], &array_size);
-		mod_edgeweight_path(g->weight_m, disjoint[1], g, 1);
+		mod_edgeweight_path(g, disjoint[1], g, 1);
 		free(disjoint);
 	}
 	return (final);
@@ -236,7 +236,7 @@ t_path		**find_sets(t_graph *graph)
 //	set_2 = bfs_set_weightend(graph, 1, 0, graph->room_total - 1);
 	set_2 = dfs_mod_all(graph, graph->adlist[0], &s, NULL);
 	print_matrix(graph->weight_m, graph->room_total);
-	mod_edgeweight_set(graph->weight_m, set_2);
+	mod_edgeweight_set(graph, set_2);
 	print_matrix(graph->weight_m, graph->room_total);
 //	bfs_set_modify(graph, 1, 0, graph->room_total);
 //	ft_dprintf(fd, "Second set\n");
@@ -273,17 +273,43 @@ t_path	**edmonds(t_graph *g)
 	paths = 0;
 	set_1 = ft_memalloc(sizeof(t_path*) * g->room_total);
 	set_1[paths++] = bfs(g, 1, 0, g->room_total - 1);
-	mod_edgeweight_path(g->weight_m, set_1[paths - 1]);
+	mod_edgeweight_path(g, set_1[paths - 1]);
 	while (set_1[paths - 1])
 	{
 		set_1[paths++] = bfs(g, 1, 0, g->room_total - 1);
-		mod_edgeweight_path(g->weight_m, set_1[paths - 1]);
+		mod_edgeweight_path(g, set_1[paths - 1]);
 		print_rooms(g);
 	}
 	print_matrix(g->weight_m, g->room_total);
 	//free and stuff
 	set_1 = bfs_set(g, 2, 0, g->room_total - 1);
 	return (set_1);
+}
+
+/*
+**	Do BFS one at a time. The rooms max flow capacity is edges - 1.
+**	while (bfs(merge sort edge values acending))
+**		modify path edges
+**  return (bfs_set(use edges with value > 0. Prioritize rooms with flow 1/1))
+**
+*/
+
+t_path	**sorted_search(t_graph *g)
+{
+	t_path *shortest;
+	t_path **set;
+
+	shortest = bfs(g, 1, 0, g->room_total - 1);
+	mod_edgeweight_path(g, shortest);
+	while (shortest)
+	{
+		print_matrix(g->weight_m, g->room_total);
+		shortest = bfs(g, 1, 0, g->room_total - 1);
+		mod_edgeweight_path(g, shortest);
+		sort_adlist_array(g);
+	}
+	set = bfs_set(g, 2, 0, g->room_total - 1);
+	return (set);
 }
 
 t_path **set_search_to_modifyPaths(t_graph *g)
@@ -293,7 +319,7 @@ t_path **set_search_to_modifyPaths(t_graph *g)
 
 	g->max_paths = count_max_paths(g);
 	shortest = bfs(g, 1, 0, g->room_total - 1);
-	mod_edgeweight_path(g->weight_m, shortest);
+	mod_edgeweight_path(g, shortest);
 	bfs_set_weightend(g, 1, 0 , g->room_total - 1);
 	set_1 = bfs_set(g, 2, 0 , g->room_total - 1);
 	return (set_1);

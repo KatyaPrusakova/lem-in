@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:28:51 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/15 16:12:44 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:43:58 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ void	print_matrix(int **matrix, int size)
 		i = -1;
 		ft_dprintf(fd, "\n");
 	}
+	ft_dprintf(fd, "\n");
 }

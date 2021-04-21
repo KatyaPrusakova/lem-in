@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/20 14:04:56 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/21 18:54:21 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct		s_room
 	int				prev_room_index;
 	int				end;
 	int				visited;
+	int				remaining_capacity;
+	int				max_capacity;
 	int				antnbr;
 	struct s_room	*next;
 }					t_room;
@@ -47,7 +49,7 @@ typedef	struct		s_search
 	struct s_path	**set;
 	int				*visited;
 	int				path_no;
-	int				continue_alternative_edges;
+//	int				continue_alternative_edges;
 	int				start;
 	int				end;
 }					t_search;
@@ -161,7 +163,7 @@ char				*ft_firstword(char **line, int i);
 //draft
 
 t_path				*bfs(t_graph *g, int edge_w, int start, int end);
-t_search			init_search(t_graph *g, int mod_edge, int start, int end);
+t_search			init_search(t_graph *g, int start, int end);
 t_path				**bfs_set(t_graph *graph, int edge_w, int start, int end);
 int					bfs_set_modify(t_graph *graph, int edge_w, int start, int end);
 
@@ -178,6 +180,8 @@ t_path				**dfs_mod_edges(t_graph *g, t_room *current, t_search s, int *visited)
 t_path				**dfs_mod_all(t_graph *g, t_room *current, t_search *s, int *visited);
 t_path				**bfs_set_weightend(t_graph *graph, int edge_w, int start, int end);
 t_path **set_search_to_modifyPaths(t_graph *g);
+t_path	**sorted_search(t_graph *g);
+
 
 
 
@@ -216,6 +220,8 @@ int					path_cmp(t_path *p1, t_path *p2);
 */
 
 t_room		*adlist_mergesort(t_room *head, int start, int **weight_matrix);
+void		sort_adlist_array(t_graph *g);
+
 
 /*
 ** save_path.c
@@ -225,8 +231,8 @@ int			check_path(t_graph *graph, t_search s, int link_index, int *path_no);
 t_path		*save_path(int *visited, int find_path, t_graph *g, t_search s);
 
 
-int			**mod_edgeweight_path(int **matrix, t_path *path);
-int			**mod_edgeweight_set(int **matrix, t_path **set);
+void			mod_edgeweight_path(t_graph *g, t_path *path);
+void			mod_edgeweight_set(t_graph *g, t_path **set);
 
 
 

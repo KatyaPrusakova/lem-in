@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/19 15:11:30 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/21 16:31:52 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,6 @@ int		check_path(t_graph *graph, t_search s, int link_index, int *path_no)
 	{
 		ft_dprintf(fd, "NULL path\n"); //test
 		return (1);
-	}
-	if (!s.continue_alternative_edges)
-	{
-		modify_visited_array(s.visited, found_path);
-		mod_edgeweight_path(graph->weight_m, found_path);
 	}
 	s.set[*path_no] = found_path;
 	*path_no += 1;
