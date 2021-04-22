@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/10 16:21:03 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 13:28:49 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,32 @@ int			add_room(int flag, char *room_name, t_graph *graph)
 	int			i;
 	t_room		*new;
 
-	i = 1;
 	if (!(new = ft_memalloc(sizeof(t_room))))
 		print_error(2, NULL);
 	new->prev_room_index = -1;
 	if (flag == 1)
-		graph->adlist[0] = new;
+		i = 0;
+		// graph->adlist[0] = new;
 	else if (flag == 2)
 	{
-		graph->adlist[graph->room_total - 1] = new;
-		graph->adlist[graph->room_total - 1]->end = 1;
-		graph->adlist[graph->room_total - 1]->index = graph->room_total - 1;
+		i = graph->room_total - 1;
+		// graph->adlist[graph->room_total - 1] = new;
+		// graph->adlist[graph->room_total - 1]->end = 1;
+		// graph->adlist[graph->room_total - 1]->index = graph->room_total - 1;
 	}
 	else
 	{
+		i = 1;
 		while (graph->adlist[i])
 			i++;
-		graph->adlist[i] = new;
-		graph->adlist[i]->index = i;
 	}
+	graph->adlist[i] = new;
+	graph->adlist[i]->index = i;
 	new->name = room_name;
+	graph->adlist[graph->room_total + i] = ft_memdup(new, sizeof(t_room));
+	if (graph->adlist[graph->room_total + i] == NULL)
+		print_error(2, NULL);
+	graph->adlist[graph->room_total + i]->out = 1;
 	return  (1);
 }
 

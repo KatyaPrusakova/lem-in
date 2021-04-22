@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_link.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/03/02 16:39:24 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/04/22 13:34:42 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,21 @@ void			add_index_to_room(t_graph* data, char *name, int index, int i)
 		if (tmp->name == name)
 		{
 			tmp->index = index;
-			tmp->end = data->adlist[index]->end;
+//			tmp->end = data->adlist[index]->end;
 			return;
 		}
 		tmp = tmp->next;
 	}
 }
 
-int			*valid_link(int i, char **room, t_graph* graph)
+int			*link_index(int i, char **room, t_graph* graph)
 {
 	int		link_name;
 	int		*index;
 
 	link_name = 0;
 	index = ft_memalloc(sizeof(int) * 2);
-	while (graph->adlist[i])
+	while (i < graph->room_total)
 	{
 		if (!(ft_strcmp(graph->adlist[i]->name, room[0])))
 		{
@@ -107,9 +107,9 @@ int			parse_link(int i, char **input, t_graph* graph)
 	while (input[i] && (ft_strchr(input[i], '-') || input[i][0] == '#')) //  add comment function
 	{
 		if (ft_strchr(input[i], '-'))
-		{	
+		{
 			room = ft_strsplit(input[i], '-');
-			is_link(room, valid_link(0, room, graph), graph);
+			is_link(room, link_index(0, room, graph), graph);
 		}
 		if (!ft_strcmp(room[0], start) || !ft_strcmp(room[1], start))
 			s = 1;

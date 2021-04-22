@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 15:30:46 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/21 16:34:28 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 13:43:58 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		mod_edgeweight_path(t_graph *g, t_path *path)
 		return;
 	while (path->next)
 	{
-		g->adlist[path->i]->remaining_capacity -= 1;
+//		g->adlist[path->i]->remaining_capacity -= 1;
 		g->weight_m[path->i][path->next->i] += 1;
 		g->weight_m[path->next->i][path->i] -= 1;
 		path = path->next;

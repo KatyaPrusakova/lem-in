@@ -6,12 +6,13 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 13:02:06 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 13:37:52 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
+/*
 void			set_room_capacity(t_graph * g)
 {
 	t_room	*tmp;
@@ -33,6 +34,7 @@ void			set_room_capacity(t_graph * g)
 		i++;
 	}
 }
+*/
 
 t_graph*		lem_in(t_graph* graph)
 {
