@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 16:09:21 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 19:01:37 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,8 @@ t_path		**set_cmp(t_path **p1, t_path **p2, int ants)
 	}
 }
 
+
+/*
 t_path		**find_sets(t_graph *graph)
 {
 	t_path	**set_1;
@@ -286,6 +288,8 @@ t_path	**edmonds(t_graph *g)
 	return (set_1);
 }
 
+*/
+
 /*
 **	Do BFS one at a time. The rooms max flow capacity is edges - 1.
 **	while (bfs(merge sort edge values acending))
@@ -305,12 +309,15 @@ t_path	**sorted_search(t_graph *g)
 	{
 		print_matrix(g->weight_m, g->room_total);
 		shortest = bfs_new(g, 1, 0, g->room_total - 1);
+		//free path
 		mod_edgeweight_path(g, shortest);
-		sort_adlist_array(g);
+	//	sort_adlist_array(g);
 	}
-	set = bfs_set(g, 2, 0, g->room_total - 1);
+	set = bfs_set(g, 0, g->room_total - 1);
 	return (set);
 }
+
+/*
 
 t_path **set_search_to_modifyPaths(t_graph *g)
 {
@@ -325,6 +332,7 @@ t_path **set_search_to_modifyPaths(t_graph *g)
 	return (set_1);
 }
 
+*/
 /*
 ** Returns a paths set with one path with a length of 0. This leads to all ants to be able to flow straight to
 ** the end room in one line.

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 15:56:58 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 18:52:18 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int				count_rooms(char **input)
 			room++;
 		i++;
 	}
-//	ft_dprintf(fd, " count_rooms %d\n", room);
 	start_end != 2 ?  print_error(8, input) : 0;
 	return (room ? room : print_error(9, input));
 }
@@ -57,14 +56,8 @@ int			add_room(int flag, char *room_name, t_graph *graph)
 	new->prev_room_index = -1;
 	if (flag == 1)
 		i = 0;
-		// graph->adlist[0] = new;
 	else if (flag == 2)
-	{
 		i = graph->room_total - 1;
-		// graph->adlist[graph->room_total - 1] = new;
-		// graph->adlist[graph->room_total - 1]->end = 1;
-		// graph->adlist[graph->room_total - 1]->index = graph->room_total - 1;
-	}
 	else
 	{
 		i = 1;
@@ -94,15 +87,16 @@ int			parse_room(int i, char **line, t_graph* graph)
 	{
 		 // ft_dprintf(fd, "loop %s\n", line[i]); //test
 			if (!ft_strcmp(line[i], "##start"))
-				add_room(1, ft_firstword(line, ++i), graph);
+				add_room(1, first_word(line, ++i), graph);
 			else if (!ft_strcmp(line[i], "##end"))
-				add_room(2, ft_firstword(line, ++i), graph);
+				add_room(2, first_word(line, ++i), graph);
 			else if (line[i][0]  == '#')
 				i++;
 			else
-				add_room(0, ft_firstword(line, i), graph);
+				add_room(0, first_word(line, i), graph);
 			i++;
 	}
+	graph->adlist[0]->out = 1;
 	if (ft_strchr(line[i-1], '-'))
 		i--;
 	return(i);
@@ -126,7 +120,7 @@ char*			is_room(char **input, int i)
 	return (room[0]);
 }
 
-char			*ft_firstword(char **line, int i)
+char			*first_word(char **line, int i)
 {
 	char	**room;
 

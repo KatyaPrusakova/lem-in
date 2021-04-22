@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 17:16:06 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 19:00:02 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,14 +159,14 @@ void				print_input(char **line);
 
 //add to libft
 int					ft_strisdigit(char *s);
-char				*ft_firstword(char **line, int i);
+char				*first_word(char **line, int i);
 
 //draft
 
 t_path				*bfs(t_graph *g, int edge_w, int start, int end);
-t_path		*bfs_new(t_graph *g, int edge_w, int start, int end);
+t_path				*bfs_new(t_graph *g, int edge_w, int start, int end);
 t_search			init_search(t_graph *g, int start, int end);
-t_path				**bfs_set(t_graph *graph, int edge_w, int start, int end);
+t_path				**bfs_set(t_graph *graph, int start, int end);
 int					bfs_set_modify(t_graph *graph, int edge_w, int start, int end);
 
 int					end_is_neighbour(t_room *head, int end);
@@ -181,8 +181,8 @@ t_path				*dfs_find_path(t_graph *g, t_room *current, t_search s);
 t_path				**dfs_mod_edges(t_graph *g, t_room *current, t_search s, int *visited);
 t_path				**dfs_mod_all(t_graph *g, t_room *current, t_search *s, int *visited);
 t_path				**bfs_set_weightend(t_graph *graph, int edge_w, int start, int end);
-t_path **set_search_to_modifyPaths(t_graph *g);
-t_path	**sorted_search(t_graph *g);
+t_path				**set_search_to_modifyPaths(t_graph *g);
+t_path				**sorted_search(t_graph *g);
 
 
 
