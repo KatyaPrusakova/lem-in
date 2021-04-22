@@ -6,21 +6,21 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 13:34:42 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 14:27:21 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int				is_link(char **room, int  *index, t_graph* data)
+int				create_edge(char **room_name, int  *adlist_index, t_graph* data)
 {
 	//ft_dprintf(fd, "l%s l %s\n", room[0], room[1]); //
 
-	link_rooms(room[1], index[0], data);
-	link_rooms(room[0], index[1], data);
-	add_index_to_room(data, room[1], index[1], index[0]);
-	add_index_to_room(data, room[0], index[0], index[1]);
-	free(index);
+	link_rooms(room_name[1], adlist_index[0], data);
+	link_rooms(room_name[0], adlist_index[1], data);
+	add_index_to_edge(data, room_name[1], adlist_index[1], adlist_index[0]);
+	add_index_to_edge(data, room_name[0], adlist_index[0], adlist_index[1]);
+	free(adlist_index);
 	return (1);
 }
 
@@ -49,7 +49,7 @@ int				link_rooms(char *room, int i, t_graph* data)
 	return (1);
 }
 
-void			add_index_to_room(t_graph* data, char *name, int index, int i)
+void			add_index_to_edge(t_graph* data, char *name, int index, int i)
 {
 	t_room	*tmp;
 
@@ -66,7 +66,7 @@ void			add_index_to_room(t_graph* data, char *name, int index, int i)
 	}
 }
 
-int			*link_index(int i, char **room, t_graph* graph)
+int			*edge_index(int i, char **room, t_graph* graph)
 {
 	int		link_name;
 	int		*index;
@@ -109,7 +109,7 @@ int			parse_link(int i, char **input, t_graph* graph)
 		if (ft_strchr(input[i], '-'))
 		{
 			room = ft_strsplit(input[i], '-');
-			is_link(room, link_index(0, room, graph), graph);
+			create_edge(room, edge_index(0, room, graph), graph);
 		}
 		if (!ft_strcmp(room[0], start) || !ft_strcmp(room[1], start))
 			s = 1;

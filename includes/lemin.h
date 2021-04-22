@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 12:56:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 15:08:28 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ typedef struct		s_room
 	char			*name;
 	int				index;
 	int				prev_room_index;
-	int				end;
+//	int				end;
+	int				out;
 	int				visited;
-	int				remaining_capacity;
-	int				max_capacity;
 	int				antnbr;
 	struct s_room	*next;
 }					t_room;
@@ -128,10 +127,12 @@ char				**parse_input(void);
 ** PARSE_LINK.C
 */
 
-int					is_link(char **room, int *index, t_graph* data);
-int					link_rooms(char *room, int i, t_graph* data);
-void				add_index_to_room(t_graph* data, char *name, int index, int i);
-int					parse_link(int i, char **line, t_graph* graph);
+int					create_edge(char **room, int *index, t_graph* data);
+int					link_rooms(int a, int b, t_graph *g);
+void				add_index_to_edge(t_graph* data, char *name, int index, int i);
+// int					parse_link(int i, char **line, t_graph* graph);
+int					parse_links(int i, char **input, t_graph *g);
+
 
 /*
 ** PARSE_ROOM.C
@@ -189,7 +190,7 @@ t_path	**sorted_search(t_graph *g);
 
 
 
-t_path				*mod_path(int *visited, int link_index, /*int **matrix, */int end_room);
+t_path				*mod_path(int *visited, int edge_index, /*int **matrix, */int end_room);
 
 
 //queue functions
@@ -227,7 +228,7 @@ void		sort_adlist_array(t_graph *g);
 ** save_path.c
 */
 
-int			check_path(t_graph *graph, t_search s, int link_index, int *path_no);
+int			check_path(t_graph *graph, t_search s, int edge_index, int *path_no);
 t_path		*save_path(int *visited, int find_path, t_graph *g, t_search s);
 
 

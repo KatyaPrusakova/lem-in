@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 12:51:11 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 13:00:46 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 15:07:55 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_graph*		create_graph(int rooms, char **line)
 	new->weight_m = create_matrix(rooms * 2, rooms * 2);
 	i = parse_ants(line, new);
 	i = parse_room(i, line, new);
-	parse_link(i, line, new);
+	if (!parse_links(i, line, new))
+		print_error(5, line);
 	return (new);
 }

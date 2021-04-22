@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/21 16:31:52 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 13:51:48 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** a linked list.
 */
 
-t_path		*save_path(int *visited, int link_index, t_graph *g, t_search s)
+t_path		*save_path(int *visited, int edge_index, t_graph *g, t_search s)
 {
 	t_path	*head;
 	t_path	*tmp;
@@ -26,7 +26,7 @@ t_path		*save_path(int *visited, int link_index, t_graph *g, t_search s)
 	int		len;
 
 //What if start is directly linked to end?
-	if (!link_index)
+	if (!edge_index)
 		return(NULL);
 	tmp = NULL;
 	len = 0;
@@ -37,28 +37,28 @@ t_path		*save_path(int *visited, int link_index, t_graph *g, t_search s)
 	head->name = g->adlist[s.end]->name;
 	head->next = NULL;
 	tmp = head;
-	while (link_index != s.start)
+	while (edge_index != s.start)
 	{
 		//leaking
-		if (link_index == -2)
+		if (edge_index == -2)
 		{
 			ft_dprintf(fd, "link index == -2\n");
 			return NULL;
 		}
 		else
 		{
-			prev = visited[link_index];
-		//	visited[link_index] = -2;
+			prev = visited[edge_index];
+		//	visited[edge_index] = -2;
 		}
 		head = ft_memalloc(sizeof(t_path));
 //		if (!head)
 //			ft_error(2);
-		head->i = link_index;
-		head->name = g->adlist[link_index]->name;
+		head->i = edge_index;
+		head->name = g->adlist[edge_index]->name;
 		head->next = tmp;
 		tmp = head;
-		link_index = prev;
-	//	ft_dprintf(fd, "- %d -", link_index); //test
+		edge_index = prev;
+	//	ft_dprintf(fd, "- %d -", edge_index); //test
 		len++;
 	}
 	head = ft_memalloc(sizeof(t_path));
@@ -95,14 +95,14 @@ void	modify_visited_array(int *visited, t_path *path)
 
 
 
-int		check_path(t_graph *graph, t_search s, int link_index, int *path_no)
+int		check_path(t_graph *graph, t_search s, int edge_index, int *path_no)
 {
 	t_path	*found_path;
 
 	if (graph->visualize)
 		visualize_search(s.room, s.q, graph->weight_m);
 	s.visited[s.room->index] = s.room->prev_room_index;
-	found_path = save_path(s.visited, link_index, graph, s);
+	found_path = save_path(s.visited, edge_index, graph, s);
 	if (!found_path)
 	{
 		ft_dprintf(fd, "NULL path\n"); //test
@@ -119,7 +119,7 @@ int		check_path(t_graph *graph, t_search s, int link_index, int *path_no)
 	return (1);
 }
 
-t_path		*mod_path(int *visited, int link_index, /*int **matrix, */int end_room)
+t_path		*mod_path(int *visited, int edge_index, /*int **matrix, */int end_room)
 {
 	t_path	*head;
 	t_path	*tmp;
@@ -127,7 +127,7 @@ t_path		*mod_path(int *visited, int link_index, /*int **matrix, */int end_room)
 	int		len;
 
 //What if start is directly linked to end?
-	if (!link_index)
+	if (!edge_index)
 		return(NULL);
 	tmp = NULL;
 	len = 0;
@@ -137,18 +137,18 @@ t_path		*mod_path(int *visited, int link_index, /*int **matrix, */int end_room)
 	head->i = end_room;
 	head->next = NULL;
 	tmp = head;
-	while (link_index)
+	while (edge_index)
 	{
 		//leaking
-		prev = visited[link_index];
+		prev = visited[edge_index];
 		head = ft_memalloc(sizeof(t_path));
 //		if (!head)
 //			ft_error(2);
-		head->i = link_index;
+		head->i = edge_index;
 		head->next = tmp;
 		tmp = head;
-		link_index = prev;
-	//	ft_dprintf(fd, "- %d -", link_index); //test
+		edge_index = prev;
+	//	ft_dprintf(fd, "- %d -", edge_index); //test
 		len++;
 	}
 	head = ft_memalloc(sizeof(t_path));
