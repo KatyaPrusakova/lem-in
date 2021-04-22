@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 13:12:34 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 15:15:14 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 15:27:49 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,17 @@ int			link_rooms(int a, int b, t_graph* g)
 	new = ft_memdup(g->adlist[b], sizeof(t_room));
 	if (!new)
 		print_error(2, NULL);
+	new->index = b;
 	new->next = NULL;
+	tmp->next = new;
 	return (1);
 }
 
 int			create_edges(int *adlist_index, t_graph *g)
 {
-	//link i[0]->in - i[1]->out
 	link_rooms(adlist_index[0], adlist_index[1] + g->room_total, g);
-	//link i[1]->out - i[0]->in
 	link_rooms(adlist_index[1] + g->room_total, adlist_index[0], g);
-	//link i[0]->out - i[1]->in
 	link_rooms(adlist_index[1], adlist_index[0] + g->room_total, g);
-	//link i[1]->in - i[0]->out
 	link_rooms(adlist_index[0] + g->room_total, adlist_index[1], g);
 	free(adlist_index);
 	return (1);
@@ -81,6 +79,7 @@ void	create_room_edges(t_graph *g)
 	int i;
 
 	i = 1;
+	ft_printf("Rooms total %d\n", g->room_total);
 	while (i < g->room_total - 1)
 	{
 		link_rooms(i, i + g->room_total, g);
@@ -102,7 +101,7 @@ int		parse_links(int i, char **input, t_graph *g)
 	e = 0;
 	start = g->adlist[0]->name;
 	end = g->adlist[g->room_total - 1]->name;
-	//create_room_edges(g);
+	create_room_edges(g);
 	while (input[i] && (ft_strchr(input[i], '-') || input[i][0] == '#'))
 	{
 		ft_printf("test\n");
