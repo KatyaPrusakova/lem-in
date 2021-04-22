@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 19:00:02 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 20:06:10 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ int					bfs_set_modify(t_graph *graph, int edge_w, int start, int end);
 int					end_is_neighbour(t_room *head, int end);
 t_path 				**unlimited_flow(void);
 t_path				**edmonds(t_graph *g);
+void				clean_path(t_path *p, t_graph *g);
 
 
 

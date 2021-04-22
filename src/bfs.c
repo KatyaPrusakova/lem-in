@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 19:51:25 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 20:11:15 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,7 +276,6 @@ t_path	**bfs_set(t_graph *graph, int start, int end)
 {
 	t_search	s;
 
-	ft_printf("SET\n");
 	if (graph->visualize)
 		ft_printf("BFS\n");
 	s = init_search(graph, start, end);
@@ -301,80 +300,4 @@ t_path	**bfs_set(t_graph *graph, int start, int end)
 		return (NULL);
 	else
 		return (s.set);
-}
-
-
-t_path	**bfs_set_weightend(t_graph *graph, int edge_w, int start, int end)
-{
-	t_search	s;
-
-	if (graph->visualize)
-		ft_printf("BFS\n");
-	s = init_search(graph, start, end);
-	s.tmp = graph->adlist[s.start]->next;
-	while (s.tmp)
-	{
-		enqueue(s.tmp->index, s.q, graph->adlist, s.start);
-		s.tmp = s.tmp->next;
-	}
-	while (s.q->head && s.path_no < graph->max_paths)
-	{
-		s.room = ft_memdup(graph->adlist[s.q->head->index], sizeof(t_room));
-		s.room->prev_room_index = s.q->head->prev_room_index;
-		if (s.q->head)
-			dequeue(s.q);
-		if (end_is_neighbour(s.room->next, end) && s.visited[s.room->index] == -1)
-		{
-			if (!check_path(graph, s, s.room->index, &s.path_no))
-				return (s.set);
-		}
-		else
-			visit_room(s.room, s.q, s.visited, graph, edge_w);
-		ft_memdel((void**)&s.room);
-	}
-	if (!s.path_no || !s.set[0])
-		return (NULL);
-	else
-		return (s.set);
-}
-
-
-int			bfs_set_modify(t_graph *graph, int edge_w, int start, int end)
-{
-	t_search	s;
-
-	if (graph->visualize)
-		ft_printf("BFS\n");
-	s = init_search(graph, start, end);
-	while (s.q->head && s.path_no < graph->max_paths)
-	{
-		s.room = ft_memdup(graph->adlist[s.q->head->index], sizeof(t_room));
-		s.room->prev_room_index = s.q->head->prev_room_index;
-		if (s.q->head)
-			dequeue(s.q);
-		s.tmp = s.room->next;
-		if (end_is_neighbour(s.tmp, graph->room_total - 1) && s.visited[s.room->index] == -1
-		&& check_weight(graph->weight_m[s.room->index][s.end], edge_w))
-		{
-			// find paths
-			// only modify the paths when all of them have been found
-			// also check neighbours and alternative paths from the room that is connected to the end room
-			if (graph->visualize)
-				ft_printf("end is neighbour %d\n", s.room->index);
-			check_path(graph, s, s.room->index, &s.path_no);
-			visit_room(s.room, s.q, s.visited, graph, edge_w);
-
-			queue_neighbours(s, graph, edge_w);
-		}
-		else
-			visit_room(s.room, s.q, s.visited, graph, edge_w);
-		ft_memdel((void**)&s.room);
-	}
-	if (!s.path_no || !s.set[0])
-		return (0);
-	else
-	{
-		mod_edgeweight_set(graph, s.set);
-		return (1);
-	}
 }

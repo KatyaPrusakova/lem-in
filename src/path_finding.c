@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 19:29:41 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 20:10:29 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,16 @@ t_path	**edmonds(t_graph *g)
 **
 */
 
+void	clean_set(t_path **set, t_graph *g)
+{
+	int i;
+
+	i = -1;
+	while (set[++i])
+		clean_path(set[i], g);
+
+}
+
 t_path	**sorted_search(t_graph *g)
 {
 	t_path *shortest;
@@ -316,6 +326,7 @@ t_path	**sorted_search(t_graph *g)
 	}
 	g->max_paths = count_max_paths(g);
 	set = bfs_set(g, 0, g->room_total - 1);
+	clean_set(set, g);
 	return (set);
 }
 

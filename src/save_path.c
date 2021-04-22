@@ -6,11 +6,41 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 17:21:50 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 20:06:01 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+void		*delete_room_in_path(t_path *p, int index)
+{
+	t_path *tmp;
+	t_path *delete;
+
+	tmp = p;
+	while (tmp->next)
+	{
+		if (tmp->next->i == index)
+		{
+			delete = tmp->next;
+			tmp->next = tmp->next->next;
+			ft_memdel((void**)&delete);
+			return (p);
+		}
+		tmp = tmp->next;
+	}
+	return (p);
+}
+
+void		clean_path(t_path *p, t_graph *g)
+{
+	while (p->next)
+	{
+		if (p->next->i >= g->room_total)
+			delete_room_in_path(p, p->next->i);
+		p = p->next;
+	}
+}
 
 /*
 ** The path is saved in the *visited array. visited[room->index] contains
@@ -118,49 +148,3 @@ int		check_path(t_graph *graph, t_search s, int edge_index, int *path_no)
 	}
 	return (1);
 }
-
-t_path		*mod_path(int *visited, int edge_index, /*int **matrix, */int end_room)
-{
-	t_path	*head;
-	t_path	*tmp;
-	int		prev;
-	int		len;
-
-//What if start is directly linked to end?
-	if (!edge_index)
-		return(NULL);
-	tmp = NULL;
-	len = 0;
-	head = ft_memalloc(sizeof(t_path));
-	if (!head)
-		ft_printf("error");
-	head->i = end_room;
-	head->next = NULL;
-	tmp = head;
-	while (edge_index)
-	{
-		//leaking
-		prev = visited[edge_index];
-		head = ft_memalloc(sizeof(t_path));
-//		if (!head)
-//			ft_error(2);
-		head->i = edge_index;
-		head->next = tmp;
-		tmp = head;
-		edge_index = prev;
-	//	ft_dprintf(fd, "- %d -", edge_index); //test
-		len++;
-	}
-	head = ft_memalloc(sizeof(t_path));
-	head->next = tmp;
-	head->len = len;
-	tmp = head;
-	while (tmp)
-	{
-		ft_printf("%d |", tmp->i);
-		tmp = tmp->next;
-	}
-	ft_n(1);
-	return (head);
-}
-
