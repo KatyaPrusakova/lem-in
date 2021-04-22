@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:28:51 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/21 16:43:58 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 19:45:33 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,16 @@ void	print_matrix(int **matrix, int size)
 
 	i = -1;
 	j = -1;
-
+	ft_dprintf(fd, "    ");
+	while (++i < size)
+		ft_dprintf(fd, " %3d ", i);
+	ft_dprintf(fd, "\n");
+	i = -1;
 	while (++j < size)
 	{
+		ft_dprintf(fd, "%2d  |", j);
 		while (++i < size)
-			ft_dprintf(fd, "[%d] ", matrix[j][i]);
+			ft_dprintf(fd, "[%2d] ", matrix[j][i]);
 		i = -1;
 		ft_dprintf(fd, "\n");
 	}

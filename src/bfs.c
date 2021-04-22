@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 19:07:13 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 19:51:25 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		check_flow(t_room *src, t_room *dst, int max_flow, t_graph *g)
 	out = src->out;
 	if (max_flow && flow == max_flow)
 		return (1);
-	else if (out && !flow)
+	else if (!max_flow && out && !flow)
 		return (1);
 	else if (!max_flow && !out && flow == -1)
 		return (1);
@@ -276,6 +276,7 @@ t_path	**bfs_set(t_graph *graph, int start, int end)
 {
 	t_search	s;
 
+	ft_printf("SET\n");
 	if (graph->visualize)
 		ft_printf("BFS\n");
 	s = init_search(graph, start, end);
@@ -287,6 +288,7 @@ t_path	**bfs_set(t_graph *graph, int start, int end)
 			dequeue(s.q);
 		if (end_is_neighbour(s.room->next, end) && s.visited[s.room->index] == -1 && \
 		check_flow(s.room, graph->adlist[s.end], 1, graph))
+
 		{
 			if (!check_path(graph, s, s.room->index, &s.path_no))
 				return (s.set);
