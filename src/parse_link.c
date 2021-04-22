@@ -6,74 +6,67 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 14:27:21 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 15:40:25 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int				create_edge(char **room_name, int  *adlist_index, t_graph* data)
-{
-	//ft_dprintf(fd, "l%s l %s\n", room[0], room[1]); //
 
-	link_rooms(room_name[1], adlist_index[0], data);
-	link_rooms(room_name[0], adlist_index[1], data);
-	add_index_to_edge(data, room_name[1], adlist_index[1], adlist_index[0]);
-	add_index_to_edge(data, room_name[0], adlist_index[0], adlist_index[1]);
-	free(adlist_index);
-	return (1);
-}
 
-int				link_rooms(char *room, int i, t_graph* data)
+int			link_to_adlist(int a, int b, t_graph* g)
 {
 	t_room	*new;
 	t_room	*tmp;
 
-	if (!(new = ft_memalloc(sizeof(t_room))))
-		print_error(2, NULL);
-	tmp = data->adlist[i];
-	if (tmp->next)
+	tmp = g->adlist[a];
+	while (tmp->next)
 	{
-		while (tmp->next != NULL)
-		{
-			if (!(ft_strcmp(tmp->next->name,room))) //if link already exists
-			{ // add free
-				print_error(5, NULL);
-			}
-			tmp = tmp->next;
-		}
+		if (tmp->index == b)
+			print_error(5, NULL);
+		tmp = tmp->next;
 	}
-	tmp->next = new;
-	new->name = room;
+	new = ft_memdup(g->adlist[b], sizeof(t_room));
+	if (!new)
+		print_error(2, NULL);
+	new->index = b;
 	new->next = NULL;
+	tmp->next = new;
 	return (1);
 }
 
-void			add_index_to_edge(t_graph* data, char *name, int index, int i)
+int			create_edge(int *adlist_index, t_graph *g)
 {
-	t_room	*tmp;
-
-	tmp = data->adlist[i];
-	while (tmp)
+	if (!adlist_index[0])
 	{
-		if (tmp->name == name)
-		{
-			tmp->index = index;
-//			tmp->end = data->adlist[index]->end;
-			return;
-		}
-		tmp = tmp->next;
+		link_to_adlist(0, adlist_index[1], g);
+		return (1);
 	}
+	if (!adlist_index[1])
+	{
+		link_to_adlist(0, adlist_index[0], g);
+		return (1);
+	}
+	link_to_adlist(adlist_index[0], adlist_index[1] + g->room_total, g);
+	link_to_adlist(adlist_index[1] + g->room_total, adlist_index[0], g);
+	link_to_adlist(adlist_index[1], adlist_index[0] + g->room_total, g);
+	link_to_adlist(adlist_index[0] + g->room_total, adlist_index[1], g);
+	free(adlist_index);
+	return (1);
 }
 
-int			*edge_index(int i, char **room, t_graph* graph)
+int			*edge_index(char **room, t_graph* graph)
 {
 	int		link_name;
 	int		*index;
+	int		i;
 
 	link_name = 0;
+	i = -1;
 	index = ft_memalloc(sizeof(int) * 2);
-	while (i < graph->room_total)
+	if (!index)
+		print_error(2, NULL);
+	while (++i < graph->room_total)
 	{
 		if (!(ft_strcmp(graph->adlist[i]->name, room[0])))
 		{
@@ -85,16 +78,30 @@ int			*edge_index(int i, char **room, t_graph* graph)
 			index[1] = i;
 			link_name++;
 		}
-		i++;
 	}
 	if (link_name != 2)
 		print_error(5, NULL);
 	return (index);
 }
 
-int			parse_link(int i, char **input, t_graph* graph)
+void	create_room_capacity(t_graph *g)
 {
-	char	**room;
+	int i;
+
+	i = 1;
+	ft_printf("Rooms total %d\n", g->room_total);
+	while (i < g->room_total - 1)
+	{
+		link_to_adlist(i, i + g->room_total, g);
+		link_to_adlist(i + g->room_total, i, g);
+		i++;
+	}
+}
+
+
+int		parse_links(int i, char **input, t_graph *g)
+{
+	char	**rooms_to_link;
 	char	*start;
 	char	*end;
 	int		s;
@@ -102,22 +109,25 @@ int			parse_link(int i, char **input, t_graph* graph)
 
 	s = 0;
 	e = 0;
-	start =  graph->adlist[0]->name;
-	end =  graph->adlist[graph->room_total - 1]->name;
-	while (input[i] && (ft_strchr(input[i], '-') || input[i][0] == '#')) //  add comment function
+	start = g->adlist[0]->name;
+	end = g->adlist[g->room_total - 1]->name;
+	create_room_capacity(g);
+	while (input[i] && (ft_strchr(input[i], '-') || input[i][0] == '#'))
 	{
 		if (ft_strchr(input[i], '-'))
 		{
-			room = ft_strsplit(input[i], '-');
-			create_edge(room, edge_index(0, room, graph), graph);
+			rooms_to_link = ft_strsplit(input[i], '-');
+			create_edge(edge_index(rooms_to_link, g), g);
 		}
-		if (!ft_strcmp(room[0], start) || !ft_strcmp(room[1], start))
+		if (!ft_strcmp(rooms_to_link[0], start) || !ft_strcmp(rooms_to_link[1], start))
 			s = 1;
-		if (!ft_strcmp(room[0], end) || !ft_strcmp(room[1], end))
+		if (!ft_strcmp(rooms_to_link[0], end) || ft_strcmp(rooms_to_link[1], end))
 			e = 1;
 		i++;
 	}
-	if (input[i]) // "\n" line
-		print_error(10, input);
-	return (s + e == 2 ? 1 : print_error(5, input));
+	if (input[i])
+	print_error(10, input);
+	if (s + e == 2)
+		return (1);
+	return (0);
 }
