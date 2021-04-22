@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 13:51:48 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:21:50 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		check_path(t_graph *graph, t_search s, int edge_index, int *path_no)
 	t_path	*found_path;
 
 	if (graph->visualize)
-		visualize_search(s.room, s.q, graph->weight_m);
+		visualize_search(graph, s.room, s.q, graph->weight_m);
 	s.visited[s.room->index] = s.room->prev_room_index;
 	found_path = save_path(s.visited, edge_index, graph, s);
 	if (!found_path)

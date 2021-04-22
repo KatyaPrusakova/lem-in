@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 15:40:03 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 15:56:58 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int			add_room(int flag, char *room_name, t_graph *graph)
 	if (graph->adlist[graph->room_total + i] == NULL)
 		print_error(2, NULL);
 	graph->adlist[graph->room_total + i]->out = 1;
+	graph->adlist[graph->room_total + i]->index = graph->room_total + i;
 	return  (1);
 }
 

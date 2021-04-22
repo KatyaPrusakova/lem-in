@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/21 19:16:42 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:21:18 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,49 @@ void	queue_neighbours(t_search s, t_graph *g, int edge_w)
 	}
 }
 
+void	visit_room_new(t_room *current, t_queue *q, int *visited, t_graph *graph)
+{
+	t_room	*tmp;
+	int		flow;
+
+	if (visited[current->index] != -1)
+		return;
+	visited[current->index] = current->prev_room_index;
+//	graph->adlist[current->index]->next = adlist_mergesort(current->next, current->index, graph->weight_m);
+	tmp = current->next;
+	if (current->out || !current->index)
+	{
+		while (tmp)
+		{
+			flow = graph->weight_m[current->index][tmp->index];
+			if (visited[tmp->index] == -1 && !flow)
+				enqueue(tmp->index, q, graph->adlist, current->index);
+			tmp = tmp->next;
+		}
+	}
+	else
+	{
+		while (tmp)
+		{
+			flow = graph->weight_m[current->index][tmp->index];
+			if ((visited[tmp->index] == -1 && flow == -1) || \
+			(tmp->index == current->index + graph->room_total && !flow))
+				enqueue(tmp->index, q, graph->adlist, current->index);
+			tmp = tmp->next;
+		}
+	}
+	if(graph->visualize)
+		visualize_search(graph, current, q, graph->weight_m);
+		//test
+//	ft_dprintf(fd, "\n");
+	// for (int i = 0; i < graph->room_total; i++)
+	// {
+	// 	ft_dprintf(fd, "|%d", visited[i]);
+	// }
+	// ft_dprintf(fd, "|\n");
+}
+
+
 /*
 ** Saving the current room as visited, and the index of the room it was visited
 ** from. Adds the linked rooms to the queue.
@@ -85,7 +128,7 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 		tmp = tmp->next;
 	}
 	if(graph->visualize)
-		visualize_search(current, q, graph->weight_m);
+		visualize_search(graph, current, q, graph->weight_m);
 		//test
 //	ft_dprintf(fd, "\n");
 	// for (int i = 0; i < graph->room_total; i++)
@@ -93,6 +136,34 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 	// 	ft_dprintf(fd, "|%d", visited[i]);
 	// }
 	// ft_dprintf(fd, "|\n");
+}
+
+
+t_path		*bfs_new(t_graph *g, int edge_w, int start, int end)
+{
+	t_search s;
+
+	if (g->visualize)
+		ft_printf("BFS\n");
+	s = init_search(g, start, end);
+	while (!s.path && s.q->head)
+	{
+		s.room = ft_memdup((void*)g->adlist[s.q->head->index], sizeof(t_room));
+		s.room->prev_room_index = s.q->head->prev_room_index;
+		if (!s.room)
+			print_error(2, NULL);
+		dequeue(s.q);
+		if (end_is_neighbour(s.room, end) && check_weight(g->weight_m[s.room->index][end], edge_w))
+		{
+			s.visited[s.room->index] = s.room->prev_room_index;
+			s.path = save_path(s.visited, s.room->index, g, s);
+		}
+		else
+			visit_room_new(s.room, s.q, s.visited, g);
+		free(s.room);
+		s.room = NULL;
+	}
+	return (s.path);
 }
 
 t_path		*bfs(t_graph *g, int edge_w, int start, int end)
@@ -183,7 +254,7 @@ t_search		init_search(t_graph *g, int start, int end)
 //		search.continue_alternative_edges = 1;
 	search.path = NULL;
 	search.q = NULL;
-	search.visited = ft_memalloc(sizeof(int) * g->room_total);
+	search.visited = ft_memalloc(sizeof(int) * g->room_total * 2);
 	if (!search.visited)
 		exit(0);
 	search.set = ft_memalloc(sizeof(t_path*) * (g->max_paths + 1));
@@ -193,7 +264,7 @@ t_search		init_search(t_graph *g, int start, int end)
 	search.q = enqueue(start, search.q, g->adlist, 0);
 	search.start = start;
 	search.end = end;
-	while (i < g->room_total)
+	while (i < g->room_total * 2)
 	{
 		search.visited[i] = -1;
 		i++;

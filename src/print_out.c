@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_out.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/24 10:11:31 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/04/22 15:48:30 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	print_rooms(t_graph* graph)
 				ft_dprintf(fd, " -> |%s|%d", tmp->name, tmp->index);
 			}
 		}
+		ft_dprintf(fd, " OUT: %d", graph->adlist[i]->out);
 		ft_dprintf(fd, "\n");
 		i++;
 	}

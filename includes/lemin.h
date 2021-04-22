@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 15:08:28 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:16:06 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ char				**parse_input(void);
 ** PARSE_LINK.C
 */
 
-int					create_edge(char **room, int *index, t_graph* data);
+int					create_edge(int *index, t_graph* data);
 int					link_rooms(int a, int b, t_graph *g);
 void				add_index_to_edge(t_graph* data, char *name, int index, int i);
 // int					parse_link(int i, char **line, t_graph* graph);
@@ -164,6 +164,7 @@ char				*ft_firstword(char **line, int i);
 //draft
 
 t_path				*bfs(t_graph *g, int edge_w, int start, int end);
+t_path		*bfs_new(t_graph *g, int edge_w, int start, int end);
 t_search			init_search(t_graph *g, int start, int end);
 t_path				**bfs_set(t_graph *graph, int edge_w, int start, int end);
 int					bfs_set_modify(t_graph *graph, int edge_w, int start, int end);
@@ -242,7 +243,7 @@ void			mod_edgeweight_set(t_graph *g, t_path **set);
 ** visualize.c
 */
 
-void	visualize_search(t_room *room, t_queue *q, int **matrix);
+void	visualize_search(t_graph *g, t_room *room, t_queue *q, int **matrix);
 
 
 //void				queue_to_visualizer(t_room **adlist, t_queue *q, int visualize); //testing

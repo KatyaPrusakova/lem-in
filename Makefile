@@ -6,18 +6,17 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/06 10:12:45 by ksuomala          #+#    #+#              #
-#    Updated: 2021/04/22 15:01:06 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/04/22 15:39:04 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#	parse_link.c
 NAME = lem-in
 
 SRCS = lemin.c \
 	malloc_and_free.c \
 	parse_input.c \
 	parse_ants.c \
-	parse_link_ks.c \
+	parse_link.c \
 	parse_room.c \
 	create_queue.c \
 	print_out.c \

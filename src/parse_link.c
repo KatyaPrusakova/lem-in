@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 15:40:25 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:22:51 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	create_room_capacity(t_graph *g)
 	int i;
 
 	i = 1;
-	ft_printf("Rooms total %d\n", g->room_total);
 	while (i < g->room_total - 1)
 	{
 		link_to_adlist(i, i + g->room_total, g);
