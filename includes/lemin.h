@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/21 18:54:21 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/22 12:56:23 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int					check_weight(int link_weight, int set_weight);
 ** MALLOC_FREE.C
 */
 
-t_graph*			create_graph(int rooms);
+t_graph*			create_graph(int rooms, char **line);
 t_path*				free_path(t_path *path);
 t_path**			free_path_set(t_path ***set);
 

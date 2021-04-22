@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/06 10:12:45 by ksuomala          #+#    #+#              #
-#    Updated: 2021/04/18 19:12:25 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/04/22 12:58:36 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS = lemin.c \
 	edge_weight.c \
 	move_ants.c \
 	sort_adlist.c \
+	create_graph.c
 
 SRCS_DIR = src/
 

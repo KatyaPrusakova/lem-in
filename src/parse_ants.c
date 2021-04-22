@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ants.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/03/02 23:24:12 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/04/22 12:58:20 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,6 @@ int		is_comment(char **str, int i)
 {
 	while (str[i][0] == '#' && ft_strcmp(str[i], "##start") && ft_strcmp(str[i], "##end"))
 		i++;
-	return (i);
-}
-
-int			parse_ants(char **line, t_graph* data)
-{
-	int		i;
-	int		ant;
-
-	ant = valid_ants(0, line);
-	data->ants = ant;
-	i = valid_ants(1, line);
-	
-	//ft_dprintf(fd, "i is %d\nant is %d\n", i, ant);
 	return (i);
 }
 
@@ -45,3 +32,17 @@ int		valid_ants(int flag, char **line)
 	i = is_comment(line, i + 1);
 	return(flag == 1 ? i : ant);
 }
+
+int			parse_ants(char **line, t_graph* data)
+{
+	int		i;
+	int		ant;
+
+	ant = valid_ants(0, line);
+	data->ants = ant;
+	i = valid_ants(1, line);
+
+	return (i);
+}
+
+
