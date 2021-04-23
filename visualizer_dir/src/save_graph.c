@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:49:29 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/14 12:42:24 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:14:58 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_room		add_room(char *line, int index)
 	new.y = ft_atoi(split[2]);
 	new.q = -1;
 	new.index = index;
-	new.visited_from = -1;
+	new.visited = -1;
 	ft_free2d((void**)split);
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 20:11:15 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:20:21 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ t_path		*bfs_new(t_graph *g, int edge_w, int start, int end)
 	t_search s;
 
 	if (g->visualize)
-		ft_printf("BFS\n");
+		ft_printf("SEARCH\n");
 	s = init_search(g, start, end);
 	while (!s.path && s.q->head)
 	{
@@ -151,6 +151,8 @@ t_path		*bfs_new(t_graph *g, int edge_w, int start, int end)
 		if (end_is_neighbour(s.room, end) && check_weight(g->weight_m[s.room->index][end], edge_w))
 		{
 			s.visited[s.room->index] = s.room->prev_room_index;
+			if (g->visualize)
+				visualize_search(g, s.room, s.q, g->weight_m);
 			s.path = save_path(s.visited, s.room->index, g, s);
 		}
 		else
@@ -161,6 +163,7 @@ t_path		*bfs_new(t_graph *g, int edge_w, int start, int end)
 	return (s.path);
 }
 
+/*
 t_path		*bfs(t_graph *g, int edge_w, int start, int end)
 {
 	t_search s;
@@ -187,7 +190,7 @@ t_path		*bfs(t_graph *g, int edge_w, int start, int end)
 	}
 	return (s.path);
 }
-
+*/
 /*
 ** Traversing through the graph using BFS, until all the rooms are visited
 ** or the max_paths amount of paths is found(the amount of rooms linked to start or end).

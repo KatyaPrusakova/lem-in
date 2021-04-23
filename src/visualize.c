@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:19:16 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 17:18:13 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:05:25 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,23 @@ void	visualize_search(t_graph *g, t_room *room, t_queue *q, int **matrix)
 		index -= g->room_total;
 	if (room->prev_room_index >= g->room_total)
 		prev_index -= g->room_total;
-	ft_printf("%d %d w.%d\n", room->index, room->prev_room_index, matrix[room->prev_room_index][room->index]);
-	tmp = q->head;
+	if (index != prev_index)
+		ft_printf("E: %d %d w.%d\n", index, prev_index, matrix[room->prev_room_index][room->index]);
+	else
+		ft_printf("R: %d\n", index);
+	tmp = q->head; // use var
+	if (tmp && q)
+		return ; //use var
+/*	tmp = q->head;
 	if (!q || !tmp)
 		return;
+	if (tmp)
+		ft_printf("Q:");
 	while (tmp)
 	{
-		ft_printf("%d-%d ", tmp->prev_room_index, tmp->index);
+		if (tmp->index < g->room_total)
+			ft_printf(" %d", tmp->index);
 		tmp = tmp->next;
 	}
-	ft_n(1);
+	ft_n(1); */
 }

@@ -3,7 +3,7 @@
 
 # define WIN_W 1600
 # define WIN_H 999
-# define SEARCH_DELAY 50
+# define SEARCH_DELAY 500
 # define ANT_DELAY 0
 # define MOVE_ANT_DELAY 0
 # define PI  3.14159
@@ -54,7 +54,7 @@ typedef struct	s_room
 {
 	char			*name;
 	int				index;
-	int				visited_from;
+	int				visited;
 	int				path;
 	int				q;
 	int				x;

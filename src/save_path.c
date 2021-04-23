@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 20:06:01 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/23 14:07:55 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,16 @@ t_path		*save_path(int *visited, int edge_index, t_graph *g, t_search s)
 	head->next = tmp;
 	head->len = len;
 	tmp = head;
+	int prev_room_in_path = -1;
 	if (g->visualize)
 	{
 		while (tmp)
 		{
-			ft_printf("%d |", tmp->i);
+			if (tmp->i >= g->room_total && tmp->i - g->room_total != prev_room_in_path)
+				ft_printf("%d |", tmp->i - g->room_total);
+			else if (tmp->i != prev_room_in_path + g->room_total)
+				ft_printf("%d |", tmp->i);
+			prev_room_in_path = tmp->i;
 			tmp = tmp->next;
 		}
 		ft_n(1);
