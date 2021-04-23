@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/15 22:54:06 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:52:59 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,7 @@ int			main(int argc, char **argv)
 	map = save_rooms(input, scale.room_count);
 	//ft_printf("saved rooms\n");
 	flag = parse_flags(argc, argv);
+	scale.pos = flag.mod_position;
 	if (scale.pos)
 		modify_coordinates(&map, &scale);
 	sdl = initialize(&scale, sdl, map.rooms);

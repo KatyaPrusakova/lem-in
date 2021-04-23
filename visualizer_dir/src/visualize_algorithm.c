@@ -244,7 +244,8 @@ void		draw_graph(t_pointers *p, t_data *scl, t_map *map)
 			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_VISITED);
 		else
 			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_QUEUED);
-		room_name(p->renderer, scl->room_size, map->rooms[i], p->font);
+		if (!scl->pos)
+			room_name(p->renderer, scl->room_size, map->rooms[i], p->font);
 	}
 }
 
