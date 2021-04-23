@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/23 14:07:55 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/23 18:06:26 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,21 @@ void		*delete_room_in_path(t_path *p, int index)
 
 void		clean_path(t_path *p, t_graph *g)
 {
+	int	*len;
+	int	set_len;
+
+	len = &p->len;
+	set_len = 0;
 	while (p->next)
 	{
 		if (p->next->i >= g->room_total)
+		{
+			set_len++;
 			delete_room_in_path(p, p->next->i);
+		}
 		p = p->next;
 	}
+	*len -= set_len;
 }
 
 /*

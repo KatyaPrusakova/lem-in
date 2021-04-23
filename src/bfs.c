@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/23 15:20:21 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:22:42 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,29 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 	// ft_dprintf(fd, "|\n");
 }
 
+
+/*
+
+t_path			*bfs_new(t_graph *g, int edge_w, int start, int end)
+{
+	t_search s;
+
+	if (g->visualize)
+		ft_printf("SEARCH\n");
+	s = init_search(g, start, end);
+	while (!s.path && s.q->head)
+	{
+		s.room = ft_memdup((void*)g->adlist[s.q->head->index], sizeof(t_room));
+		s.room->prev_room_index = s.q->head->prev_room_index;
+		if (!s.room)
+			print_erro(2, NULL);
+		dequeue(s.q);
+		if (s.room->index == s.end)
+			s.path = save_path(s.visited, s.room->index, g, s);
+	}
+}
+
+*/
 
 t_path		*bfs_new(t_graph *g, int edge_w, int start, int end)
 {

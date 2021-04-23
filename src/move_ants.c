@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/15 19:06:59 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/23 18:20:30 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,11 @@ int			pathlen_is_optimal(t_path **p, int path_nbr, int ants_left)
 	int	pathset_capacity;
 	int	flow_potential;
 
-	pathset_capacity = set_rooms_total(p, path_nbr);
+	if (!path_nbr)
+		return (1);
+	pathset_capacity = set_rooms_total(p, path_nbr - 1);
 	flow_potential = p[path_nbr]->len * path_nbr;
+	ft_dprintf(fd, "P_optimal p_no: %d path len %d pathset_capacity: %d flow_potential %d ants left %d\n", path_nbr, p[path_nbr]->len, pathset_capacity, flow_potential, ants_left);
 	if (ants_left > flow_potential - pathset_capacity)
 		return (1);
 	else
