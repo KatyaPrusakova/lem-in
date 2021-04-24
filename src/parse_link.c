@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 17:22:51 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/24 14:35:48 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,11 @@ void	create_room_capacity(t_graph *g)
 	}
 }
 
-
+// too many lines in parse_links
 int		parse_links(int i, char **input, t_graph *g)
 {
 	char	**rooms_to_link;
-	char	*start;
-	char	*end;
-	int		s;
-	int		e;
 
-	s = 0;
-	e = 0;
-	start = g->adlist[0]->name;
-	end = g->adlist[g->room_total - 1]->name;
 	create_room_capacity(g);
 	while (input[i] && (ft_strchr(input[i], '-') || input[i][0] == '#'))
 	{
@@ -118,15 +110,9 @@ int		parse_links(int i, char **input, t_graph *g)
 			rooms_to_link = ft_strsplit(input[i], '-');
 			create_edge(edge_index(rooms_to_link, g), g);
 		}
-		if (!ft_strcmp(rooms_to_link[0], start) || !ft_strcmp(rooms_to_link[1], start))
-			s = 1;
-		if (!ft_strcmp(rooms_to_link[0], end) || ft_strcmp(rooms_to_link[1], end))
-			e = 1;
 		i++;
 	}
 	if (input[i])
-	print_error(10, input);
-	if (s + e == 2)
-		return (1);
-	return (0);
+		print_error(10, input);
+	return (1);
 }
