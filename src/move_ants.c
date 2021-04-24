@@ -6,25 +6,11 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/23 18:20:30 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/24 14:22:36 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-
-
-/*
-void	set_ant_queues(t_path **set, int ants)
-{
-	int i;
-
-	while (ants)
-	{
-		i = 0;
-
-	}
-}
-*/
 
 
 void	move_all_to_end(int ant_amount, char *end_room)
@@ -130,23 +116,12 @@ void		move_ants(t_path **p, t_graph *g)
 	int	ant_no;
 	int	i;
 
-	//test
-	ft_dprintf(fd, "PATHS:\nANTS: %d\n", g->ants);
-	int x = 0;
-	if (!p[x])
-		ft_printf("PATH SET IS EMPTY\n");
-	while (p[x])
-	{
-		ft_dprintf(fd, "%d\n", p[x]->len);
-		x++;
-	}
-	//test
 	ant_no = 1;
 	ants_at_start = g->ants;
 	while (ants_at_start)
 	{
-		i = 0;
-		while (p[i])
+		i = -1;
+		while (p[++i])
 		{
 			if (!ants_at_start || !pathlen_is_optimal(p, i, ants_at_start))
 			{
@@ -155,11 +130,9 @@ void		move_ants(t_path **p, t_graph *g)
 			}
 			else
 			{
-				push_path(p[i], ant_no);
-				ant_no++;
+				push_path(p[i], ant_no++);
 				ants_at_start--;
 			}
-			i++;
 		}
 		ft_n(1);
 	}

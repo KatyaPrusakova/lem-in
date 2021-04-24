@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/24 13:54:48 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/24 14:18:10 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,90 +99,12 @@ t_path		*save_path(int *visited, t_graph *g, t_search s, int prev_room)
 		path_to_visualizer(head, g->room_total);
 	return (head);
 }
-/*
-
-t_path		*save_path(int *visited, int edge_index, t_graph *g, t_search s)
-{
-	t_path	*head;
-	t_path	*tmp;
-	int		prev;
-	int		len;
-
-//What if start is directly linked to end?
-	if (!edge_index)
-		return(NULL);
-	tmp = NULL;
-	len = 0;
-	head = ft_memalloc(sizeof(t_path));
-	if (!head)
-		ft_printf("error");
-	head->i = s.end;
-	head->name = g->adlist[s.end]->name;
-	head->next = NULL;
-	tmp = head;
-	while (edge_index != s.start)
-	{
-		//leaking
-		if (edge_index == -2)
-		{
-			ft_dprintf(fd, "link index == -2\n");
-			return NULL;
-		}
-		else
-		{
-			prev = visited[edge_index];
-		//	visited[edge_index] = -2;
-		}
-		head = ft_memalloc(sizeof(t_path));
-//		if (!head)
-//			ft_error(2);
-		head->i = edge_index;
-		head->name = g->adlist[edge_index]->name;
-		head->next = tmp;
-		tmp = head;
-		edge_index = prev;
-	//	ft_dprintf(fd, "- %d -", edge_index); //test
-		len++;
-	}
-	head = ft_memalloc(sizeof(t_path));
-	head->next = tmp;
-	head->len = len;
-	tmp = head;
-	int prev_room_in_path = -1;
-	if (g->visualize)
-	{
-		while (tmp)
-		{
-			if (tmp->i >= g->room_total && tmp->i - g->room_total != prev_room_in_path)
-				ft_printf("%d |", tmp->i - g->room_total);
-			else if (tmp->i != prev_room_in_path + g->room_total)
-				ft_printf("%d |", tmp->i);
-			prev_room_in_path = tmp->i;
-			tmp = tmp->next;
-		}
-		ft_n(1);
-	}
-	return (head);
-	}
-
-void	modify_visited_array(int *visited, t_path *path)
-{
-	path = path->next;
-	while (path)
-	{
-		visited[path->i] = -2;
-		path = path->next;
-	}
-}
-*/
 
 /*
 ** Check if any of the rooms in the found path are already used on a saved
 ** path. If not, save the path, and return the paths array. Otherwise return
 ** path array unmodified.
 */
-
-
 
 int		check_path(t_graph *graph, t_search s, int *path_no, int prev_room)
 {
