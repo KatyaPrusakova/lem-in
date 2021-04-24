@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/23 17:22:42 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/24 14:11:33 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void	visit_room_new(t_search s, t_graph *graph, int max_flow)
 	tmp = s.room->next;
 	while (tmp)
 	{
-		if (s.visited[tmp->index] == -1 && check_flow(s.room, tmp, max_flow, graph))
+		if (s.visited[tmp->index] == -1 && check_flow(s.room, tmp, max_flow, graph)\
+		&& (!is_queued(tmp->index, s.q) || tmp->index == s.end))
 			enqueue(tmp->index, s.q, graph->adlist, s.room->index);
 		tmp = tmp->next;
 	}
@@ -106,7 +107,7 @@ void	visit_room_new(t_search s, t_graph *graph, int max_flow)
 ** from. Adds the linked rooms to the queue.
 */
 
-void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int set_weight)
+void	visit_room(t_room *current, t_search s, int *visited, t_graph *graph, int set_weight)
 {
 	t_room	*tmp;
 
@@ -118,12 +119,12 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 	while (tmp)
 	{
 		if (visited[tmp->index] == -1 && check_weight(graph->weight_m[current->index][tmp->index],\
-		set_weight))
-			enqueue(tmp->index, q, graph->adlist, current->index);
+		set_weight) && (!is_queued(tmp->index, s.q) || tmp->index == s.end))
+			enqueue(tmp->index, s.q, graph->adlist, current->index);
 		tmp = tmp->next;
 	}
 	if(graph->visualize)
-		visualize_search(graph, current, q, graph->weight_m);
+		visualize_search(graph, current, s.q, graph->weight_m);
 		//test
 //	ft_dprintf(fd, "\n");
 	// for (int i = 0; i < graph->room_total; i++)
@@ -134,9 +135,7 @@ void	visit_room(t_room *current, t_queue *q, int *visited, t_graph *graph, int s
 }
 
 
-/*
-
-t_path			*bfs_new(t_graph *g, int edge_w, int start, int end)
+t_path			*bfs_new(t_graph *g, int start, int end)
 {
 	t_search s;
 
@@ -146,17 +145,20 @@ t_path			*bfs_new(t_graph *g, int edge_w, int start, int end)
 	while (!s.path && s.q->head)
 	{
 		s.room = ft_memdup((void*)g->adlist[s.q->head->index], sizeof(t_room));
-		s.room->prev_room_index = s.q->head->prev_room_index;
 		if (!s.room)
-			print_erro(2, NULL);
+			print_error(2, NULL);
+		s.room->prev_room_index = s.q->head->prev_room_index;
 		dequeue(s.q);
 		if (s.room->index == s.end)
-			s.path = save_path(s.visited, s.room->index, g, s);
+			s.path = save_path(s.visited, g, s, s.room->prev_room_index);
+		else
+			visit_room_new(s, g, 0);
+		ft_memdel((void**)&s.room);
 	}
+	return (s.path);
 }
 
-*/
-
+/*
 t_path		*bfs_new(t_graph *g, int edge_w, int start, int end)
 {
 	t_search s;
@@ -185,6 +187,7 @@ t_path		*bfs_new(t_graph *g, int edge_w, int start, int end)
 	}
 	return (s.path);
 }
+*/
 
 /*
 t_path		*bfs(t_graph *g, int edge_w, int start, int end)
@@ -298,6 +301,9 @@ t_search		init_search(t_graph *g, int start, int end)
 */
 
 
+
+
+
 t_path	**bfs_set(t_graph *graph, int start, int end)
 {
 	t_search	s;
@@ -311,11 +317,9 @@ t_path	**bfs_set(t_graph *graph, int start, int end)
 		s.room->prev_room_index = s.q->head->prev_room_index;
 		if (s.q->head)
 			dequeue(s.q);
-		if (end_is_neighbour(s.room->next, end) && s.visited[s.room->index] == -1 && \
-		check_flow(s.room, graph->adlist[s.end], 1, graph))
-
+		if (s.room->index == s.end)
 		{
-			if (!check_path(graph, s, s.room->index, &s.path_no))
+			if (!check_path(graph, s, &s.path_no, s.room->prev_room_index))
 				return (s.set);
 		}
 		else
@@ -327,3 +331,4 @@ t_path	**bfs_set(t_graph *graph, int start, int end)
 	else
 		return (s.set);
 }
+

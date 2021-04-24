@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/02/25 18:33:20 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/24 14:07:15 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 {
 	t_room	*new;
 
-	if (is_queued(index, q))
-		return (q);
+//	if (is_queued(index, q))
+//		return (q);
 	if (!q)
 		q = ft_memalloc(sizeof(t_queue));
 	if (!q)

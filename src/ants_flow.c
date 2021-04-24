@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/10 22:22:02 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/24 12:56:25 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	push_ants_to_end(t_path *path)
 
 
 /*
-** if there are already ants in the path checked in function (ants_left_in_path)
+** if there are already ants in the path checked innext function (ants_left_in_path)
 ** shall be moved to next room and printed out
 */
 

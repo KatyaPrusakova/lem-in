@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/23 18:06:26 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/24 13:54:48 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,50 @@ void		clean_path(t_path *p, t_graph *g)
 ** the index of the room it was visited from. Returns the found path as
 ** a linked list.
 */
+
+
+//make sure that end only has an in node, and in only has an out node.
+
+t_path		*add_room_to_path(t_path *head, char *name, int index)
+{
+	t_path *tmp;
+
+	tmp = head;
+	head = ft_memalloc(sizeof(t_path));
+	if (!head)
+	{
+		//free path in tmp
+		print_error(2, NULL);
+	}
+	head->i = index;
+	head->name = name;
+	head->next = tmp;
+	return (head);
+
+}
+
+t_path		*save_path(int *visited, t_graph *g, t_search s, int prev_room)
+{
+	t_path *head;
+	int		len;
+
+	head = NULL;
+	head = add_room_to_path(head, g->adlist[s.end]->name, s.end);
+	len = 0;
+	while (prev_room != s.start)
+	{
+		if (prev_room == -2)
+			return NULL;
+		head = add_room_to_path(head, g->adlist[prev_room]->name, prev_room);
+		prev_room = visited[prev_room];
+		len++;
+	}
+	head = add_room_to_path(head, g->adlist[s.start]->name, s.start);
+	if (g->visualize)
+		path_to_visualizer(head, g->room_total);
+	return (head);
+}
+/*
 
 t_path		*save_path(int *visited, int edge_index, t_graph *g, t_search s)
 {
@@ -130,6 +174,7 @@ void	modify_visited_array(int *visited, t_path *path)
 		path = path->next;
 	}
 }
+*/
 
 /*
 ** Check if any of the rooms in the found path are already used on a saved
@@ -139,19 +184,13 @@ void	modify_visited_array(int *visited, t_path *path)
 
 
 
-int		check_path(t_graph *graph, t_search s, int edge_index, int *path_no)
+int		check_path(t_graph *graph, t_search s, int *path_no, int prev_room)
 {
 	t_path	*found_path;
 
-	if (graph->visualize)
-		visualize_search(graph, s.room, s.q, graph->weight_m);
-	s.visited[s.room->index] = s.room->prev_room_index;
-	found_path = save_path(s.visited, edge_index, graph, s);
+	found_path = save_path(s.visited, graph, s, prev_room);
 	if (!found_path)
-	{
-		ft_dprintf(fd, "NULL path\n"); //test
 		return (1);
-	}
 	s.set[*path_no] = found_path;
 	*path_no += 1;
 	if (!pathlen_is_optimal(s.set, *path_no - 1, graph->ants))
@@ -162,3 +201,5 @@ int		check_path(t_graph *graph, t_search s, int edge_index, int *path_no)
 	}
 	return (1);
 }
+
+//bfs set to visit end room

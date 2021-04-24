@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 20:51:49 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/24 13:37:01 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,12 +313,12 @@ t_path	**sorted_search(t_graph *g)
 	t_path *shortest;
 	t_path **set;
 
-	shortest = bfs_new(g, 1, 0, g->room_total - 1);
+	shortest = bfs_new(g, 0, g->room_total - 1);
 	mod_edgeweight_path(g, shortest);
 //	print_matrix(g->weight_m, g->room_total * 2);
 	while (shortest)
 	{
-		shortest = bfs_new(g, 1, 0, g->room_total - 1);
+		shortest = bfs_new(g, 0, g->room_total - 1);
 		//free path
 		mod_edgeweight_path(g, shortest);
 //		print_matrix(g->weight_m, g->room_total * 2);

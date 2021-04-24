@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:19:16 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/23 15:05:25 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/24 13:53:22 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,23 @@
 ** Prints the current state of queue to stdout.
 		if (matrix[path->i][path->next->i] < 1)
 */
+
+void	path_to_visualizer(t_path *p, int offset)
+{
+	int prev_room;
+
+	prev_room = -1;
+	while (p)
+	{
+		if (p->i >= offset && p->i - offset != prev_room)
+			ft_printf("%d |", p->i - offset);
+		else if (p->i != prev_room + offset)
+			ft_printf("%d |", p->i);
+		prev_room = p->i;
+		p = p->next;
+	}
+	ft_n(1);
+}
 
 void	visualize_search(t_graph *g, t_room *room, t_queue *q, int **matrix)
 {

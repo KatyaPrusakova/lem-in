@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 20:06:10 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/24 14:08:28 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,8 +163,9 @@ char				*first_word(char **line, int i);
 
 //draft
 
-t_path				*bfs(t_graph *g, int edge_w, int start, int end);
-t_path				*bfs_new(t_graph *g, int edge_w, int start, int end);
+t_path				*bfs_new(t_graph *g, int start, int end);
+//t_path				*bfs(t_graph *g, int edge_w, int start, int end);
+// t_path				*bfs_new(t_graph *g, int edge_w, int start, int end);
 t_search			init_search(t_graph *g, int start, int end);
 t_path				**bfs_set(t_graph *graph, int start, int end);
 int					bfs_set_modify(t_graph *graph, int edge_w, int start, int end);
@@ -199,6 +200,8 @@ t_path				*mod_path(int *visited, int edge_index, /*int **matrix, */int end_room
 
 t_queue				*enqueue(int index, t_queue *q, t_room **adlist, int prev);
 t_queue				*dequeue(t_queue *q);
+int					is_queued(int index, t_queue *q);
+
 
 /*
 ** path finding
@@ -230,8 +233,9 @@ void		sort_adlist_array(t_graph *g);
 ** save_path.c
 */
 
-int			check_path(t_graph *graph, t_search s, int edge_index, int *path_no);
-t_path		*save_path(int *visited, int find_path, t_graph *g, t_search s);
+int			check_path(t_graph *graph, t_search s, int *path_no, int prev_room);
+// t_path		*save_path(int *visited, int find_path, t_graph *g, t_search s);
+t_path		*save_path(int *visited, t_graph *g, t_search s, int prev_room);
 
 
 void			mod_edgeweight_path(t_graph *g, t_path *path);
@@ -244,7 +248,9 @@ void			mod_edgeweight_set(t_graph *g, t_path **set);
 ** visualize.c
 */
 
-void	visualize_search(t_graph *g, t_room *room, t_queue *q, int **matrix);
+void			visualize_search(t_graph *g, t_room *room, t_queue *q, int **matrix);
+void			path_to_visualizer(t_path *p, int offset);
+
 
 
 //void				queue_to_visualizer(t_room **adlist, t_queue *q, int visualize); //testing
