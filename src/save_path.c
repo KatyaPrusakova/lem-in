@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/24 14:18:10 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 13:20:59 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,6 @@ void		clean_path(t_path *p, t_graph *g)
 ** a linked list.
 */
 
-
-//make sure that end only has an in node, and in only has an out node.
-
 t_path		*add_room_to_path(t_path *head, char *name, int index)
 {
 	t_path *tmp;
@@ -68,19 +65,18 @@ t_path		*add_room_to_path(t_path *head, char *name, int index)
 	head = ft_memalloc(sizeof(t_path));
 	if (!head)
 	{
-		//free path in tmp
+		free_path(tmp);
 		print_error(2, NULL);
 	}
 	head->i = index;
 	head->name = name;
 	head->next = tmp;
 	return (head);
-
 }
 
 t_path		*save_path(int *visited, t_graph *g, t_search s, int prev_room)
 {
-	t_path *head;
+	t_path	*head;
 	int		len;
 
 	head = NULL;
@@ -89,7 +85,7 @@ t_path		*save_path(int *visited, t_graph *g, t_search s, int prev_room)
 	while (prev_room != s.start)
 	{
 		if (prev_room == -2)
-			return NULL;
+			return (NULL);
 		head = add_room_to_path(head, g->adlist[prev_room]->name, prev_room);
 		prev_room = visited[prev_room];
 		len++;
@@ -106,7 +102,7 @@ t_path		*save_path(int *visited, t_graph *g, t_search s, int prev_room)
 ** path array unmodified.
 */
 
-int		check_path(t_graph *graph, t_search s, int *path_no, int prev_room)
+int			check_path(t_graph *graph, t_search s, int *path_no, int prev_room)
 {
 	t_path	*found_path;
 
@@ -123,5 +119,3 @@ int		check_path(t_graph *graph, t_search s, int *path_no, int prev_room)
 	}
 	return (1);
 }
-
-//bfs set to visit end room

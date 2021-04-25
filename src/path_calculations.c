@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:54:23 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/14 18:28:26 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 13:51:34 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,4 @@ int		path_cmp(t_path *p1, t_path *p2)
 		return (1);
 	else
 		return (0);
-
 }

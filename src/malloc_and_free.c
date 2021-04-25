@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:08:16 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 12:51:38 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 13:28:32 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Return 2d array for the weight values of edges between the rooms
 */
 
-int **create_matrix(int height, int width)
+int				**create_matrix(int height, int width)
 {
 	int	**matrix;
 	int	i;
@@ -35,7 +35,7 @@ int **create_matrix(int height, int width)
 	return (matrix);
 }
 
-t_path*			free_path(t_path *path)
+t_path			*free_path(t_path *path)
 {
 	t_path *tmp;
 
@@ -48,7 +48,7 @@ t_path*			free_path(t_path *path)
 	return (NULL);
 }
 
-t_path**		free_path_set(t_path ***set)
+t_path			**free_path_set(t_path ***set)
 {
 	int i;
 

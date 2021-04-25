@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 18:52:18 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 14:01:23 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** for addlist struct
 */
 
-int				count_rooms(char **input)
+int			count_rooms(char **input)
 {
 	int		i;
 	int		start_end;
@@ -28,14 +28,13 @@ int				count_rooms(char **input)
 	i = valid_ants(1, input);
 	while (input[i] && !ft_strchr(input[i], '-'))
 	{
-		//ft_dprintf(fd, "|%s\n", line[i]); //test
 		if (!ft_strcmp(input[i], "##start") || !ft_strcmp(input[i], "##end"))
 			start_end++;
 		if (ft_strchr(input[i], ' ') && input[i][0] != '#' && is_room(input, i))
 			room++;
 		i++;
 	}
-	start_end != 2 ?  print_error(8, input) : 0;
+	start_end != 2 ? print_error(8, input) : 0;
 	return (room ? room : print_error(9, input));
 }
 
@@ -72,7 +71,7 @@ int			add_room(int flag, char *room_name, t_graph *graph)
 		print_error(2, NULL);
 	graph->adlist[graph->room_total + i]->out = 1;
 	graph->adlist[graph->room_total + i]->index = graph->room_total + i;
-	return  (1);
+	return (1);
 }
 
 /*
@@ -80,47 +79,44 @@ int			add_room(int flag, char *room_name, t_graph *graph)
 ** for addlist struct
 */
 
-int			parse_room(int i, char **line, t_graph* graph)
+int			parse_room(int i, char **line, t_graph *graph)
 {
-
-	while (line[i] && !ft_strchr(line[i], '-'))  // add comment function
+	while (line[i] && !ft_strchr(line[i], '-'))
 	{
-		 // ft_dprintf(fd, "loop %s\n", line[i]); //test
-			if (!ft_strcmp(line[i], "##start"))
-				add_room(1, first_word(line, ++i), graph);
-			else if (!ft_strcmp(line[i], "##end"))
-				add_room(2, first_word(line, ++i), graph);
-			else if (line[i][0]  == '#')
-				i++;
-			else
-				add_room(0, first_word(line, i), graph);
+		if (!ft_strcmp(line[i], "##start"))
+			add_room(1, first_word(line, ++i), graph);
+		else if (!ft_strcmp(line[i], "##end"))
+			add_room(2, first_word(line, ++i), graph);
+		else if (line[i][0] == '#')
 			i++;
+		else
+			add_room(0, first_word(line, i), graph);
+		i++;
 	}
 	graph->adlist[0]->out = 1;
-	if (ft_strchr(line[i-1], '-'))
+	if (ft_strchr(line[i - 1], '-'))
 		i--;
-	return(i);
+	return (i);
 }
 
 /*
 ** Function to check if room is valid
 */
 
-char*			is_room(char **input, int i)
+char		*is_room(char **input, int i)
 {
 	char	**room;
 
 	if (input[i][0] == 'L' || !input[i])
 		print_error(4, input);
 	room = ft_strsplit(input[i], ' ');
-	// ft_dprintf(fd, "room |%s|%s|%s\n", room[0], room[1], room[2]); //test
-	if (!room[0] || !room[1] || !room[2] || room[3] || !ft_strisdigit(room[1]) \
-	|| !ft_strisdigit(room[2]))
+	if (!room[0] || !room[1] || !room[2] || room[3] ||
+	!ft_isnumeric_str(room[1]) || !ft_isnumeric_str(room[2]))
 		print_error(4, input);
 	return (room[0]);
 }
 
-char			*first_word(char **line, int i)
+char		*first_word(char **line, int i)
 {
 	char	**room;
 

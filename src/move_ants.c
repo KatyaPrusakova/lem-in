@@ -6,14 +6,13 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/24 14:22:36 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 13:36:16 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-
-void	move_all_to_end(int ant_amount, char *end_room)
+void		move_all_to_end(int ant_amount, char *end_room)
 {
 	int i;
 
@@ -35,7 +34,7 @@ void	move_all_to_end(int ant_amount, char *end_room)
 
 int			push_path(t_path *p, int add_ant)
 {
-	t_path *room;
+	t_path	*room;
 	int		push_ant;
 	int		prev_ant;
 	int		ants_in_path;
@@ -59,9 +58,6 @@ int			push_path(t_path *p, int add_ant)
 	return (ants_in_path);
 }
 
-/*
-*/
-
 void		empty_paths(t_path **p)
 {
 	int	longest_path;
@@ -73,7 +69,6 @@ void		empty_paths(t_path **p)
 		longest_path++;
 	paths_left = longest_path;
 	longest_path--;
-
 	while (paths_left)
 	{
 		i = longest_path;
@@ -99,12 +94,15 @@ int			pathlen_is_optimal(t_path **p, int path_nbr, int ants_left)
 		return (1);
 	pathset_capacity = set_rooms_total(p, path_nbr - 1);
 	flow_potential = p[path_nbr]->len * path_nbr;
-	ft_dprintf(fd, "P_optimal p_no: %d path len %d pathset_capacity: %d flow_potential %d ants left %d\n", path_nbr, p[path_nbr]->len, pathset_capacity, flow_potential, ants_left);
+	ft_dprintf(fd, "P_optimal p_no: %d path len %d pathset_capacity:\
+	%d flow_potential %d ants left %d\n", path_nbr, p[path_nbr]->len,
+	pathset_capacity, flow_potential, ants_left);
 	if (ants_left > flow_potential - pathset_capacity)
 		return (1);
 	else
 	{
-		ft_dprintf(fd, "pathno: %d pathlen = %d ants left = %d PATHSET:\n", path_nbr, flow_potential - pathset_capacity, ants_left);
+		ft_dprintf(fd, "pathno: %d pathlen = %d ants left = %d PATHSET:\n"\
+		, path_nbr, flow_potential - pathset_capacity, ants_left);
 		print_paths(p);
 		return (0);
 	}

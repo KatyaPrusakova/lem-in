@@ -6,15 +6,15 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/22 15:48:30 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 13:22:41 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	print_rooms(t_graph* graph)
+void		print_rooms(t_graph *graph)
 {
-	int i;
+	int		i;
 	t_room	*tmp;
 
 	i = 0;
@@ -48,11 +48,10 @@ void		print_input(char **line)
 	ft_printf("\n");
 }
 
-int				print_error(int opt, char **input)
+int			print_error(int opt, char **input)
 {
 	if (input)
 		ft_free2d((void**)input);
-//	dont forget to free(data);
 	if (opt == 0)
 		exit(0);
 	if (opt == 1)

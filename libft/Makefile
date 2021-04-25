@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/09 11:51:40 by ksuomala          #+#    #+#              #
-#    Updated: 2021/03/18 20:19:42 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/04/25 13:59:23 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ ft_putgrid_chr.c\
 ft_putgrid_int.c\
 ft_free2d_n.c\
 ft_str_isvalid.c\
-ft_isnumeric_str.c
+ft_isnumeric_str.c \
 
 CC = gcc -Wall -Wextra -Werror -g -c
 

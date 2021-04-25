@@ -6,15 +6,13 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/24 14:35:48 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 13:24:16 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-
-
-int			link_to_adlist(int a, int b, t_graph* g)
+int		link_to_adlist(int a, int b, t_graph *g)
 {
 	t_room	*new;
 	t_room	*tmp;
@@ -35,7 +33,7 @@ int			link_to_adlist(int a, int b, t_graph* g)
 	return (1);
 }
 
-int			create_edge(int *adlist_index, t_graph *g)
+int		create_edge(int *adlist_index, t_graph *g)
 {
 	if (!adlist_index[0])
 	{
@@ -55,7 +53,7 @@ int			create_edge(int *adlist_index, t_graph *g)
 	return (1);
 }
 
-int			*edge_index(char **room, t_graph* graph)
+int		*edge_index(char **room, t_graph *graph)
 {
 	int		link_name;
 	int		*index;
@@ -97,7 +95,6 @@ void	create_room_capacity(t_graph *g)
 	}
 }
 
-// too many lines in parse_links
 int		parse_links(int i, char **input, t_graph *g)
 {
 	char	**rooms_to_link;

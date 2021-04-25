@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/24 14:08:28 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 13:37:33 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 #define END		"##end"
 
 int fd; //test
-int	fd_zero; //test. Use argv instead of stdin.
 
 typedef struct		s_room
 {
@@ -48,7 +47,6 @@ typedef	struct		s_search
 	struct s_path	**set;
 	int				*visited;
 	int				path_no;
-//	int				continue_alternative_edges;
 	int				start;
 	int				end;
 }					t_search;
@@ -163,12 +161,9 @@ char				*first_word(char **line, int i);
 
 //draft
 
-t_path				*bfs_new(t_graph *g, int start, int end);
-//t_path				*bfs(t_graph *g, int edge_w, int start, int end);
-// t_path				*bfs_new(t_graph *g, int edge_w, int start, int end);
+t_path				*bfs(t_graph *g, int start, int end);
 t_search			init_search(t_graph *g, int start, int end);
 t_path				**bfs_set(t_graph *graph, int start, int end);
-int					bfs_set_modify(t_graph *graph, int edge_w, int start, int end);
 
 int					end_is_neighbour(t_room *head, int end);
 t_path 				**unlimited_flow(void);
@@ -179,11 +174,6 @@ void				clean_path(t_path *p, t_graph *g);
 
 //DFS
 
-t_path				*dfs_find_path(t_graph *g, t_room *current, t_search s);
-t_path				**dfs_mod_edges(t_graph *g, t_room *current, t_search s, int *visited);
-t_path				**dfs_mod_all(t_graph *g, t_room *current, t_search *s, int *visited);
-t_path				**bfs_set_weightend(t_graph *graph, int edge_w, int start, int end);
-t_path				**set_search_to_modifyPaths(t_graph *g);
 t_path				**sorted_search(t_graph *g);
 
 
@@ -191,9 +181,6 @@ t_path				**sorted_search(t_graph *g);
 
 
 
-
-
-t_path				*mod_path(int *visited, int edge_index, /*int **matrix, */int end_room);
 
 
 //queue functions
@@ -234,12 +221,10 @@ void		sort_adlist_array(t_graph *g);
 */
 
 int			check_path(t_graph *graph, t_search s, int *path_no, int prev_room);
-// t_path		*save_path(int *visited, int find_path, t_graph *g, t_search s);
 t_path		*save_path(int *visited, t_graph *g, t_search s, int prev_room);
 
 
 void			mod_edgeweight_path(t_graph *g, t_path *path);
-void			mod_edgeweight_set(t_graph *g, t_path **set);
 
 
 
@@ -248,7 +233,7 @@ void			mod_edgeweight_set(t_graph *g, t_path **set);
 ** visualize.c
 */
 
-void			visualize_search(t_graph *g, t_room *room, t_queue *q, int **matrix);
+void			visualize_search(t_graph *g, t_room *room, int **matrix);
 void			path_to_visualizer(t_path *p, int offset);
 
 
@@ -256,13 +241,6 @@ void			path_to_visualizer(t_path *p, int offset);
 //void				queue_to_visualizer(t_room **adlist, t_queue *q, int visualize); //testing
 //void				visited_to_visualizer(int current_index, int visited_from, int visualize);
 
-/*
-** ANTS_FLOW.C
-*/
-
-int					*allocate_ants_to_rooms(t_path **path, t_graph *graph);
-
-//test
 
 void	print_matrix(int **matrix, int size);
 

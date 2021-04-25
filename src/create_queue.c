@@ -6,12 +6,11 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/24 14:29:22 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 13:46:40 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-
 
 int			is_queued(int index, t_queue *q)
 {
@@ -58,7 +57,6 @@ t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 	}
 	return (q);
 }
-
 
 /*
 ** Delete room from the queue

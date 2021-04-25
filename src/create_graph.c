@@ -6,13 +6,13 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 12:51:11 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 15:07:55 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 13:47:23 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-t_graph*		create_graph(int rooms, char **line)
+t_graph			*create_graph(int rooms, char **line)
 {
 	t_graph		*new;
 	int			i;

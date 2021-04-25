@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 15:30:46 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/22 13:43:58 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 13:01:48 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** search.
 */
 
-int		check_weight(int link_weight, int set_weight)
+int			check_weight(int link_weight, int set_weight)
 {
 	if (set_weight == 1 && link_weight < 1)
 		return (1);
@@ -32,32 +32,17 @@ int		check_weight(int link_weight, int set_weight)
 }
 
 /*
-** Modify the edge weight values of the graph when a path is found.
-** If the path is in use, all the edges of the rooms along the path will be closed
-** with a value of 3.
+** Modify the edges along a found path.
 */
 
 void		mod_edgeweight_path(t_graph *g, t_path *path)
 {
 	if (!path)
-		return;
+		return ;
 	while (path->next)
 	{
-//		g->adlist[path->i]->remaining_capacity -= 1;
 		g->weight_m[path->i][path->next->i] += 1;
 		g->weight_m[path->next->i][path->i] -= 1;
 		path = path->next;
-	}
-}
-
-void		mod_edgeweight_set(t_graph *g, t_path **set)
-{
-	int i;
-
-	i = 0;
-	while (set[i])
-	{
-		mod_edgeweight_path(g, set[i]);
-		i++;
 	}
 }
