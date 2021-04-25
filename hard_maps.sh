@@ -38,10 +38,10 @@ function generate () {
 		done < $output
 		index=$(($index-2))
 		echo $(($index-$lines_required))
-		if [ $index -gt $(($lines_required+3)) ]
+		if [ $index -gt $(($lines_required)) ]
 		then
 			echo "Difference greater than 3"
-			cp $2 $more/$2$maps_saved
+			cp $2 $more/$2$maps_saved$(($index-$lines_required))
 			maps_saved=$(($maps_saved+1))
 		fi
 		if [ $index -lt $lines_required ]
