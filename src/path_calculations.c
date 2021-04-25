@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:54:23 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/25 13:51:34 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 14:47:52 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ int		paths_in_array(t_path **set)
 	return (i);
 }
 
-int		set_rooms_total(t_path **set, int last_room)
+int		set_rooms_total(t_path **set, int last_path)
 {
 	int i;
 	int count;
 
 	i = 0;
 	count = 0;
-	while (set[i] && i <= last_room)
+	while (set[i] && i <= last_path)
 	{
 		count += set[i]->len;
 		i++;

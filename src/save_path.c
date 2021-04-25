@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/25 13:20:59 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/25 14:49:44 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ t_path		*save_path(int *visited, t_graph *g, t_search s, int prev_room)
 		len++;
 	}
 	head = add_room_to_path(head, g->adlist[s.start]->name, s.start);
+	head->len = len;
 	if (g->visualize)
 		path_to_visualizer(head, g->room_total);
 	return (head);
