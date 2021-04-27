@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/27 14:55:39 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/27 18:30:23 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,14 @@ t_path		**set_cmp(t_path **p1, t_path **p2, int ants)
 	}
 }
 
-void		clean_set(t_path **set, t_graph *g)
+t_path		**clean_set(t_path **set, t_graph *g)
 {
 	int i;
 
 	i = -1;
 	while (set[++i])
 		clean_path(set[i], g);
+	return (set);
 }
 
 t_path		**sorted_search(t_graph *g)
@@ -86,20 +87,27 @@ t_path		**sorted_search(t_graph *g)
 
 	if (g->visualize)
 		ft_printf("SEARCH\n");
+	set = NULL;
 	shortest = bfs(g, 0, g->room_total - 1);
+	g->max_paths = count_max_paths(g);
 	while (shortest)
 	{
 		mod_edgeweight_path(g, shortest);
 		free_path(shortest);
 		if (g->visualize)
 			ft_printf("SEARCH\n");
+		if (!set)
+			set = bfs_set(g, 0, g->room_total - 1);
+		else
+			set = set_cmp(clean_set(set, g), clean_set(bfs_set(g, 0, g->room_total - 1), g), g->ants);
+		if (g->visualize)
+			ft_printf("SEARCH\n");
 		shortest = bfs(g, 0, g->room_total - 1);
 	}
-	g->max_paths = count_max_paths(g);
 	if (g->visualize)
 		ft_printf("SEARCH\n");
-	set = bfs_set(g, 0, g->room_total - 1);
-	clean_set(set, g);
+//	set = bfs_set(g, 0, g->room_total - 1);
+	// clean_set(set, g);
 	return (set);
 }
 
