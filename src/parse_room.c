@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/25 14:01:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/27 15:18:09 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			add_room(int flag, char *room_name, t_graph *graph)
 	int			i;
 	t_room		*new;
 
-	if (!(new = ft_memalloc(sizeof(t_room))))
+	if (!(new = ft_memalloc(sizeof(t_room))) || !room_name)
 		print_error(2, NULL);
 	new->prev_room_index = -1;
 	if (flag == 1)
@@ -103,7 +103,7 @@ int			parse_room(int i, char **line, t_graph *graph)
 ** Function to check if room is valid
 */
 
-char		*is_room(char **input, int i)
+int			is_room(char **input, int i)
 {
 	char	**room;
 
@@ -113,13 +113,19 @@ char		*is_room(char **input, int i)
 	if (!room[0] || !room[1] || !room[2] || room[3] ||
 	!ft_isnumeric_str(room[1]) || !ft_isnumeric_str(room[2]))
 		print_error(4, input);
-	return (room[0]);
+	ft_free2d((void**)room);
+	return (1);
 }
 
 char		*first_word(char **line, int i)
 {
 	char	**room;
+	char	*name;
 
 	room = ft_strsplit(line[i], ' ');
-	return (room[0]);
+	name = ft_strdup(room[0]);
+	if (!name)
+		print_error(2, line);
+	ft_free2d((void**)room);
+	return (name);
 }

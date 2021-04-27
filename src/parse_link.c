@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/25 13:24:16 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/27 15:23:48 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int		create_edge(int *adlist_index, t_graph *g)
 	link_to_adlist(adlist_index[1] + g->room_total, adlist_index[0], g);
 	link_to_adlist(adlist_index[1], adlist_index[0] + g->room_total, g);
 	link_to_adlist(adlist_index[0] + g->room_total, adlist_index[1], g);
-	free(adlist_index);
 	return (1);
 }
 
@@ -98,6 +97,7 @@ void	create_room_capacity(t_graph *g)
 int		parse_links(int i, char **input, t_graph *g)
 {
 	char	**rooms_to_link;
+	int		*edges;
 
 	create_room_capacity(g);
 	while (input[i] && (ft_strchr(input[i], '-') || input[i][0] == '#'))
@@ -105,7 +105,10 @@ int		parse_links(int i, char **input, t_graph *g)
 		if (ft_strchr(input[i], '-'))
 		{
 			rooms_to_link = ft_strsplit(input[i], '-');
-			create_edge(edge_index(rooms_to_link, g), g);
+			edges = edge_index(rooms_to_link, g);
+			create_edge(edges, g);
+			ft_free2d((void**)rooms_to_link);
+			ft_memdel((void**)&edges);
 		}
 		i++;
 	}

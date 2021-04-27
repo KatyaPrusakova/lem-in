@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/25 13:37:33 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/27 15:10:25 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct		s_room
 	char			*name;
 	int				index;
 	int				prev_room_index;
-//	int				end;
 	int				out;
 	int				visited;
 	int				antnbr;
@@ -110,8 +109,11 @@ int					check_weight(int link_weight, int set_weight);
 */
 
 t_graph*			create_graph(int rooms, char **line);
+void				free_adlist(t_room **graph, size_t size);
 t_path*				free_path(t_path *path);
 t_path**			free_path_set(t_path ***set);
+void				free_data(t_graph *data, char **input);
+
 
 
 
@@ -139,7 +141,7 @@ int					parse_links(int i, char **input, t_graph *g);
 int					count_rooms(char **line);
 int					parse_room(int i, char **line, t_graph* graph);
 int					add_room(int flag, char *room_name, t_graph *graph);
-char*				is_room(char **input, int i);
+int					is_room(char **input, int i);
 
 /*
 ** PARSE_ANTS.C
@@ -188,6 +190,8 @@ t_path				**sorted_search(t_graph *g);
 t_queue				*enqueue(int index, t_queue *q, t_room **adlist, int prev);
 t_queue				*dequeue(t_queue *q);
 int					is_queued(int index, t_queue *q);
+void				free_queue(t_queue *q);
+
 
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/25 14:25:13 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/27 14:55:39 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,20 @@ t_path		**sorted_search(t_graph *g)
 	t_path *shortest;
 	t_path **set;
 
+	if (g->visualize)
+		ft_printf("SEARCH\n");
 	shortest = bfs(g, 0, g->room_total - 1);
 	while (shortest)
 	{
 		mod_edgeweight_path(g, shortest);
 		free_path(shortest);
+		if (g->visualize)
+			ft_printf("SEARCH\n");
 		shortest = bfs(g, 0, g->room_total - 1);
 	}
 	g->max_paths = count_max_paths(g);
+	if (g->visualize)
+		ft_printf("SEARCH\n");
 	set = bfs_set(g, 0, g->room_total - 1);
 	clean_set(set, g);
 	return (set);

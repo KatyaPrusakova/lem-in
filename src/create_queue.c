@@ -6,11 +6,18 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/25 13:46:40 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/27 14:37:42 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+void		free_queue(t_queue *q)
+{
+	while (q->head)
+		dequeue(q);
+	ft_memdel((void**)&q);
+}
 
 int			is_queued(int index, t_queue *q)
 {

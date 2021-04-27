@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/25 12:58:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/27 14:58:20 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ t_path			*bfs(t_graph *g, int start, int end)
 {
 	t_search s;
 
-	if (g->visualize)
-		ft_printf("SEARCH\n");
 	s = init_search(g, start, end);
 	while (!s.path && s.q->head)
 	{
@@ -70,6 +68,9 @@ t_path			*bfs(t_graph *g, int start, int end)
 			visit_room(s, g, 0);
 		ft_memdel((void**)&s.room);
 	}
+	ft_memdel((void**)&s.visited);
+	ft_free2d((void**)s.set);
+	free_queue(s.q);
 	return (s.path);
 }
 
@@ -83,10 +84,10 @@ t_search		init_search(t_graph *g, int start, int end)
 	search.q = NULL;
 	search.visited = ft_memalloc(sizeof(int) * g->room_total * 2);
 	if (!search.visited)
-		exit(0);
+		print_error(2, NULL);
 	search.set = ft_memalloc(sizeof(t_path*) * (g->max_paths + 1));
 	if (!search.set)
-		exit(0);
+		print_error(2, NULL);
 	search.path_no = 0;
 	search.q = enqueue(start, search.q, g->adlist, 0);
 	search.start = start;
@@ -103,8 +104,6 @@ t_path			**bfs_set(t_graph *graph, int start, int end)
 {
 	t_search	s;
 
-	if (graph->visualize)
-		ft_printf("BFS\n");
 	s = init_search(graph, start, end);
 	while (s.q->head && s.path_no < graph->max_paths)
 	{
@@ -115,12 +114,14 @@ t_path			**bfs_set(t_graph *graph, int start, int end)
 		if (s.room->index == s.end)
 		{
 			if (!check_path(graph, s, &s.path_no, s.room->prev_room_index))
-				return (s.set);
+				s.path_no = graph->max_paths;
 		}
 		else
 			visit_room(s, graph, 1);
 		ft_memdel((void**)&s.room);
 	}
+	ft_memdel((void**)&s.visited);
+	free_queue(s.q);
 	if (!s.path_no || !s.set[0])
 		return (NULL);
 	else

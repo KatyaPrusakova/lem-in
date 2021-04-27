@@ -6,21 +6,23 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/25 13:40:32 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/27 15:03:07 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
+
+
 t_graph			*lem_in(t_graph *graph)
 {
 	t_path	**first_set;
 
-	first_set = ft_memalloc(sizeof(t_path*) * graph->room_total);
 	first_set = sorted_search(graph);
 	if (graph->visualize)
 		ft_printf("\n");
 	move_ants(first_set, graph);
+	free_path_set(&first_set);
 	return (graph);
 }
 
@@ -41,5 +43,6 @@ int				main(int argc, char **argv)
 	if (argc > 1 && !ft_strcmp(argv[1], "-v"))
 		data->visualize = 1;
 	lem_in(data);
+	free_data(data, line);
 	return (0);
 }
