@@ -16,9 +16,9 @@ mkdir -p $less
 maps_saved="0"
 
 function generate () {
-	for i in {1..10}
+	for i in {1..30}
 	do
-		./generator --flow-$1 > $2
+		./generator --$1 > $2
 		./lem-in < $2 > $output
 		index="0"
 		while IFS= read -r line
@@ -37,28 +37,33 @@ function generate () {
 			fi
 		done < $output
 		index=$(($index-2))
-		echo $(($index-$lines_required))
+		lines=$(($index-$lines_required))
 		if [ $index -gt $(($lines_required)) ]
 		then
-			echo "Difference greater than 3"
-			cp $2 "$more/$2$maps_saved_$(($index-$lines_required))"
+			cp $2 "$more/$2$(($index-$lines_required))"
 			maps_saved=$(($maps_saved+1))
 		fi
 		if [ $index -lt $lines_required ]
 		then
-			echo "Number of lines is less than required"
-			cp $2 $less/$2$maps_saved
+			cp $2 "$less/$2$(($index-$lines_required))"
 			maps_saved=$(($maps_saved+1))
 		fi
+		printf "lines :"
+		printf "%4d" $lines
+		echo
 	done
 }
 
 echo "Generate flow-one maps..."
-generate "one" "map_f1"
+generate "flow-one" "map_f1"
 echo "Generate flow-ten maps..."
-generate "ten" "map_ften"
+generate "flow-ten" "map_ften"
 echo "Generate flow-thousand maps..."
-generate "thousand" "map_fthousand"
+generate "flow-thousand" "map_fthousand"
+echo "Generate big maps..."
+generate "big" "map_big"
+echo "Generate big superposition maps..."
+generate "big-superposition" "map_big_superpos"
 echo "Done!"
 
 
