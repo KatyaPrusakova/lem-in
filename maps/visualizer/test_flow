@@ -1,0 +1,29 @@
+10
+##start
+A 0 4
+B 4 0
+F 4 2
+FF 8 2
+C 4 4
+CC 8 4
+CCD 10 4
+D 0 6
+DD 4 6
+DDD 6 6
+DDDD 10 6
+##end
+end 15 8
+A-B
+B-end
+A-C
+C-CC
+CC-CCD
+CCD-end
+A-D
+D-DD
+DD-DDD
+DDD-DDDD
+DDDD-end
+A-F
+F-FF
+FF-end
