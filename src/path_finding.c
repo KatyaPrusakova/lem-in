@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/27 18:30:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/28 14:39:51 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ t_path		**sorted_search(t_graph *g)
 		if (g->visualize)
 			ft_printf("SEARCH\n");
 		if (!set)
-			set = bfs_set(g, 0, g->room_total - 1);
+			set = clean_set(bfs_set(g, 0, g->room_total - 1), g);
 		else
-			set = set_cmp(clean_set(set, g), clean_set(bfs_set(g, 0, g->room_total - 1), g), g->ants);
+			set = set_cmp(set, clean_set(bfs_set(g, 0, g->room_total - 1), g), g->ants);
 		if (g->visualize)
 			ft_printf("SEARCH\n");
 		shortest = bfs(g, 0, g->room_total - 1);
