@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:53:32 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/28 13:29:31 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/28 14:22:08 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	move_ants(char *line, t_room *rooms, int **ad_matrix, int *ant_locations)
 	int		i;
 
 	i = 0;
-	ft_printf("%s\n", line);
 	move = ft_strsplit(line, ' ');
 	if (!move)
 		error_exit("malloc failed in move_ants");
@@ -73,10 +72,9 @@ void	move_ants(char *line, t_room *rooms, int **ad_matrix, int *ant_locations)
 		ant_number = ft_atoi(move[i] + 1);
 		src = ant_locations[ant_number];
 		dst = name_to_index(rooms, ft_strchr(move[i], '-') + 1);
-	//	ft_printf("move ant %d from %d to %d\n", ant_number, src, dst);
 		if (!ad_matrix[src][dst])
-			ft_printf("Tried to move L%d from %s-%s. These rooms don't have \
-			a connecting edge.\n", ant_number, rooms[src].name, rooms[dst].name);
+			ft_printf("Tried to move L%d from %s-%s. Rooms are not connected\n",\
+			 ant_number, rooms[src].name, rooms[dst].name);
 		if (dst != total_rooms - 1 && rooms[dst].ant)
 			ft_printf("L%d cannot move to %s. Room already has an ant.\n", ant_number, rooms[dst].name);
 		rooms[src].ant = 0;
@@ -106,8 +104,9 @@ void	check_moves(char **input, t_room *rooms, int **ad_matrix)
 	if (!ant_src || !ant_dst)
 		error_exit("malloc failed in check_moves");
 	i = 0;
-	while (!ft_strchr(input[i], 'L'))
+	while (ft_strcmp(input[i], ""))
 		i++;
+	i++;
 	while (ft_strchr(input[i], 'L'))
 	{
 		ant_src = ft_memcpy((void*)ant_src, (void*)ant_dst, sizeof(int) * total_ants);
