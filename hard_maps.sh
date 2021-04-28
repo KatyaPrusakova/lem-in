@@ -2,6 +2,7 @@
 
 test_dir="script_maps"
 output="$test_dir/output.txt"
+tester_output="$test_dir/valid_moves.txt"
 less="$test_dir/less_than"
 more="$test_dir/more_than"
 maps_to_generate="10"
@@ -11,8 +12,10 @@ rm -f $more/*
 rm -f $less/*
 
 touch $output
+touch $tester_output
 mkdir -p $more
 mkdir -p $less
+make && make -C test_moves/
 maps_saved="0"
 
 function generate () {
@@ -20,7 +23,15 @@ function generate () {
 	do
 		./generator --$1 > $2
 		./lem-in < $2 > $output
+		./test_moves/tester < $output > $tester_output
 		index="0"
+		while IFS= read -r line
+		do
+			if [[ "$line" != *"DONE"* ]]
+			then
+				echo $line
+			fi
+		done < $tester_output
 		while IFS= read -r line
 		do
 			if [[ "$line" == *"#Here is the number of"* ]]
