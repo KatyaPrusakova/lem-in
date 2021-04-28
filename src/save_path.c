@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/25 14:49:44 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/28 18:55:47 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ t_path		*save_path(int *visited, t_graph *g, t_search s, int prev_room)
 ** path array unmodified.
 */
 
+
+//pathlen_is_optimal does not work, because of the in-out edges.
 int			check_path(t_graph *graph, t_search s, int *path_no, int prev_room)
 {
 	t_path	*found_path;
@@ -112,11 +114,11 @@ int			check_path(t_graph *graph, t_search s, int *path_no, int prev_room)
 		return (1);
 	s.set[*path_no] = found_path;
 	*path_no += 1;
-	if (!pathlen_is_optimal(s.set, *path_no - 1, graph->ants))
+/*	if (!pathlen_is_optimal(s.set, *path_no - 1, graph->ants))
 	{
 		s.set[*path_no - 1] = free_path(s.set[*path_no - 1]);
 		ft_dprintf(fd, "PATH TOO LONG\n");
 		return (0);
-	}
+	} */
 	return (1);
 }
