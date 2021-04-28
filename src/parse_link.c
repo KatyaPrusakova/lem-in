@@ -6,11 +6,17 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/27 15:23:48 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/28 19:26:21 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+/*
+** g->adlist is an array that contains linked lists.
+** This function adds b to the end of the list in adlist[a]
+** and a to the end of the list in adlist[b].
+*/
 
 int		link_to_adlist(int a, int b, t_graph *g)
 {
@@ -33,6 +39,15 @@ int		link_to_adlist(int a, int b, t_graph *g)
 	return (1);
 }
 
+/*
+** int *adlist_index contains the two rooms to be linked.
+** in rooms are located in adlist[i]. Out rooms are located
+** in adlist[i + total rooms in graph].
+** Add edge for both rooms between room[i](in) - room[i + rooms_total](out).
+** Add edge between room1.in - room.0 out both ways.
+** Add edge between room0.in -room 1 out both ways.
+*/
+
 int		create_edge(int *adlist_index, t_graph *g)
 {
 	if (!adlist_index[0])
@@ -51,6 +66,12 @@ int		create_edge(int *adlist_index, t_graph *g)
 	link_to_adlist(adlist_index[0] + g->room_total, adlist_index[1], g);
 	return (1);
 }
+
+/*
+** **room contains the names of the rooms that are linked.
+** Comparing the room names to the names in the adlist array.
+** Returns the indexes of the rooms as an allocated int[2].
+*/
 
 int		*edge_index(char **room, t_graph *graph)
 {
@@ -81,6 +102,10 @@ int		*edge_index(char **room, t_graph *graph)
 	return (index);
 }
 
+/*
+** Creating out-rooms for every room in the graph.
+*/
+
 void	create_room_capacity(t_graph *g)
 {
 	int i;
@@ -94,6 +119,12 @@ void	create_room_capacity(t_graph *g)
 	}
 }
 
+/*
+** Reading the lines that have the links seperated by '-'.
+** Getting the edge index numbers from the names in edge_index().
+** Adding the edges to the adjacency list in create_edge().
+*/
+
 int		parse_links(int i, char **input, t_graph *g)
 {
 	char	**rooms_to_link;
@@ -106,6 +137,12 @@ int		parse_links(int i, char **input, t_graph *g)
 		{
 			rooms_to_link = ft_strsplit(input[i], '-');
 			edges = edge_index(rooms_to_link, g);
+			if ((edges[0] == 0 && edges[1] == g->room_total - 1)
+			|| (edges[1] == 0 && edges[0] == g->room_total - 1))
+			{
+				g->unlimited_flow = 1;
+				return (1);
+			}
 			create_edge(edges, g);
 			ft_free2d((void**)rooms_to_link);
 			ft_memdel((void**)&edges);

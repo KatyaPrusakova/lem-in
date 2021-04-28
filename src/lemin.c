@@ -6,22 +6,27 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/27 15:26:51 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/28 19:38:51 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-t_graph			*lem_in(t_graph *graph)
+t_graph			*lem_in(t_graph *g)
 {
 	t_path	**first_set;
 
-	first_set = sorted_search(graph);
-	if (graph->visualize)
-		ft_printf("\n");
-	move_ants(first_set, graph);
-	free_path_set(&first_set);
-	return (graph);
+	if (!g->unlimited_flow)
+	{
+		first_set = sorted_search(g);
+		if (g->visualize)
+			ft_printf("\n");
+		move_ants(first_set, g);
+		free_path_set(&first_set);
+	}
+	else
+		move_all_to_end(g->ants, g->adlist[g->room_total - 1]->name);
+	return (g);
 }
 
 int				main(int argc, char **argv)
