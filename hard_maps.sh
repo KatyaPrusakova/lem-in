@@ -27,9 +27,9 @@ function generate () {
 		index="0"
 		while IFS= read -r line
 		do
-			if [[ "$line" != *"DONE"* ]]
+			if [[ "$line" != "DONE" ]]
 			then
-				echo $line
+				echo +
 			fi
 		done < $tester_output
 		while IFS= read -r line
