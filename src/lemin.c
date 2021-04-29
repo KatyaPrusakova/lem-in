@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/28 19:38:51 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/29 15:38:49 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				main(int argc, char **argv)
 		return (0);
 	line = parse_input();
 	data = create_graph(count_rooms(line), line);
-	print_rooms(data);
+//	print_rooms(data);
 	print_input(line);
 	if (argc > 1 && !ft_strcmp(argv[1], "-v"))
 		data->visualize = 1;

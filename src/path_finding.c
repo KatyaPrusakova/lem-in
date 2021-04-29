@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/28 14:39:51 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/29 15:39:31 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			count_moves(t_path **path, int ants)
 		else
 			path_count--;
 	}
-	ft_dprintf(fd, "PATH LINES: %d\n", lines + ants_in_path);
+//	ft_dprintf(fd, "PATH LINES: %d\n", lines + ants_in_path);
 	return (lines + ants_in_path);
 }
 
@@ -51,21 +51,21 @@ t_path		**set_cmp(t_path **p1, t_path **p2, int ants)
 	int	p1_lines;
 	int p2_lines;
 
-	print_paths(p1);
-	ft_dprintf(fd, "\n\n");
-	print_paths(p2);
+//	print_paths(p1);
+//	ft_dprintf(fd, "\n\n");
+//	print_paths(p2);
 	p1_lines = count_moves(p1, ants);
 	p2_lines = count_moves(p2, ants);
 	if (!p2_lines || (p1_lines && p1_lines <= p2_lines))
 	{
 		p2 = free_path_set(&p2);
-		ft_dprintf(fd, "SET1\n");
+//		ft_dprintf(fd, "SET1\n");
 		return (p1);
 	}
 	else
 	{
 		p1 = free_path_set(&p1);
-		ft_dprintf(fd, "SET2\n");
+//		ft_dprintf(fd, "SET2\n");
 		return (p2);
 	}
 }
