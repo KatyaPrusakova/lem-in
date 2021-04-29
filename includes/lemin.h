@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/27 15:10:25 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/04/28 19:32:40 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ typedef	struct		s_queue
 typedef struct		s_graph
 {
 	int				ants;
-	int				ants_end;
+//	int				ants_end;
+	int				unlimited_flow;
 	int				visualize;
 	int				room_total;
 	int				max_paths;
@@ -78,12 +79,12 @@ typedef	struct 		s_path
 {
 	int				i;
 	int				len;
-	int				queue; //added
+//	int				queue; //added
 	int				ant;
 	char			*name;
 	t_room			*room;
-	struct s_path	*end; //paths are null terminated. Why do you need end pointer?
-	struct s_path	*prev;
+//	struct s_path	*end; //paths are null terminated. Why do you need end pointer?
+//	struct s_path	*prev;
 	struct s_path	*next;
 }					t_path;
 
@@ -187,10 +188,10 @@ t_path				**sorted_search(t_graph *g);
 
 //queue functions
 
-t_queue				*enqueue(int index, t_queue *q, t_room **adlist, int prev);
-t_queue				*dequeue(t_queue *q);
-int					is_queued(int index, t_queue *q);
-void				free_queue(t_queue *q);
+t_queue			*enqueue(int index, t_queue *q, t_room **adlist, int prev);
+t_queue			*dequeue(t_queue *q);
+int				is_queued(int index, t_queue *q);
+void			free_queue(t_queue *q);
 
 
 
@@ -198,34 +199,34 @@ void				free_queue(t_queue *q);
 ** path finding
 */
 
-t_path				**find_paths(t_graph *graph);
-t_path				**find_sets(t_graph *graph);
-void				print_paths(t_path **path);
+t_path			**find_paths(t_graph *graph);
+t_path			**find_sets(t_graph *graph);
+void			print_paths(t_path **path);
 
 /*
 ** path_calculations.c
 */
 
-int					count_max_paths(t_graph *graph);
-int					set_rooms_total(t_path **set, int last_room);
-int					paths_in_array(t_path **set);
-int					path_cmp(t_path *p1, t_path *p2);
+int				count_max_paths(t_graph *graph);
+int				set_rooms_total(t_path **set, int last_room);
+int				paths_in_array(t_path **set);
+int				path_cmp(t_path *p1, t_path *p2);
 
 
 /*
 ** sort_adlist.c
 */
 
-t_room		*adlist_mergesort(t_room *head, int start, int **weight_matrix);
-void		sort_adlist_array(t_graph *g);
+t_room			*adlist_mergesort(t_room *head, int start, int **weight_matrix);
+void			sort_adlist_array(t_graph *g);
 
 
 /*
 ** save_path.c
 */
 
-int			check_path(t_graph *graph, t_search s, int *path_no, int prev_room);
-t_path		*save_path(int *visited, t_graph *g, t_search s, int prev_room);
+int				check_path(t_graph *graph, t_search s, int *path_no, int prev_room);
+t_path			*save_path(int *visited, t_graph *g, t_search s, int prev_room);
 
 
 void			mod_edgeweight_path(t_graph *g, t_path *path);
@@ -246,14 +247,15 @@ void			path_to_visualizer(t_path *p, int offset);
 //void				visited_to_visualizer(int current_index, int visited_from, int visualize);
 
 
-void	print_matrix(int **matrix, int size);
+void			print_matrix(int **matrix, int size);
 
 /*
 ** ant movement functions
 */
 
-void		move_ants(t_path **p, t_graph *g);
-int			pathlen_is_optimal(t_path **p, int path_nbr, int ants_left);
+void			move_ants(t_path **p, t_graph *g);
+void			move_all_to_end(int ant_amount, char *end_room);
+int				pathlen_is_optimal(t_path **p, int path_nbr, int ants_left);
 
 
 
