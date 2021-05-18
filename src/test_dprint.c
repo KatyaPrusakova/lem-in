@@ -6,13 +6,13 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:28:51 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/25 12:40:42 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/10 18:09:30 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	print_paths(t_path **path)
+void	print_paths(t_path **path, t_room **adlist)
 {
 	t_path	*tmp;
 	int		i;
@@ -29,7 +29,7 @@ void	print_paths(t_path **path)
 			ft_dprintf(fd, "path n %d: len %d:\n", i, path[i]->len);
 			while (tmp)
 			{
-				ft_dprintf(fd, "%d |", tmp->i);
+				ft_dprintf(fd, "%d(%s) |", tmp->i, adlist[tmp->i]->name);
 				tmp = tmp->next;
 			}
 			ft_dprintf(fd, "\n");
@@ -37,6 +37,8 @@ void	print_paths(t_path **path)
 	}
 	else
 		ft_dprintf(fd, "START is connected to END\n");
+	ft_dprintf(fd, "\n");
+	ft_dprintf(fd, "\n");
 }
 
 void	print_matrix(int **matrix, int size)

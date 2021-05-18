@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/28 19:32:40 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:52:01 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void				clean_path(t_path *p, t_graph *g);
 
 //DFS
 
-t_path				**sorted_search(t_graph *g);
+t_path				**edmonds_karp(t_graph *g);
 
 
 
@@ -201,7 +201,8 @@ void			free_queue(t_queue *q);
 
 t_path			**find_paths(t_graph *graph);
 t_path			**find_sets(t_graph *graph);
-void			print_paths(t_path **path);
+void			print_paths(t_path **path, t_room **adlist);
+
 
 /*
 ** path_calculations.c

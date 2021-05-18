@@ -6,9 +6,12 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/29 15:41:40 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/17 15:07:31 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// first_set
+// sorted search
 
 #include "lemin.h"
 

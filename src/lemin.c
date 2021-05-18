@@ -6,23 +6,26 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/29 15:38:49 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:51:15 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
+// #link1-link2 gives an error as invalid link
+
 t_graph			*lem_in(t_graph *g)
 {
-	t_path	**first_set;
+	t_path	**set;
 
 	if (!g->unlimited_flow)
 	{
-		first_set = sorted_search(g);
+		set = edmonds_karp(g);
 		if (g->visualize)
 			ft_printf("\n");
-		move_ants(first_set, g);
-		free_path_set(&first_set);
+		print_paths(set, g->adlist); //test
+		move_ants(set, g);
+		free_path_set(&set);
 	}
 	else
 		move_all_to_end(g->ants, g->adlist[g->room_total - 1]->name);
@@ -41,7 +44,6 @@ int				main(int argc, char **argv)
 		return (0);
 	line = parse_input();
 	data = create_graph(count_rooms(line), line);
-//	print_rooms(data);
 	print_input(line);
 	if (argc > 1 && !ft_strcmp(argv[1], "-v"))
 		data->visualize = 1;
