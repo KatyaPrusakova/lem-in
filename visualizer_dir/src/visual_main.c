@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/23 17:52:59 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/19 21:08:45 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,61 +139,7 @@ void		visualize_ants(t_pointers *sdl, t_data *scale, t_map *map, char **input)
 	SDL_Delay(3000);
 }
 
-int		get_side_len(int nb)
-{
-	int i;
 
-	i = 1;
-	while (i * i < nb && i < 46341)
-		i++;
-	return (i);
-}
-
-/*
-** Modifies generator map coordinates so they can be visualized.
-*/
-
-void		modify_coordinates(t_map *map, t_data *scale)
-{
-	int	side_len;
-	int x;
-	int y;
-	int i;
-	int mod;
-
-	mod = 0;
-	i = 0;
-	x = 0;
-	y = 0;
-	scale->max_x = x;
-	scale->max_y = y;
-
-	side_len = get_side_len(map->count);
-	//ft_printf("map->count %d, sidelen %d\n", map->count, side_len);
-	while (i < map->count)
-	{
-		//ft_printf("map->room y = %d x = %d\n", map->rooms[i].y, map->rooms[i].x);
-		map->rooms[i].x = x;
-		map->rooms[i].y = y;
-		if (x > scale->max_x)
-			scale->max_x = x;
-		if (y > scale->max_y)
-			scale->max_y = y;
-		i++;
-		mod++;
-		if (mod % 2)
-			y++;
-		else if (y)
-			y--;
-		if (x > side_len * 4)
-		{
-			//ft_printf("side_len = %d, x = %d\n", side_len, x);
-			x = 0;
-			y += 3;
-		}
-		x += 3;
-	}
-}
 
 t_flag		parse_flags(int argc, char **argv)
 {
@@ -231,8 +177,11 @@ int			main(int argc, char **argv)
 	//ft_printf("saved rooms\n");
 	flag = parse_flags(argc, argv);
 	scale.pos = flag.mod_position;
-	if (scale.pos)
-		modify_coordinates(&map, &scale);
+	scale.room_size = room_size(&scale);
+	if (flag.mod_position)
+		bfs_location(map.rooms, scale.room_count);
+	//modify_coordinates(&map, &scale);
+
 	sdl = initialize(&scale, sdl, map.rooms);
 	//ft_printf("ROOM SIZE = %d\n ", scale.room_size);
 	if (flag.algorithm)

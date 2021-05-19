@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:59:26 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/19 13:38:58 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/19 19:26:31 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,22 +128,6 @@ t_room *room_coordinates(t_room *rooms, int size, int room_count)
 	return (rooms);
 }
 
-int			room_size(t_data *scale)
-{
-	int size;
-
-	size = (WIN_H / scale->max_y > WIN_W / scale->max_x) ? scale->max_y : scale->max_x;
-	//ft_printf("size = %d\n", size);
-	if (size < 2)
-		size++;
-	if (size > WIN_H && !scale->pos)
-		ft_error("The map is too big\n");
-	size = (WIN_H - 50) / size * 0.75;
-	if (!size)
-		size = 2;
-	return (size);
-}
-
 /*
 ** Initializing SDL2. Creating the window and renderer.
 */
@@ -167,7 +151,7 @@ t_pointers	*initialize(t_data *scale, t_pointers *sdl, t_room *rooms)
 //	if (!sdl->backround)
 //		ft_error(SDL_GetError());
 	//scale->room_size = background(scale, map, sdl);
-	scale->room_size = room_size(scale);
+//	scale->room_size = room_size(scale);
 	rooms = room_coordinates(rooms, scale->room_size, scale->room_count);
 
 	return (sdl);

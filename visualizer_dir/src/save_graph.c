@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:49:29 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/23 15:14:58 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/19 19:01:48 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,28 @@
 
 //rooms[1].name not allocated.
 
-int		edge_index(t_room *rooms, char *name)
+void		print_edges(t_room *rooms, int rooms_total)
 {
 	int i;
+	int j;
 
 	i = 0;
-	while (ft_strcmp(name, rooms[i].name))
-		i++;
-	return (i);
-}
-
-t_data	scale_map(char **input)
-{
-	t_data	new;
-	char	**split;
-	int		i;
-	int		nb;
-
-	ft_bzero(&new, sizeof(t_data));
-	i = 0;
-	new.ants = ft_atoi(input[0]);
-	while (ft_strchr(input[++i], ' ') || input[i][0] == '#')
+	j = 0;
+	while (i < rooms_total)
 	{
-		if (input[i][0] != '#')
+		ft_putnbr(i);
+		write(1, ":|", 2);
+		while (rooms[i].adlist[j])
 		{
-			new.room_count += 1;
-//			//ft_printf("input line %s\n", input[i]); //test
-			split = ft_strsplit(input[i], ' ');
-			if (!split)
-				ft_error("ft_strsplit fail");
-			if ((nb = ft_atoi(split[1])) > new.max_x)
-				new.max_x = nb;
-			if ((nb = ft_atoi(split[2])) > new.max_y)
-				new.max_y = nb;
-			ft_free2d((void**)split);
+			ft_putnbr(rooms[i].adlist[j]);
+			write(1, "|", 1);
+			j++;
 		}
+		ft_n(1);
+		j = 0;
+		i++;
 	}
-//	//ft_printf("i = %d\n", i);
-	return (new);
 }
-
 t_room		add_room(char *line, int index)
 {
 	t_room	new;
@@ -70,65 +52,11 @@ t_room		add_room(char *line, int index)
 	new.y = ft_atoi(split[2]);
 	new.q = -1;
 	new.index = index;
+	new.level = 0;
+	ft_bzero(new.adlist, sizeof(int) * 10000);
 	new.visited = -1;
 	ft_free2d((void**)split);
 	return (new);
-}
-
-t_edge		*new_edge(t_edge *head, t_room *rooms, char *src, char *dst)
-{
-	t_edge	*new;
-	t_edge	*tmp;
-
-	new = ft_memalloc(sizeof(t_edge));
-	if (!new)
-		ft_error("malloc fail");
-	new->src = edge_index(rooms, src);
-	new->dst = edge_index(rooms, dst);
-	new->rgba = RGBA_VOID;
-	new->next = NULL;
-	if (!head)
-		return (new);
-	else
-	{
-		tmp = head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-		return (head);
-	}
-}
-
-t_edge		*add_edges(t_room *rooms, char **input, int room_count)
-{
-	char	**split;
-	t_edge	*head;
-
-	head = NULL;
-	while (!ft_strchr(input[room_count], '-'))
-		room_count++;
-	while(input[room_count] && ft_strchr(input[room_count], '-'))
-	{
-		if (!(split = ft_strsplit(input[room_count], '-')))
-			ft_error("split fail");
-//		//ft_printf("split0 = %s, split1 = %s\n", split[0], split[1]);
-//		//ft_printf("tttttttttttttttttttttttttttttttttttt\n");
-		head = new_edge(head, rooms, split[0], split[1]);
-		free(split);
-		room_count++;
-	}
-	return (head);
-}
-
-//test
-
-void		print_edges(t_edge *list)
-{
-	while (list)
-	{
-		//ft_printf("EDGE: src: %s dst %s\n", list->src, list->dst);
-		list = list->next;
-	}
 }
 
 t_map		save_rooms(char **input, int room_count)
@@ -167,6 +95,7 @@ t_map		save_rooms(char **input, int room_count)
 	} //test
 	// test
 	list.edges = add_edges(list.rooms, input, room_count);
+	//print_edges(list.rooms, room_count);
 	//print_edges(list.edges);
 	return (list);
 }
