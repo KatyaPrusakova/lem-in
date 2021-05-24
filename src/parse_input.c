@@ -6,23 +6,23 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/25 14:00:09 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:39:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-char		**input_realloc(char **input, int len)
+char	**input_realloc(char **input, int len)
 {
-	char **tmp;
+	char	**tmp;
 
-	tmp = ft_memalloc(sizeof(char*) * (len * 2 + 1));
-	tmp = ft_memcpy(tmp, input, sizeof(char*) * len);
+	tmp = ft_memalloc(sizeof(char *) * (len * 2 + 1));
+	tmp = ft_memcpy(tmp, input, sizeof(char *) * len);
 	free(input);
 	return (tmp);
 }
 
-void		valid_map(char **input)
+void	valid_map(char **input)
 {
 	int		i;
 
@@ -37,7 +37,7 @@ void		valid_map(char **input)
 		print_error(10, input);
 }
 
-char		**parse_input(void)
+char	**parse_input(void)
 {
 	int		i;
 	int		len;
@@ -46,7 +46,7 @@ char		**parse_input(void)
 
 	i = 0;
 	len = 10000;
-	input = ft_memalloc(sizeof(char*) * len + 1);
+	input = ft_memalloc(sizeof(char *) * len + 1);
 	while (get_next_line(0, &line))
 	{
 		if (i == len)

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/27 15:18:09 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:18:09 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** for addlist struct
 */
 
-int			count_rooms(char **input)
+int	count_rooms(char **input)
 {
 	int		i;
 	int		start_end;
@@ -34,8 +34,9 @@ int			count_rooms(char **input)
 			room++;
 		i++;
 	}
-	start_end != 2 ? print_error(8, input) : 0;
-	return (room ? room : print_error(9, input));
+	if (start_end != 2 || !room)
+		print_error(8, input);
+	return (room);
 }
 
 /*
@@ -45,12 +46,13 @@ int			count_rooms(char **input)
 ** !flag == rooms between start too end
 */
 
-int			add_room(int flag, char *room_name, t_graph *graph)
+void	add_room(int flag, char *room_name, t_graph *graph)
 {
-	int			i;
-	t_room		*new;
+	int		i;
+	t_room	*new;
 
-	if (!(new = ft_memalloc(sizeof(t_room))) || !room_name)
+	new = ft_memalloc(sizeof(t_room)));
+	if (!room_name || !new)
 		print_error(2, NULL);
 	new->prev_room_index = -1;
 	if (flag == 1)
@@ -71,7 +73,6 @@ int			add_room(int flag, char *room_name, t_graph *graph)
 		print_error(2, NULL);
 	graph->adlist[graph->room_total + i]->out = 1;
 	graph->adlist[graph->room_total + i]->index = graph->room_total + i;
-	return (1);
 }
 
 /*
@@ -79,7 +80,7 @@ int			add_room(int flag, char *room_name, t_graph *graph)
 ** for addlist struct
 */
 
-int			parse_room(int i, char **line, t_graph *graph)
+int	parse_room(int i, char **line, t_graph *graph)
 {
 	while (line[i] && !ft_strchr(line[i], '-'))
 	{
@@ -103,21 +104,21 @@ int			parse_room(int i, char **line, t_graph *graph)
 ** Function to check if room is valid
 */
 
-int			is_room(char **input, int i)
+int	is_room(char **input, int i)
 {
 	char	**room;
 
 	if (input[i][0] == 'L' || !input[i])
 		print_error(4, input);
 	room = ft_strsplit(input[i], ' ');
-	if (!room[0] || !room[1] || !room[2] || room[3] ||
-	!ft_isnumeric_str(room[1]) || !ft_isnumeric_str(room[2]))
+	if (!room[0] || !room[1] || !room[2] || room[3]
+		|| !ft_isnumeric_str(room[1]) || !ft_isnumeric_str(room[2]))
 		print_error(4, input);
-	ft_free2d((void**)room);
+	ft_free2d((void **)room);
 	return (1);
 }
 
-char		*first_word(char **line, int i)
+char	*first_word(char **line, int i)
 {
 	char	**room;
 	char	*name;
@@ -126,6 +127,6 @@ char		*first_word(char **line, int i)
 	name = ft_strdup(room[0]);
 	if (!name)
 		print_error(2, line);
-	ft_free2d((void**)room);
+	ft_free2d((void **)room);
 	return (name);
 }

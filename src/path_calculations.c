@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 13:54:23 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/25 14:47:52 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:23:10 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** min amount of rooms linked to start or end rooms.
 */
 
-int		count_max_paths(t_graph *graph)
+int	count_max_paths(t_graph *graph)
 {
 	t_room	*tmp;
 	int		start;
@@ -37,13 +37,15 @@ int		count_max_paths(t_graph *graph)
 		tmp = tmp->next;
 		end++;
 	}
-	start = (start < end) ? start : end;
-	return (start);
+	if (start < end)
+		return (start);
+	else
+		return (end);
 }
 
-int		paths_in_array(t_path **set)
+int	paths_in_array(t_path **set)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (set[i])
@@ -51,10 +53,10 @@ int		paths_in_array(t_path **set)
 	return (i);
 }
 
-int		set_rooms_total(t_path **set, int last_path)
+int	set_rooms_total(t_path **set, int last_path)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -66,7 +68,7 @@ int		set_rooms_total(t_path **set, int last_path)
 	return (count);
 }
 
-int		path_cmp(t_path *p1, t_path *p2)
+int	path_cmp(t_path *p1, t_path *p2)
 {
 	while (p1 && p2)
 	{

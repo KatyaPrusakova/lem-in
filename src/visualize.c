@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:19:16 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/25 13:49:04 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:35:44 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	path_to_visualizer(t_path *p, int offset)
 {
-	int prev_room;
+	int	prev_room;
 
 	prev_room = -1;
 	while (p)
@@ -43,7 +43,7 @@ void	visualize_search(t_graph *g, t_room *room, int **matrix)
 	if (index != prev_index)
 	{
 		ft_printf("E: %d %d w.%d\n", index, prev_index,
-		matrix[room->prev_room_index][room->index]);
+			matrix[room->prev_room_index][room->index]);
 	}
 	else
 		ft_printf("R: %d\n", index);

@@ -3,7 +3,7 @@
 
 # define WIN_W 1600
 # define WIN_H 999
-# define SEARCH_DELAY 500
+# define SEARCH_DELAY 100
 # define ANT_DELAY 0
 # define MOVE_ANT_DELAY 0
 # define PI  3.14159
@@ -50,16 +50,27 @@ typedef	struct s_line
 ** visited_from is initialized to -1.
 */
 
+
 typedef struct	s_room
 {
+	struct s_room	*next;
 	char			*name;
 	int				index;
+	int				prev_room_index;
+	int				adlist[10000];
+	int				level;
 	int				visited;
 	int				path;
 	int				q;
 	int				x;
 	int				y;
 }				t_room;
+
+typedef	struct		s_queue
+{
+	t_room			*head;
+	t_room			*tail;
+}					t_queue;
 
 typedef struct	s_ant
 {
@@ -175,6 +186,15 @@ int		rgba_cmp(t_rgb a, t_rgb b);
 
 t_ant			*free_ants(t_ant *head);
 void			kill_all(t_pointers *sdl, t_map map, char **input);
+
+t_data			scale_map(char **input);
+
+void			bfs_location(t_room *rooms, int total_rooms);
+
+t_queue		*dequeue(t_queue *q);
+t_queue		*enqueue(int index, t_queue *q, t_room *adlist, int prev);
+void		free_queue(t_queue *q);
+int			room_size(t_data *scale);
 
 
 #endif

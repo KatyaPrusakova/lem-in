@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 19:31:34 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/28 13:36:59 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/18 17:51:51 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char	**parse_input(void)
 	return (input);
 }
 
-
 int main(void)
 {
 	t_room	*rooms;
@@ -65,6 +64,7 @@ int main(void)
 	input = parse_input();
 	total_ants = ft_atoi(input[0]);
 	create_rooms(input, &rooms);
+	//#comments as links
 	//ft_putnbr(total_rooms);
 	//ft_n(1);
 	//ft_putnbr(ants);

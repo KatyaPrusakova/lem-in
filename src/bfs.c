@@ -6,16 +6,16 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/27 14:58:20 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:25:00 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int				check_flow(t_room *src, t_room *dst, int max_flow, t_graph *g)
+int	check_flow(t_room *src, t_room *dst, int max_flow, t_graph *g)
 {
-	int flow;
-	int out;
+	int	flow;
+	int	out;
 
 	flow = g->weight_m[src->index][dst->index];
 	out = src->out;
@@ -31,7 +31,7 @@ int				check_flow(t_room *src, t_room *dst, int max_flow, t_graph *g)
 		return (0);
 }
 
-void			visit_room(t_search s, t_graph *graph, int max_flow)
+void	visit_room(t_search s, t_graph *graph, int max_flow)
 {
 	t_room	*tmp;
 
@@ -50,14 +50,14 @@ void			visit_room(t_search s, t_graph *graph, int max_flow)
 		visualize_search(graph, s.room, graph->weight_m);
 }
 
-t_path			*bfs(t_graph *g, int start, int end)
+t_path	*bfs(t_graph *g, int start, int end)
 {
-	t_search s;
+	t_search	s;
 
 	s = init_search(g, start, end);
 	while (!s.path && s.q->head)
 	{
-		s.room = ft_memdup((void*)g->adlist[s.q->head->index], sizeof(t_room));
+		s.room = ft_memdup((void *)g->adlist[s.q->head->index], sizeof(t_room));
 		if (!s.room)
 			print_error(2, NULL);
 		s.room->prev_room_index = s.q->head->prev_room_index;
@@ -66,15 +66,15 @@ t_path			*bfs(t_graph *g, int start, int end)
 			s.path = save_path(s.visited, g, s, s.room->prev_room_index);
 		else
 			visit_room(s, g, 0);
-		ft_memdel((void**)&s.room);
+		ft_memdel((void **)&s.room);
 	}
-	ft_memdel((void**)&s.visited);
-	ft_free2d((void**)s.set);
+	ft_memdel((void **)&s.visited);
+	ft_free2d((void **)s.set);
 	free_queue(s.q);
 	return (s.path);
 }
 
-t_search		init_search(t_graph *g, int start, int end)
+t_search	init_search(t_graph *g, int start, int end)
 {
 	t_search	search;
 	int			i;
@@ -85,7 +85,7 @@ t_search		init_search(t_graph *g, int start, int end)
 	search.visited = ft_memalloc(sizeof(int) * g->room_total * 2);
 	if (!search.visited)
 		print_error(2, NULL);
-	search.set = ft_memalloc(sizeof(t_path*) * (g->max_paths + 1));
+	search.set = ft_memalloc(sizeof(t_path *) * (g->max_paths + 1));
 	if (!search.set)
 		print_error(2, NULL);
 	search.path_no = 0;
@@ -100,7 +100,12 @@ t_search		init_search(t_graph *g, int start, int end)
 	return (search);
 }
 
-t_path			**bfs_set(t_graph *graph, int start, int end)
+/*
+** Doing BFS in a loop and saving all the paths until the queue is empty.
+** The paths are not allowed to use the same rooms.
+*/
+
+t_path	**bfs_set(t_graph *graph, int start, int end)
 {
 	t_search	s;
 
@@ -118,9 +123,9 @@ t_path			**bfs_set(t_graph *graph, int start, int end)
 		}
 		else
 			visit_room(s, graph, 1);
-		ft_memdel((void**)&s.room);
+		ft_memdel((void **)&s.room);
 	}
-	ft_memdel((void**)&s.visited);
+	ft_memdel((void **)&s.visited);
 	free_queue(s.q);
 	if (!s.path_no || !s.set[0])
 		return (NULL);

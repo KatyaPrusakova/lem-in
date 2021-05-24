@@ -6,31 +6,31 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:08:16 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/27 15:21:55 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:50:01 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void			free_data(t_graph *data, char **input)
+void	free_data(t_graph *data, char **input)
 {
-	ft_free2d((void**)input);
-	ft_free2d((void**)data->weight_m);
+	ft_free2d((void **)input);
+	ft_free2d((void **)data->weight_m);
 	free_adlist(data->adlist, data->room_total * 2 + 1);
-	ft_memdel((void**)&data);
+	ft_memdel((void **)&data);
 }
 
 /*
 ** Return 2d array for the weight values of edges between the rooms
 */
 
-int				**create_matrix(int height, int width)
+int	**create_matrix(int height, int width)
 {
 	int	**matrix;
 	int	i;
 
 	i = 0;
-	matrix = ft_memalloc(sizeof(int*) * (height + 1));
+	matrix = ft_memalloc(sizeof(int *) * (height + 1));
 	if (!matrix)
 		ft_printf("malloc failed");
 	while (i < width)
@@ -43,22 +43,22 @@ int				**create_matrix(int height, int width)
 	return (matrix);
 }
 
-t_path			*free_path(t_path *path)
+t_path	*free_path(t_path *path)
 {
-	t_path *tmp;
+	t_path	*tmp;
 
 	while (path)
 	{
 		tmp = path;
 		path = path->next;
-		ft_memdel((void**)&tmp);
+		ft_memdel((void **)&tmp);
 	}
 	return (NULL);
 }
 
-t_path			**free_path_set(t_path ***set)
+t_path	**free_path_set(t_path ***set)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!set[0])
@@ -72,10 +72,10 @@ t_path			**free_path_set(t_path ***set)
 	return (NULL);
 }
 
-void			free_adlist(t_room **graph, size_t size)
+void	free_adlist(t_room **graph, size_t size)
 {
-	size_t		i;
-	t_room		*tmp;
+	size_t	i;
+	t_room	*tmp;
 
 	if (!graph)
 		return ;

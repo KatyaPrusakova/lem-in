@@ -6,16 +6,16 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/28 18:55:47 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:38:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void		*delete_room_in_path(t_path *p, int index)
+void	*delete_room_in_path(t_path *p, int index)
 {
-	t_path *tmp;
-	t_path *delete;
+	t_path	*tmp;
+	t_path	*delete;
 
 	tmp = p;
 	while (tmp->next)
@@ -24,7 +24,7 @@ void		*delete_room_in_path(t_path *p, int index)
 		{
 			delete = tmp->next;
 			tmp->next = tmp->next->next;
-			ft_memdel((void**)&delete);
+			ft_memdel((void **)&delete);
 			return (p);
 		}
 		tmp = tmp->next;
@@ -32,7 +32,7 @@ void		*delete_room_in_path(t_path *p, int index)
 	return (p);
 }
 
-void		clean_path(t_path *p, t_graph *g)
+void	clean_path(t_path *p, t_graph *g)
 {
 	int	*len;
 	int	set_len;
@@ -57,9 +57,9 @@ void		clean_path(t_path *p, t_graph *g)
 ** a linked list.
 */
 
-t_path		*add_room_to_path(t_path *head, char *name, int index)
+t_path	*add_room_to_path(t_path *head, char *name, int index)
 {
-	t_path *tmp;
+	t_path	*tmp;
 
 	tmp = head;
 	head = ft_memalloc(sizeof(t_path));
@@ -74,7 +74,7 @@ t_path		*add_room_to_path(t_path *head, char *name, int index)
 	return (head);
 }
 
-t_path		*save_path(int *visited, t_graph *g, t_search s, int prev_room)
+t_path	*save_path(int *visited, t_graph *g, t_search s, int prev_room)
 {
 	t_path	*head;
 	int		len;
@@ -103,9 +103,8 @@ t_path		*save_path(int *visited, t_graph *g, t_search s, int prev_room)
 ** path array unmodified.
 */
 
-
 //pathlen_is_optimal does not work, because of the in-out edges.
-int			check_path(t_graph *graph, t_search s, int *path_no, int prev_room)
+int	check_path(t_graph *graph, t_search s, int *path_no, int prev_room)
 {
 	t_path	*found_path;
 

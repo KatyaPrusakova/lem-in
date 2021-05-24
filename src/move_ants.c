@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/17 15:07:31 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:53:57 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 #include "lemin.h"
 
-void		move_all_to_end(int ant_amount, char *end_room)
+void	move_all_to_end(int ant_amount, char *end_room)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (i <= ant_amount)
@@ -35,7 +35,7 @@ void		move_all_to_end(int ant_amount, char *end_room)
 ** first room. Returns the amount of ants found in the path.
 */
 
-int			push_path(t_path *p, int add_ant)
+int	push_path(t_path *p, int add_ant)
 {
 	t_path	*room;
 	int		push_ant;
@@ -61,11 +61,11 @@ int			push_path(t_path *p, int add_ant)
 	return (ants_in_path);
 }
 
-void		empty_paths(t_path **p)
+void	empty_paths(t_path **p)
 {
 	int	longest_path;
-	int paths_left;
-	int i;
+	int	paths_left;
+	int	i;
 
 	longest_path = 0;
 	while (p[longest_path])
@@ -88,7 +88,7 @@ void		empty_paths(t_path **p)
 	}
 }
 
-int			pathlen_is_optimal(t_path **p, int path_nbr, int ants_left)
+int	pathlen_is_optimal(t_path **p, int path_nbr, int ants_left)
 {
 	int	pathset_capacity;
 	int	flow_potential;
@@ -111,7 +111,7 @@ int			pathlen_is_optimal(t_path **p, int path_nbr, int ants_left)
 	}
 }
 
-void		move_ants(t_path **p, t_graph *g)
+void	move_ants(t_path **p, t_graph *g)
 {
 	int	ants_at_start;
 	int	ant_no;

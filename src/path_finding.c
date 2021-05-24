@@ -6,17 +6,17 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/18 17:09:12 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:29:59 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int			count_moves(t_path **path, int ants)
+int	count_moves(t_path **path, int ants)
 {
 	int	path_count;
 	int	lines;
-	int ants_in_path;
+	int	ants_in_path;
 
 	if (!path)
 		return (0);
@@ -46,10 +46,10 @@ int			count_moves(t_path **path, int ants)
 ** equal,the lengh of the longest path in the set determines which path is used.
 */
 
-t_path		**set_cmp(t_path **p1, t_path **p2, int ants)
+t_path	**set_cmp(t_path **p1, t_path **p2, int ants)
 {
 	int	p1_lines;
-	int p2_lines;
+	int	p2_lines;
 
 //	print_paths(p1);
 //	ft_dprintf(fd, "\n\n");
@@ -71,9 +71,9 @@ t_path		**set_cmp(t_path **p1, t_path **p2, int ants)
 	}
 }
 
-t_path		**clean_set(t_path **set, t_graph *g)
+t_path	**clean_set(t_path **set, t_graph *g)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (set[++i])
@@ -81,11 +81,11 @@ t_path		**clean_set(t_path **set, t_graph *g)
 	return (set);
 }
 
-t_path		**edmonds_karp(t_graph *g)
+t_path	**edmonds_karp(t_graph *g)
 {
-	t_path *shortest;
+	t_path	*shortest;
 	t_path	**tmp_set;
-	t_path **set;
+	t_path	**set;
 
 	if (g->visualize)
 		ft_printf("SEARCH\n");
@@ -122,11 +122,11 @@ t_path		**edmonds_karp(t_graph *g)
 ** all ants to be able to flow straight to the end room in one line.
 */
 
-t_path		**unlimited_flow(void)
+t_path	**unlimited_flow(void)
 {
 	t_path	**no_rooms;
 
-	no_rooms = ft_memalloc(sizeof(t_path*) * 2);
+	no_rooms = ft_memalloc(sizeof(t_path *) * 2);
 	no_rooms[0] = ft_memalloc(sizeof(t_path));
 	no_rooms[0]->len = 0;
 	return (no_rooms);

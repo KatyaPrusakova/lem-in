@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 15:30:46 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/25 13:01:48 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:22:00 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** search.
 */
 
-int			check_weight(int link_weight, int set_weight)
+int	check_weight(int link_weight, int set_weight)
 {
 	if (set_weight == 1 && link_weight < 1)
 		return (1);
@@ -35,7 +35,7 @@ int			check_weight(int link_weight, int set_weight)
 ** Modify the edges along a found path.
 */
 
-void		mod_edgeweight_path(t_graph *g, t_path *path)
+void	mod_edgeweight_path(t_graph *g, t_path *path)
 {
 	if (!path)
 		return ;

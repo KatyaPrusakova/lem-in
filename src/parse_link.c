@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/04/28 19:26:21 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:05:37 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** and a to the end of the list in adlist[b].
 */
 
-int		link_to_adlist(int a, int b, t_graph *g)
+int	link_to_adlist(int a, int b, t_graph *g)
 {
 	t_room	*new;
 	t_room	*tmp;
@@ -48,7 +48,7 @@ int		link_to_adlist(int a, int b, t_graph *g)
 ** Add edge between room0.in -room 1 out both ways.
 */
 
-int		create_edge(int *adlist_index, t_graph *g)
+int	create_edge(int *adlist_index, t_graph *g)
 {
 	if (!adlist_index[0])
 	{
@@ -73,7 +73,7 @@ int		create_edge(int *adlist_index, t_graph *g)
 ** Returns the indexes of the rooms as an allocated int[2].
 */
 
-int		*edge_index(char **room, t_graph *graph)
+int	*edge_index(char **room, t_graph *graph)
 {
 	int		link_name;
 	int		*index;
@@ -108,7 +108,7 @@ int		*edge_index(char **room, t_graph *graph)
 
 void	create_room_capacity(t_graph *g)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (i < g->room_total - 1)
@@ -125,7 +125,7 @@ void	create_room_capacity(t_graph *g)
 ** Adding the edges to the adjacency list in create_edge().
 */
 
-int		parse_links(int i, char **input, t_graph *g)
+int	parse_links(int i, char **input, t_graph *g)
 {
 	char	**rooms_to_link;
 	int		*edges;
@@ -138,14 +138,14 @@ int		parse_links(int i, char **input, t_graph *g)
 			rooms_to_link = ft_strsplit(input[i], '-');
 			edges = edge_index(rooms_to_link, g);
 			if ((edges[0] == 0 && edges[1] == g->room_total - 1)
-			|| (edges[1] == 0 && edges[0] == g->room_total - 1))
+				|| (edges[1] == 0 && edges[0] == g->room_total - 1))
 			{
 				g->unlimited_flow = 1;
 				return (1);
 			}
 			create_edge(edges, g);
-			ft_free2d((void**)rooms_to_link);
-			ft_memdel((void**)&edges);
+			ft_free2d((void **)rooms_to_link);
+			ft_memdel((void **)&edges);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/18 16:51:15 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:46:27 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // #link1-link2 gives an error as invalid link
 
-t_graph			*lem_in(t_graph *g)
+t_graph	*lem_in(t_graph *g)
 {
 	t_path	**set;
 
@@ -32,7 +32,7 @@ t_graph			*lem_in(t_graph *g)
 	return (g);
 }
 
-int				main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_graph		*data;
 	char		**line;

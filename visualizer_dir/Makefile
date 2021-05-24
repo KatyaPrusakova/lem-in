@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/16 03:21:02 by ksuomala          #+#    #+#              #
-#    Updated: 2021/04/12 16:00:16 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/05/19 18:03:17 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,11 @@ backround.c \
 ants.c \
 animation.c \
 visualize_algorithm.c \
-free_all.c
+free_all.c \
+scale_map.c \
+init_edges.c \
+queue.c \
+bfs_location.c
 
 H_FILES = includes/lemin_visual.h
 
