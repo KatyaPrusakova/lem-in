@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 16:05:41 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/14 12:42:24 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 19:37:41 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,10 @@ t_ant	*ant_destinations(char *line, t_ant *head, t_room *room, int wave)
 		ant = ft_atoi(&dest[0][1]);
 		//ft_printf("ant n %d\n", ant); //test
 		//ft_printf("destination %s\n", dest[1]);
-		temp = find_room(dest[1], room);
+		if (dest[1])
+			temp = find_room(dest[1], room);
+		if (!temp)
+			return (NULL);
 		//ft_printf("room found. looking for %s, found %s\n", dest[1], temp->name);
 		head = save_move(head, temp, (int[2]){ant, wave}, room);
 		ft_free2d((void**)dest);

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:49:29 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/19 19:01:48 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:19:55 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 //rooms[1].name not allocated.
 
-void		print_edges(t_room *rooms, int rooms_total)
+void	print_edges(t_room *rooms, int rooms_total)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -36,7 +36,7 @@ void		print_edges(t_room *rooms, int rooms_total)
 		i++;
 	}
 }
-t_room		add_room(char *line, int index)
+t_room	add_room(char *line, int index)
 {
 	t_room	new;
 	char	**split;
@@ -59,7 +59,7 @@ t_room		add_room(char *line, int index)
 	return (new);
 }
 
-t_map		save_rooms(char **input, int room_count)
+t_map	save_rooms(char **input, int room_count)
 {
 	int		i;
 	int		j;
@@ -84,7 +84,6 @@ t_map		save_rooms(char **input, int room_count)
 //		//ft_printf("test\n");
 		i++;
 	}
-
 	// test
 	i = 0;
 	while (i < list.count)

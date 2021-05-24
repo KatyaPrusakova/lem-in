@@ -195,6 +195,8 @@ t_queue		*dequeue(t_queue *q);
 t_queue		*enqueue(int index, t_queue *q, t_room *adlist, int prev);
 void		free_queue(t_queue *q);
 int			room_size(t_data *scale);
+void		visualize_ants(t_pointers *sdl, t_data *scale, t_map *map, char **input);
+
 
 
 #endif
