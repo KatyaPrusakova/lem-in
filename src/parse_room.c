@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/24 16:18:09 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 17:46:37 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	add_room(int flag, char *room_name, t_graph *graph)
 	int		i;
 	t_room	*new;
 
-	new = ft_memalloc(sizeof(t_room)));
+	new = ft_memalloc(sizeof(t_room));
 	if (!room_name || !new)
 		print_error(2, NULL);
 	new->prev_room_index = -1;

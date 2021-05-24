@@ -6,13 +6,13 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/24 16:34:10 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 17:46:57 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-voi	print_rooms(t_graph *graph)
+void	print_rooms(t_graph *graph)
 {
 	int		i;
 	t_room	*tmp;

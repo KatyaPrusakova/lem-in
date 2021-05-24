@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/24 16:29:59 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 17:58:23 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ t_path	**edmonds_karp(t_graph *g)
 	t_path	**tmp_set;
 	t_path	**set;
 
-	if (g->visualize)
-		ft_printf("SEARCH\n");
+	//f (g->visualize)
+		//ft_printf("SEARCH\n");
 	set = NULL;
 	shortest = bfs(g, 0, g->room_total - 1);
 	g->max_paths = count_max_paths(g);
