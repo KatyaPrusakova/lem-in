@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/18 16:52:01 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/24 17:46:12 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int					parse_links(int i, char **input, t_graph *g);
 
 int					count_rooms(char **line);
 int					parse_room(int i, char **line, t_graph* graph);
-int					add_room(int flag, char *room_name, t_graph *graph);
+void				add_room(int flag, char *room_name, t_graph *graph);
 int					is_room(char **input, int i);
 
 /*
