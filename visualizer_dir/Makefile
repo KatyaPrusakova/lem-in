@@ -6,13 +6,13 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/16 03:21:02 by ksuomala          #+#    #+#              #
-#    Updated: 2021/05/24 19:18:44 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/05/26 15:20:23 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = visualizer
 
-SRCS = visual_main.c \
+SRCS = visualizer.c \
 save_graph.c \
 backround.c \
 ants.c \
@@ -23,7 +23,13 @@ scale_map.c \
 init_edges.c \
 queue.c \
 bfs_location.c \
-ant_movement.c
+ant_movement.c \
+draw_graph.c \
+colors.c \
+events.c \
+test_print.c \
+realloc.c \
+get_rekt.c
 
 H_FILES = includes/lemin_visual.h
 
