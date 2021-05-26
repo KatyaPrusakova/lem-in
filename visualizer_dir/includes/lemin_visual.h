@@ -143,15 +143,41 @@ t_edge		*add_edges(t_room *rooms, char **input, int room_count);
 t_map		save_rooms(char **input, int room_count);
 int			move_index(char **input, char *find);
 
+SDL_Rect	get_rect(TTF_Font *f, t_room room, int scale, SDL_Rect rect);
+
+
 /*
 **
 */
 
 void	ft_error(const char *str_err);
+char	**lemin_realloc(char **input, int len);
 
 /*
-**
+** colors.c
 */
+
+void		set_edge_color(t_edge *links, int a, int b, t_rgb color);
+int			rgba_cmp(t_rgb a, t_rgb b);
+void		edge_colors(t_edge *edges);
+
+/*
+** draw_graph.c
+*/
+
+void		room_name(SDL_Renderer *renderer, int scale, t_room room, TTF_Font *f);
+void		draw_link(SDL_Renderer *renderer, int size, t_map *map, int i[2]);
+void		visit_room(t_map *map, char *line);
+void		draw_path(t_pointers *p, t_data *scl, t_map *map,/* t_room *rooms,*/ char *input);
+void		empty_rooms(t_edge *edges, t_room *rooms, int room_count);
+
+
+/*
+** visualize_algorithm.c
+*/
+
+void		draw_links(SDL_Renderer *renderer, int size, t_map *map);
+
 
 t_pointers	*initialize(t_data *scale, t_pointers *sdl, t_room *rooms);
 

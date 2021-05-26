@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 18:22:05 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/04/14 12:42:24 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/26 13:34:00 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_rgb	ant_color(int wave)
 {
 	t_rgb	color[20];
 
-	//ft_printf("Ant wave no %d\n", wave);
 	if (wave > 19)
 		wave = wave % 19;
 	color[0] = (t_rgb){0, 0, 255, 255};
@@ -51,7 +50,6 @@ void	draw_ants(t_pointers *sdl, t_ant *ants, t_data *scale, t_map *map)
 	pos.h = 10;
 	pos.w = 10;
 	tmp = ants;
-
 	draw_graph(sdl, scale, map);
 	while (tmp)
 	{
@@ -78,13 +76,14 @@ void	walk_ant(t_ant *ant)
 	float	dy;
 	float	step;
 
-	//ft_printf("I'm walking here. pos %f %f\n", ant->x, ant->y);
 	dx = (ant->dest_x - ant->x);
 	dy = (ant->dest_y - ant->y);
-	step = ((fabsf(dx) >= fabsf(dy)) ? fabsf(dx) : fabsf(dy));
+	if (fabsf(dx) >= fabsf(dy))
+		step = fabsf(dx);
+	else
+		step = fabsf(dy);
 	ant->x += dx / step;
 	ant->y += dy / step;
-	//ft_printf("Ant n %d new position %f %f\n", ant->i, ant->x, ant->y);
 }
 
 /*
@@ -92,9 +91,7 @@ void	walk_ant(t_ant *ant)
 ** it one step closer to it. If all the ants are at their destinations, return 0.
 */
 
-
-
-int move_ants(t_pointers *sdl, t_ant *head, t_data *scale, t_map *map)
+int	move_ants(t_pointers *sdl, t_ant *head, t_data *scale, t_map *map)
 {
 	t_ant	*tmp;
 	int		ret;

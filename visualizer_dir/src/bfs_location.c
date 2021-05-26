@@ -6,15 +6,15 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 15:20:13 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/19 21:08:14 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/26 15:06:05 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin_visual.h"
 
-int		get_side_len(int nb)
+int	get_side_len(int nb)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (i * i < nb && i < 46341)
@@ -26,14 +26,14 @@ int		get_side_len(int nb)
 ** Modifies generator map coordinates so they can be visualized.
 */
 
-
-void		modify_coordinates(t_map *map, t_data *scale)
+/*
+void	modify_coordinates(t_map *map, t_data *scale)
 {
 	int	side_len;
-	int x;
-	int y;
-	int i;
-	int mod;
+	int	x;
+	int	y;
+	int	i;
+	int	mod;
 
 	mod = 0;
 	i = 0;
@@ -41,12 +41,9 @@ void		modify_coordinates(t_map *map, t_data *scale)
 	y = 0;
 	scale->max_x = x;
 	scale->max_y = y;
-
 	side_len = get_side_len(map->count);
-	//ft_printf("map->count %d, sidelen %d\n", map->count, side_len);
 	while (i < map->count)
 	{
-		//ft_printf("map->room y = %d x = %d\n", map->rooms[i].y, map->rooms[i].x);
 		map->rooms[i].x = x;
 		map->rooms[i].y = y;
 		if (x > scale->max_x)
@@ -61,20 +58,21 @@ void		modify_coordinates(t_map *map, t_data *scale)
 			y--;
 		if (x > side_len * 4)
 		{
-			//ft_printf("side_len = %d, x = %d\n", side_len, x);
 			x = 0;
 			y += 3;
 		}
 		x += 3;
 	}
-}
+} */
 
 void	modify_coordinates_bfs(t_room *rooms, int total_rooms, int level_height)
 {
-	int i;
-	int level;
-	int *rooms_per_level;
+	int	i;
+	int	level;
+	int	*rooms_per_level;
 
+	if (!level_height)
+		write(1, "height = 0\n", 11);
 	rooms_per_level = ft_memalloc(sizeof(int) * 10000);
 	i = 1;
 	if (!rooms_per_level)
@@ -85,7 +83,6 @@ void	modify_coordinates_bfs(t_room *rooms, int total_rooms, int level_height)
 		rooms[i].x = level * 3;
 		rooms_per_level[level]++;
 		rooms[i].y = rooms_per_level[level] * 5 + (level % 2);
-		ft_printf("room %i x %i y %i level %d height %d\n", i, rooms[i].x, rooms[i].y, rooms[i].level, level_height);
 		i++;
 	}
 }
@@ -97,12 +94,12 @@ void	init_bfs(int *level, int *max_rooms_per_level, t_queue **q)
 	*q = NULL;
 }
 
-int		save_levels(t_room *rooms)
+int	save_levels(t_room *rooms)
 {
-	int	level;
-	int max_level_height;
-	int	i;
-	t_queue *q;
+	int		level;
+	int		max_level_height;
+	int		i;
+	t_queue	*q;
 
 	init_bfs(&level, &max_level_height, &q);
 	q = enqueue(0, q, rooms, 0);
@@ -114,7 +111,8 @@ int		save_levels(t_room *rooms)
 		{
 			if (!rooms[rooms[q->head->index].adlist[i]].level)
 			{
-				q = enqueue(rooms[q->head->index].adlist[i], q, rooms, q->head->index);
+				q = enqueue(rooms[q->head->index].adlist[i], q, rooms,
+						q->head->index);
 				rooms[rooms[q->head->index].adlist[i]].level = level;
 			}
 		}
@@ -127,7 +125,7 @@ int		save_levels(t_room *rooms)
 
 void	bfs_location(t_room *rooms, int total_rooms)
 {
-	int level_height;
+	int	level_height;
 
 	level_height = save_levels(rooms);
 	modify_coordinates_bfs(rooms, total_rooms, level_height);

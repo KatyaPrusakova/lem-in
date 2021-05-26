@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 15:40:45 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/19 15:54:52 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/26 13:57:49 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	edge_to_adlist(t_room *lst, int src, int dst)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (lst[src].adlist[i])
@@ -26,9 +26,9 @@ void	edge_to_adlist(t_room *lst, int src, int dst)
 	lst[dst].adlist[i] = src;
 }
 
-int		edge_index(t_room *rooms, char *name)
+int	edge_index(t_room *rooms, char *name)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ft_strcmp(name, rooms[i].name))
@@ -36,7 +36,7 @@ int		edge_index(t_room *rooms, char *name)
 	return (i);
 }
 
-t_edge		*new_edge(t_edge *head, t_room *rooms, char *src, char *dst)
+t_edge	*new_edge(t_edge *head, t_room *rooms, char *src, char *dst)
 {
 	t_edge	*new;
 	t_edge	*tmp;
@@ -61,7 +61,11 @@ t_edge		*new_edge(t_edge *head, t_room *rooms, char *src, char *dst)
 	}
 }
 
-t_edge		*add_edges(t_room *rooms, char **input, int room_count)
+/*
+** Sets all visited and q values to -1.
+*/
+
+t_edge	*add_edges(t_room *rooms, char **input, int room_count)
 {
 	char	**split;
 	t_edge	*head;
@@ -69,12 +73,11 @@ t_edge		*add_edges(t_room *rooms, char **input, int room_count)
 	head = NULL;
 	while (!ft_strchr(input[room_count], '-'))
 		room_count++;
-	while(input[room_count] && ft_strchr(input[room_count], '-'))
+	while (input[room_count] && ft_strchr(input[room_count], '-'))
 	{
-		if (!(split = ft_strsplit(input[room_count], '-')))
+		split = ft_strsplit(input[room_count], '-');
+		if (!split)
 			ft_error("split fail");
-//		//ft_printf("split0 = %s, split1 = %s\n", split[0], split[1]);
-//		//ft_printf("tttttttttttttttttttttttttttttttttttt\n");
 		head = new_edge(head, rooms, split[0], split[1]);
 		free(split);
 		room_count++;

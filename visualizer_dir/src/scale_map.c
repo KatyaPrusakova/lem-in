@@ -6,20 +6,20 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 18:13:14 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/19 21:08:41 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/26 15:05:14 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin_visual.h"
 
-
-
-int			room_size(t_data *scale)
+int	room_size(t_data *scale)
 {
-	int size;
+	int	size;
 
-	size = (WIN_H / scale->max_y > WIN_W / scale->max_x) ? scale->max_y : scale->max_x;
-	//ft_printf("size = %d\n", size);
+	if (WIN_H / scale->max_y > WIN_W / scale->max_x)
+		size = scale->max_y;
+	else
+		size = scale->max_x;
 	if (size < 2)
 		size++;
 	if (size > WIN_H && !scale->pos)
@@ -30,7 +30,6 @@ int			room_size(t_data *scale)
 	ft_printf("room size %d\n", size);
 	return (size);
 }
-
 
 t_data	scale_map(char **input)
 {
@@ -47,17 +46,16 @@ t_data	scale_map(char **input)
 		if (input[i][0] != '#')
 		{
 			new.room_count += 1;
-//			//ft_printf("input line %s\n", input[i]); //test
 			split = ft_strsplit(input[i], ' ');
 			if (!split)
 				ft_error("ft_strsplit fail");
-			if ((nb = ft_atoi(split[1])) > new.max_x)
+			nb = ft_atoi(split[1]);
+			if (nb > new.max_x)
 				new.max_x = nb;
-			if ((nb = ft_atoi(split[2])) > new.max_y)
-				new.max_y = nb;
-			ft_free2d((void**)split);
+			if (ft_atoi(split[2]) > new.max_y)
+				new.max_y = ft_atoi(split[2]);
+			ft_free2d((void **)split);
 		}
 	}
-//	//ft_printf("i = %d\n", i);
 	return (new);
 }
