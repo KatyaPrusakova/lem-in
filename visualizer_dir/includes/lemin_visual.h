@@ -9,7 +9,7 @@
 # define PI  3.14159
 
 # define RGBA_VOID (t_rgb){70, 70, 70, 255}
-# define RGBA_REVERSED (t_rgb){220, 220, 0, 255}
+# define RGBA_REVERSED (t_rgb){0, 120, 0, 255}
 # define RGBA_REMOVED (t_rgb){150, 0, 0, 255}
 # define RGBA_QUEUED (t_rgb){0, 0, 70, 255}
 # define RGBA_VISITED (t_rgb){0, 0, 170, 255}

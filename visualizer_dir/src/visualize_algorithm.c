@@ -1,6 +1,6 @@
 #include "lemin_visual.h"
 
-void	add_edge_weight(t_edge *links, int a, int b, int path_no)
+void	add_edge_weight(t_edge *links, int a, int b)
 {
 	t_edge	*tmp;
 
@@ -17,7 +17,7 @@ void	add_edge_weight(t_edge *links, int a, int b, int path_no)
 		}
 		links = links->next;
 	}
-	if ((!tmp->weight && path_no))
+	if ((!tmp->weight))
 		tmp->weight = 1;
 	else
 		tmp->weight = 0;
@@ -65,7 +65,8 @@ void	draw_path(t_pointers *p, t_data *scl, t_map *map, char *input)
 	{
 		draw_graph(p, scl, map);
 		set_edge_color(map->edges, path[i], path[i + 1], RGBA_PATH);
-		add_edge_weight(map->edges, path[i], path[i + 1], path_no);
+		if (ft_strstr(input, "MOD"))
+			add_edge_weight(map->edges, path[i], path[i + 1]);
 	}
 	set_edge_color(map->edges, 0, path[i], RGBA_PATH);
 	ft_n(1);
@@ -109,7 +110,6 @@ void	visualize_search(t_pointers *p, t_data *scl, t_map *map, char **input)
 			else if (ft_strchr(input[i], ' '))
 				visit_room(map, input[i]);
 			i++;
-			ft_printf("%s\n", input[i]);
 			draw_graph(p, scl, map);
 			SDL_RenderPresent(p->renderer);
 			SDL_Delay(SEARCH_DELAY);

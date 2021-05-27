@@ -8,19 +8,14 @@ void	room_name(SDL_Renderer *renderer, int scale, t_room room, TTF_Font *f)
 	char		*nbr;
 
 	nbr = ft_itoa(room.index);
-	if (!nbr)
-		ft_error("Malloc fail in itoa\n");
 	surface = TTF_RenderText_Solid(f, room.name,
 			(SDL_Color){255, 255, 255, 255});
-	if (!surface)
+	if (!surface || !nbr)
 		ft_error("failed to crate surface from font\n");
 	texture = SDL_CreateTextureFromSurface(renderer, surface);
 	if (!texture)
 		ft_error("Failed to create Texture from text surface\n");
 	rect = get_rect(f, room, scale, rect);
-	// TTF_SizeText(f, room.name, &rect.w, &rect.h);
-	// rect.x = room.x + scale / 5;
-	// rect.y = room.y + scale / 5;
 	SDL_RenderCopy(renderer, texture, NULL, &rect);
 	SDL_FreeSurface(surface);
 	SDL_DestroyTexture(texture);

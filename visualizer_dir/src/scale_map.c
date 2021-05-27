@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 18:13:14 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/26 15:05:14 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/27 12:47:13 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	room_size(t_data *scale)
 	size = (WIN_H - 50) / size * 0.75;
 	if (!size)
 		size = 2;
-	ft_printf("room size %d\n", size);
 	return (size);
 }
 

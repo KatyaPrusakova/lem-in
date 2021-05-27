@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/24 17:46:12 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/26 17:44:17 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int **create_matrix(int height, int width);
 
 int					check_weight(int link_weight, int set_weight);
 
-
 /*
 ** MALLOC_FREE.C
 */
@@ -114,9 +113,6 @@ void				free_adlist(t_room **graph, size_t size);
 t_path*				free_path(t_path *path);
 t_path**			free_path_set(t_path ***set);
 void				free_data(t_graph *data, char **input);
-
-
-
 
 /*
 ** PARSE_INPUT.C
@@ -173,18 +169,9 @@ t_path 				**unlimited_flow(void);
 t_path				**edmonds(t_graph *g);
 void				clean_path(t_path *p, t_graph *g);
 
-
-
 //DFS
 
 t_path				**edmonds_karp(t_graph *g);
-
-
-
-
-
-
-
 
 //queue functions
 
@@ -193,8 +180,6 @@ t_queue			*dequeue(t_queue *q);
 int				is_queued(int index, t_queue *q);
 void			free_queue(t_queue *q);
 
-
-
 /*
 ** path finding
 */
@@ -202,7 +187,6 @@ void			free_queue(t_queue *q);
 t_path			**find_paths(t_graph *graph);
 t_path			**find_sets(t_graph *graph);
 void			print_paths(t_path **path, t_room **adlist);
-
 
 /*
 ** path_calculations.c
@@ -221,7 +205,6 @@ int				path_cmp(t_path *p1, t_path *p2);
 t_room			*adlist_mergesort(t_room *head, int start, int **weight_matrix);
 void			sort_adlist_array(t_graph *g);
 
-
 /*
 ** save_path.c
 */
@@ -229,24 +212,17 @@ void			sort_adlist_array(t_graph *g);
 int				check_path(t_graph *graph, t_search s, int *path_no, int prev_room);
 t_path			*save_path(int *visited, t_graph *g, t_search s, int prev_room);
 
-
 void			mod_edgeweight_path(t_graph *g, t_path *path);
-
-
-
 
 /*
 ** visualize.c
 */
 
 void			visualize_search(t_graph *g, t_room *room, int **matrix);
-void			path_to_visualizer(t_path *p, int offset);
-
-
+void			path_to_visualizer(t_path *p, int offset, int mod_flow);
 
 //void				queue_to_visualizer(t_room **adlist, t_queue *q, int visualize); //testing
 //void				visited_to_visualizer(int current_index, int visited_from, int visualize);
-
 
 void			print_matrix(int **matrix, int size);
 
@@ -257,9 +233,5 @@ void			print_matrix(int **matrix, int size);
 void			move_ants(t_path **p, t_graph *g);
 void			move_all_to_end(int ant_amount, char *end_room);
 int				pathlen_is_optimal(t_path **p, int path_nbr, int ants_left);
-
-
-
-
 
 #endif

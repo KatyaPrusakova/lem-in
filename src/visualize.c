@@ -6,17 +6,21 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:19:16 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/24 16:35:44 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/26 18:05:38 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	path_to_visualizer(t_path *p, int offset)
+void	path_to_visualizer(t_path *p, int offset, int mod_flow)
 {
 	int	prev_room;
 
 	prev_room = -1;
+	if (mod_flow){
+		ft_printf("%dMOD|", p->i);
+		p = p->next;
+	}
 	while (p)
 	{
 		if (p->i >= offset && p->i - offset != prev_room)

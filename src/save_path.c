@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/24 16:38:03 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/26 17:48:35 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ t_path	*save_path(int *visited, t_graph *g, t_search s, int prev_room)
 	}
 	head = add_room_to_path(head, g->adlist[s.start]->name, s.start);
 	head->len = len;
-	if (g->visualize)
-		path_to_visualizer(head, g->room_total);
+//	if (g->visualize)
+//		path_to_visualizer(head, g->room_total);
 	return (head);
 }
 
@@ -109,6 +109,8 @@ int	check_path(t_graph *graph, t_search s, int *path_no, int prev_room)
 	t_path	*found_path;
 
 	found_path = save_path(s.visited, graph, s, prev_room);
+	if (graph->visualize)
+		path_to_visualizer(found_path, graph->room_total, 0);
 	if (!found_path)
 		return (1);
 	s.set[*path_no] = found_path;

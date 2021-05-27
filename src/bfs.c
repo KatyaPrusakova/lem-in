@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/24 15:25:00 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/26 17:49:35 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ t_path	*bfs(t_graph *g, int start, int end)
 		s.room->prev_room_index = s.q->head->prev_room_index;
 		dequeue(s.q);
 		if (s.room->index == s.end)
+		{
 			s.path = save_path(s.visited, g, s, s.room->prev_room_index);
+			if (g->visualize)
+				path_to_visualizer(s.path, g->room_total, 1);
+		}
 		else
 			visit_room(s, g, 0);
 		ft_memdel((void **)&s.room);
