@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/24 17:46:37 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/28 14:44:30 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ void	add_room(int flag, char *room_name, t_graph *graph)
 }
 
 /*
-** Function
-** for addlist struct
+**
 */
 
 int	parse_room(int i, char **line, t_graph *graph)

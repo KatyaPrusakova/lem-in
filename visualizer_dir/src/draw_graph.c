@@ -8,6 +8,7 @@ void	room_name(SDL_Renderer *renderer, int scale, t_room room, TTF_Font *f)
 	char		*nbr;
 
 	nbr = ft_itoa(room.index);
+	ft_bzero(&rect, sizeof(SDL_Rect));
 	surface = TTF_RenderText_Solid(f, room.name,
 			(SDL_Color){255, 255, 255, 255});
 	if (!surface || !nbr)

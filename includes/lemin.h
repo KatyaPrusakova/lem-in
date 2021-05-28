@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/26 17:44:17 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/28 14:07:22 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef	struct		s_queue
 typedef struct		s_graph
 {
 	int				ants;
-//	int				ants_end;
 	int				unlimited_flow;
 	int				visualize;
 	int				room_total;
@@ -79,12 +78,9 @@ typedef	struct 		s_path
 {
 	int				i;
 	int				len;
-//	int				queue; //added
 	int				ant;
 	char			*name;
 	t_room			*room;
-//	struct s_path	*end; //paths are null terminated. Why do you need end pointer?
-//	struct s_path	*prev;
 	struct s_path	*next;
 }					t_path;
 
@@ -220,10 +216,6 @@ void			mod_edgeweight_path(t_graph *g, t_path *path);
 
 void			visualize_search(t_graph *g, t_room *room, int **matrix);
 void			path_to_visualizer(t_path *p, int offset, int mod_flow);
-
-//void				queue_to_visualizer(t_room **adlist, t_queue *q, int visualize); //testing
-//void				visited_to_visualizer(int current_index, int visited_from, int visualize);
-
 void			print_matrix(int **matrix, int size);
 
 /*

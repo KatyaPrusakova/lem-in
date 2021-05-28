@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/26 17:48:35 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/28 14:48:52 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ t_path	*save_path(int *visited, t_graph *g, t_search s, int prev_room)
 	}
 	head = add_room_to_path(head, g->adlist[s.start]->name, s.start);
 	head->len = len;
-//	if (g->visualize)
-//		path_to_visualizer(head, g->room_total);
 	return (head);
 }
 
@@ -103,7 +101,6 @@ t_path	*save_path(int *visited, t_graph *g, t_search s, int prev_room)
 ** path array unmodified.
 */
 
-//pathlen_is_optimal does not work, because of the in-out edges.
 int	check_path(t_graph *graph, t_search s, int *path_no, int prev_room)
 {
 	t_path	*found_path;
