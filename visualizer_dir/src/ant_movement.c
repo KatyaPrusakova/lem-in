@@ -23,7 +23,7 @@ void	visualize_ants(t_pointers *sdl, t_data *scale, t_map *map,
 	while (input[i])
 	{
 		pause = events();
-		if (pause % 2)
+		if (pause % 2 == 0)
 		{
 			if (!ft_strcmp("0 0", input[i]))
 				break ;
