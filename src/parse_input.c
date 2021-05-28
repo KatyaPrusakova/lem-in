@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/24 16:39:03 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/28 14:26:55 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ char	**input_realloc(char **input, int len)
 	return (tmp);
 }
 
+/*
+** Checking that all lines start with a #, or contain a ' ' or a '-' character.
+*/
+
 void	valid_map(char **input)
 {
 	int		i;
@@ -36,6 +40,10 @@ void	valid_map(char **input)
 	if (input[i])
 		print_error(10, input);
 }
+
+/*
+** Saving the input as a 2-dimensional char array.
+*/
 
 char	**parse_input(void)
 {
