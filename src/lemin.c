@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/24 15:46:27 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:53:59 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_graph	*lem_in(t_graph *g)
 	if (!g->unlimited_flow)
 	{
 		set = edmonds_karp(g);
+		if (!set)
+			print_error(1, NULL);
 		if (g->visualize)
 			ft_printf("\n");
 		print_paths(set, g->adlist); //test
