@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/28 14:44:30 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:20:05 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,7 @@ int	parse_room(int i, char **line, t_graph *graph)
 			add_room(1, first_word(line, ++i), graph);
 		else if (!ft_strcmp(line[i], "##end"))
 			add_room(2, first_word(line, ++i), graph);
-		else if (line[i][0] == '#')
-			i++;
-		else
+		else if (line[i][0] != '#')
 			add_room(0, first_word(line, i), graph);
 		i++;
 	}
@@ -127,5 +125,7 @@ char	*first_word(char **line, int i)
 	if (!name)
 		print_error(2, line);
 	ft_free2d((void **)room);
+	if (ft_strchr(name, '#') || ft_strchr(name, 'L'))
+		print_error(4, line);
 	return (name);
 }
