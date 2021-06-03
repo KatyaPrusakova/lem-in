@@ -6,7 +6,7 @@
 #    By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/06 10:12:45 by ksuomala          #+#    #+#              #
-#    Updated: 2021/04/25 13:59:40 by ksuomala         ###   ########.fr        #
+#    Updated: 2021/06/03 18:48:48 by ksuomala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,8 @@ OBJ_DIR = obj/
 
 LIBFT = libft/libft.a
 
+LIBFT_SRCS = libft/*.c
+
 CC = gcc
 
 FLAGS = -g -Wall -Wextra -Werror
@@ -54,13 +56,13 @@ $(NAME): $(OBJS)
 	@$(CC) $(FLAGS) $(OBJS) -o $(NAME) $(LINKS)
 	@echo "executable compiled!"
 
-$(OBJS): $(LIBFT) $(addprefix $(SRCS_DIR), $(SRCS)) $(OBJ_DIR)
+$(OBJS): $(LIBFT) $(addprefix $(SRCS_DIR), $(SRCS)) | $(OBJ_DIR)
 	@echo "Compiling..."
 	@$(CC) $(FLAGS) -c $(addprefix $(SRCS_DIR), $(SRCS)) $(INCL)
 	@echo "Compiled. Moving .o files..."
 	@mv $(SRCS:.c=.o) $(OBJ_DIR)
 
-$(LIBFT):
+$(LIBFT): $(LIBFT_SRCS)
 	@make -s -C libft
 
 $(OBJ_DIR):
