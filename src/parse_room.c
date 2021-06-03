@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/31 15:20:05 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/03 17:29:07 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ char	*first_word(char **line, int i)
 	if (!name)
 		print_error(2, line);
 	ft_free2d((void **)room);
-	if (ft_strchr(name, '#') || ft_strchr(name, 'L'))
+	if (name[0] == '#' || name[0] == 'L')
 		print_error(4, line);
 	return (name);
 }

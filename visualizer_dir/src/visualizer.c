@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:17:33 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/27 12:47:08 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/03 18:45:18 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ int	move_index(char **input, char *find)
 	static int	i;
 
 	while (ft_strcmp(input[i], find))
+	{
+		if (!input[i])
+			exit(0);
 		i++;
+	}
 	i++;
 	return (i);
 }

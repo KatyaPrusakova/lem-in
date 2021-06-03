@@ -98,7 +98,7 @@ void	visualize_search(t_pointers *p, t_data *scl, t_map *map, char **input)
 	i = move_index(input, "");
 	draw_graph(p, scl, map);
 	SDL_RenderPresent(p->renderer);
-	while (ft_strcmp(input[i], ""))
+	while (ft_strcmp(input[i], "") && !ft_strstr(input[i], " L"))
 	{
 		pause = events();
 		if (pause % 2 == 0)
