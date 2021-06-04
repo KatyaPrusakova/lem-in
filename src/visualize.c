@@ -6,18 +6,25 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:19:16 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/26 18:05:38 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/04 17:09:54 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
+
+void	visualizer_clean_graph(int visualize)
+{
+	if (visualize)
+		ft_printf("SEARCH\n");
+}
 
 void	path_to_visualizer(t_path *p, int offset, int mod_flow)
 {
 	int	prev_room;
 
 	prev_room = -1;
-	if (mod_flow){
+	if (mod_flow)
+	{
 		ft_printf("%dMOD|", p->i);
 		p = p->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:34:07 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/28 14:48:52 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/04 17:10:44 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,5 @@ int	check_path(t_graph *graph, t_search s, int *path_no, int prev_room)
 		return (1);
 	s.set[*path_no] = found_path;
 	*path_no += 1;
-/*	if (!pathlen_is_optimal(s.set, *path_no - 1, graph->ants))
-	{
-		s.set[*path_no - 1] = free_path(s.set[*path_no - 1]);
-		ft_dprintf(fd, "PATH TOO LONG\n");
-		return (0);
-	} */
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/24 16:05:37 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/04 16:48:45 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	link_to_adlist(int a, int b, t_graph *g)
 
 int	create_edge(int *adlist_index, t_graph *g)
 {
+	if (link_exists(g, adlist_index[0], adlist_index[1]))
+		return (0);
 	if (!adlist_index[0])
 	{
 		link_to_adlist(0, adlist_index[1], g);

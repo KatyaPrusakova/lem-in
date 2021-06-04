@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/28 14:07:22 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/04 17:08:10 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,5 +225,9 @@ void			print_matrix(int **matrix, int size);
 void			move_ants(t_path **p, t_graph *g);
 void			move_all_to_end(int ant_amount, char *end_room);
 int				pathlen_is_optimal(t_path **p, int path_nbr, int ants_left);
+
+int				link_exists(t_graph *g, int a, int b);
+void			visualizer_clean_graph(int visualize);
+
 
 #endif

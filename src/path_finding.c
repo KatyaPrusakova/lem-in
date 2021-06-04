@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/05/24 17:58:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/04 17:09:22 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	count_moves(t_path **path, int ants)
 		else
 			path_count--;
 	}
-//	ft_dprintf(fd, "PATH LINES: %d\n", lines + ants_in_path);
 	return (lines + ants_in_path);
 }
 
@@ -51,22 +50,17 @@ t_path	**set_cmp(t_path **p1, t_path **p2, int ants)
 	int	p1_lines;
 	int	p2_lines;
 
-//	print_paths(p1);
-//	ft_dprintf(fd, "\n\n");
-//	print_paths(p2);
 	p1_lines = count_moves(p1, ants);
 	p2_lines = count_moves(p2, ants);
 	ft_dprintf(fd, "Compare s1_moves: %d | s2_moves : %d\n", p1_lines, p2_lines);
 	if (!p2_lines || (p1_lines && p1_lines <= p2_lines))
 	{
 		p2 = free_path_set(&p2);
-//		ft_dprintf(fd, "SET1\n");
 		return (p1);
 	}
 	else
 	{
 		p1 = free_path_set(&p1);
-//		ft_dprintf(fd, "SET2\n");
 		return (p2);
 	}
 }
@@ -87,8 +81,6 @@ t_path	**edmonds_karp(t_graph *g)
 	t_path	**tmp_set;
 	t_path	**set;
 
-	//f (g->visualize)
-		//ft_printf("SEARCH\n");
 	set = NULL;
 	shortest = bfs(g, 0, g->room_total - 1);
 	g->max_paths = count_max_paths(g);
@@ -96,24 +88,19 @@ t_path	**edmonds_karp(t_graph *g)
 	{
 		mod_edgeweight_path(g, shortest);
 		free_path(shortest);
-		if (g->visualize)
-			ft_printf("SEARCH\n");
+		visualizer_clean_graph(g->visualize);
 		if (!set)
 			set = clean_set(bfs_set(g, 0, g->room_total - 1), g);
 		else
 		{
 			tmp_set = clean_set(bfs_set(g, 0, g->room_total - 1), g);
-			print_paths(tmp_set, g->adlist); //test
+			print_paths(tmp_set, g->adlist);
 			set = set_cmp(set, tmp_set, g->ants);
 		}
-		if (g->visualize)
-			ft_printf("SEARCH\n");
+		visualizer_clean_graph(g->visualize);
 		shortest = bfs(g, 0, g->room_total - 1);
 	}
-	if (g->visualize)
-		ft_printf("SEARCH\n");
-//	set = bfs_set(g, 0, g->room_total - 1);
-	// clean_set(set, g);
+	visualizer_clean_graph(g->visualize);
 	return (set);
 }
 
