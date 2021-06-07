@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:08:16 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/24 15:50:01 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/07 21:02:23 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,18 @@ void	free_adlist(t_room **graph, size_t size)
 	if (!graph)
 		return ;
 	i = -1;
-	while (++i < size && graph[i])
+	while (++i < size)
 	{
-		if (i < size / 2)
-			ft_strdel(&graph[i]->name);
-		while (graph[i])
+		if (graph[i])
 		{
-			tmp = graph[i];
-			graph[i] = graph[i]->next;
-			free(tmp);
+			if (i < size / 2)
+				ft_strdel(&graph[i]->name);
+			while (graph[i])
+			{
+				tmp = graph[i];
+				graph[i] = graph[i]->next;
+				free(tmp);
+			}
 		}
 	}
 	free(graph);

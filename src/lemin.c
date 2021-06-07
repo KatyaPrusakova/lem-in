@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/06/04 16:52:13 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/07 20:26:35 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ t_graph	*lem_in(t_graph *g, char **input)
 	{
 		set = edmonds_karp(g);
 		if (!set)
-			print_error(1, NULL);
+		{
+			free_data(g, input);
+			print_error(2, input);
+			free(input);
+		}
 		if (g->visualize)
 			ft_printf("\n");
 		print_input(input);
