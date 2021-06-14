@@ -39,8 +39,6 @@ OBJ_DIR = obj/
 
 LIBFT = libft/libft.a
 
-LIBFT_SRCS = libft/*.c
-
 CC = gcc
 
 FLAGS = -g -Wall -Wextra -Werror
@@ -57,13 +55,13 @@ $(NAME): $(OBJS)
 	@$(CC) $(FLAGS) $(OBJS) -o $(NAME) $(LINKS)
 	@echo "executable compiled!"
 
-$(OBJS): $(LIBFT) $(addprefix $(SRCS_DIR), $(SRCS)) | $(OBJ_DIR)
+$(OBJS): $(LIBFT) $(addprefix $(SRCS_DIR), $(SRCS)) $(OBJ_DIR)
 	@echo "Compiling..."
 	@$(CC) $(FLAGS) -c $(addprefix $(SRCS_DIR), $(SRCS)) $(INCL)
 	@echo "Compiled. Moving .o files..."
 	@mv $(SRCS:.c=.o) $(OBJ_DIR)
 
-$(LIBFT): $(LIBFT_SRCS)
+$(LIBFT):
 	@make -s -C libft
 
 $(OBJ_DIR):
