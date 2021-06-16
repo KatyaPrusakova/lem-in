@@ -4,8 +4,6 @@ Clean .h file. Comments.
 
 memory leaks
 
-path finding algorithm. Why is Satus so much better?
-
 free memory in error cases
 
 input not freed when no paths found.
