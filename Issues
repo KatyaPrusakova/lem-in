@@ -23,3 +23,4 @@ invalid/rooms/room_no_y_coord
 invalid/rooms/room_too_much_arg
 invalid/rooms/withot_coord
 
+after make re libft there is collect2: error

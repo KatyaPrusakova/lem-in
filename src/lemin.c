@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/06/07 20:26:35 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/16 16:57:06 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ t_graph	*lem_in(t_graph *g, char **input)
 		if (!set)
 		{
 			free_data(g, input);
-			print_error(2, input);
-			free(input);
+			print_error(8, NULL);
 		}
 		if (g->visualize)
 			ft_printf("\n");
