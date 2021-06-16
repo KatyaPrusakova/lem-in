@@ -18,6 +18,7 @@ t_graph	*lem_in(t_graph *g, char **input)
 {
 	t_path	**set;
 
+	print_input(input);
 	if (!g->unlimited_flow)
 	{
 		set = edmonds_karp(g);
@@ -29,7 +30,6 @@ t_graph	*lem_in(t_graph *g, char **input)
 		}
 		if (g->visualize)
 			ft_printf("\n");
-		print_input(input);
 		move_ants(set, g);
 		free_path_set(&set);
 	}
