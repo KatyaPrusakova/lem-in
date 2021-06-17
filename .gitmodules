@@ -2,3 +2,4 @@
 	path = libft
 	url = https://github.com/ksuomala/libft.git
 	branch = libft
+	update = rebase
