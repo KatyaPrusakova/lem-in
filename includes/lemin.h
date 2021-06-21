@@ -23,6 +23,7 @@
 
 #define START	"##start"
 #define END		"##end"
+#define MAX_ANTS "100000"
 
 int fd; //test
 

@@ -29,7 +29,7 @@ int	valid_ants(int flag, char **line)
 	i = is_comment(line, i);
 	ant = ft_atoi(line[i]);
 	if (!line[i] || !(ft_isnumeric_str(line[i])) || ant <= 0
-		|| ft_strnbrcmp(line[i], "2147483647") > 0)
+		|| ft_strnbrcmp(line[i], MAX_ANTS) > 0)
 		print_error(3, line);
 	i = is_comment(line, i + 1);
 	if (flag == 1)
