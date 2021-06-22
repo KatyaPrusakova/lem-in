@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/06/22 23:11:21 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/22 23:35:57 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define START "##start"
 # define END "##end"
 # define MAX_ANTS "100000"
+
+int	g_fd;
 
 typedef struct s_room
 {
@@ -166,8 +168,8 @@ char				**parse_input(void);
 
 int					link_to_adlist(int a, int b, t_graph *g);
 int					create_edge(int *index, t_graph *data);
-int					*edge_index(int link_name, int i, char **room,
-						t_graph *graph);
+//int					*edge_index(int link_name, int i, char **room,
+//						t_graph *graph);
 void				create_room_capacity(t_graph *g);
 int					parse_links(int i, char **input, t_graph *g);
 

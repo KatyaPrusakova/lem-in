@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/24 17:46:57 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/22 23:41:29 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ void	print_rooms(t_graph *graph)
 	i = 0;
 	while (graph->adlist[i])
 	{
-		ft_dprintf(fd, "%d |%s|", i, graph->adlist[i]->name);
+		ft_dprintf(g_fd, "%d |%s|", i, graph->adlist[i]->name);
 		if (graph->adlist[i]->next != NULL)
 		{
 			tmp = graph->adlist[i];
 			while (tmp->next != NULL)
 			{
 				tmp = tmp->next;
-				ft_dprintf(fd, " -> |%s|%d", tmp->name, tmp->index);
+				ft_dprintf(g_fd, " -> |%s|%d", tmp->name, tmp->index);
 			}
 		}
-		ft_dprintf(fd, " OUT: %d", graph->adlist[i]->out);
-		ft_dprintf(fd, "\n");
+		ft_dprintf(g_fd, " OUT: %d", graph->adlist[i]->out);
+		ft_dprintf(g_fd, "\n");
 		i++;
 	}
 }

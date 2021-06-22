@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/06/16 16:57:06 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/22 23:41:03 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	main(int argc, char **argv)
 	t_graph		*data;
 	char		**line;
 
-	fd = open("lemin.txt", O_RDWR);
-	if (!fd)
+	g_fd = open("lemin.txt", O_RDWR);
+	if (!g_fd)
 		print_error(1, NULL);
 	if (argc < 1)
 		return (0);
