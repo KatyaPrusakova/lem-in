@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_and_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:08:16 by eprusako          #+#    #+#             */
-/*   Updated: 2021/06/07 21:02:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/21 19:23:32 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	free_data(t_graph *data, char **input)
+void		free_data(t_graph *data, char **input)
 {
 	ft_free2d((void **)input);
 	ft_free2d((void **)data->weight_m);
@@ -24,10 +24,10 @@ void	free_data(t_graph *data, char **input)
 ** Return 2d array for the weight values of edges between the rooms
 */
 
-int	**create_matrix(int height, int width)
+int			**create_matrix(int height, int width)
 {
-	int	**matrix;
-	int	i;
+	int		**matrix;
+	int		i;
 
 	i = 0;
 	matrix = ft_memalloc(sizeof(int *) * (height + 1));
@@ -43,7 +43,7 @@ int	**create_matrix(int height, int width)
 	return (matrix);
 }
 
-t_path	*free_path(t_path *path)
+t_path		*free_path(t_path *path)
 {
 	t_path	*tmp;
 
@@ -56,9 +56,9 @@ t_path	*free_path(t_path *path)
 	return (NULL);
 }
 
-t_path	**free_path_set(t_path ***set)
+t_path		**free_path_set(t_path ***set)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	if (!set[0])
@@ -72,7 +72,7 @@ t_path	**free_path_set(t_path ***set)
 	return (NULL);
 }
 
-void	free_adlist(t_room **graph, size_t size)
+void		free_adlist(t_room **graph, size_t size)
 {
 	size_t	i;
 	t_room	*tmp;

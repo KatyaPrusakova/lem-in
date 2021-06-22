@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   move_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:01:22 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/06/04 17:10:20 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/21 19:16:23 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// first_set
-// sorted search
-
 #include "lemin.h"
 
-void	move_all_to_end(int ant_amount, char *end_room)
+/*
+** first_set
+** sorted search
+*/
+
+void		move_all_to_end(int ant_amount, char *end_room)
 {
-	int	i;
+	int		i;
 
 	i = 1;
 	while (i <= ant_amount)
@@ -35,7 +37,7 @@ void	move_all_to_end(int ant_amount, char *end_room)
 ** first room. Returns the amount of ants found in the path.
 */
 
-int	push_path(t_path *p, int add_ant)
+int			push_path(t_path *p, int add_ant)
 {
 	t_path	*room;
 	int		push_ant;
@@ -61,11 +63,11 @@ int	push_path(t_path *p, int add_ant)
 	return (ants_in_path);
 }
 
-void	empty_paths(t_path **p)
+void		empty_paths(t_path **p)
 {
-	int	longest_path;
-	int	paths_left;
-	int	i;
+	int		longest_path;
+	int		paths_left;
+	int		i;
 
 	longest_path = 0;
 	while (p[longest_path])
@@ -88,10 +90,10 @@ void	empty_paths(t_path **p)
 	}
 }
 
-int	pathlen_is_optimal(t_path **p, int path_nbr, int ants_left)
+int			pathlen_is_optimal(t_path **p, int path_nbr, int ants_left)
 {
-	int	pathset_capacity;
-	int	flow_potential;
+	int		pathset_capacity;
+	int		flow_potential;
 
 	if (!path_nbr)
 		return (1);
@@ -105,11 +107,11 @@ int	pathlen_is_optimal(t_path **p, int path_nbr, int ants_left)
 	}
 }
 
-void	move_ants(t_path **p, t_graph *g)
+void		move_ants(t_path **p, t_graph *g)
 {
-	int	ants_at_start;
-	int	ant_no;
-	int	i;
+	int		ants_at_start;
+	int		ant_no;
+	int		i;
 
 	ant_no = 1;
 	ants_at_start = g->ants;

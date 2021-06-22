@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   create_queue.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/24 15:43:45 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/21 19:15:21 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	free_queue(t_queue *q)
+void		free_queue(t_queue *q)
 {
 	while (q->head)
 		dequeue(q);
 	ft_memdel((void **)&q);
 }
 
-int	is_queued(int index, t_queue *q)
+int			is_queued(int index, t_queue *q)
 {
 	t_room	*tmp;
 
@@ -39,7 +39,7 @@ int	is_queued(int index, t_queue *q)
 ** Add room to the queue
 */
 
-t_queue	*enqueue(int index, t_queue *q, t_room **adlist, int prev)
+t_queue		*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 {
 	t_room	*new;
 
@@ -69,7 +69,7 @@ t_queue	*enqueue(int index, t_queue *q, t_room **adlist, int prev)
 ** Delete room from the queue
 */
 
-t_queue	*dequeue(t_queue *q)
+t_queue		*dequeue(t_queue *q)
 {
 	t_room	*tmp;
 

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   path_finding.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/06/04 17:09:22 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/21 19:20:36 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int	count_moves(t_path **path, int ants)
+int			count_moves(t_path **path, int ants)
 {
-	int	path_count;
-	int	lines;
-	int	ants_in_path;
+	int		path_count;
+	int		lines;
+	int		ants_in_path;
 
 	if (!path)
 		return (0);
@@ -45,14 +45,14 @@ int	count_moves(t_path **path, int ants)
 ** equal,the lengh of the longest path in the set determines which path is used.
 */
 
-t_path	**set_cmp(t_path **p1, t_path **p2, int ants)
+t_path		**set_cmp(t_path **p1, t_path **p2, int ants)
 {
-	int	p1_lines;
-	int	p2_lines;
+	int		p1_lines;
+	int		p2_lines;
 
 	p1_lines = count_moves(p1, ants);
 	p2_lines = count_moves(p2, ants);
-	ft_dprintf(fd, "Compare s1_moves: %d | s2_moves : %d\n", p1_lines, p2_lines);
+	ft_dprintf(fd, "Compare s1_moves: %d | s2_moves: %d\n", p1_lines, p2_lines);
 	if (!p2_lines || (p1_lines && p1_lines <= p2_lines))
 	{
 		p2 = free_path_set(&p2);
@@ -65,9 +65,9 @@ t_path	**set_cmp(t_path **p1, t_path **p2, int ants)
 	}
 }
 
-t_path	**clean_set(t_path **set, t_graph *g)
+t_path		**clean_set(t_path **set, t_graph *g)
 {
-	int	i;
+	int		i;
 
 	i = -1;
 	while (set[++i])
@@ -75,7 +75,7 @@ t_path	**clean_set(t_path **set, t_graph *g)
 	return (set);
 }
 
-t_path	**edmonds_karp(t_graph *g)
+t_path		**edmonds_karp(t_graph *g)
 {
 	t_path	*shortest;
 	t_path	**tmp_set;
@@ -109,7 +109,7 @@ t_path	**edmonds_karp(t_graph *g)
 ** all ants to be able to flow straight to the end room in one line.
 */
 
-t_path	**unlimited_flow(void)
+t_path		**unlimited_flow(void)
 {
 	t_path	**no_rooms;
 

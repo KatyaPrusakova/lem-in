@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print_out.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/05/24 17:46:57 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/21 19:18:04 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	print_rooms(t_graph *graph)
+void		print_rooms(t_graph *graph)
 {
 	int		i;
 	t_room	*tmp;
@@ -36,9 +36,9 @@ void	print_rooms(t_graph *graph)
 	}
 }
 
-void	print_input(char **line)
+void		print_input(char **line)
 {
-	int	i;
+	int		i;
 
 	i = -1;
 	while (line[++i])
@@ -48,7 +48,7 @@ void	print_input(char **line)
 	ft_printf("\n");
 }
 
-int	print_error(int opt, char **input)
+int			print_error(int opt, char **input)
 {
 	if (input)
 		ft_free2d((void **)input);
@@ -75,4 +75,56 @@ int	print_error(int opt, char **input)
 	if (opt == 10)
 		write(1, "invalid map\n", 13);
 	exit(0);
+}
+
+void		print_paths(t_path **path, t_room **adlist)
+{
+	t_path	*tmp;
+	int		i;
+
+	i = -1;
+	if (!path)
+		return ;
+	if (path[0])
+	{
+		ft_dprintf(fd, "Shortest path len %d :\n", path[0]->len);
+		while (path[++i])
+		{
+			tmp = path[i];
+			ft_dprintf(fd, "path n %d: len %d:\n", i, path[i]->len);
+			while (tmp)
+			{
+				ft_dprintf(fd, "%d(%s) |", tmp->i, adlist[tmp->i]->name);
+				tmp = tmp->next;
+			}
+			ft_dprintf(fd, "\n");
+		}
+	}
+	else
+		ft_dprintf(fd, "START is connected to END\n");
+	ft_dprintf(fd, "\n");
+	ft_dprintf(fd, "\n");
+}
+
+void		print_matrix(int **matrix, int size)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	j = -1;
+	ft_dprintf(fd, "    ");
+	while (++i < size)
+		ft_dprintf(fd, " %3d ", i);
+	ft_dprintf(fd, "\n");
+	i = -1;
+	while (++j < size)
+	{
+		ft_dprintf(fd, "%2d  |", j);
+		while (++i < size)
+			ft_dprintf(fd, "[%2d] ", matrix[j][i]);
+		i = -1;
+		ft_dprintf(fd, "\n");
+	}
+	ft_dprintf(fd, "\n");
 }

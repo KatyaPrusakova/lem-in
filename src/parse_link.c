@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_link.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/06/07 20:53:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/21 19:30:23 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** and a to the end of the list in adlist[b].
 */
 
-int	link_to_adlist(int a, int b, t_graph *g)
+int			link_to_adlist(int a, int b, t_graph *g)
 {
 	t_room	*new;
 	t_room	*tmp;
@@ -48,7 +48,7 @@ int	link_to_adlist(int a, int b, t_graph *g)
 ** Add edge between room0.in -room 1 out both ways.
 */
 
-int	create_edge(int *adlist_index, t_graph *g)
+int			create_edge(int *adlist_index, t_graph *g)
 {
 	if (link_exists(g, adlist_index[0], adlist_index[1]))
 		return (0);
@@ -75,14 +75,10 @@ int	create_edge(int *adlist_index, t_graph *g)
 ** Returns the indexes of the rooms as an allocated int[2].
 */
 
-int	*edge_index(char **room, t_graph *graph)
+int			*edge_index(int link_name, int i, char **room, t_graph *graph)
 {
-	int		link_name;
 	int		*index;
-	int		i;
 
-	link_name = 0;
-	i = -1;
 	index = ft_memalloc(sizeof(int) * 2);
 	if (!index)
 		print_error(2, NULL);
@@ -111,9 +107,9 @@ int	*edge_index(char **room, t_graph *graph)
 ** Creating out-rooms for every room in the graph.
 */
 
-void	create_room_capacity(t_graph *g)
+void		create_room_capacity(t_graph *g)
 {
-	int	i;
+	int		i;
 
 	i = 1;
 	while (i < g->room_total - 1)
@@ -130,21 +126,21 @@ void	create_room_capacity(t_graph *g)
 ** Adding the edges to the adjacency list in create_edge().
 */
 
-int	parse_links(int i, char **input, t_graph *g)
+int			parse_links(int i, char **input, t_graph *g)
 {
 	char	**rooms_to_link;
 	int		*edges;
 
 	create_room_capacity(g);
-	while (input[i] && (ft_strchr(input[i], '-') || input[i][0] == '#'))
+	while (input[++i] && (ft_strchr(input[i], '-') || input[i][0] == '#'))
 	{
 		if (ft_strchr(input[i], '-'))
 		{
 			rooms_to_link = ft_strsplit(input[i], '-');
-			edges = edge_index(rooms_to_link, g);
+			edges = edge_index(0, -1, rooms_to_link, g);
 			ft_free2d((void **)rooms_to_link);
 			if (!edges)
-				return(0);
+				return (0);
 			if ((edges[0] == 0 && edges[1] == g->room_total - 1)
 				|| (edges[1] == 0 && edges[0] == g->room_total - 1))
 				g->unlimited_flow = 1;
@@ -153,7 +149,6 @@ int	parse_links(int i, char **input, t_graph *g)
 			if (g->unlimited_flow)
 				return (1);
 		}
-		i++;
 	}
 	if (input[i])
 		print_error(10, input);
