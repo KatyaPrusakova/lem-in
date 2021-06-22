@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/06/07 20:53:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/22 23:13:41 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ int	*edge_index(char **room, t_graph *graph)
 			link_name++;
 		}
 	}
-	if (link_name != 2)
+	if (link_name != 2) //exit
 	{
-		ft_memdel((void*)&index);
+		ft_memdel((void *)&index);
 		return (NULL);
 	}
 	return (index);
@@ -144,7 +144,7 @@ int	parse_links(int i, char **input, t_graph *g)
 			edges = edge_index(rooms_to_link, g);
 			ft_free2d((void **)rooms_to_link);
 			if (!edges)
-				return(0);
+				return (0);
 			if ((edges[0] == 0 && edges[1] == g->room_total - 1)
 				|| (edges[1] == 0 && edges[0] == g->room_total - 1))
 				g->unlimited_flow = 1;

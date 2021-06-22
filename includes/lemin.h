@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:32:15 by eprusako          #+#    #+#             */
-/*   Updated: 2021/06/21 19:30:49 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/06/22 23:11:21 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@
 # define END "##end"
 # define MAX_ANTS "100000"
 
-int fd; //delete
-
-typedef struct		s_room
+typedef struct s_room
 {
 	char			*name;
 	int				index;
@@ -35,7 +33,7 @@ typedef struct		s_room
 	struct s_room	*next;
 }					t_room;
 
-typedef	struct		s_search
+typedef struct s_search
 {
 	struct s_queue	*q;
 	struct s_room	*tmp;
@@ -48,13 +46,13 @@ typedef	struct		s_search
 	int				end;
 }					t_search;
 
-typedef	struct		s_queue
+typedef struct s_queue
 {
 	t_room			*head;
 	t_room			*tail;
 }					t_queue;
 
-typedef struct		s_graph
+typedef struct s_graph
 {
 	int				ants;
 	int				unlimited_flow;
@@ -71,7 +69,7 @@ typedef struct		s_graph
 ** The paths are saved as linked lists using t_path stuct pointers.
 */
 
-typedef	struct		s_path
+typedef struct s_path
 {
 	int				i;
 	int				len;
@@ -168,7 +166,8 @@ char				**parse_input(void);
 
 int					link_to_adlist(int a, int b, t_graph *g);
 int					create_edge(int *index, t_graph *data);
-int					*edge_index(int link_name, int i, char **room, t_graph *graph);
+int					*edge_index(int link_name, int i, char **room,
+						t_graph *graph);
 void				create_room_capacity(t_graph *g);
 int					parse_links(int i, char **input, t_graph *g);
 
