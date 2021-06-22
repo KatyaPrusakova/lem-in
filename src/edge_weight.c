@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edge_weight.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 15:30:46 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/06/21 19:15:38 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:22:00 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** search.
 */
 
-int		check_weight(int link_weight, int set_weight)
+int	check_weight(int link_weight, int set_weight)
 {
 	if (set_weight == 1 && link_weight < 1)
 		return (1);

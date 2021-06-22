@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_room.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/06/21 19:19:06 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/06/03 17:29:07 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** for addlist struct
 */
 
-int			count_rooms(char **input)
+int	count_rooms(char **input)
 {
 	int		i;
 	int		start_end;
@@ -46,7 +46,7 @@ int			count_rooms(char **input)
 ** !flag == rooms between start too end
 */
 
-void		add_room(int flag, char *room_name, t_graph *graph)
+void	add_room(int flag, char *room_name, t_graph *graph)
 {
 	int		i;
 	t_room	*new;
@@ -75,7 +75,11 @@ void		add_room(int flag, char *room_name, t_graph *graph)
 	graph->adlist[graph->room_total + i]->index = graph->room_total + i;
 }
 
-int			parse_room(int i, char **line, t_graph *graph)
+/*
+**
+*/
+
+int	parse_room(int i, char **line, t_graph *graph)
 {
 	while (line[i] && !ft_strchr(line[i], '-'))
 	{
@@ -97,7 +101,7 @@ int			parse_room(int i, char **line, t_graph *graph)
 ** Function to check if room is valid
 */
 
-int			is_room(char **input, int i)
+int	is_room(char **input, int i)
 {
 	char	**room;
 
@@ -111,7 +115,7 @@ int			is_room(char **input, int i)
 	return (1);
 }
 
-char		*first_word(char **line, int i)
+char	*first_word(char **line, int i)
 {
 	char	**room;
 	char	*name;

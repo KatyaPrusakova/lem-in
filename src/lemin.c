@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:03:05 by eprusako          #+#    #+#             */
-/*   Updated: 2021/06/21 19:22:53 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/06/16 16:57:06 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-t_graph			*lem_in(t_graph *g, char **input)
+// #link1-link2 gives an error as invalid link
+
+t_graph	*lem_in(t_graph *g, char **input)
 {
-	t_path		**set;
+	t_path	**set;
 
 	print_input(input);
 	if (!g->unlimited_flow)
@@ -38,7 +40,7 @@ t_graph			*lem_in(t_graph *g, char **input)
 	return (g);
 }
 
-int				main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_graph		*data;
 	char		**line;

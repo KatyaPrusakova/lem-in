@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 15:25:06 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/06/21 19:24:56 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/05/26 17:49:35 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int				check_flow(t_room *src, t_room *dst, int max_flow, t_graph *g)
+int	check_flow(t_room *src, t_room *dst, int max_flow, t_graph *g)
 {
-	int			flow;
-	int			out;
+	int	flow;
+	int	out;
 
 	flow = g->weight_m[src->index][dst->index];
 	out = src->out;
@@ -31,9 +31,9 @@ int				check_flow(t_room *src, t_room *dst, int max_flow, t_graph *g)
 		return (0);
 }
 
-void			visit_room(t_search s, t_graph *graph, int max_flow)
+void	visit_room(t_search s, t_graph *graph, int max_flow)
 {
-	t_room		*tmp;
+	t_room	*tmp;
 
 	if (s.visited[s.room->index] != -1)
 		return ;
@@ -50,7 +50,7 @@ void			visit_room(t_search s, t_graph *graph, int max_flow)
 		visualize_search(graph, s.room, graph->weight_m);
 }
 
-t_path			*bfs(t_graph *g, int start, int end)
+t_path	*bfs(t_graph *g, int start, int end)
 {
 	t_search	s;
 
@@ -78,7 +78,7 @@ t_path			*bfs(t_graph *g, int start, int end)
 	return (s.path);
 }
 
-t_search		init_search(t_graph *g, int start, int end)
+t_search	init_search(t_graph *g, int start, int end)
 {
 	t_search	search;
 	int			i;
@@ -109,7 +109,7 @@ t_search		init_search(t_graph *g, int start, int end)
 ** The paths are not allowed to use the same rooms.
 */
 
-t_path			**bfs_set(t_graph *graph, int start, int end)
+t_path	**bfs_set(t_graph *graph, int start, int end)
 {
 	t_search	s;
 

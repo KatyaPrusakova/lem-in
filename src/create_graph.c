@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_graph.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 12:51:11 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/06/21 19:31:36 by eprusako         ###   ########.fr       */
+/*   Updated: 2021/06/07 20:54:27 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_graph	*create_graph(int rooms, char **line)
 	new->weight_m = create_matrix(rooms * 2, rooms * 2);
 	i = parse_ants(line, new);
 	i = parse_room(i, line, new);
-	if (!parse_links(i - 1, line, new))
+	if (!parse_links(i, line, new))
 	{
 		free_data(new, line);
 		print_error(5, NULL);
