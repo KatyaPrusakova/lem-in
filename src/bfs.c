@@ -35,19 +35,19 @@ void	visit_room(t_search s, t_graph *graph, int max_flow)
 {
 	t_room	*tmp;
 
-	if (s.visited[s.room->index] != -1)
+	if (s.visited[s.room.index] != -1)
 		return ;
-	s.visited[s.room->index] = s.room->prev_room_index;
-	tmp = s.room->next;
+	s.visited[s.room.index] = s.room.prev_room_index;
+	tmp = s.room.next;
 	while (tmp)
 	{
-		if (s.visited[tmp->index] == -1 && check_flow(s.room, \
+		if (s.visited[tmp->index] == -1 && check_flow(&s.room, \
 		tmp, max_flow, graph))
-			enqueue(tmp->index, s.q, graph->adlist, s.room->index);
+			enqueue(tmp->index, s.q, graph->adlist, s.room.index);
 		tmp = tmp->next;
 	}
 	if (graph->visualize)
-		visualize_search(graph, s.room, graph->weight_m);
+		visualize_search(graph, &s.room, graph->weight_m);
 }
 
 t_path	*bfs(t_graph *g, int start, int end)
@@ -57,20 +57,17 @@ t_path	*bfs(t_graph *g, int start, int end)
 	s = init_search(g, start, end);
 	while (!s.path && s.q->head)
 	{
-		s.room = ft_memdup((void *)g->adlist[s.q->head->index], sizeof(t_room));
-		if (!s.room)
-			print_error(2, NULL);
-		s.room->prev_room_index = s.q->head->prev_room_index;
+		s.room = *g->adlist[s.q->head->index];
+		s.room.prev_room_index = s.q->head->prev_room_index;
 		dequeue(s.q);
-		if (s.room->index == s.end)
+		if (s.room.index == s.end)
 		{
-			s.path = save_path(s.visited, g, s, s.room->prev_room_index);
+			s.path = save_path(s.visited, g, s, s.room.prev_room_index);
 			if (g->visualize)
 				path_to_visualizer(s.path, g->room_total, 1);
 		}
 		else
 			visit_room(s, g, 0);
-		ft_memdel((void **)&s.room);
 	}
 	ft_memdel((void **)&s.visited);
 	ft_free2d((void **)s.set);
@@ -116,18 +113,17 @@ t_path	**bfs_set(t_graph *graph, int start, int end)
 	s = init_search(graph, start, end);
 	while (s.q->head && s.path_no < graph->max_paths)
 	{
-		s.room = ft_memdup(graph->adlist[s.q->head->index], sizeof(t_room));
-		s.room->prev_room_index = s.q->head->prev_room_index;
+		s.room = *graph->adlist[s.q->head->index];
+		s.room.prev_room_index = s.q->head->prev_room_index;
 		if (s.q->head)
 			dequeue(s.q);
-		if (s.room->index == s.end)
+		if (s.room.index == s.end)
 		{
-			if (!check_path(graph, s, &s.path_no, s.room->prev_room_index))
+			if (!check_path(graph, s, &s.path_no, s.room.prev_room_index))
 				s.path_no = graph->max_paths;
 		}
 		else
 			visit_room(s, graph, 1);
-		ft_memdel((void **)&s.room);
 	}
 	ft_memdel((void **)&s.visited);
 	free_queue(s.q);

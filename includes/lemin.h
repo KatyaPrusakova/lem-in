@@ -13,8 +13,6 @@
 #ifndef LEMIN_H
 # define LEMIN_H
 
-# include <stdio.h> //delete
-# include <fcntl.h> //delete?
 # include <stdlib.h>
 # include "../libft/libft.h"
 
@@ -39,7 +37,7 @@ typedef struct s_search
 {
 	struct s_queue	*q;
 	struct s_room	*tmp;
-	struct s_room	*room;
+	struct s_room	room;
 	struct s_path	*path;
 	struct s_path	**set;
 	int				*visited;

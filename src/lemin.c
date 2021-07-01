@@ -12,8 +12,6 @@
 
 #include "lemin.h"
 
-// #link1-link2 gives an error as invalid link
-
 t_graph	*lem_in(t_graph *g, char **input)
 {
 	t_path	**set;
@@ -45,9 +43,6 @@ int	main(int argc, char **argv)
 	t_graph		*data;
 	char		**line;
 
-	g_fd = open("lemin.txt", O_RDWR);
-	if (!g_fd)
-		print_error(1, NULL);
 	if (argc < 1)
 		return (0);
 	line = parse_input();

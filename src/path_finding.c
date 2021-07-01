@@ -75,6 +75,11 @@ t_path	**clean_set(t_path **set, t_graph *g)
 	return (set);
 }
 
+/*
+** edmonds_karp runs bfs in a loop. Each time a new path is found it is augmented in the
+** graph with the mod_edgeweight_path function. 
+*/
+
 t_path	**edmonds_karp(t_graph *g)
 {
 	t_path	*shortest;
@@ -94,7 +99,6 @@ t_path	**edmonds_karp(t_graph *g)
 		else
 		{
 			tmp_set = clean_set(bfs_set(g, 0, g->room_total - 1), g);
-			print_paths(tmp_set, g->adlist);
 			set = set_cmp(set, tmp_set, g->ants);
 		}
 		visualizer_clean_graph(g->visualize);
