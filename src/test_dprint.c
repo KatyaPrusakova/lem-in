@@ -22,23 +22,23 @@ void	print_paths(t_path **path, t_room **adlist)
 		return ;
 	if (path[0])
 	{
-		ft_dprintf(g_fd, "Shortest path len %d :\n", path[0]->len);
+		ft_printf("Shortest path len %d :\n", path[0]->len);
 		while (path[++i])
 		{
 			tmp = path[i];
-			ft_dprintf(g_fd, "path n %d: len %d:\n", i, path[i]->len);
+			ft_printf("path n %d: len %d:\n", i, path[i]->len);
 			while (tmp)
 			{
-				ft_dprintf(g_fd, "%d(%s) |", tmp->i, adlist[tmp->i]->name);
+				ft_printf("%d(%s) |", tmp->i, adlist[tmp->i]->name);
 				tmp = tmp->next;
 			}
-			ft_dprintf(g_fd, "\n");
+			ft_printf("\n");
 		}
 	}
 	else
-		ft_dprintf(g_fd, "START is connected to END\n");
-	ft_dprintf(g_fd, "\n");
-	ft_dprintf(g_fd, "\n");
+		ft_printf("START is connected to END\n");
+	ft_printf("\n");
+	ft_printf("\n");
 }
 
 void	print_matrix(int **matrix, int size)

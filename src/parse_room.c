@@ -54,7 +54,6 @@ void	add_room(int flag, char *room_name, t_graph *graph)
 	new = ft_memalloc(sizeof(t_room));
 	if (!room_name || !new)
 		print_error(2, NULL);
-	new->prev_room_index = -1;
 	if (flag == 1)
 		i = 0;
 	else if (flag == 2)

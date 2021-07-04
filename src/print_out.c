@@ -20,18 +20,18 @@ void	print_rooms(t_graph *graph)
 	i = 0;
 	while (graph->adlist[i])
 	{
-		ft_dprintf(g_fd, "%d |%s|", i, graph->adlist[i]->name);
+		ft_printf("%d |%s|", i, graph->adlist[i]->name);
 		if (graph->adlist[i]->next != NULL)
 		{
 			tmp = graph->adlist[i];
 			while (tmp->next != NULL)
 			{
 				tmp = tmp->next;
-				ft_dprintf(g_fd, " -> |%s|%d", tmp->name, tmp->index);
+				ft_printf(" -> |%s|%d", tmp->name, tmp->index);
 			}
 		}
-		ft_dprintf(g_fd, " OUT: %d", graph->adlist[i]->out);
-		ft_dprintf(g_fd, "\n");
+		ft_printf(" OUT: %d", graph->adlist[i]->out);
+		ft_printf("\n");
 		i++;
 	}
 }

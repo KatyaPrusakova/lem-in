@@ -46,11 +46,15 @@ typedef struct s_search
 	int				end;
 }					t_search;
 
-typedef struct s_queue
+
+
+typedef struct  s_queue
 {
-	t_room			*head;
-	t_room			*tail;
-}					t_queue;
+    int *data;
+    int head;
+	int size;
+    int len;
+}               t_queue;
 
 typedef struct s_graph
 {
@@ -85,7 +89,7 @@ typedef struct s_path
 
 int					check_flow(t_room *src, t_room *dst, int max_flow, \
 t_graph *g);
-void				visit_room(t_search s, t_graph *graph, int max_flow);
+t_search			visit_room(t_search s, t_graph *graph, int max_flow);
 t_path				*bfs(t_graph *g, int start, int end);
 t_search			init_search(t_graph *g, int start, int end);
 t_path				**bfs_set(t_graph *graph, int start, int end);
@@ -100,10 +104,15 @@ t_graph				*create_graph(int rooms, char **line);
 ** CREATE_QUEUE.C
 */
 
-void				free_queue(t_queue *q);
+void free_queue(t_queue *q);
+
 int					is_queued(int index, t_queue *q);
-t_queue				*enqueue(int index, t_queue *q, t_room **adlist, int prev);
-t_queue				*dequeue(t_queue *q);
+//t_queue				*enqueue(int index, t_queue *q, t_room **adlist, int prev);
+// t_queue				*dequeue(t_queue *q);
+void dequeue(t_queue *q);
+t_queue *enqueue(int index, t_queue *q);
+
+
 
 /*
 ** EDGE_WEIGTH.C
@@ -227,7 +236,7 @@ int prev_room);
 
 void				visualizer_clean_graph(int visualize);
 void				path_to_visualizer(t_path *p, int offset, int mod_flow);
-void				visualize_search(t_graph *g, t_room *room, int **matrix);
+void				visualize_search(int *visited, t_graph *g, t_room *room, int **matrix);
 
 /*
 ** //   add to libft
