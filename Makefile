@@ -18,7 +18,7 @@ SRCS = lemin.c \
 	parse_ants.c \
 	parse_link.c \
 	parse_room.c \
-	dynamic_queue.c \
+	queue.c \
 	print_out.c \
 	path_finding.c \
 	path_calculations.c \
