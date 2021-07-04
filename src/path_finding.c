@@ -52,7 +52,8 @@ t_path	**set_cmp(t_path **p1, t_path **p2, int ants)
 
 	p1_lines = count_moves(p1, ants);
 	p2_lines = count_moves(p2, ants);
-	ft_dprintf(g_fd, "Compare s1_moves: %d | s2_moves : %d\n", p1_lines, p2_lines);
+	ft_dprintf(g_fd, "Compare s1_moves: %d | s2_moves : %d\n", p1_lines, \
+	p2_lines);
 	if (!p2_lines || (p1_lines && p1_lines <= p2_lines))
 	{
 		p2 = free_path_set(&p2);
@@ -76,8 +77,8 @@ t_path	**clean_set(t_path **set, t_graph *g)
 }
 
 /*
-** edmonds_karp runs bfs in a loop. Each time a new path is found it is augmented in the
-** graph with the mod_edgeweight_path function. 
+** edmonds_karp runs bfs in a loop. Each time a new path is found it is 
+** augmented in the graph with the mod_edgeweight_path function. 
 */
 
 t_path	**edmonds_karp(t_graph *g)
