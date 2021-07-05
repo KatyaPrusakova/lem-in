@@ -77,29 +77,22 @@ int	create_edge(int *adlist_index, t_graph *g)
 
 int	*edge_index(char **room, t_graph *graph)
 {
-	int		link_name;
 	int		*index;
 	int		i;
 
-	link_name = 0;
 	i = -1;
-	index = ft_memalloc(sizeof(int) * 2);
+	index = (int *)malloc(sizeof(int) * 2);
 	if (!index)
 		print_error(2, NULL);
+	ft_memset(index, -1, sizeof(int) * 2);
 	while (++i < graph->room_total)
 	{
 		if (!(ft_strcmp(graph->adlist[i]->name, room[0])))
-		{
 			index[0] = i;
-			link_name++;
-		}
 		if (!(ft_strcmp(graph->adlist[i]->name, room[1])))
-		{
 			index[1] = i;
-			link_name++;
-		}
 	}
-	if (link_name != 2) //exit
+	if (index[0] == -1 || index[1] == -1)
 	{
 		ft_memdel((void *)&index);
 		return (NULL);
@@ -136,7 +129,7 @@ int	parse_links(int i, char **input, t_graph *g)
 	int		*edges;
 
 	create_room_capacity(g);
-	while (input[i] && (ft_strchr(input[i], '-') || input[i][0] == '#'))
+	while (input[++i] && (ft_strchr(input[i], '-') || input[i][0] == '#'))
 	{
 		if (ft_strchr(input[i], '-'))
 		{
@@ -153,7 +146,6 @@ int	parse_links(int i, char **input, t_graph *g)
 			if (g->unlimited_flow)
 				return (1);
 		}
-		i++;
 	}
 	if (input[i])
 		print_error(10, input);
