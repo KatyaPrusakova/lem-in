@@ -93,6 +93,7 @@ t_search			visit_room(t_search s, t_graph *graph, int max_flow);
 t_path				*bfs(t_graph *g, int start, int end);
 t_search			init_search(t_graph *g, int start, int end);
 t_path				**bfs_set(t_graph *graph, int start, int end);
+int 				end_is_neighbour(t_room *list, int end);
 
 /*
 ** CREATE_GRAPH.C

@@ -36,7 +36,7 @@ void		create_rooms(char **input, t_room **room_array)
 	total_rooms = 1;
 	*room_array = ft_memalloc(sizeof(t_room) * len);
 	i = 0;
-	while (ft_strcmp(input[i], ""))
+	while (input[i] && ft_strcmp(input[i], ""))
 	{
 		if (ft_strstr(input[i], "##start"))
 			room_array[0][0] = add_room(input[++i]);

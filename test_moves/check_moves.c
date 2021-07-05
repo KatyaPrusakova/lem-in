@@ -104,7 +104,7 @@ void	check_moves(char **input, t_room *rooms, int **ad_matrix)
 	if (!ant_src || !ant_dst)
 		error_exit("malloc failed in check_moves");
 	i = 0;
-	while (ft_strcmp(input[i], ""))
+	while (input[i] && ft_strcmp(input[i], ""))
 		i++;
 	i++;
 	while (ft_strchr(input[i], 'L'))

@@ -119,9 +119,10 @@ t_path	**bfs_set(t_graph *graph, int start, int end)
 		s.room = *graph->adlist[s.q->data[s.q->head]];
 		if (s.q->len)
 			dequeue(s.q);
-		if (s.room.index == s.end)
+		if (end_is_neighbour(&s.room, s.end))
 		{
-			if (!check_path(graph, s, &s.path_no, s.room.prev_room_index))
+			s.visited[s.room.index] = s.room.prev_room_index;
+			if (!check_path(graph, s, &s.path_no, s.room.index))
 				s.path_no = graph->max_paths;
 		}
 		else
@@ -134,3 +135,4 @@ t_path	**bfs_set(t_graph *graph, int start, int end)
 	else
 		return (s.set);
 }
+//gnl empty line
