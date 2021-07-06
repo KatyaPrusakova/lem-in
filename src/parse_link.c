@@ -131,7 +131,7 @@ int	parse_links(int i, char **input, t_graph *g)
 	create_room_capacity(g);
 	while (input[++i] && (ft_strchr(input[i], '-') || input[i][0] == '#'))
 	{
-		if (ft_strchr(input[i], '-'))
+		if (input[i][0] != '#' && ft_strchr(input[i], '-'))
 		{
 			rooms_to_link = ft_strsplit(input[i], '-');
 			edges = edge_index(rooms_to_link, g);
