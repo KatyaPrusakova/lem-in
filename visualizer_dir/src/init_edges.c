@@ -47,7 +47,7 @@ t_edge	*new_edge(t_edge *head, t_room *rooms, char *src, char *dst)
 	new->src = edge_index(rooms, src);
 	new->dst = edge_index(rooms, dst);
 	edge_to_adlist(rooms, new->src, new->dst);
-	new->rgba = RGBA_VOID;
+	new->rgba = convert_color(RGBA_VOID);
 	new->next = NULL;
 	if (!head)
 		return (new);

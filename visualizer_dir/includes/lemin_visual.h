@@ -8,13 +8,11 @@
 # define MOVE_ANT_DELAY 0
 # define PI  3.14159
 
-# define RGBA_VOID (t_rgb){70, 70, 70, 255}
-# define RGBA_REVERSED (t_rgb){0, 120, 0, 255}
-# define RGBA_REMOVED (t_rgb){150, 0, 0, 255}
-# define RGBA_QUEUED (t_rgb){0, 0, 70, 255}
-# define RGBA_VISITED (t_rgb){0, 0, 170, 255}
-# define RGBA_PATH (t_rgb){0, 120, 0, 255}
-# define RGBA_END (t_rgb){50, 0, 50, 255}
+# define RGBA_VOID "070070070255"
+# define RGBA_REVERSED "000120000255"
+# define RGBA_VISITED "000000170255"
+# define RGBA_PATH "000120000255"
+# define RGBA_END "050000050255"
 
 # include "libft.h"
 # include "SDL2/SDL.h"
@@ -149,9 +147,10 @@ char			**lemin_realloc(char **input, int len);
 ** colors.c
 */
 
-void			set_edge_color(t_edge *links, int a, int b, t_rgb color);
+void			set_edge_color(t_edge *links, int a, int b, const char *color);
 int				rgba_cmp(t_rgb a, t_rgb b);
 void			edge_colors(t_edge *edges);
+t_rgb			convert_color(const char *str);
 
 /*
 ** draw_graph.c
@@ -182,7 +181,7 @@ t_ant			*ant_destinations(char *line, t_ant *head, \
 void			visualize_search(t_pointers *p, t_data *scl, \
 					t_map *map, char **input);
 void			draw_room(SDL_Renderer *renderer, int size, \
-					t_room room, t_rgb color);
+					t_room room, const char *color);
 
 /*
 ** These functions are used to draw ant movement on the screen
