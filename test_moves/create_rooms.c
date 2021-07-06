@@ -12,7 +12,7 @@
 
 #include "test.h"
 
-t_room		add_room(char *line)
+t_room	add_room(char *line)
 {
 	char	**split;
 	t_room	new_room;
@@ -22,18 +22,18 @@ t_room		add_room(char *line)
 	if (!new_room.name)
 		error_exit("malloc failed in add_room");
 	new_room.ant = 0;
-	ft_free2d((void**)split);
+	ft_free2d((void **)split);
 	return (new_room);
 }
 
-void		create_rooms(char **input, t_room **room_array)
+void	create_rooms(char **input, t_room **room_array)
 {
 	int		i;
 	int		len;
 	t_room	last_room;
 
 	len = 10000;
-	total_rooms = 1;
+	g_total_rooms = 1;
 	*room_array = ft_memalloc(sizeof(t_room) * len);
 	i = 0;
 	while (input[i] && ft_strcmp(input[i], ""))
@@ -43,8 +43,8 @@ void		create_rooms(char **input, t_room **room_array)
 		else if (ft_strstr(input[i], "##end"))
 			last_room = add_room(input[++i]);
 		else if (ft_strchr(input[i], ' '))
-			room_array[0][total_rooms++] = add_room(input[i]);
+			room_array[0][g_total_rooms++] = add_room(input[i]);
 		i++;
 	}
-	room_array[0][total_rooms++] = last_room;
+	room_array[0][g_total_rooms++] = last_room;
 }

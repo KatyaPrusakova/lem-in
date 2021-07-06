@@ -46,7 +46,8 @@ void	visit_room(t_map *map, char *line)
 	ft_free2d((void **)visited);
 }
 
-void	draw_room(SDL_Renderer *renderer, int size, t_room room, const char *clr)
+void	draw_room(SDL_Renderer *renderer, int size, t_room room, \
+const char *clr)
 {
 	SDL_Rect	rect;
 	t_rgb		rgba;

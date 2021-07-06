@@ -32,9 +32,9 @@ int	rgba_cmp(t_rgb a, t_rgb b)
 		return (1);
 }
 
-void	set_edge_color(t_edge *links, int a, int b, const char* color)
+void	set_edge_color(t_edge *links, int a, int b, const char *color)
 {
-	t_rgb rgba;
+	t_rgb	rgba;
 
 	rgba = convert_color(color);
 	while (links)
