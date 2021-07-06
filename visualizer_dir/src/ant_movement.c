@@ -1,6 +1,6 @@
 #include "lemin_visual.h"
 
-int		valid_line(char *line)
+int	valid_line(char *line)
 {
 	if (line[0] != 'L')
 		ft_error("invalid input\n");
