@@ -46,15 +46,13 @@ typedef struct s_search
 	int				end;
 }					t_search;
 
-
-
-typedef struct  s_queue
+typedef struct s_queue
 {
-    int *data;
-    int head;
-	int size;
-    int len;
-}               t_queue;
+	int	*data;
+	int	head;
+	int	size;
+	int	len;
+}	t_queue;
 
 typedef struct s_graph
 {
@@ -87,163 +85,151 @@ typedef struct s_path
 ** BFS.C
 */
 
-int					check_flow(t_room *src, t_room *dst, int max_flow, \
+int			check_flow(t_room *src, t_room *dst, int max_flow, \
 t_graph *g);
-t_search			visit_room(t_search s, t_graph *graph, int max_flow);
-t_path				*bfs(t_graph *g, int start, int end);
-t_search			init_search(t_graph *g, int start, int end);
-t_path				**bfs_set(t_graph *graph, int start, int end);
-int 				end_is_neighbour(t_room *list, int end);
+t_search	visit_room(t_search s, t_graph *graph, int max_flow);
+t_path		*bfs(t_graph *g, int start, int end);
+t_search	init_search(t_graph *g, int start, int end);
+t_path		**bfs_set(t_graph *graph, int start, int end);
+int			end_is_neighbour(t_room *list, int end);
 
 /*
 ** CREATE_GRAPH.C
 */
 
-t_graph				*create_graph(int rooms, char **line);
+t_graph		*create_graph(int rooms, char **line);
 
 /*
 ** CREATE_QUEUE.C
 */
 
-void free_queue(t_queue *q);
-
-int					is_queued(int index, t_queue *q);
-//t_queue				*enqueue(int index, t_queue *q, t_room **adlist, int prev);
-// t_queue				*dequeue(t_queue *q);
-void dequeue(t_queue *q);
-t_queue *enqueue(int index, t_queue *q);
-
-
+void		free_queue(t_queue *q);
+int			is_queued(int index, t_queue *q);
+void		dequeue(t_queue *q);
+t_queue		*enqueue(int index, t_queue *q);
 
 /*
 ** EDGE_WEIGTH.C
 */
 
-int					check_weight(int link_weight, int set_weight);
-void				mod_edgeweight_path(t_graph *g, t_path *path);
+int			check_weight(int link_weight, int set_weight);
+void		mod_edgeweight_path(t_graph *g, t_path *path);
 
 /*
 ** LEMIN.C
 */
 
-t_graph				*lem_in(t_graph *g, char **input);
+t_graph		*lem_in(t_graph *g, char **input);
 
 /*
 ** LINK_EXISTS.C
 */
 
-int					link_exists(t_graph *g, int a, int b);
+int			link_exists(t_graph *g, int a, int b);
 
 /*
 ** MALLOC_FREE.C
 */
 
-void				free_data(t_graph *data, char **input);
-int					**create_matrix(int height, int width);
-t_path				*free_path(t_path *path);
-t_path				**free_path_set(t_path ***set);
-void				free_adlist(t_room **graph, size_t size);
+void		free_data(t_graph *data, char **input);
+int			**create_matrix(int height, int width);
+t_path		*free_path(t_path *path);
+t_path		**free_path_set(t_path ***set);
+void		free_adlist(t_room **graph, size_t size);
 
 /*
 ** MOVE_ANTS.C
 */
 
-void				move_all_to_end(int ant_amount, char *end_room);
-int					push_path(t_path *p, int add_ant);
-void				empty_paths(t_path **p);
-int					pathlen_is_optimal(t_path **p, int path_nbr, int ants_left);
-void				move_ants(t_path **p, t_graph *g);
+void		move_all_to_end(int ant_amount, char *end_room);
+int			push_path(t_path *p, int add_ant);
+void		empty_paths(t_path **p);
+int			pathlen_is_optimal(t_path **p, int path_nbr, int ants_left);
+void		move_ants(t_path **p, t_graph *g);
 
 /*
 ** PARSE_ANTS.C
 */
 
-int					is_comment(char **str, int i);
-int					parse_ants(char **line, t_graph *data);
-int					valid_ants(int flag, char **line);
+int			is_comment(char **str, int i);
+int			parse_ants(char **line, t_graph *data);
+int			valid_ants(int flag, char **line);
 
 /*
 ** PARSE_INPUT.C
 */
 
-char				**input_realloc(char **input, int len);
-void				valid_map(char **input);
-char				**parse_input(void);
+char		**input_realloc(char **input, int len);
+void		valid_map(char **input);
+char		**parse_input(void);
 
 /*
 ** PARSE_LINK.C
 */
 
-int					link_to_adlist(int a, int b, t_graph *g);
-int					create_edge(int *index, t_graph *data);
-//int					*edge_index(int link_name, int i, char **room,
-//						t_graph *graph);
-void				create_room_capacity(t_graph *g);
-int					parse_links(int i, char **input, t_graph *g);
+int			link_to_adlist(int a, int b, t_graph *g);
+int			create_edge(int *index, t_graph *data);
+void		create_room_capacity(t_graph *g);
+int			parse_links(int i, char **input, t_graph *g);
 
 /*
 ** PARSE_ROOM.C
 */
 
-int					count_rooms(char **line);
-void				add_room(int flag, char *room_name, t_graph *graph);
-int					parse_room(int i, char **line, t_graph *graph);
-int					is_room(char **input, int i);
+int			count_rooms(char **line);
+void		add_room(int flag, char *room_name, t_graph *graph);
+int			parse_room(int i, char **line, t_graph *graph);
+int			is_room(char **input, int i);
 
 /*
 ** PATH_CALCULATIONS.C
 */
 
-int					count_max_paths(t_graph *graph);
-int					paths_in_array(t_path **set);
-int					set_rooms_total(t_path **set, int last_room);
-int					path_cmp(t_path *p1, t_path *p2);
+int			count_max_paths(t_graph *graph);
+int			paths_in_array(t_path **set);
+int			set_rooms_total(t_path **set, int last_room);
+int			path_cmp(t_path *p1, t_path *p2);
 
 /*
 ** PATH_FINDING.C
 */
 
-int					count_moves(t_path **path, int ants);
-t_path				**set_cmp(t_path **p1, t_path **p2, int ants);
-t_path				**clean_set(t_path **set, t_graph *g);
-t_path				**edmonds_karp(t_graph *g);
-t_path				**unlimited_flow(void);
+int			count_moves(t_path **path, int ants);
+t_path		**set_cmp(t_path **p1, t_path **p2, int ants);
+t_path		**clean_set(t_path **set, t_graph *g);
+t_path		**edmonds_karp(t_graph *g);
+t_path		**unlimited_flow(void);
 
 /*
 ** PRINT_OUT.C
 */
 
-void				print_rooms(t_graph *graph);
-int					print_error(int opt, char **line);
-void				print_input(char **line);
-void				print_matrix(int **matrix, int size);
-void				print_paths(t_path **path, t_room **adlist);
+void		print_rooms(t_graph *graph);
+int			print_error(int opt, char **line);
+void		print_input(char **line);
+void		print_matrix(int **matrix, int size);
+void		print_paths(t_path **path, t_room **adlist);
 
 /*
 ** SAVE_PATH.c
 */
 
-void				*delete_room_in_path(t_path *p, int index);
-void				clean_path(t_path *p, t_graph *g);
-t_path				*add_room_to_path(t_path *head, char *name, int index);
-t_path				*save_path(int *visited, t_graph *g, t_search s, \
+void		*delete_room_in_path(t_path *p, int index);
+void		clean_path(t_path *p, t_graph *g);
+t_path		*add_room_to_path(t_path *head, char *name, int index);
+t_path		*save_path(int *visited, t_graph *g, t_search s, \
 int prev_room);
-int					check_path(t_graph *graph, t_search s, int *path_no, \
+int			check_path(t_graph *graph, t_search s, int *path_no, \
 int prev_room);
 
 /*
 ** VISUALIZE.C
 */
 
-void				visualizer_clean_graph(int visualize);
-void				path_to_visualizer(t_path *p, int offset, int mod_flow);
-void				visualize_search(int *visited, t_graph *g, t_room *room, int **matrix);
-
-/*
-** //   add to libft
-*/
-
-int					ft_strisdigit(char *s);
-char				*first_word(char **line, int i);
+void		visualizer_clean_graph(int visualize);
+void		path_to_visualizer(t_path *p, int offset, int mod_flow);
+void		visualize_search(int *visited, t_graph *g, t_room *room, \
+int **matrix);
+char		*first_word(char **line, int i);
 
 #endif
