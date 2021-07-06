@@ -119,6 +119,9 @@ char	*first_word(char **line, int i)
 	char	**room;
 	char	*name;
 
+	if (line[i][0] == '#' || ft_strchr(line[i], '-') || \
+		!ft_strchr(line[i], ' '))
+		print_error(4, line);
 	room = ft_strsplit(line[i], ' ');
 	name = ft_strdup(room[0]);
 	if (!name)
