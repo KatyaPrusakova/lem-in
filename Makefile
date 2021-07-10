@@ -75,7 +75,8 @@ leaks: $(OBJS)
 
 clean: 
 	@make -s -C libft clean
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) 
+	@rm -rf $(OBJ_DIR)
 	@echo "*.o removed!"
 
 fclean: clean
