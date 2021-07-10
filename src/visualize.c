@@ -40,21 +40,21 @@ void	path_to_visualizer(t_path *p, int offset, int mod_flow)
 	ft_n(1);
 }
 
-void	visualize_search(t_graph *g, t_room *room, int **matrix)
+void	visualize_search(int *visited, t_graph *g, t_room *room, int **matrix)
 {
 	int		index;
 	int		prev_index;
 
 	index = room->index;
-	prev_index = room->prev_room_index;
+	prev_index = visited[room->index];
 	if (room->index >= g->room_total)
 		index -= g->room_total;
-	if (room->prev_room_index >= g->room_total)
+	if (prev_index >= g->room_total)
 		prev_index -= g->room_total;
 	if (index != prev_index)
 	{
 		ft_printf("E: %d %d w.%d\n", index, prev_index,
-			matrix[room->prev_room_index][room->index]);
+			matrix[visited[room->index]][room->index]);
 	}
 	else
 		ft_printf("R: %d\n", index);

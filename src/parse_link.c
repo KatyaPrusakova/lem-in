@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 22:12:19 by eprusako          #+#    #+#             */
-/*   Updated: 2021/06/07 20:53:23 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/22 23:13:41 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,31 +77,24 @@ int	create_edge(int *adlist_index, t_graph *g)
 
 int	*edge_index(char **room, t_graph *graph)
 {
-	int		link_name;
 	int		*index;
 	int		i;
 
-	link_name = 0;
 	i = -1;
-	index = ft_memalloc(sizeof(int) * 2);
+	index = (int *)malloc(sizeof(int) * 2);
 	if (!index)
 		print_error(2, NULL);
+	ft_memset(index, -1, sizeof(int) * 2);
 	while (++i < graph->room_total)
 	{
 		if (!(ft_strcmp(graph->adlist[i]->name, room[0])))
-		{
 			index[0] = i;
-			link_name++;
-		}
 		if (!(ft_strcmp(graph->adlist[i]->name, room[1])))
-		{
 			index[1] = i;
-			link_name++;
-		}
 	}
-	if (link_name != 2)
+	if (index[0] == -1 || index[1] == -1)
 	{
-		ft_memdel((void*)&index);
+		ft_memdel((void *)&index);
 		return (NULL);
 	}
 	return (index);
@@ -136,15 +129,15 @@ int	parse_links(int i, char **input, t_graph *g)
 	int		*edges;
 
 	create_room_capacity(g);
-	while (input[i] && (ft_strchr(input[i], '-') || input[i][0] == '#'))
+	while (input[++i] && (ft_strchr(input[i], '-') || input[i][0] == '#'))
 	{
-		if (ft_strchr(input[i], '-'))
+		if (input[i][0] != '#' && ft_strchr(input[i], '-'))
 		{
 			rooms_to_link = ft_strsplit(input[i], '-');
 			edges = edge_index(rooms_to_link, g);
 			ft_free2d((void **)rooms_to_link);
 			if (!edges)
-				return(0);
+				return (0);
 			if ((edges[0] == 0 && edges[1] == g->room_total - 1)
 				|| (edges[1] == 0 && edges[0] == g->room_total - 1))
 				g->unlimited_flow = 1;
@@ -153,7 +146,6 @@ int	parse_links(int i, char **input, t_graph *g)
 			if (g->unlimited_flow)
 				return (1);
 		}
-		i++;
 	}
 	if (input[i])
 		print_error(10, input);

@@ -54,7 +54,6 @@ void	add_room(int flag, char *room_name, t_graph *graph)
 	new = ft_memalloc(sizeof(t_room));
 	if (!room_name || !new)
 		print_error(2, NULL);
-	new->prev_room_index = -1;
 	if (flag == 1)
 		i = 0;
 	else if (flag == 2)
@@ -120,6 +119,9 @@ char	*first_word(char **line, int i)
 	char	**room;
 	char	*name;
 
+	if (line[i][0] == '#' || ft_strchr(line[i], '-') || \
+		!ft_strchr(line[i], ' '))
+		print_error(4, line);
 	room = ft_strsplit(line[i], ' ');
 	name = ft_strdup(room[0]);
 	if (!name)

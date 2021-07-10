@@ -18,7 +18,7 @@ SRCS = lemin.c \
 	parse_ants.c \
 	parse_link.c \
 	parse_room.c \
-	create_queue.c \
+	queue.c \
 	print_out.c \
 	path_finding.c \
 	path_calculations.c \
@@ -29,7 +29,8 @@ SRCS = lemin.c \
 	edge_weight.c \
 	move_ants.c \
 	create_graph.c \
-	link_exists.c
+	link_exists.c \
+	end_is_neighbour.c
 
 SRCS_DIR = src/
 
@@ -47,7 +48,7 @@ LINKS = -L libft -lft
 
 INCL = -I includes -I libft
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re leaks
 
 all: $(NAME)
 
@@ -67,9 +68,13 @@ $(LIBFT):
 $(OBJ_DIR):
 	mkdir $(OBJ_DIR)
 
-clean:
+leaks: $(OBJS)
+	$(CC) $(FLAGS) -fsanitize=leak $(OBJS) -o $(NAME) $(LINKS)
+
+clean: 
 	@make -s -C libft clean
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) 
+	@rm -rf $(OBJ_DIR)
 	@echo "*.o removed!"
 
 fclean: clean

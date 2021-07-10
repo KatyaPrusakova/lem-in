@@ -46,15 +46,18 @@ void	visit_room(t_map *map, char *line)
 	ft_free2d((void **)visited);
 }
 
-void	draw_room(SDL_Renderer *renderer, int size, t_room room, t_rgb clr)
+void	draw_room(SDL_Renderer *renderer, int size, t_room room, \
+const char *clr)
 {
 	SDL_Rect	rect;
+	t_rgb		rgba;
 
+	rgba = convert_color(clr);
 	rect.h = size;
 	rect.w = size;
 	rect.x = room.x;
 	rect.y = room.y;
-	SDL_SetRenderDrawColor(renderer, clr.r, clr.g, clr.b, clr.a);
+	SDL_SetRenderDrawColor(renderer, rgba.r, rgba.g, rgba.b, rgba.a);
 	SDL_RenderFillRect(renderer, &rect);
 }
 
@@ -85,7 +88,7 @@ void	draw_graph(t_pointers *p, t_data *scl, t_map *map)
 	{
 		if (!i)
 			draw_room(p->renderer, scl->room_size, map->rooms[i],
-				(t_rgb){255, 255, 255, 255});
+				"255255255255");
 		else if (i == scl->room_count - 1)
 			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_END);
 		else if (map->rooms[i].path)
@@ -94,8 +97,6 @@ void	draw_graph(t_pointers *p, t_data *scl, t_map *map)
 			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_VOID);
 		else if (map->rooms[i].visited > -1)
 			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_VISITED);
-		else
-			draw_room(p->renderer, scl->room_size, map->rooms[i], RGBA_QUEUED);
 		if (!scl->pos)
 			room_name(p->renderer, scl->room_size, map->rooms[i], p->font);
 	}

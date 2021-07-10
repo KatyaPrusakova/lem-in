@@ -23,7 +23,7 @@ t_graph	*create_graph(int rooms, char **line)
 	new->weight_m = create_matrix(rooms * 2, rooms * 2);
 	i = parse_ants(line, new);
 	i = parse_room(i, line, new);
-	if (!parse_links(i, line, new))
+	if (!parse_links(i - 1, line, new))
 	{
 		free_data(new, line);
 		print_error(5, NULL);

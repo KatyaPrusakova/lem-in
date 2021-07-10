@@ -6,7 +6,7 @@
 /*   By: ksuomala <ksuomala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 17:53:30 by ksuomala          #+#    #+#             */
-/*   Updated: 2021/06/04 17:09:22 by ksuomala         ###   ########.fr       */
+/*   Updated: 2021/06/22 23:42:04 by ksuomala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ t_path	**set_cmp(t_path **p1, t_path **p2, int ants)
 
 	p1_lines = count_moves(p1, ants);
 	p2_lines = count_moves(p2, ants);
-	ft_dprintf(fd, "Compare s1_moves: %d | s2_moves : %d\n", p1_lines, p2_lines);
+	ft_dprintf(g_fd, "Compare s1_moves: %d | s2_moves : %d\n", p1_lines, \
+	p2_lines);
 	if (!p2_lines || (p1_lines && p1_lines <= p2_lines))
 	{
 		p2 = free_path_set(&p2);
@@ -75,6 +76,11 @@ t_path	**clean_set(t_path **set, t_graph *g)
 	return (set);
 }
 
+/*
+** edmonds_karp runs bfs in a loop. Each time a new path is found it is 
+** augmented in the graph with the mod_edgeweight_path function. 
+*/
+
 t_path	**edmonds_karp(t_graph *g)
 {
 	t_path	*shortest;
@@ -94,7 +100,6 @@ t_path	**edmonds_karp(t_graph *g)
 		else
 		{
 			tmp_set = clean_set(bfs_set(g, 0, g->room_total - 1), g);
-			print_paths(tmp_set, g->adlist);
 			set = set_cmp(set, tmp_set, g->ants);
 		}
 		visualizer_clean_graph(g->visualize);

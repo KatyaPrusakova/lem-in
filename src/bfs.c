@@ -31,23 +31,27 @@ int	check_flow(t_room *src, t_room *dst, int max_flow, t_graph *g)
 		return (0);
 }
 
-void	visit_room(t_search s, t_graph *graph, int max_flow)
+t_search	visit_room(t_search s, t_graph *graph, int max_flow)
 {
 	t_room	*tmp;
 
-	if (s.visited[s.room->index] != -1)
-		return ;
-	s.visited[s.room->index] = s.room->prev_room_index;
-	tmp = s.room->next;
+	if (s.visited[s.room.index] != -1)
+		return (s);
+	s.visited[s.room.index] = s.room.prev_room_index;
+	tmp = s.room.next;
 	while (tmp)
 	{
-		if (s.visited[tmp->index] == -1 && check_flow(s.room, \
+		if (s.visited[tmp->index] == -1 && check_flow(&s.room, \
 		tmp, max_flow, graph))
-			enqueue(tmp->index, s.q, graph->adlist, s.room->index);
+		{
+			s.q = enqueue(tmp->index, s.q);
+			graph->adlist[tmp->index]->prev_room_index = s.room.index;
+		}
 		tmp = tmp->next;
 	}
 	if (graph->visualize)
-		visualize_search(graph, s.room, graph->weight_m);
+		visualize_search(s.visited, graph, &s.room, graph->weight_m);
+	return (s);
 }
 
 t_path	*bfs(t_graph *g, int start, int end)
@@ -55,22 +59,18 @@ t_path	*bfs(t_graph *g, int start, int end)
 	t_search	s;
 
 	s = init_search(g, start, end);
-	while (!s.path && s.q->head)
+	while (!s.path && s.q->len)
 	{
-		s.room = ft_memdup((void *)g->adlist[s.q->head->index], sizeof(t_room));
-		if (!s.room)
-			print_error(2, NULL);
-		s.room->prev_room_index = s.q->head->prev_room_index;
+		s.room = *g->adlist[s.q->data[s.q->head]];
 		dequeue(s.q);
-		if (s.room->index == s.end)
+		if (s.room.index == s.end)
 		{
-			s.path = save_path(s.visited, g, s, s.room->prev_room_index);
+			s.path = save_path(s.visited, g, s, s.room.prev_room_index);
 			if (g->visualize)
 				path_to_visualizer(s.path, g->room_total, 1);
 		}
 		else
-			visit_room(s, g, 0);
-		ft_memdel((void **)&s.room);
+			s = visit_room(s, g, 0);
 	}
 	ft_memdel((void **)&s.visited);
 	ft_free2d((void **)s.set);
@@ -93,7 +93,7 @@ t_search	init_search(t_graph *g, int start, int end)
 	if (!search.set)
 		print_error(2, NULL);
 	search.path_no = 0;
-	search.q = enqueue(start, search.q, g->adlist, 0);
+	search.q = enqueue(start, search.q);
 	search.start = start;
 	search.end = end;
 	while (i < g->room_total * 2)
@@ -114,20 +114,19 @@ t_path	**bfs_set(t_graph *graph, int start, int end)
 	t_search	s;
 
 	s = init_search(graph, start, end);
-	while (s.q->head && s.path_no < graph->max_paths)
+	while (s.q->len && s.path_no < graph->max_paths)
 	{
-		s.room = ft_memdup(graph->adlist[s.q->head->index], sizeof(t_room));
-		s.room->prev_room_index = s.q->head->prev_room_index;
-		if (s.q->head)
+		s.room = *graph->adlist[s.q->data[s.q->head]];
+		if (s.q->len)
 			dequeue(s.q);
-		if (s.room->index == s.end)
+		if (end_is_neighbour(&s.room, s.end))
 		{
-			if (!check_path(graph, s, &s.path_no, s.room->prev_room_index))
+			s.visited[s.room.index] = s.room.prev_room_index;
+			if (!check_path(graph, s, &s.path_no, s.room.index))
 				s.path_no = graph->max_paths;
 		}
 		else
-			visit_room(s, graph, 1);
-		ft_memdel((void **)&s.room);
+			s = visit_room(s, graph, 1);
 	}
 	ft_memdel((void **)&s.visited);
 	free_queue(s.q);
